@@ -480,6 +480,20 @@ footer { padding: 28px clamp(24px, 5vw, 80px); border-top: 3px double var(--rule
 @media (max-width: 900px) { .lib-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 640px) { .lib-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 400px) { .lib-grid { grid-template-columns: 1fr; } }
+/* Conteneur scrollable sur desktop pour éviter l'allongement de page */
+@media (min-width: 901px) {
+  .lib-grid {
+    max-height: 82vh;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) rgba(216,212,204,0.35);
+  }
+  .lib-grid::-webkit-scrollbar { width: 10px; }
+  .lib-grid::-webkit-scrollbar-track { background: rgba(216,212,204,0.3); border-radius: 5px; }
+  .lib-grid::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; }
+  .lib-grid::-webkit-scrollbar-thumb:hover { background: var(--ink); }
+}
 
 /* ══ HIÉRARCHIE BIBLIOTHÈQUE ══ */
 .lib-section-label { max-width:1100px; margin:0 auto 20px; display:flex; align-items:baseline; gap:16px; padding-top:8px; border-top:1px solid var(--rule); }
@@ -2270,6 +2284,43 @@ document.querySelectorAll('.lib-card[data-type="dossier"]').forEach(card => {
     }
   });
 });
+
+// ── Colonnes adaptatives : éviter les orphelins (rangée avec 1 card) ──
+// Desktop uniquement (>900px) ; mobile garde ses media queries existantes.
+// Règle : si divisibilité exacte avec 4/3/5 → on prend. Sinon fallback
+// sur la première colonne qui ne laisse pas d'orphelin.
+function computeOptimalCols(count) {
+  if (count <= 0) return 4;
+  if (count <= 4) return count;
+  for (const c of [4, 3, 5]) {
+    if (count % c === 0) return c;
+  }
+  for (const c of [4, 5, 3, 6]) {
+    if (count % c !== 1) return c;
+  }
+  return 4;
+}
+
+function applyAdaptiveCols() {
+  const isDesktop = window.matchMedia('(min-width: 901px)').matches;
+  const sections = [
+    { el: document.querySelector('.lib-dossiers-row'), type: 'dossier' },
+    { el: document.querySelector('.lib-grid'),         type: 'nl'      },
+  ];
+  for (const { el, type } of sections) {
+    if (!el) continue;
+    if (!isDesktop) {
+      el.style.gridTemplateColumns = '';
+      continue;
+    }
+    const visibleCount = [...el.querySelectorAll(`.lib-card[data-type="${type}"]`)]
+      .filter(c => getComputedStyle(c).display !== 'none').length;
+    el.style.gridTemplateColumns = `repeat(${computeOptimalCols(visibleCount)}, 1fr)`;
+  }
+}
+
+applyAdaptiveCols();
+window.addEventListener('resize', applyAdaptiveCols);
 </script>
 
 <script>
