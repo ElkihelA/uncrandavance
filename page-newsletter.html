@@ -1947,7 +1947,17 @@ document.querySelectorAll('.lib-card[data-type="nl"]').forEach(card => {
 
   const slug = 'nl-' + match[1];
   const edition = UCA_CONFIG.EDITIONS.find(e => e.slug === slug);
-  if (!edition || isPublished(edition, today)) return;
+  if (!edition) return;
+
+  if (isPublished(edition, today)) {
+    // Édition publiée : nettoyer les marqueurs "coming soon" hardcodés
+    card.removeAttribute('onclick');
+    card.removeAttribute('data-msg');
+    link.classList.remove('uca-coming-soon');
+    link.removeAttribute('data-msg');
+    if (link.style.cursor === 'default') link.style.cursor = '';
+    return;
+  }
 
   // Formater la date de publication
   const pubDate = new Date(edition.publishDate + 'T00:00:00Z');
@@ -2010,7 +2020,17 @@ document.querySelectorAll('.lib-card[data-type="dossier"]').forEach(card => {
   if (!match) return;
   const slug = 'dossier-' + match[1];
   const edition = UCA_CONFIG.EDITIONS.find(e => e.slug === slug);
-  if (!edition || isPublished(edition, today)) return;
+  if (!edition) return;
+
+  if (isPublished(edition, today)) {
+    // Dossier publié : nettoyer les marqueurs "coming soon" hardcodés
+    card.removeAttribute('onclick');
+    card.removeAttribute('data-msg');
+    link.classList.remove('uca-coming-soon');
+    link.removeAttribute('data-msg');
+    if (link.style.cursor === 'default') link.style.cursor = '';
+    return;
+  }
 
   const pubDate = new Date(edition.publishDate + 'T00:00:00Z');
   const dateStr = pubDate.toLocaleDateString('fr-FR', {
