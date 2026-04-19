@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="color-scheme" content="light">
+<style>:root { color-scheme: light; }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un Cran d'Avance — Édition 26 mai 2026 · Synthèse du mois</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap');
+:root {
+  --ink:#0D0D1A; --paper:#F7F5F0; --red:#C8102E;
+  --gold:#B8973A; --muted:#888880; --rule:#D8D4CC; --white:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{ overflow-x: hidden;font-family:'Barlow',sans-serif;background:#EFEFEB;color:var(--ink);}
+.email-wrap{max-width:680px;margin:32px auto;background:var(--white);border:1px solid var(--rule);}
+.topbar{background:var(--ink);padding:10px 32px;display:flex;align-items:center;justify-content:space-between;}
+.tb-brand{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.5);}
+.tb-meta{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1px;}
+.masthead{padding:32px 40px 24px;border-bottom:3px double var(--ink);}
+.mh-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.mh-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;line-height:1.1;margin-bottom:10px;}
+.mh-title em{font-style:italic;color:var(--red);}
+.mh-deck{font-family:'Lora',serif;font-size:14px;color:#555;line-height:1.7;}
+.mh-meta{display:flex;gap:16px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--rule);flex-wrap:wrap;}
+.mh-chip{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border:1.5px solid var(--ink);}
+.mh-chip.filled{background:var(--ink);color:var(--white);}
+.mh-count{font-size:11px;color:var(--muted);margin-left:auto;}
+.body{padding:32px 40px;}
+.signal{margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--rule);}
+.signal:last-of-type{border-bottom:none;margin-bottom:0;}
+.sig-num{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.sig-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1.25;margin-bottom:10px;color:var(--ink);}
+.sig-body{font-family:'Lora',serif;font-size:14px;color:#444;line-height:1.75;}
+.sig-body p{margin-bottom:10px;}
+.sig-body p:last-child{margin-bottom:0;}
+.sig-body strong{font-weight:600;color:var(--ink);}
+.leap-tag{display:inline-flex;gap:6px;align-items:center;margin-top:10px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid var(--rule);color:var(--muted);}
+.leap-tag .lt-letter{font-family:'Playfair Display',serif;font-size:14px;font-weight:900;}
+.question-strat{margin-top:14px;padding:14px 16px;background:var(--paper);border-left:3px solid var(--gold);}
+.qs-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.qs-text{font-family:'Playfair Display',serif;font-size:14px;font-style:italic;color:var(--ink);line-height:1.5;}
+.sig-source{font-size:11px;color:var(--muted);font-style:italic;margin-top:8px;}
+.sig-divider{display:flex;align-items:center;gap:10px;margin:28px 0;}
+.sig-divider::before,.sig-divider::after{content:'';flex:1;height:1px;background:var(--rule);}
+.sig-divider span{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.conversion-bloc{margin:32px 0 0;background:var(--ink);padding:24px 28px;border-left:4px solid var(--gold);}
+.cb-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.cb-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:10px;}
+.cb-title em{font-style:italic;color:var(--gold);}
+.cb-deck{font-family:'Lora',serif;font-size:13px;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:16px;}
+.cb-ecart{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.cb-col{padding:14px 16px;}
+.cb-col.sans{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);}
+.cb-col.avec{background:rgba(200,16,46,0.15);border:1px solid rgba(200,16,46,0.3);}
+.cb-col-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.cb-col.sans .cb-col-label{color:rgba(255,255,255,0.3);}
+.cb-col.avec .cb-col-label{color:var(--red);}
+.cb-col-item{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.7;padding-left:10px;border-left:1px solid rgba(255,255,255,0.1);margin-bottom:4px;}
+.cb-col.avec .cb-col-item{color:rgba(255,255,255,0.85);border-left-color:rgba(200,16,46,0.4);}
+.cb-btn{display:inline-block;background:var(--red);color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:10px 20px;border:none;cursor:pointer;text-decoration:none;}
+.cb-note{font-size:11px;color:rgba(255,255,255,0.25);margin-top:10px;font-style:italic;}
+.transition-bloc{margin:28px 0 0;padding:20px 24px;background:var(--paper);border-left:3px solid var(--ink);}
+.tr-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.tr-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.tr-text{font-family:'Lora',serif;font-size:13px;color:#555;line-height:1.65;}
+.bio-sig{padding:20px 40px;border-top:1px solid var(--rule);display:flex;gap:14px;align-items:flex-start;}
+.bs-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.bs-role{font-size:11px;color:var(--muted);line-height:1.5;}
+.bs-email{font-size:11px;color:var(--red);font-weight:600;margin-top:4px;}
+.cadres-section{padding:16px 40px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:#FAFAF7;}
+.cadres-inner{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.cadre-nom{font-family:'Playfair Display',serif;font-size:14px;font-weight:900;color:var(--ink);margin-bottom:3px;}
+.cadre-desc{font-size:11px;color:#666;line-height:1.5;}
+.cadre-note{font-size:10px;color:var(--red);font-weight:600;margin-top:4px;}
+.dialogue-section{padding:24px 40px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper);}
+#nl-content-full{display:none;}
+.footer-nl{background:var(--paper);padding:14px 40px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.f-brand{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--ink);}
+.f-copy{font-size:10px;color:var(--muted);}
+@media(max-width:600px){
+  .email-wrap{margin:0;border:none;}
+  .masthead,.body,.bio-sig,.footer-nl,.cadres-section,.dialogue-section,
+  .mh-title{font-size:26px;}
+  .cb-ecart,.cadres-inner{grid-template-columns:1fr;}
+}
+body { padding-bottom: 56px; }
+body.has-email #nl-content-full { display: block !important; }
+.uca-gated-nl { display: none; }
+body.has-email .uca-gated-nl { display: block !important; }
+.uca-gate-nl { display: block; }
+body.has-email .uca-gate-nl { display: none !important; }
+</style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="Edition 2026-05-26 — Synthèse du mois | Un Cran d’Avance">
+  <meta property="og:description" content="Trois dérives, un seul angle mort organisationnel. La question que votre COMEX doit trancher ce trimestre.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/nl-2026-05-26.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Edition 2026-05-26 — Synthèse du mois | Un Cran d’Avance">
+  <meta name="twitter:description" content="Trois dérives, un seul angle mort organisationnel. La question que votre COMEX doit trancher ce trimestre.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/nl-2026-05-26.html">
+</head>
+<body>
+<nav style="background:var(--ink);padding:12px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;">
+  <a href="page-newsletter.html" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#fff;text-decoration:none;">✦ Un Cran d'Avance</a>
+  <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;">26 mai 2026 · Synthèse · Clôture du cycle mai</div>
+  <a href="page-newsletter.html" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:rgba(255,255,255,0.4);text-decoration:none;letter-spacing:1px;">← Archives</a>
+</nav>
+
+<div class="email-wrap">
+
+  <div class="topbar">
+    <div class="tb-brand">✦ Un Cran d'Avance</div>
+    <div class="tb-meta">Newsletter · 26 mai 2026 · Mai 2026</div>
+  </div>
+
+  <div class="masthead">
+    <div class="mh-eyebrow">26 mai 2026 · Mardi · Clôture du cycle mai · Concept : Synthèse</div>
+    <h1 class="mh-title">Ce mois a posé trois questions.<br><em>Voici celle que votre COMEX doit trancher ce trimestre.</em></h1>
+    <p class="mh-deck">Ce mois a révélé trois dérives qui semblent indépendantes mais convergent vers un seul angle mort organisationnel. Vos contrats cloud sont construits sur des hypothèses de coûts caduques. Votre architecture IA choisit votre fournisseur de 2027 à votre place. Votre ROI IA repose sur des gains que personne ne mesure réellement.</p>
+    <div class="mh-meta">
+      <div class="mh-chip">~5 min</div>
+      <div class="mh-chip">Grille LEAP/DRIVEN</div>
+      <div class="mh-count">Synthèse · Clôture cycle mai</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- MOT D'OUVERTURE -->
+    <div style="padding:0 0 28px;border-bottom:1px solid var(--rule);margin-bottom:28px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;">Mot d'ouverture</div>
+      <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;margin-bottom:10px;"><strong>NL1 a installé le doute</strong> : la memflation — DRAM +125%, NAND +243% selon Gartner — s'infiltre dans vos coûts d'infrastructure sans que personne dans votre organisation ne soit chargé de la surveiller.</p>
+      <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;margin-bottom:10px;"><strong>NL2 a creusé l'invisibilité</strong> : la verticalisation des puces cloud (AWS Trainium, Google TPU) crée un lock-in architectural invisible. Chaque déploiement IA optimisé pour un fournisseur augmente silencieusement votre coût de sortie.</p>
+      <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;"><strong>NL3 a posé la responsabilité</strong> : 82% des organisations ne peuvent pas mesurer leur ROI IA selon KPMG. 40% des gains sont annihilés par le rework selon Workday. Ce travail invisible est absorbé par vos experts les plus qualifiés — sans que personne ne le mesure ni ne l'assume.</p>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+        <img src="aziz-el-kihel-general.jpg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid var(--rule);flex-shrink:0;">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--ink);">Aziz El Kihel</div>
+          <div style="font-size:11px;color:var(--muted);">Fondateur · Un Cran d'Avance</div>
+        </div>
+      </div>
+    </div>
+
+  <!-- APERÇU -->
+  <div class="body" style="position:relative;padding-bottom:0;">
+    <div style="position:relative;overflow:hidden;max-height:140px;">
+      <div class="signal">
+        <div class="sig-num">Signal d'ouverture · Synthèse · Convergence</div>
+        <h2 class="sig-title">Trois signaux convergent vers une seule question que votre COMEX doit trancher ce trimestre.</h2>
+        <div class="sig-body">
+          <p>Qui, nominativement, est responsable de mesurer le <strong>coût réel</strong> de votre IA — pas le coût déclaré, le coût complet incluant infrastructure, rework et dépendances fournisseurs ?</p>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);pointer-events:none;"></div>
+    </div>
+  </div>
+
+  </div><!-- /body — public -->
+
+  <!-- GATE -->
+  <div class="uca-gate-nl" id="gate-email-block" style="padding:28px 40px;background:var(--ink);color:#fff;border-top:2px solid rgba(255,255,255,0.08);">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+      <span style="width:20px;height:1px;background:var(--gold);"></span>Réservé aux abonnés · Accès gratuit
+    </div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,28px);font-weight:700;line-height:1.25;color:#fff;margin-bottom:8px;">La suite est <em style="font-style:italic;color:var(--red);">gratuite et immédiate.</em></h3>
+    <p style="font-family:'Lora',serif;font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:22px;">La réponse organisationnelle à la question du COMEX, les signaux récents Vercel et DINUM, et le cadre complet — environ 3 minutes de lecture.</p>
+    <div style="display:flex;max-width:400px;margin-bottom:10px;">
+      <input type="email" autocomplete="email" required id="gate-email-input" placeholder="votre@email.com" style="flex:1;padding:13px 16px;border:1px solid rgba(255,255,255,0.2);border-right:none;font-size:14px;font-family:'Barlow',sans-serif;background:rgba(255,255,255,0.06);color:#fff;outline:none;min-width:0;">
+      <button type="button" onclick="ucaHandleEmailGate()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:13px 20px;background:var(--red);color:#fff;border:none;cursor:pointer;">Lire la suite — gratuit →</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;max-width:400px;margin:10px 0 0;text-align:left;">
+      <input type="checkbox" id="consent-gate" style="flex-shrink:0;accent-color:#B8973A;width:14px;height:14px;cursor:pointer;">
+      <label for="consent-gate" style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,0.55);line-height:1.4;cursor:pointer;">
+        J'accepte de recevoir <em>Un Cran d'Avance</em> — <a href="politique-confidentialite.html" style="color:#fff;text-decoration:underline;">confidentialité</a> · désabonnement en 1 clic
+      </label>
+    </div>
+    <div class="gate-error" id="gate-email-error" style="font-size:11px;color:#ff6b6b;margin-top:6px;display:none;"></div>
+  </div>
+
+  <!-- CONTENU DÉBLOQUÉ -->
+  <div id="nl-content-full" class="uca-gated-nl">
+  <div class="body">
+
+    <!-- SIGNAL 1 -->
+    <div class="signal">
+      <div class="sig-num">Signal 01 · Synthèse · La réponse organisationnelle</div>
+      <h2 class="sig-title">Cette question n'a pas de réponse technique. Elle a une réponse organisationnelle.</h2>
+      <div class="sig-body">
+        <p>Les organisations qui ont tranché ont créé un rôle transversal — ni DSI ni CFO — qui agrège les trois dimensions du coût réel de l'IA : <strong>infrastructure</strong> (memflation), <strong>architecture</strong> (lock-in), et <strong>opérations</strong> (rework).</p>
+        <p>Ce rôle produit un rapport trimestriel unique qui permet au COMEX de prendre des décisions d'investissement sur des bases réelles.</p>
+      </div>
+      <span class="leap-tag"><span class="lt-letter" style="color:#C8102E;">P</span> Couche Pivot · Rôle transversal comme gouvernance du coût réel</span>
+      <div class="question-strat">
+        <div class="qs-label">La question stratégique de ce signal</div>
+        <div class="qs-text">Votre COMEX peut-il aujourd'hui recevoir un rapport trimestriel unique qui agrège memflation, lock-in et rework — ou ces trois dimensions sont-elles traitées séparément par des équipes qui ne se parlent pas ?</div>
+      </div>
+      <div class="sig-source">Synthèse Un Cran d'Avance · Terrain grandes organisations</div>
+    </div>
+
+    <div class="sig-divider"><span>Signal 02</span></div>
+
+    <!-- SIGNAL 2 — signaux convergents -->
+    <div class="signal">
+      <div class="sig-num">Signal 02 · Urgence · Vercel et DINUM</div>
+      <h2 class="sig-title">Pendant que votre gouvernance délibère, votre infrastructure décide.</h2>
+      <div class="sig-body">
+        <p>Les <strong>30% de déploiements initiés par des agents autonomes en hausse de 1000% en six mois</strong> selon Vercel signalent l'urgence : pendant que votre gouvernance délibère, votre infrastructure décide.</p>
+        <p>En France, la migration de <strong>234 postes de la DINUM vers Linux</strong> n'est pas qu'un signal de souveraineté politique. C'est la preuve qu'une organisation publique a calculé le coût total de sa dépendance technologique et a décidé d'agir.</p>
+        <p style="font-family:'Lora',serif;font-size:13px;color:#777;font-style:italic;border-left:2px solid var(--rule);padding-left:12px;margin-top:12px;">Le dossier de ce mois propose le cadre complet pour structurer cette responsabilité dans votre organisation.</p>
+      </div>
+      <span class="leap-tag"><span class="lt-letter" style="color:#9C4221;">A</span> Couche Agentique · Vitesse d'exécution vs. délibération</span>
+      <div class="sig-source">Vercel State of AI 2026 · DINUM, migration open-source France</div>
+    </div>
+
+    <!-- CONVERSION -->
+    <div class="conversion-bloc">
+      <div class="cb-label">Dossier Premium · Dernière semaine de mai</div>
+      <div class="cb-title">Mai en trois dérives.<br><em>Le Dossier N°5 a le cadre.</em></div>
+      <div class="cb-deck">Le dossier Premium de ce mois — <em>IA en Production : Au-delà du ROI Fantôme</em> — est disponible. Après, vos concurrents l'auront aussi.</div>
+      <div class="cb-ecart">
+        <div class="cb-col sans">
+          <div class="cb-col-label">Sans le Dossier</div>
+          <div class="cb-col-item">Trois dérives traitées séparément</div>
+          <div class="cb-col-item">Pas de rôle transversal nommé</div>
+          <div class="cb-col-item">COMEX sans tableau de bord unique</div>
+          <div class="cb-col-item">Roadmap absente</div>
+        </div>
+        <div class="cb-col avec">
+          <div class="cb-col-label">Avec le Dossier N°5</div>
+          <div class="cb-col-item">Cadre coût réel en 3 dimensions</div>
+          <div class="cb-col-item">DRIVEN™ appliqué</div>
+          <div class="cb-col-item">Roadmap 90 jours</div>
+          <div class="cb-col-item">Cas terrain multi-juridictions</div>
+        </div>
+      </div>
+      <a href="page-vente.html" class="cb-btn">Accéder au Dossier N°5 →</a>
+      <div class="cb-note">Réservé aux abonnés Premium · 199€/an · Offre fondateurs</div>
+    </div>
+
+    <!-- TRANSITION -->
+    <div class="transition-bloc">
+      <div class="tr-label">Le mois prochain</div>
+      <div class="tr-title">Juin 2026 — Le thème arrive le 1er juin</div>
+      <div class="tr-text">Le pipeline analyse les signaux collectés en mai et définit le sujet le plus pertinent pour votre transformation. Le Dossier N°6 suivra la même structure — verdict, brief, analyse complète, roadmap.</div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- BIO -->
+  <div class="bio-sig" style="border-top:3px solid var(--ink);background:var(--paper);">
+    <img src="aziz-el-kihel-general.jpg" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--rule);">
+    <div style="flex:1;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">L'auteur</div>
+      <div class="bs-name">Aziz El Kihel — Fondateur, Un Cran d'Avance</div>
+      <div class="bs-role">Vingt ans à conduire des projets de transformation technologique auprès des directions financières, juridiques et opérationnelles de grandes organisations. Je traduis chaque semaine ce qui se passe en décisions concrètes pour les grandes organisations opérant en Europe et en Amérique du Nord — avec les cadres LEAP™ et DRIVEN™ comme outils de lecture.</div>
+      <div class="bs-email"><a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a></div>
+    </div>
+  </div>
+
+  <!-- CADRES -->
+  <div class="cadres-section">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Les cadres de lecture — présents dans chaque édition</div>
+    <div class="cadres-inner">
+      <div class="cadre-bloc">
+        <div class="cadre-nom">LEAP™</div>
+        <div class="cadre-desc"><strong>L</strong>ocal → <strong>E</strong>fficiency → <strong>A</strong>gentique → <strong>P</strong>ivot. Quatre couches pour situer où en est votre organisation dans sa transformation IA.</div>
+        <div class="cadre-note">→ Numéro spécial LEAP™ — en préparation</div>
+      </div>
+      <div class="cadre-bloc">
+        <div class="cadre-nom">DRIVEN™</div>
+        <div class="cadre-desc"><strong>D</strong>écision · <strong>R</strong>isque · <strong>I</strong>mpact valeur · <strong>V</strong>ulnérabilité · <strong>E</strong>ngagement · <strong>N</strong>écessité humaine. Six axes pour auditer la maîtrise réelle d'un déploiement IA.</div>
+        <div class="cadre-note">→ Numéro spécial DRIVEN™ — en préparation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIALOGUE -->
+  <div class="dialogue-section">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Une question pour clore le mois</div>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;margin:0 0 12px;">Ce mois s'est ouvert sur une question : qui, dans votre organisation, surveille la dérive silencieuse de vos coûts IA ? Quatre semaines plus tard, je la pose autrement.</p>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;margin:0 0 12px;">Si votre COMEX devait désigner cette semaine la personne qui répond nominativement du coût complet de votre IA — infrastructure, architecture, opérations — le nom vient-il ?</p>
+    <p style="font-size:12px;color:var(--muted);margin:0;"><a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a> <strong style="color:var(--ink);">Je lis chaque réponse.</strong></p>
+  </div>
+
+  </div><!-- /nl-content-full -->
+
+  <!-- FOOTER -->
+  <div class="footer-nl">
+    <div class="f-brand">✦ Un Cran d'Avance</div>
+    <div class="f-copy">26 mai 2026 · Mai 2026</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="page-newsletter.html" style="font-size:10px;color:var(--muted);text-decoration:none;">Newsletter</a>
+      <a href="page-vente.html" style="font-size:10px;color:var(--muted);text-decoration:none;">Premium</a>
+      <a href="page-apropos.html" style="font-size:10px;color:var(--muted);text-decoration:none;">À propos</a>
+    </div>
+  </div>
+
+<script src="uca-gate.js"></script>
+
+<!-- MENTIONS LÉGALES -->
+<div style="text-align:center;padding:16px;border-top:1px solid var(--rule,#E0DDD8);margin-top:0;">
+  <span style="font-size:11px;color:var(--muted,#6B6B6B);">
+    <a href="mentions-legales.html" style="color:var(--muted,#6B6B6B);text-decoration:none;">Mentions légales</a>
+    &nbsp;·&nbsp;
+    <a href="politique-confidentialite.html" style="color:var(--muted,#6B6B6B);text-decoration:none;">Confidentialité</a>
+    &nbsp;·&nbsp;
+    © 2026 Un Cran d'Avance
+  </span>
+</div>
+
+</div><!-- /email-wrap -->
+
+<!-- MODAL INSCRIPTION -->
+<div id="uca-subscribe-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:rgba(10,10,20,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;padding:40px 36px;position:relative;">
+    <button onclick="ucaCloseModal()" aria-label="Fermer" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#6B6B6B;line-height:1;">✕</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:16px;">Newsletter gratuite · Chaque mardi</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;color:#0A0A14;margin-bottom:8px;">5 signaux IA.<br>Chaque mardi matin.</h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.7;margin-bottom:24px;">Ce que les dirigeants utilisent pour décider avant les autres. Gratuit, désabonnement en 1 clic.</p>
+    <div id="modal-form-wrap">
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <input type="email" id="modal-email-input" autocomplete="email" required placeholder="votre@email.com" style="flex:1;padding:14px 16px;font-family:'Barlow',sans-serif;font-size:14px;border:1px solid #E0DDD8;border-right:none;outline:none;min-width:0;" />
+        <button onclick="ucaModalSubmit()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 20px;background:#C8102E;color:#fff;border:none;cursor:pointer;white-space:nowrap;">Accès immédiat — gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <input type="checkbox" id="modal-consent" style="margin-top:3px;flex-shrink:0;accent-color:#C8102E;" />
+        <label for="modal-consent" style="font-family:'Barlow',sans-serif;font-size:12px;color:#6B6B6B;line-height:1.5;cursor:pointer;">J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre <a href="politique-confidentialite.html" style="color:#6B6B6B;text-decoration:underline;">politique de confidentialité</a>. Désabonnement en 1 clic.</label>
+      </div>
+      <div id="modal-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;color:#C8102E;margin-top:6px;"></div>
+    </div>
+    <div id="modal-success" style="display:none;text-align:center;padding:16px 0;">
+      <div style="font-size:32px;margin-bottom:12px;">✓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#0A0A14;margin-bottom:8px;">Bienvenue !</div>
+      <div style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.6;">Votre premier signal arrive mardi. Votre Pack de bienvenue est disponible maintenant.</div>
+      <a href="membre-welcome.html" style="display:inline-block;margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;background:#0A0A14;color:#fff;text-decoration:none;">Voir mon Pack de bienvenue →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function ucaOpenModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (!m) return;
+  if (localStorage.getItem('uca_has_email') === '1') {
+    window.location.href = 'membre-welcome.html';
+    return;
+  }
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var inp = document.getElementById('modal-email-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+function ucaCloseModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (m) m.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function ucaModalSubmit() {
+  var inp = document.getElementById('modal-email-input');
+  var consent = document.getElementById('modal-consent');
+  var errEl = document.getElementById('modal-error');
+  var email = inp ? inp.value.trim() : '';
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!re.test(email)) {
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    if (inp) inp.style.borderColor = '#C8102E';
+    return;
+  }
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid #C8102E';
+    return;
+  }
+  if (inp) inp.style.borderColor = '';
+  if (consent) consent.style.outline = '';
+  if (errEl) errEl.style.display = 'none';
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyDossierAccess === 'function') applyDossierAccess();
+  if (typeof applyNLAccess === 'function') applyNLAccess();
+  var formWrap = document.getElementById('modal-form-wrap');
+  var success = document.getElementById('modal-success');
+  if (formWrap) formWrap.style.display = 'none';
+  if (success) success.style.display = 'block';
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+}
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('uca-subscribe-modal');
+  if (modal && e.target === modal) ucaCloseModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') ucaCloseModal();
+});
+</script>
+
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session pour mémoriser votre accès. Aucun cookie tiers. <a href="/politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('uca_cookie_consent')) {
+    var banner = document.getElementById('uca-cookie-banner');
+    if (banner) banner.style.display = 'flex';
+  }
+});
+</script>
+</body>
+</html>

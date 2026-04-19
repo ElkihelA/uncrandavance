@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="color-scheme" content="light">
+<style>:root { color-scheme: light; }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier N°5 — IA en Production : Au-delà du ROI Fantôme | Un Cran d'Avance</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --ink:   #0D0D1A;
+  --paper: #F7F5F0;
+  --red:   #C8102E;
+  --gold:  #B8973A;
+  --muted: #888880;
+  --rule:  #D8D4CC;
+  --white: #FFFFFF;
+  --l: #2C5282;
+  --e: #276749;
+  --a: #9C4221;
+  --p: #C8102E;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Barlow', sans-serif; background: var(--paper); color: var(--ink); }
+
+.masthead {
+  border-bottom: 3px double var(--ink);
+  padding: 16px 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--paper);
+  position: sticky; top: 0; z-index: 100;
+}
+.m-brand { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; }
+.m-tag   { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; background:var(--ink); color:var(--paper); }
+.m-meta  { font-size:11px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; text-align:right; }
+
+.module-nav {
+  background: var(--ink); padding: 0 64px;
+  display: flex; align-items: center; gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  position: sticky; top: 53px; z-index: 99;
+  overflow-x: auto;
+}
+.mn-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-right: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer; text-decoration: none; transition: background 0.15s; white-space: nowrap; flex-shrink: 0;
+}
+.mn-item:hover { background: rgba(255,255,255,0.05); }
+.mn-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase; padding:2px 7px; }
+.mn-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); }
+
+.hero { padding:64px 64px 48px; max-width:1080px; margin:0 auto; border-bottom:1px solid var(--rule); }
+.hero-kicker { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--red); margin-bottom:14px; }
+.hero-title { font-family:'Playfair Display',serif; font-size:52px; font-weight:900; line-height:1.05; margin-bottom:20px; max-width:760px; }
+.hero-title em { font-style:italic; color:var(--red); }
+.hero-deck { font-family:'Lora',serif; font-size:18px; color:#555; line-height:1.7; max-width:640px; margin-bottom:32px; }
+.hero-row { display:flex; gap:24px; align-items:center; flex-wrap:wrap; padding-top:20px; border-top:1px solid var(--rule); }
+.hero-chip { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border:1.5px solid var(--ink); }
+.hero-chip.filled { background:var(--ink); color:var(--paper); }
+.hero-time { font-size:12px; color:var(--muted); margin-left:auto; }
+
+.verdict-block { background:var(--ink); padding:28px 64px; max-width:1080px; margin:0 auto; border-bottom:3px solid var(--red); }
+.vb-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.vb-label::before { content:''; display:block; width:20px; height:1px; background:var(--red); }
+.vb-text { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; font-style:italic; color:var(--white); line-height:1.45; max-width:740px; }
+.vb-bullets { margin-top:20px; display:flex; flex-direction:column; gap:12px; }
+.vb-bullet { display:flex; gap:14px; align-items:flex-start; }
+.vb-dash { color:var(--red); font-weight:700; flex-shrink:0; margin-top:2px; }
+.vb-btext { font-size:14px; color:rgba(255,255,255,0.75); line-height:1.55; }
+.vb-btext strong { color:var(--white); }
+.vb-sub { font-size:12px; color:rgba(255,255,255,0.4); margin-top:14px; font-style:italic; }
+
+.brief-block { background:white; border-bottom:1px solid var(--rule); padding:0 64px; max-width:1080px; margin:0 auto; }
+.brief-header { padding:14px 0 12px; display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--rule); }
+.bh-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.bh-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:2px 8px; background:#F0EDE8; color:var(--muted); }
+.bh-time  { font-size:10px; color:var(--muted); margin-left:auto; }
+.brief-inner { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-left:1px solid var(--rule); border-right:1px solid var(--rule); }
+.brief-cell { padding:24px; border-right:1px solid var(--rule); border-bottom:3px solid transparent; transition:border-bottom-color 0.2s; }
+.brief-cell:last-child { border-right:none; }
+.brief-cell:hover { border-bottom-color:var(--red); }
+.bc-num   { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; color:var(--rule); line-height:1; margin-bottom:8px; }
+.bc-title { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:8px; }
+.bc-text  { font-size:13px; color:#555; line-height:1.6; }
+.bc-text strong { font-weight:700; color:var(--ink); }
+
+.analyse-header { max-width:1080px; margin:0 auto; padding:16px 64px; display:flex; align-items:center; gap:14px; border-bottom:1px solid var(--rule); background:var(--paper); }
+.ah-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.ah-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:2px 8px; background:var(--ink); color:var(--paper); }
+.ah-desc  { font-size:11px; color:var(--muted); }
+.ah-time  { font-size:10px; color:var(--muted); margin-left:auto; }
+
+.wrap { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 280px; }
+
+.article { padding:56px 52px 72px 64px; border-right:1px solid var(--rule); }
+.article p { font-family:'Lora',serif; font-size:16px; color:#333; line-height:1.82; margin-bottom:20px; max-width:640px; }
+.article p strong { font-weight:600; color:var(--ink); }
+.section-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:var(--ink); margin:52px 0 14px; max-width:620px; line-height:1.25; }
+.section-num { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:6px; }
+.pull-quote { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; font-style:italic; color:var(--ink); line-height:1.45; padding:24px 0 24px 24px; border-left:4px solid var(--red); margin:36px 0; max-width:580px; }
+.stat-hero { font-family:'Playfair Display',serif; font-size:72px; font-weight:900; color:var(--ink); line-height:1; margin:28px 0 4px; }
+.stat-label { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+
+.callout { background:var(--white); border:1px solid var(--rule); border-left:4px solid var(--gold); padding:18px 22px; margin:28px 0; max-width:640px; }
+.callout p { font-family:'Barlow',sans-serif; font-size:14px; color:#444; line-height:1.65; margin:0; max-width:none; }
+.callout-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+
+.data-table { width:100%; max-width:640px; border-collapse:collapse; margin:24px 0; font-size:13px; }
+.data-table th { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; background:var(--ink); color:var(--paper); padding:10px 14px; text-align:left; }
+.data-table td { padding:10px 14px; border-bottom:1px solid var(--rule); color:#444; line-height:1.5; }
+.data-table tr:last-child td { border-bottom:none; }
+.data-table tr:nth-child(even) td { background:rgba(0,0,0,0.02); }
+
+.niveau { padding:26px 30px; margin:20px 0; max-width:640px; }
+.niveau-1 { background:var(--ink); }
+.niveau-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:8px; }
+.niveau-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); margin-bottom:16px; line-height:1.3; }
+.niveau-item { display:flex; gap:12px; margin-bottom:13px; align-items:flex-start; }
+.niveau-arrow { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; color:var(--gold); flex-shrink:0; margin-top:2px; }
+.niveau-text { font-size:13px; color:rgba(255,255,255,0.82); line-height:1.55; }
+.niveau-text strong { color:var(--white); }
+
+.divider { display:flex; align-items:center; gap:14px; margin:44px 0 36px; }
+.divider::before,.divider::after { content:''; flex:1; height:1px; background:var(--rule); }
+.divider span { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+
+.sidebar { padding:48px 28px; background:var(--white); position:sticky; top:106px; height:fit-content; align-self:start; }
+.sb-section { margin-bottom:36px; padding-bottom:36px; border-bottom:1px solid var(--rule); }
+.sb-section:last-child { border-bottom:none; margin-bottom:0; }
+.sb-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+.mini-leap { display:flex; flex-direction:column; gap:2px; }
+.ml-item { display:flex; gap:10px; padding:9px 10px; align-items:center; }
+.ml-item.hl { background:#FFF0F0; border-left:3px solid var(--p); }
+.ml-letter { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; line-height:1; width:26px; flex-shrink:0; }
+.ml-L { color:var(--l); } .ml-E { color:var(--e); } .ml-A { color:var(--a); } .ml-P { color:var(--p); }
+.ml-name { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:1px; }
+.ml-sub { font-size:11px; color:var(--muted); line-height:1.3; }
+.sb-stat { margin-bottom:18px; }
+.ss-val { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--ink); line-height:1; }
+.ss-val em { font-style:normal; font-size:18px; color:var(--red); }
+.ss-label { font-size:12px; color:var(--muted); line-height:1.4; margin-top:3px; }
+.ss-src { font-size:10px; color:#bbb; font-style:italic; margin-top:1px; }
+.cta-box { background:var(--ink); padding:18px; }
+.cta-box .sb-label { color:rgba(255,255,255,0.35); }
+.cta-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--white); margin-bottom:7px; line-height:1.3; }
+.cta-desc { font-size:12px; color:rgba(255,255,255,0.55); line-height:1.5; margin-bottom:14px; }
+.cta-btn { display:block; text-align:center; background:var(--red); color:var(--white); font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:9px 14px; border:none; width:100%; cursor:pointer; text-decoration:none; }
+
+.footer { border-top:3px double var(--ink); padding:20px 64px; display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; }
+.f-brand { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; }
+.f-copy { font-size:11px; color:var(--muted); }
+.f-url { font-size:11px; color:var(--red); font-weight:600; }
+
+@media(max-width:820px){
+  .wrap { grid-template-columns:1fr; }
+  .article { padding:32px 24px; border-right:none; border-bottom:1px solid var(--rule); }
+  .sidebar { padding:32px 24px; }
+  .masthead,.hero,.footer { padding-left:24px; padding-right:24px; }
+  .hero-title { font-size:36px; }
+  .module-nav { padding:0 16px; top:48px; }
+  .verdict-block,.brief-block,.analyse-header { padding-left:24px; padding-right:24px; }
+  .brief-inner { grid-template-columns:1fr; }
+  .brief-cell { border-right:none; border-bottom:1px solid var(--rule); }
+}
+
+/* GATES */
+.uca-fadeout-wrap {
+  position: relative; max-height: 100px; overflow: hidden;
+}
+.uca-fadeout-wrap::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 100px;
+  background: linear-gradient(to bottom, rgba(247,245,240,0) 0%, rgba(247,245,240,0.7) 60%, #F7F5F0 100%);
+  pointer-events: none;
+}
+.uca-gate {
+  padding: 28px 36px 32px; max-width: 640px;
+  background: var(--ink, #0A0A14);
+  margin-top: 0; border-radius: 2px;
+}
+.uca-gate-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold, #B8973A); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.uca-gate-eyebrow::before {
+  content: ''; width: 20px; height: 1px; background: var(--gold, #B8973A); flex-shrink: 0;
+}
+.uca-gate-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px,2.5vw,26px); font-weight: 700; line-height: 1.25;
+  color: #fff; margin-bottom: 8px;
+}
+.uca-gate-title em       { font-style: italic; color: var(--red, #C8102E); }
+.uca-gate-title .em-gold { font-style: italic; color: var(--gold, #B8973A); }
+.uca-gate-sub {
+  font-family: 'Lora', serif; font-size: 14px;
+  color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 20px;
+}
+.uca-gate-btn-gold {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 13px 28px; background: var(--gold, #B8973A); color: var(--ink, #0A0A14);
+  text-decoration: none; margin-bottom: 10px; transition: opacity 0.2s;
+}
+.uca-gate-btn-gold:hover { opacity: 0.88; }
+.uca-gate-note { font-family: 'Barlow', sans-serif; font-size: 11px; color: rgba(255,255,255,0.4); }
+
+.uca-gated-dossier                     { display: none; overflow: hidden; }
+body.has-premium .uca-gated-dossier    { display: block !important; }
+.uca-gate-dossier                      { display: block !important; }
+body.has-premium .uca-gate-dossier     { display: none !important; }
+</style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="IA en Production : Au-delà du ROI Fantôme — Dossier N°5 | Un Cran d’Avance">
+  <meta property="og:description" content="Le cadre que vos concurrents n'ont pas encore. Memflation, lock-in, rework expert : les trois coûts cachés qui annihilent silencieusement vos gains IA.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/dossier-2026-05-ia-production.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="IA en Production : Au-delà du ROI Fantôme — Dossier N°5 | Un Cran d’Avance">
+  <meta name="twitter:description" content="Le cadre que vos concurrents n'ont pas encore. Memflation, lock-in, rework expert.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/dossier-2026-05-ia-production.html">
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="m-brand">✦ Un Cran d'Avance</div>
+  <div class="m-tag">Dossier Mensuel</div>
+  <div class="m-meta">Dossier N°5<br>Mai 2026</div>
+</div>
+
+<!-- NAVIGATION MODULAIRE -->
+<nav class="module-nav">
+  <a class="mn-item" href="#verdict">
+    <span class="mn-badge" style="background:var(--red);color:white;">① 45s</span>
+    <span class="mn-label">Verdict</span>
+  </a>
+  <a class="mn-item" href="#brief">
+    <span class="mn-badge" style="background:#444;color:white;">② 3 min</span>
+    <span class="mn-label">Le brief</span>
+  </a>
+  <a class="mn-item" href="#analyse">
+    <span class="mn-badge" style="background:var(--p);color:white;">③ 12 min</span>
+    <span class="mn-label">L'analyse complète</span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-kicker">Dossier mensuel · Abonnés Premium · Mai 2026 · Couche P — LEAP™</div>
+  <h1 class="hero-title">IA en Production :<br><em>Au-delà</em><br>du ROI Fantôme.</h1>
+  <p class="hero-deck">Vos concurrents mesurent leur ROI IA avec les mauvais indicateurs. Pendant qu'ils optimisent des métriques de productivité brute, ils manquent trois coûts cachés qui annihilent silencieusement leurs gains. Ce dossier vous donne le cadre pour voir ce qu'ils ne voient pas — et en faire un avantage.</p>
+  <div class="hero-row">
+    <div class="hero-chip filled">Dossier N°5</div>
+    <div class="hero-chip">Grandes organisations</div>
+    <div class="hero-chip">Couche P — LEAP™</div>
+    <div class="hero-time">① 45s · ② 3 min · ③ 12 min</div>
+  </div>
+</div>
+
+<!-- MOT DE L'AUTEUR -->
+<div style="max-width:1080px; margin:0 auto; padding:32px 64px 28px; border-bottom:1px solid var(--rule);">
+  <div style="display:flex; gap:16px; align-items:flex-start; max-width:680px;">
+    <img src="aziz-el-kihel-general.jpg" style="width:44px; height:44px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--rule);" alt="">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">Un mot avant de commencer</div>
+      <p style="font-family:'Lora',serif; font-size:14px; color:#555; line-height:1.8; margin:0 0 10px;">J'ai passé les dernières semaines dans des comités de direction où la même scène se répète. Le DSI présente les résultats IA : gains de productivité, réduction des délais, économies d'infrastructure. Applaudissements. Puis quelqu'un pose la question : "Et le rework ?" Silence.</p>
+      <p style="font-family:'Lora',serif; font-size:14px; color:#555; line-height:1.8; margin:0 0 10px;">KPMG vient de confirmer ce que j'observe sur le terrain : 82% des organisations reconnaissent que leur IA génère de la valeur, mais 65% sont incapables de la quantifier. Workday a chiffré le problème : 40% des gains de productivité IA sont annihilés par le travail de validation et correction que vos équipes effectuent sur les outputs. Ce n'est pas une crise technique. C'est une crise de mesure. Et elle a une solution organisationnelle.</p>
+      <div style="margin-top:12px; font-size:12px; font-weight:600; color:var(--ink);">Aziz El Kihel <span style="font-weight:400; color:var(--muted);">· Fondateur, Un Cran d'Avance</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<div id="verdict" class="verdict-block">
+  <div class="vb-label">① Le verdict — 45 secondes</div>
+  <div class="vb-text">«&nbsp;Le ROI IA déclaré n'est pas le ROI IA réel. L'écart est absorbé par vos experts les plus qualifiés — et personne ne le mesure.&nbsp;»</div>
+  <div class="vb-bullets">
+    <div class="vb-bullet">
+      <div class="vb-dash">—</div>
+      <div class="vb-btext"><strong>Le ROI IA déclaré n'est pas le ROI IA réel.</strong> L'écart entre les deux est absorbé silencieusement par vos experts les plus qualifiés.</div>
+    </div>
+    <div class="vb-bullet">
+      <div class="vb-dash">—</div>
+      <div class="vb-btext"><strong>La memflation (DRAM +125%, NAND +243% selon Gartner) rend caducs vos business cases d'infrastructure.</strong> Chaque projet validé avant avril 2026 doit être recoûté.</div>
+    </div>
+    <div class="vb-bullet">
+      <div class="vb-dash">—</div>
+      <div class="vb-btext"><strong>Le lock-in architectural est invisible jusqu'au moment du renouvellement.</strong> À ce stade, votre pouvoir de négociation a déjà disparu.</div>
+    </div>
+  </div>
+  <div class="vb-sub">Si vous ne retenez qu'une chose de ce dossier : mesurez le rework avant de valider le prochain budget IA.</div>
+</div>
+
+<!-- BRIEF -->
+<div id="brief" class="brief-block">
+  <div class="brief-header">
+    <span class="bh-label">② Le brief</span>
+    <span class="bh-badge">Pourquoi maintenant · Ce que ce dossier dit · Ce que vous allez décider</span>
+    <span class="bh-time">⏱ 3 minutes</span>
+  </div>
+  <div class="brief-inner">
+    <div class="brief-cell">
+      <div class="bc-num">01</div>
+      <div class="bc-title">Pourquoi maintenant</div>
+      <div class="bc-text">Q2 2026 = premier cycle d'évaluation des projets IA massifs lancés en 2024. Memflation : vos contrats d'infrastructure sont <strong>obsolètes.</strong> 82% des organisations sans métriques ROI fiables (KPMG).</div>
+    </div>
+    <div class="brief-cell">
+      <div class="bc-num">02</div>
+      <div class="bc-title">Ce que ce dossier dit</div>
+      <div class="bc-text">Comment mesurer le <strong>coût réel de votre IA en 3 dimensions.</strong> Pourquoi le rework est votre indicateur le plus important. Comment le lock-in cloud se construit déploiement par déploiement.</div>
+    </div>
+    <div class="brief-cell">
+      <div class="bc-num">03</div>
+      <div class="bc-title">Ce que vous allez décider</div>
+      <div class="bc-text">Si votre cadre de mesure actuel est fiable. <strong>Qui dans votre organisation produit ce chiffre.</strong> Quels contrats renégocier avant H2 2026.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYSE HEADER -->
+<div id="analyse" class="analyse-header">
+  <span class="ah-label">③ L'analyse complète</span>
+  <span class="ah-badge">6 sections · Rework · Memflation · Lock-in · DRIVEN™ · Roadmap 90 jours</span>
+  <span class="ah-desc">Pour ceux qui veulent comprendre avant de décider.</span>
+  <span class="ah-time">⏱ ~12 minutes</span>
+</div>
+
+<!-- CONTENU PRINCIPAL -->
+<div class="wrap">
+<div class="article">
+
+<!-- ════ SECTION 1 — LE CONSTAT [VISIBLE] ════ -->
+<div class="section-num">01</div>
+<h2 class="section-title">Le constat : la valeur existe, personne ne peut la prouver</h2>
+
+<p>Votre organisation a investi dans l'IA. Vos équipes l'utilisent. Vos tableaux de bord affichent des gains. Et pourtant, quelque chose ne va pas.</p>
+
+<p>Le <strong>KPMG Global AI Pulse Survey</strong> d'avril 2026 le confirme : 82% des organisations reconnaissent que l'IA génère de la valeur non-mesurable. Mais "non-mesurable" est un euphémisme poli pour "non-mesurée". La valeur existe peut-être. Mais personne ne peut le prouver avec des chiffres défendables devant un conseil d'administration ou un régulateur.</p>
+
+<p><strong>Workday</strong> a publié simultanément une étude qui chiffre le problème autrement : 40% des gains de productivité IA sont annihilés par le rework. Pour chaque 10 heures d'efficacité générées par vos modèles, 4 heures sont consacrées à la vérification, correction et validation des outputs. Ce travail est invisible dans vos métriques parce qu'il n'est pas attribué à un projet — il est simplement absorbé par vos équipes.</p>
+
+<div class="pull-quote">Vos collaborateurs les plus performants, ceux dont le jugement est le plus fiable, sont aussi ceux qui absorbent le plus de rework IA.</div>
+
+<p>Le paradoxe est brutal : leur expertise leur permet de détecter les erreurs des modèles. Mais cette expertise a un coût horaire élevé — et personne ne le comptabilise.</p>
+
+<div class="divider"><span>Section 02</span></div>
+
+<!-- ════ SECTION 2 — LE CONTEXTE INFRA [VISIBLE] ════ -->
+<div class="section-num">02</div>
+<h2 class="section-title">Le contexte infra : la memflation rend caducs vos business cases</h2>
+
+<p>La memflation ajoute une deuxième dimension au problème. <strong>Gartner</strong> projette que le marché des semiconducteurs atteindra 1,3 trillion de dollars en 2026, en hausse de 64% par rapport à 2025. La mémoire DRAM grimpe de 125%. La NAND flash de 243%.</p>
+
+<div class="stat-hero">+243<em style="font-size:48px;">%</em></div>
+<div class="stat-label">NAND flash en 2026 — Gartner 2026</div>
+
+<p>Ces chiffres ne sont pas abstraits. Ils signifient que chaque business case d'infrastructure IA validé avant janvier 2026 repose sur des hypothèses de coûts caduques. Vos projets dont le ROI dépendait d'économies d'infrastructure sont potentiellement déficitaires — sans que personne dans votre organisation n'ait recalculé les chiffres.</p>
+
+<p>La réglementation s'applique là où vous opérez : <strong>l'EU AI Act</strong> en vigueur depuis février 2026 impose des obligations de documentation et d'audit sur les systèmes IA à haut risque. Ces obligations ont un coût. Ce coût n'est pas dans vos business cases de 2024.</p>
+
+<div class="callout">
+  <div class="callout-label">Il reste 60% de ce dossier</div>
+  <p>Les 3 leviers opérationnels, DRIVEN™ appliqué à votre situation, l'analyse multi-juridictions (Europe · Québec/Canada · Amérique du Nord), la roadmap 90 jours et <strong>ce que vous faites lundi matin</strong>.</p>
+</div>
+
+<div class="uca-fadeout-wrap">
+  <p style="font-family:'Lora',serif;font-size:15px;color:rgba(10,10,20,0.18);line-height:1.8;pointer-events:none;">Le cadre d'analyse complet, les données terrain, les priorités 90 jours et la roadmap applicable vous attendent dans la suite de ce dossier…</p>
+</div>
+
+<div class="uca-gate-dossier uca-gate" id="gate-dossier-block">
+  <div class="uca-gate-eyebrow">Réservé aux membres Premium</div>
+  <h3 class="uca-gate-title">Il reste <span class="em-gold">60% de ce dossier.</span></h3>
+  <ul style="list-style:none;margin:0 0 20px;padding:0;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;">
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 03 — Les 3 leviers : mesure du rework, audit contrats, cartographie lock-in</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 04 — Le cadre DRIVEN™ appliqué au ROI IA réel</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 05 — Multi-juridictions (Europe · Québec/Canada · Amérique du Nord)</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 06 — La roadmap 90 jours : diagnostic, renégociation, gouvernance</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">→ Ce que vous faites lundi matin</span></li>
+  </ul>
+  <a href="https://buy.stripe.com/3cI4gz1Gf2kDgD4914gUM00" class="uca-gate-btn-gold">Rejoindre Premium →</a>
+  <a href="page-vente.html" style="display:block;margin-top:8px;font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,0.35);text-decoration:none;text-align:center;">En savoir plus sur l'offre →</a>
+  <div class="uca-gate-note" style="margin-top:8px;">Accès immédiat aux 5 dossiers · 199€/an · Offre fondateurs</div>
+</div>
+
+<!-- ════ CONTENU PREMIUM ════ -->
+<div class="uca-gated-dossier">
+
+<div class="divider"><span>Section 03</span></div>
+
+<!-- ════ SECTION 3 — LES LEVIERS [PREMIUM] ════ -->
+<div class="section-num">03</div>
+<h2 class="section-title">Les 3 leviers opérationnels</h2>
+
+<h2 class="section-title" style="font-size:20px; margin-top:28px;">Levier 1 — Mesure du rework</h2>
+<p>Implémenter un suivi du temps de supervision et correction des outputs IA par équipe. Cet indicateur — exprimé en <strong>% du temps expert</strong> — est votre ROI IA réel. Les organisations qui le mesurent découvrent en moyenne que leur coût réel est significativement supérieur au coût déclaré.</p>
+
+<h2 class="section-title" style="font-size:20px; margin-top:28px;">Levier 2 — Audit des contrats d'infrastructure</h2>
+<p>Listez tous les accords d'approvisionnement signés avant janvier 2026. Calculez l'écart entre les prix contractuels et les prix spot actuels (DRAM, NAND, compute). Cet écart quantifie votre exposition à la memflation. Les organisations qui agissent en Q2 2026 renégocient avec un levier ; celles qui attendent le renouvellement n'en ont plus.</p>
+
+<h2 class="section-title" style="font-size:20px; margin-top:28px;">Levier 3 — Cartographie du lock-in architectural</h2>
+<p>Pour chaque workload IA en production, documentez le coût de migration théorique vers un fournisseur alternatif. Ce chiffre est votre levier de négociation réel. Il doit être recalculé à chaque nouveau déploiement significatif.</p>
+
+<div class="divider"><span>Section 04</span></div>
+
+<!-- ════ SECTION 4 — DRIVEN™ APPLIQUÉ [PREMIUM] ════ -->
+<div class="section-num">04</div>
+<h2 class="section-title">DRIVEN™ appliqué au ROI IA réel</h2>
+
+<table class="data-table">
+  <thead><tr><th>Axe</th><th>Question à poser à votre COMEX</th></tr></thead>
+  <tbody>
+    <tr><td><strong>D — Décision</strong></td><td>Qui valide les business cases IA dans votre organisation ? Ont-ils accès aux métriques de rework et de lock-in, ou seulement aux métriques de productivité brute ?</td></tr>
+    <tr><td><strong>R — Risque</strong></td><td>Votre exposition à la memflation est-elle documentée ? Qui porte ce risque si les contrats d'infrastructure ne sont pas renégociés avant H2 2026 ?</td></tr>
+    <tr><td><strong>I — Impact valeur</strong></td><td>Votre calcul de ROI inclut-il le coût du rework expert ? Si non, votre ROI déclaré surestime votre valeur réelle.</td></tr>
+    <tr><td><strong>V — Vulnérabilité</strong></td><td>Quels workloads IA sont actuellement optimisés pour un fournisseur unique ? Quel est votre coût de migration si ce fournisseur modifie ses conditions ?</td></tr>
+    <tr><td><strong>E — Engagement</strong></td><td>Qui dans votre organisation répond quand un modèle IA produit des outputs incorrects qui ont impacté une décision métier ? La réponse "personne clairement" est la définition du risque de gouvernance.</td></tr>
+    <tr><td><strong>N — Nécessité humaine</strong></td><td>Vos équipes qui absorbent le rework IA ont-elles une charge de travail soutenable ? Le turnover dans ces équipes est-il suivi comme indicateur IA ?</td></tr>
+  </tbody>
+</table>
+
+<div class="divider"><span>Section 05</span></div>
+
+<!-- ════ SECTION 5 — MULTI-JURIDICTIONS [PREMIUM] ════ -->
+<div class="section-num">05</div>
+<h2 class="section-title">Multi-juridictions : la réglementation là où vous opérez</h2>
+
+<p><strong>Europe.</strong> L'EU AI Act impose une documentation et un audit des systèmes IA à haut risque (RH, crédit, infrastructure critique). Le coût de compliance doit être intégré dans vos business cases IA dès maintenant.</p>
+
+<p><strong>Québec / Canada.</strong> La Loi 25 impose une évaluation des facteurs relatifs à la vie privée pour tout système de décision automatisé. Cette obligation s'applique à vos outils de scoring RH, de ciblage client et d'évaluation de crédit.</p>
+
+<p><strong>Amérique du Nord.</strong> La migration de 234 postes de la DINUM vers des alternatives open-source préfigure une tendance réglementaire européenne qui affectera les appels d'offres publics et, par cascade, les critères d'achat privés.</p>
+
+<div class="callout">
+  <div class="callout-label">Cas terrain anonymisé</div>
+  <p>Un groupe industriel franco-canadien a découvert lors d'un audit Q1 2026 que trois de ses applications IA tombaient dans la catégorie "haut risque" EU AI Act sans documentation suffisante. La mise en conformité anticipée aurait coûté <strong>une fraction du prix</strong> de la mise en conformité curative — et préservé plusieurs mois d'avantage concurrentiel.</p>
+</div>
+
+<div class="divider"><span>Section 06</span></div>
+
+<!-- ════ SECTION 6 — ROADMAP 90 JOURS [PREMIUM] ════ -->
+<div class="section-num">06</div>
+<h2 class="section-title">Roadmap 90 jours</h2>
+
+<div class="niveau niveau-1">
+  <div class="niveau-label">J1-30 · Diagnostic</div>
+  <div class="niveau-title">Mesurer le rework sur 3 cas d'usage IA représentatifs</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text"><strong>Livrable :</strong> tableau de bord rework + coût expert par workload</div></div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text"><strong>Critère de succès :</strong> ROI réel calculé et comparé au ROI déclaré sur ces 3 cas</div></div>
+</div>
+
+<div class="niveau niveau-1">
+  <div class="niveau-label">J31-60 · Renégociation</div>
+  <div class="niveau-title">Audit des contrats d'infrastructure et cartographie du lock-in</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text"><strong>Livrable :</strong> liste des contrats à renégocier + levier de négociation par fournisseur</div></div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text"><strong>Critère de succès :</strong> au moins un contrat renégocié avec clauses de portabilité</div></div>
+</div>
+
+<div class="niveau niveau-1">
+  <div class="niveau-label">J61-90 · Gouvernance</div>
+  <div class="niveau-title">Désigner le responsable du ROI IA réel dans votre organisation</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text"><strong>Livrable :</strong> cadre de reporting trimestriel sur les 3 dimensions (rework, infra, lock-in)</div></div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text"><strong>Critère de succès :</strong> premier rapport présenté au COMEX avec les 4 indicateurs DRIVEN™</div></div>
+</div>
+
+<h2 class="section-title" style="font-size:20px; margin-top:32px;">Ce que vous faites lundi matin</h2>
+<p><strong>1.</strong> Demandez à une équipe de mesurer le temps de rework sur leurs outputs IA cette semaine (2h de travail).</p>
+<p><strong>2.</strong> Listez vos 5 principaux contrats d'infrastructure cloud et leurs dates de renouvellement (1h).</p>
+<p><strong>3.</strong> Planifiez un point avec votre DSI et votre CFO sur la memflation (30 min pour caler la date).</p>
+
+</div><!-- /uca-gated-dossier -->
+
+</div><!-- /article -->
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+  <div class="sb-section">
+    <div style="background:var(--ink); padding:16px; margin-bottom:12px;">
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:10px;">Le Cadre LEAP™ en 30 secondes</div>
+      <div style="font-family:'Barlow',sans-serif; font-size:12px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:12px;">Ce dossier se situe en couche P — mesurer le coût réel de l'IA définit le modèle économique autour d'elle.</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; gap:10px; align-items:baseline;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--l); flex-shrink:0; width:16px;">L</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.45); line-height:1.4;"><strong style="color:rgba(255,255,255,0.65);">Local</strong> — Usage individuel.</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:baseline;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--e); flex-shrink:0; width:16px;">E</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.45); line-height:1.4;"><strong style="color:rgba(255,255,255,0.65);">Efficiency</strong> — Automatisation.</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:baseline;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--a); flex-shrink:0; width:16px;">A</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.45); line-height:1.4;"><strong style="color:rgba(255,255,255,0.65);">Agentique</strong> — Délégation d'objectifs.</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:baseline; background:rgba(200,16,46,0.2); margin:0 -8px; padding:6px 8px;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--p); flex-shrink:0; width:16px;">P</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.85); line-height:1.4;"><strong style="color:white;">Pivot</strong> — Modèle économique. <em style="color:var(--p);">← Ce dossier</em></span>
+        </div>
+      </div>
+      <div style="margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08);">
+        <a href="page-diagnostic.html" class="cta-btn" style="font-size:10px; padding:7px 12px;">Faire le diagnostic DRIVEN™ →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Grille LEAP™</div>
+    <div class="mini-leap">
+      <div class="ml-item"><div class="ml-letter ml-L">L</div><div><div class="ml-name ml-L">Local</div><div class="ml-sub">Usage individuel</div></div></div>
+      <div class="ml-item"><div class="ml-letter ml-E">E</div><div><div class="ml-name ml-E">Efficiency</div><div class="ml-sub">Automatisation</div></div></div>
+      <div class="ml-item"><div class="ml-letter ml-A">A</div><div><div class="ml-name ml-A">Agentique</div><div class="ml-sub">Agents autonomes</div></div></div>
+      <div class="ml-item hl"><div class="ml-letter ml-P">P</div><div><div class="ml-name ml-P">Pivot ◀</div><div class="ml-sub">Ce dossier</div></div></div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Chiffres du dossier</div>
+    <div class="sb-stat">
+      <div class="ss-val">82<em>%</em></div>
+      <div class="ss-label">des organisations reconnaissent une valeur IA qu'elles ne peuvent pas quantifier</div>
+      <div class="ss-src">KPMG Global AI Pulse, avril 2026</div>
+    </div>
+    <div class="sb-stat">
+      <div class="ss-val">40<em>%</em></div>
+      <div class="ss-label">des gains de productivité IA annihilés par le rework</div>
+      <div class="ss-src">Workday, 2026</div>
+    </div>
+    <div class="sb-stat">
+      <div class="ss-val">+243<em>%</em></div>
+      <div class="ss-label">NAND flash en 2026 — la memflation rend vos business cases caducs</div>
+      <div class="ss-src">Gartner, 2026</div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="cta-box">
+      <div class="sb-label">Outil associé</div>
+      <div class="cta-title">Diagnostic DRIVEN™</div>
+      <div class="cta-desc">6 axes · 7 minutes · Identifiez votre point de blocage sur la mesure du ROI IA réel.</div>
+      <a href="page-diagnostic.html" class="cta-btn">Faire le diagnostic →</a>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Ce dossier est écrit par</div>
+    <div style="display:flex; gap:12px; align-items:flex-start;">
+      <img src="aziz-el-kihel-general.jpg" style="width:40px; height:40px; border-radius:50%; object-fit:cover; flex-shrink:0; border:1.5px solid var(--rule);" alt="">
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--ink); margin-bottom:3px;">Aziz El Kihel</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Fondateur · Un Cran d'Avance<br>Cadres LEAP™ et DRIVEN™</div>
+        <div style="margin-top:8px; font-size:11px; color:var(--red); font-weight:600;"><a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /sidebar -->
+
+</div><!-- /wrap -->
+
+<script src="uca-gate.js"></script>
+
+<!-- MENTIONS LÉGALES -->
+<div style="text-align:center;padding:16px;border-top:1px solid var(--rule,#E0DDD8);margin-top:0;">
+  <span style="font-size:11px;color:var(--muted,#6B6B6B);">
+    <a href="mentions-legales.html" style="color:var(--muted,#6B6B6B);text-decoration:none;">Mentions légales</a>
+    &nbsp;·&nbsp;
+    <a href="politique-confidentialite.html" style="color:var(--muted,#6B6B6B);text-decoration:none;">Confidentialité</a>
+    &nbsp;·&nbsp;
+    © 2026 Un Cran d'Avance
+  </span>
+</div>
+
+<!-- FOOTER -->
+<div style="padding:24px clamp(24px,5vw,80px);border-top:3px double var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+  <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink);">✦ Un Cran d'Avance</div>
+  <div style="font-size:11px;color:var(--muted);">© 2026 · L'essentiel de l'IA pour décider mieux, chaque semaine.</div>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;">
+    <a href="page-newsletter.html" style="font-size:11px;color:var(--muted);text-decoration:none;">Newsletter</a>
+    <a href="page-vente.html" style="font-size:11px;color:var(--muted);text-decoration:none;">Premium</a>
+    <a href="page-apropos.html" style="font-size:11px;color:var(--muted);text-decoration:none;">À propos</a>
+    <span style="color:var(--rule);">|</span>
+    <a href="mentions-legales.html" style="font-size:11px;color:var(--muted);text-decoration:none;opacity:0.6;">Mentions légales</a>
+    <a href="politique-confidentialite.html" style="font-size:11px;color:var(--muted);text-decoration:none;opacity:0.6;">Confidentialité</a>
+  </div>
+</div>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session pour mémoriser votre accès. Aucun cookie tiers. <a href="/politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('uca_cookie_consent')) {
+    var banner = document.getElementById('uca-cookie-banner');
+    if (banner) banner.style.display = 'flex';
+  }
+});
+</script>
+
+</body>
+</html>

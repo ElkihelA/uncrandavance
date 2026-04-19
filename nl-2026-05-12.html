@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="color-scheme" content="light">
+<style>:root { color-scheme: light; }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un Cran d'Avance — Édition 12 mai 2026 · AWS puces propriétaires</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap');
+:root {
+  --ink:#0D0D1A; --paper:#F7F5F0; --red:#C8102E;
+  --gold:#B8973A; --muted:#888880; --rule:#D8D4CC; --white:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{ overflow-x: hidden;font-family:'Barlow',sans-serif;background:#EFEFEB;color:var(--ink);}
+.email-wrap{max-width:680px;margin:32px auto;background:var(--white);border:1px solid var(--rule);}
+.topbar{background:var(--ink);padding:10px 32px;display:flex;align-items:center;justify-content:space-between;}
+.tb-brand{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.5);}
+.tb-meta{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1px;}
+.masthead{padding:32px 40px 24px;border-bottom:3px double var(--ink);}
+.mh-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.mh-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;line-height:1.1;margin-bottom:10px;}
+.mh-title em{font-style:italic;color:var(--red);}
+.mh-deck{font-family:'Lora',serif;font-size:14px;color:#555;line-height:1.7;}
+.mh-meta{display:flex;gap:16px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--rule);flex-wrap:wrap;}
+.mh-chip{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border:1.5px solid var(--ink);}
+.mh-chip.filled{background:var(--ink);color:var(--white);}
+.mh-count{font-size:11px;color:var(--muted);margin-left:auto;}
+.body{padding:32px 40px;}
+.signal{margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--rule);}
+.signal:last-of-type{border-bottom:none;margin-bottom:0;}
+.sig-num{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.sig-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1.25;margin-bottom:10px;color:var(--ink);}
+.sig-body{font-family:'Lora',serif;font-size:14px;color:#444;line-height:1.75;}
+.sig-body p{margin-bottom:10px;}
+.sig-body p:last-child{margin-bottom:0;}
+.sig-body strong{font-weight:600;color:var(--ink);}
+.leap-tag{display:inline-flex;gap:6px;align-items:center;margin-top:10px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid var(--rule);color:var(--muted);}
+.leap-tag .lt-letter{font-family:'Playfair Display',serif;font-size:14px;font-weight:900;}
+.question-strat{margin-top:14px;padding:14px 16px;background:var(--paper);border-left:3px solid var(--gold);}
+.qs-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.qs-text{font-family:'Playfair Display',serif;font-size:14px;font-style:italic;color:var(--ink);line-height:1.5;}
+.sig-source{font-size:11px;color:var(--muted);font-style:italic;margin-top:8px;}
+.sig-divider{display:flex;align-items:center;gap:10px;margin:28px 0;}
+.sig-divider::before,.sig-divider::after{content:'';flex:1;height:1px;background:var(--rule);}
+.sig-divider span{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.conversion-bloc{margin:32px 0 0;background:var(--ink);padding:24px 28px;border-left:4px solid var(--gold);}
+.cb-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.cb-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:10px;}
+.cb-title em{font-style:italic;color:var(--gold);}
+.cb-deck{font-family:'Lora',serif;font-size:13px;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:16px;}
+.cb-ecart{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.cb-col{padding:14px 16px;}
+.cb-col.sans{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);}
+.cb-col.avec{background:rgba(200,16,46,0.15);border:1px solid rgba(200,16,46,0.3);}
+.cb-col-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.cb-col.sans .cb-col-label{color:rgba(255,255,255,0.3);}
+.cb-col.avec .cb-col-label{color:var(--red);}
+.cb-col-item{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.7;padding-left:10px;border-left:1px solid rgba(255,255,255,0.1);margin-bottom:4px;}
+.cb-col.avec .cb-col-item{color:rgba(255,255,255,0.85);border-left-color:rgba(200,16,46,0.4);}
+.cb-btn{display:inline-block;background:var(--red);color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:10px 20px;border:none;cursor:pointer;text-decoration:none;}
+.cb-note{font-size:11px;color:rgba(255,255,255,0.25);margin-top:10px;font-style:italic;}
+.transition-bloc{margin:28px 0 0;padding:20px 24px;background:var(--paper);border-left:3px solid var(--ink);}
+.tr-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.tr-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.tr-text{font-family:'Lora',serif;font-size:13px;color:#555;line-height:1.65;}
+.bio-sig{padding:20px 40px;border-top:1px solid var(--rule);display:flex;gap:14px;align-items:flex-start;}
+.bs-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.bs-role{font-size:11px;color:var(--muted);line-height:1.5;}
+.bs-email{font-size:11px;color:var(--red);font-weight:600;margin-top:4px;}
+.cadres-section{padding:16px 40px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:#FAFAF7;}
+.cadres-inner{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.cadre-nom{font-family:'Playfair Display',serif;font-size:14px;font-weight:900;color:var(--ink);margin-bottom:3px;}
+.cadre-desc{font-size:11px;color:#666;line-height:1.5;}
+.cadre-note{font-size:10px;color:var(--red);font-weight:600;margin-top:4px;}
+.dialogue-section{padding:24px 40px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper);}
+#nl-content-full{display:none;}
+.footer-nl{background:var(--paper);padding:14px 40px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.f-brand{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--ink);}
+.f-copy{font-size:10px;color:var(--muted);}
+@media(max-width:600px){
+  .email-wrap{margin:0;border:none;}
+  .masthead,.body,.bio-sig,.footer-nl,.cadres-section,.dialogue-section,
+  .mh-title{font-size:26px;}
+  .cb-ecart,.cadres-inner{grid-template-columns:1fr;}
+}
+body { padding-bottom: 56px; }
+body.has-email #nl-content-full { display: block !important; }
+.uca-gated-nl { display: none; }
+body.has-email .uca-gated-nl { display: block !important; }
+.uca-gate-nl { display: block; }
+body.has-email .uca-gate-nl { display: none !important; }
+</style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="Edition 2026-05-12 — AWS puces propriétaires | Un Cran d’Avance">
+  <meta property="og:description" content="AWS construit ses propres puces. Votre stratégie multi-cloud vient de devenir coûteuse. Comment cartographier votre exposition au lock-in.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/nl-2026-05-12.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Edition 2026-05-12 — AWS puces propriétaires | Un Cran d’Avance">
+  <meta name="twitter:description" content="AWS construit ses propres puces. Votre stratégie multi-cloud vient de devenir coûteuse. Comment cartographier votre exposition au lock-in.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/nl-2026-05-12.html">
+</head>
+<body>
+<nav style="background:var(--ink);padding:12px clamp(16px,4vw,48px);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;">
+  <a href="page-newsletter.html" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#fff;text-decoration:none;">✦ Un Cran d'Avance</a>
+  <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;">12 mai 2026 · AWS puces · Fin multi-cloud</div>
+  <a href="page-newsletter.html" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:rgba(255,255,255,0.4);text-decoration:none;letter-spacing:1px;">← Archives</a>
+</nav>
+
+<div class="email-wrap">
+
+  <div class="topbar">
+    <div class="tb-brand">✦ Un Cran d'Avance</div>
+    <div class="tb-meta">Newsletter · 12 mai 2026 · Mai 2026</div>
+  </div>
+
+  <div class="masthead">
+    <div class="mh-eyebrow">12 mai 2026 · Mardi · Semaine 2 du cycle mai · Concept : Invisibilité</div>
+    <h1 class="mh-title">AWS construit<br>ses propres puces.<br><em>Votre stratégie multi-cloud vient de devenir coûteuse.</em></h1>
+    <p class="mh-deck">AWS accélère le déploiement de ses puces propriétaires — <strong>Trainium</strong> pour l'entraînement, <strong>Inferentia</strong> pour l'inférence. Google double sur ses TPU. Azure suit. Ce mouvement semble technique. Il est stratégique. Et il redessine silencieusement les règles du jeu pour toutes les organisations qui ont misé sur la flexibilité multi-cloud.</p>
+    <div class="mh-meta">
+      <div class="mh-chip">~5 min</div>
+      <div class="mh-chip">Grille LEAP/DRIVEN</div>
+      <div class="mh-count">Lock-in architectural · Semaine 2</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- MOT D'OUVERTURE -->
+    <div style="padding:0 0 28px;border-bottom:1px solid var(--rule);margin-bottom:28px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;">Mot d'ouverture</div>
+      <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;margin-bottom:10px;">Voici ce que personne ne voit encore clairement. Quand AWS développe Trainium, l'objectif déclaré est de réduire sa dépendance à Nvidia. L'objectif non-déclaré est de <strong>vous rendre dépendant d'AWS</strong>.</p>
+      <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;margin-bottom:10px;">Les puces propriétaires créent un lock-in invisible. Vos workloads IA optimisés pour Trainium ne migrent pas facilement vers Azure ou GCP. Vos équipes développent des compétences spécifiques à un écosystème. Vos coûts de sortie augmentent à chaque déploiement supplémentaire.</p>
+      <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;">L'ère du multi-cloud comme levier de négociation touche à sa fin — non pas parce que les fournisseurs l'ont décidé, mais parce que l'IA rend la portabilité structurellement difficile.</p>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
+        <img src="aziz-el-kihel-general.jpg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid var(--rule);flex-shrink:0;">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--ink);">Aziz El Kihel</div>
+          <div style="font-size:11px;color:var(--muted);">Fondateur · Un Cran d'Avance</div>
+        </div>
+      </div>
+    </div>
+
+  <!-- APERÇU -->
+  <div class="body" style="position:relative;padding-bottom:0;">
+    <div style="position:relative;overflow:hidden;max-height:140px;">
+      <div class="signal">
+        <div class="sig-num">Signal d'ouverture · Invisibilité · Architecture</div>
+        <h2 class="sig-title">Pendant que vous optimisez vos déploiements IA actuels, votre architecture choisit votre fournisseur de 2027 à votre place.</h2>
+        <div class="sig-body">
+          <p>Ce phénomène est invisible dans vos tableaux de bord actuels. Vos métriques mesurent le coût par requête, la latence, la disponibilité. Aucune ne mesure votre dépendance croissante à un fournisseur unique — et son impact sur votre pouvoir de négociation dans trois ans.</p>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);pointer-events:none;"></div>
+    </div>
+  </div>
+
+  </div><!-- /body — public -->
+
+  <!-- GATE EMAIL -->
+  <div class="uca-gate-nl" id="gate-email-block" style="padding:28px 40px;background:var(--ink);color:#fff;border-top:2px solid rgba(255,255,255,0.08);">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+      <span style="width:20px;height:1px;background:var(--gold);"></span>Réservé aux abonnés · Accès gratuit
+    </div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:clamp(22px,2.5vw,28px);font-weight:700;line-height:1.25;color:#fff;margin-bottom:8px;">La suite est <em style="font-style:italic;color:var(--red);">gratuite et immédiate.</em></h3>
+    <p style="font-family:'Lora',serif;font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:22px;">Il reste les <strong style="color:#fff;">3 stratégies concrètes</strong> adoptées par les organisations en avance — environ 3 minutes de lecture.</p>
+    <div style="display:flex;max-width:400px;margin-bottom:10px;">
+      <input type="email" autocomplete="email" required id="gate-email-input" placeholder="votre@email.com" style="flex:1;padding:13px 16px;border:1px solid rgba(255,255,255,0.2);border-right:none;font-size:14px;font-family:'Barlow',sans-serif;background:rgba(255,255,255,0.06);color:#fff;outline:none;min-width:0;">
+      <button type="button" onclick="ucaHandleEmailGate()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:13px 20px;background:var(--red);color:#fff;border:none;cursor:pointer;">Lire la suite — gratuit →</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;max-width:400px;margin:10px 0 0;text-align:left;">
+      <input type="checkbox" id="consent-gate" style="flex-shrink:0;accent-color:#B8973A;width:14px;height:14px;cursor:pointer;">
+      <label for="consent-gate" style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,0.55);line-height:1.4;cursor:pointer;">
+        J'accepte de recevoir <em>Un Cran d'Avance</em> — <a href="politique-confidentialite.html" style="color:#fff;text-decoration:underline;">confidentialité</a> · désabonnement en 1 clic
+      </label>
+    </div>
+    <div class="gate-error" id="gate-email-error" style="font-size:11px;color:#ff6b6b;margin-top:6px;display:none;"></div>
+  </div>
+
+  <!-- CONTENU DÉBLOQUÉ -->
+  <div id="nl-content-full" class="uca-gated-nl">
+  <div class="body">
+
+    <!-- SIGNAL 1 -->
+    <div class="signal">
+      <div class="sig-num">Signal 01 · Invisibilité · Lock-in architectural</div>
+      <h2 class="sig-title">Un modèle entraîné sur Trainium avec des optimisations AWS-natives ne se transfère pas à iso-performance sur une infrastructure concurrente.</h2>
+      <div class="sig-body">
+        <p>Ce phénomène est invisible dans vos tableaux de bord actuels. Vos métriques mesurent le coût par requête, la latence, la disponibilité. Aucune ne mesure votre dépendance croissante à un fournisseur unique — et son impact sur votre pouvoir de négociation dans trois ans.</p>
+        <p>Pendant que vous optimisez vos déploiements IA actuels, votre architecture choisit votre fournisseur de 2027 à votre place.</p>
+      </div>
+      <span class="leap-tag"><span class="lt-letter" style="color:#C8102E;">P</span> Couche Pivot · Lock-in invisible comme risque stratégique</span>
+      <div class="question-strat">
+        <div class="qs-label">La question stratégique de ce signal</div>
+        <div class="qs-text">Dans trois ans, qui choisira votre fournisseur cloud — votre COMEX, ou l'architecture que vos équipes déploient cette semaine sans visibilité sur son coût de sortie ?</div>
+      </div>
+      <div class="sig-source">Annonces AWS re:Invent · Google Cloud Next · Synthèse Un Cran d'Avance</div>
+    </div>
+
+    <div class="sig-divider"><span>Signal 02</span></div>
+
+    <!-- SIGNAL 2 — trois stratégies -->
+    <div class="signal">
+      <div class="sig-num">Signal 02 · Action · Trois stratégies</div>
+      <h2 class="sig-title">Trois stratégies que les organisations en avance adoptent maintenant.</h2>
+      <div class="sig-body">
+        <p><strong>Stratégie 1 : Spécialisation par cas d'usage.</strong> Plutôt que de viser la neutralité cloud à tout prix, définissez quels workloads IA peuvent être liés à un fournisseur (gains de performance &gt; coût du lock-in) et lesquels doivent rester portables (données sensibles, applications critiques).</p>
+        <p><strong>Stratégie 2 : Cartographie des dépendances.</strong> Inventoriez chaque service IA que vous utilisez par fournisseur. Calculez le coût de migration théorique. Ce chiffre est votre levier de négociation réel lors des prochains renouvellements.</p>
+        <p><strong>Stratégie 3 : Contractualisation de la portabilité.</strong> Exigez des clauses d'export de données et de modèles dans vos nouveaux contrats cloud. Les fournisseurs qui refusent signalent un niveau de lock-in inacceptable.</p>
+        <p style="font-family:'Lora',serif;font-size:13px;color:#777;font-style:italic;border-left:2px solid var(--rule);padding-left:12px;margin-top:12px;">Le dossier de ce mois détaille comment évaluer votre exposition au lock-in cloud et les leviers de renégociation disponibles maintenant.</p>
+      </div>
+      <span class="leap-tag"><span class="lt-letter" style="color:#9C4221;">A</span> Couche Agentique · Portabilité comme clause contractuelle</span>
+      <div class="sig-source">Synthèse Un Cran d'Avance · Observations terrain grandes organisations</div>
+    </div>
+
+    <!-- CONVERSION -->
+    <div class="conversion-bloc">
+      <div class="cb-label">Pour ceux qui veulent aller plus loin</div>
+      <div class="cb-title">Cartographier votre lock-in cloud.<br><em>Le Dossier N°5 a la méthode.</em></div>
+      <div class="cb-deck">Notre dossier Premium de ce mois détaille la méthode de cartographie des dépendances cloud en 3 étapes — et les clauses contractuelles à exiger dès maintenant avant votre prochain renouvellement.</div>
+      <div class="cb-ecart">
+        <div class="cb-col sans">
+          <div class="cb-col-label">Sans le Dossier</div>
+          <div class="cb-col-item">Dépendances cloud non inventoriées</div>
+          <div class="cb-col-item">Coût de migration inconnu</div>
+          <div class="cb-col-item">Clauses de portabilité absentes</div>
+          <div class="cb-col-item">Négociation sans levier</div>
+        </div>
+        <div class="cb-col avec">
+          <div class="cb-col-label">Avec le Dossier N°5</div>
+          <div class="cb-col-item">Cartographie en 3 étapes</div>
+          <div class="cb-col-item">Clauses à exiger</div>
+          <div class="cb-col-item">Leviers de renégociation</div>
+          <div class="cb-col-item">Roadmap 90 jours</div>
+        </div>
+      </div>
+      <a href="page-vente.html" class="cb-btn">Accéder au Dossier N°5 →</a>
+      <div class="cb-note">Réservé aux abonnés Premium · 199€/an · Disponible le 21 mai</div>
+    </div>
+
+    <!-- TRANSITION -->
+    <div class="transition-bloc">
+      <div class="tr-label">La semaine prochaine</div>
+      <div class="tr-title">19 mai — 82% des organisations sans ROI IA mesurable</div>
+      <div class="tr-text">KPMG et Workday convergent : 82% des organisations reconnaissent que l'IA génère de la valeur — 65% sont incapables de la quantifier. 40% des gains sont annihilés par le rework absorbé par vos experts les plus qualifiés.</div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- BIO SIGNATURE -->
+  <div class="bio-sig" style="border-top:3px solid var(--ink);background:var(--paper);">
+    <img src="aziz-el-kihel-general.jpg" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--rule);">
+    <div style="flex:1;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">L'auteur</div>
+      <div class="bs-name">Aziz El Kihel — Fondateur, Un Cran d'Avance</div>
+      <div class="bs-role">Vingt ans à conduire des projets de transformation technologique auprès des directions financières, juridiques et opérationnelles de grandes organisations. Je traduis chaque semaine ce qui se passe en décisions concrètes pour les grandes organisations opérant en Europe et en Amérique du Nord — avec les cadres LEAP™ et DRIVEN™ comme outils de lecture.</div>
+      <div class="bs-email"><a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a></div>
+    </div>
+  </div>
+
+  <!-- CADRES -->
+  <div class="cadres-section">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Les cadres de lecture — présents dans chaque édition</div>
+    <div class="cadres-inner">
+      <div class="cadre-bloc">
+        <div class="cadre-nom">LEAP™</div>
+        <div class="cadre-desc"><strong>L</strong>ocal → <strong>E</strong>fficiency → <strong>A</strong>gentique → <strong>P</strong>ivot. Quatre couches pour situer où en est votre organisation dans sa transformation IA.</div>
+        <div class="cadre-note">→ Numéro spécial LEAP™ — en préparation</div>
+      </div>
+      <div class="cadre-bloc">
+        <div class="cadre-nom">DRIVEN™</div>
+        <div class="cadre-desc"><strong>D</strong>écision · <strong>R</strong>isque · <strong>I</strong>mpact valeur · <strong>V</strong>ulnérabilité · <strong>E</strong>ngagement · <strong>N</strong>écessité humaine. Six axes pour auditer la maîtrise réelle d'un déploiement IA.</div>
+        <div class="cadre-note">→ Numéro spécial DRIVEN™ — en préparation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIALOGUE -->
+  <div class="dialogue-section">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Une question pour cette semaine</div>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;margin:0 0 12px;">Savez-vous, pour chacun de vos principaux workloads IA, combien coûterait sa migration vers un fournisseur alternatif ?</p>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.8;margin:0 0 12px;">Si oui, comment ce chiffre entre-t-il dans vos négociations de renouvellement ? Si non, quelle équipe pourrait produire ce chiffre — et en combien de temps ?</p>
+    <p style="font-size:12px;color:var(--muted);margin:0;"><a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a> <strong style="color:var(--ink);">Je lis chaque réponse.</strong></p>
+  </div>
+
+  </div><!-- /nl-content-full -->
+
+  <!-- FOOTER -->
+  <div class="footer-nl">
+    <div class="f-brand">✦ Un Cran d'Avance</div>
+    <div class="f-copy">12 mai 2026 · Mai 2026</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="page-newsletter.html" style="font-size:10px;color:var(--muted);text-decoration:none;">Newsletter</a>
+      <a href="page-vente.html" style="font-size:10px;color:var(--muted);text-decoration:none;">Premium</a>
+      <a href="page-apropos.html" style="font-size:10px;color:var(--muted);text-decoration:none;">À propos</a>
+    </div>
+  </div>
+
+<script src="uca-gate.js"></script>
+
+<!-- MENTIONS LÉGALES -->
+<div style="text-align:center;padding:16px;border-top:1px solid var(--rule,#E0DDD8);margin-top:0;">
+  <span style="font-size:11px;color:var(--muted,#6B6B6B);">
+    <a href="mentions-legales.html" style="color:var(--muted,#6B6B6B);text-decoration:none;">Mentions légales</a>
+    &nbsp;·&nbsp;
+    <a href="politique-confidentialite.html" style="color:var(--muted,#6B6B6B);text-decoration:none;">Confidentialité</a>
+    &nbsp;·&nbsp;
+    © 2026 Un Cran d'Avance
+  </span>
+</div>
+
+</div><!-- /email-wrap -->
+
+<!-- MODAL INSCRIPTION -->
+<div id="uca-subscribe-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:rgba(10,10,20,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;padding:40px 36px;position:relative;">
+    <button onclick="ucaCloseModal()" aria-label="Fermer" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#6B6B6B;line-height:1;">✕</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:16px;">Newsletter gratuite · Chaque mardi</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;color:#0A0A14;margin-bottom:8px;">5 signaux IA.<br>Chaque mardi matin.</h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.7;margin-bottom:24px;">Ce que les dirigeants utilisent pour décider avant les autres. Gratuit, désabonnement en 1 clic.</p>
+    <div id="modal-form-wrap">
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <input type="email" id="modal-email-input" autocomplete="email" required placeholder="votre@email.com" style="flex:1;padding:14px 16px;font-family:'Barlow',sans-serif;font-size:14px;border:1px solid #E0DDD8;border-right:none;outline:none;min-width:0;" />
+        <button onclick="ucaModalSubmit()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 20px;background:#C8102E;color:#fff;border:none;cursor:pointer;white-space:nowrap;">Accès immédiat — gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <input type="checkbox" id="modal-consent" style="margin-top:3px;flex-shrink:0;accent-color:#C8102E;" />
+        <label for="modal-consent" style="font-family:'Barlow',sans-serif;font-size:12px;color:#6B6B6B;line-height:1.5;cursor:pointer;">J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre <a href="politique-confidentialite.html" style="color:#6B6B6B;text-decoration:underline;">politique de confidentialité</a>. Désabonnement en 1 clic.</label>
+      </div>
+      <div id="modal-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;color:#C8102E;margin-top:6px;"></div>
+    </div>
+    <div id="modal-success" style="display:none;text-align:center;padding:16px 0;">
+      <div style="font-size:32px;margin-bottom:12px;">✓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#0A0A14;margin-bottom:8px;">Bienvenue !</div>
+      <div style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.6;">Votre premier signal arrive mardi. Votre Pack de bienvenue est disponible maintenant.</div>
+      <a href="membre-welcome.html" style="display:inline-block;margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;background:#0A0A14;color:#fff;text-decoration:none;">Voir mon Pack de bienvenue →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function ucaOpenModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (!m) return;
+  if (localStorage.getItem('uca_has_email') === '1') {
+    window.location.href = 'membre-welcome.html';
+    return;
+  }
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var inp = document.getElementById('modal-email-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+function ucaCloseModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (m) m.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function ucaModalSubmit() {
+  var inp = document.getElementById('modal-email-input');
+  var consent = document.getElementById('modal-consent');
+  var errEl = document.getElementById('modal-error');
+  var email = inp ? inp.value.trim() : '';
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!re.test(email)) {
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    if (inp) inp.style.borderColor = '#C8102E';
+    return;
+  }
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid #C8102E';
+    return;
+  }
+  if (inp) inp.style.borderColor = '';
+  if (consent) consent.style.outline = '';
+  if (errEl) errEl.style.display = 'none';
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyDossierAccess === 'function') applyDossierAccess();
+  if (typeof applyNLAccess === 'function') applyNLAccess();
+  var formWrap = document.getElementById('modal-form-wrap');
+  var success = document.getElementById('modal-success');
+  if (formWrap) formWrap.style.display = 'none';
+  if (success) success.style.display = 'block';
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+}
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('uca-subscribe-modal');
+  if (modal && e.target === modal) ucaCloseModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') ucaCloseModal();
+});
+</script>
+
+<!-- COOKIES -->
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session pour mémoriser votre accès. Aucun cookie tiers. <a href="/politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('uca_cookie_consent')) {
+    var banner = document.getElementById('uca-cookie-banner');
+    if (banner) banner.style.display = 'flex';
+  }
+});
+</script>
+</body>
+</html>

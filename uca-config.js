@@ -174,8 +174,42 @@ export const UCA_CONFIG = {
       label:       'Dossier N°4 — Gouvernance IA',
     },
 
-    // ── MAI 2026 — ajouter ici quand prêt ──────────────────────
-    // { slug: 'nl-2026-05-06', publishDate: '2026-05-06', access: 'free', type: 'nl', label: 'N°17 — 6 mai 2026' },
+    // ── MAI 2026 ──────────────────────────────────────────────
+    {
+      slug:        'nl-2026-05-05',
+      publishDate: '2026-05-05',
+      access:      'free',
+      type:        'nl',
+      label:       '5 mai 2026',
+    },
+    {
+      slug:        'nl-2026-05-12',
+      publishDate: '2026-05-12',
+      access:      'free',
+      type:        'nl',
+      label:       '12 mai 2026',
+    },
+    {
+      slug:        'nl-2026-05-19',
+      publishDate: '2026-05-19',
+      access:      'free',
+      type:        'nl',
+      label:       '19 mai 2026',
+    },
+    {
+      slug:        'dossier-2026-05-ia-production',
+      publishDate: '2026-05-21',
+      access:      'premium',
+      type:        'dossier',
+      label:       'Dossier N°5 — IA en Production',
+    },
+    {
+      slug:        'nl-2026-05-26',
+      publishDate: '2026-05-26',
+      access:      'free',
+      type:        'nl',
+      label:       '26 mai 2026',
+    },
 
   ],
 };
