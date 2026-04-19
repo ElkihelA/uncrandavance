@@ -1,5 +1,7 @@
 User-agent: *
 
+# Déploiement continu via GitHub (repo : ElkihelA/uncrandavance)
+
 # Pages publiques — autorisées
 Allow: /
 Allow: /index.html
