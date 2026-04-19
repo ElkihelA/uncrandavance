@@ -1942,7 +1942,8 @@ document.querySelectorAll('.lib-card[data-type="nl"]').forEach(card => {
   if (!link) return;
 
   const href = link.getAttribute('href') || '';
-  const match = href.match(/nl-(\d{4}-\d{2}-\d{2})\.html/);
+  // Netlify sert les URLs en pretty-URL (sans .html) → regex plus souple
+  const match = href.match(/nl-(\d{4}-\d{2}-\d{2})/);
   if (!match) return;
 
   const slug = 'nl-' + match[1];
@@ -2020,7 +2021,8 @@ document.querySelectorAll('.lib-card[data-type="dossier"]').forEach(card => {
   const link = card.querySelector('a[href]');
   if (!link) return;
   const href = link.getAttribute('href') || '';
-  const match = href.match(/dossier-([\w-]+)\.html/);
+  // Netlify sert les URLs en pretty-URL (sans .html) → regex plus souple
+  const match = href.match(/dossier-([\w-]+?)(?:\.html)?$/);
   if (!match) return;
   const slug = 'dossier-' + match[1];
   const edition = UCA_CONFIG.EDITIONS.find(e => e.slug === slug);
