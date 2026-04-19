@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'IA Agentique : ce qui change quand c'est le système qui décide | Un Cran d'Avance</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --ink:   #0D0D1A;
+  --paper: #F7F5F0;
+  --red:   #C8102E;
+  --gold:  #B8973A;
+  --muted: #888880;
+  --rule:  #D8D4CC;
+  --white: #FFFFFF;
+  --l: #2C5282;
+  --e: #276749;
+  --a: #9C4221;
+  --p: #C8102E;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Barlow', sans-serif; background: var(--paper); color: var(--ink); }
+
+/* ── MASTHEAD ── */
+.masthead {
+  border-bottom: 3px double var(--ink);
+  padding: 16px 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--paper);
+  position: sticky; top: 0; z-index: 100;
+}
+.m-brand { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; }
+.m-tag   { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; background:var(--ink); color:var(--paper); }
+.m-meta  { font-size:11px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; text-align:right; }
+
+/* ── HERO ── */
+.hero { padding:64px 64px 48px; max-width:1080px; margin:0 auto; border-bottom:1px solid var(--rule); }
+.hero-kicker { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--red); margin-bottom:14px; }
+.hero-title { font-family:'Playfair Display',serif; font-size:52px; font-weight:900; line-height:1.05; margin-bottom:20px; max-width:760px; }
+.hero-title em { font-style:italic; color:var(--red); }
+.hero-deck { font-family:'Lora',serif; font-size:18px; color:#555; line-height:1.7; max-width:640px; margin-bottom:32px; }
+.hero-row { display:flex; gap:24px; align-items:center; flex-wrap:wrap; padding-top:20px; border-top:1px solid var(--rule); }
+.hero-chip { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border:1.5px solid var(--ink); }
+.hero-chip.filled { background:var(--ink); color:var(--paper); }
+.hero-time { font-size:12px; color:var(--muted); margin-left:auto; }
+
+/* ── LAYOUT ── */
+.wrap { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 280px; }
+
+/* ── ARTICLE ── */
+.article { padding:56px 52px 72px 64px; border-right:1px solid var(--rule); }
+.article p { font-family:'Lora',serif; font-size:16px; color:#333; line-height:1.82; margin-bottom:20px; max-width:640px; }
+.article p strong { font-weight:600; color:var(--ink); }
+.section-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:var(--ink); margin:52px 0 14px; max-width:620px; line-height:1.25; }
+.section-num { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:6px; }
+.pull-quote { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; font-style:italic; color:var(--ink); line-height:1.45; padding:24px 0 24px 24px; border-left:4px solid var(--red); margin:36px 0; max-width:580px; }
+.stat-hero { font-family:'Playfair Display',serif; font-size:72px; font-weight:900; color:var(--ink); line-height:1; margin:28px 0 4px; }
+.stat-label { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+
+/* Callout box */
+.callout { background:var(--white); border:1px solid var(--rule); border-left:4px solid var(--gold); padding:18px 22px; margin:28px 0; max-width:640px; }
+.callout p { font-family:'Barlow',sans-serif; font-size:14px; color:#444; line-height:1.65; margin:0; max-width:none; }
+.callout-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+
+/* Niveau action */
+.niveau { padding:26px 30px; margin:20px 0; max-width:640px; }
+.niveau-1 { background:var(--ink); }
+.niveau-2 { background:#1A3326; }
+.niveau-3 { background:#2A1510; }
+.niveau-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:8px; }
+.niveau-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); margin-bottom:16px; line-height:1.3; }
+.niveau-item { display:flex; gap:12px; margin-bottom:13px; align-items:flex-start; }
+.niveau-arrow { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; color:var(--gold); flex-shrink:0; margin-top:2px; }
+.niveau-text { font-size:13px; color:rgba(255,255,255,0.82); line-height:1.55; }
+.niveau-text strong { color:var(--white); }
+
+/* Divider */
+.divider { display:flex; align-items:center; gap:14px; margin:44px 0 36px; }
+.divider::before,.divider::after { content:''; flex:1; height:1px; background:var(--rule); }
+.divider span { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+
+/* ══════════════════════════════
+   LEAP INSERTS — grille optionnelle
+══════════════════════════════ */
+.leap-toggle-bar {
+  display:flex; align-items:center; gap:12px;
+  margin:36px 0 0;
+  max-width:640px;
+  padding:10px 16px;
+  background:var(--white);
+  border:1px solid var(--rule);
+  cursor:pointer;
+  user-select:none;
+  transition:border-color 0.2s;
+}
+.leap-toggle-bar:hover { border-color:var(--ink); }
+.leap-toggle-bar.open { border-color:var(--a); border-left:3px solid var(--a); }
+
+.ltb-icon { font-size:16px; }
+.ltb-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+.ltb-label.open { color:var(--a); }
+.ltb-chevron { margin-left:auto; font-size:12px; color:var(--muted); transition:transform 0.25s; }
+.ltb-chevron.open { transform:rotate(180deg); color:var(--a); }
+
+.leap-insert {
+  max-width:640px;
+  overflow:hidden;
+  max-height:0;
+  transition:max-height 0.4s ease, opacity 0.3s ease;
+  opacity:0;
+}
+.leap-insert.open { max-height:1200px; opacity:1; }
+
+.leap-box {
+  border:1px solid var(--rule);
+  border-top:none;
+  border-left:3px solid var(--a);
+  background:#FDF9F5;
+  padding:20px 24px 20px 20px;
+  margin-bottom:16px;
+}
+.lb-header { display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; }
+.lb-letter { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; line-height:1; flex-shrink:0; }
+.lb-meta {}
+.lb-layer { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:2px; }
+.lb-name { font-size:14px; font-weight:600; color:var(--ink); }
+.lb-body { font-family:'Barlow',sans-serif; font-size:13px; color:#555; line-height:1.6; }
+.lb-body strong { color:var(--ink); font-weight:600; }
+
+.leap-verrou {
+  display:flex; gap:12px; align-items:flex-start;
+  padding:12px 16px;
+  background:#FFFBF0;
+  border:1px solid #E8D5A0;
+  margin-top:10px;
+}
+.lv-icon { font-size:14px; flex-shrink:0; margin-top:2px; }
+.lv-name { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
+.lv-text { font-size:12px; color:#666; line-height:1.5; }
+
+.lb-letter.l { color:var(--l); } .lb-layer.l { color:var(--l); }
+.lb-letter.e { color:var(--e); } .lb-layer.e { color:var(--e); }
+.lb-letter.a { color:var(--a); } .lb-layer.a { color:var(--a); }
+.lb-letter.p { color:var(--p); } .lb-layer.p { color:var(--p); }
+
+.leap-pills-row { display:flex; gap:6px; flex-wrap:wrap; margin:14px 0 0; }
+.lpr-pill { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:1px; padding:3px 10px; border:1px solid var(--rule); color:var(--muted); }
+.lpr-pill.active { background:var(--a); border-color:var(--a); color:var(--white); }
+
+/* ── SIDEBAR ── */
+.sidebar { padding:48px 28px; background:var(--white); position:sticky; top:106px; height:fit-content; align-self:start; }
+.sb-section { margin-bottom:36px; padding-bottom:36px; border-bottom:1px solid var(--rule); }
+.sb-section:last-child { border-bottom:none; margin-bottom:0; }
+.sb-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+
+/* Mini LEAP nav */
+.mini-leap { display:flex; flex-direction:column; gap:2px; }
+.ml-item { display:flex; gap:10px; padding:9px 10px; align-items:center; cursor:default; }
+.ml-item.hl { background:#FFF0F0; border-left:3px solid var(--a); }
+.ml-L { color:var(--l); } .ml-E { color:var(--e); } .ml-A { color:var(--a); } .ml-P { color:var(--p); }
+.ml-letter { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; line-height:1; width:26px; flex-shrink:0; }
+.ml-name { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:1px; }
+.ml-sub { font-size:11px; color:var(--muted); line-height:1.3; }
+
+/* Chiffres */
+.sb-stat { margin-bottom:18px; }
+.ss-val { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--ink); line-height:1; }
+.ss-val em { font-style:normal; font-size:18px; color:var(--red); }
+.ss-label { font-size:12px; color:var(--muted); line-height:1.4; margin-top:3px; }
+.ss-src { font-size:10px; color:#bbb; font-style:italic; margin-top:1px; }
+
+/* CTA */
+.cta-box { background:var(--ink); padding:18px; }
+.cta-box .sb-label { color:rgba(255,255,255,0.35); }
+.cta-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--white); margin-bottom:7px; line-height:1.3; }
+.cta-desc { font-size:12px; color:rgba(255,255,255,0.55); line-height:1.5; margin-bottom:14px; }
+.cta-btn { display:block; text-align:center; background:var(--red); color:var(--white); font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:9px 14px; border:none; width:100%; cursor:pointer; }
+.cta-btn:hover { opacity:0.85; }
+
+/* Next */
+.next-box { border:1px solid var(--rule); padding:14px; }
+.nb-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
+.nb-title { font-size:13px; font-weight:600; color:var(--ink); line-height:1.3; margin-bottom:3px; }
+.nb-sub { font-size:11px; color:var(--muted); }
+
+/* ══════════════════════════════
+   ARCHITECTURE MODULAIRE
+══════════════════════════════ */
+.module-nav {
+  background: var(--ink); padding: 0 64px;
+  display: flex; align-items: center; gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  position: sticky; top: 53px; z-index: 99;
+  overflow-x: auto;
+}
+.mn-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-right: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer; text-decoration: none; transition: background 0.15s; white-space: nowrap; flex-shrink: 0;
+}
+.mn-item:hover { background: rgba(255,255,255,0.05); }
+.mn-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase; padding:2px 7px; }
+.mn-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); }
+.mn-time  { font-size:10px; color:rgba(255,255,255,0.3); }
+
+/* VERDICT */
+.verdict-block { background:var(--ink); padding:28px 64px; max-width:1080px; margin:0 auto; border-bottom:3px solid var(--red); }
+.vb-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.vb-label::before { content:''; display:block; width:20px; height:1px; background:var(--red); }
+.vb-text { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; font-style:italic; color:var(--white); line-height:1.45; max-width:740px; }
+.vb-sub  { font-size:12px; color:rgba(255,255,255,0.4); margin-top:10px; font-style:italic; }
+
+/* BRIEF */
+.brief-block { background:white; border-bottom:1px solid var(--rule); padding:0 64px; max-width:1080px; margin:0 auto; }
+.brief-header { padding:14px 0 12px; display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--rule); }
+.bh-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.bh-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:2px 8px; background:#F0EDE8; color:var(--muted); }
+.bh-time  { font-size:10px; color:var(--muted); margin-left:auto; }
+.brief-inner { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-left:1px solid var(--rule); border-right:1px solid var(--rule); }
+.brief-cell { padding:24px 24px; border-right:1px solid var(--rule); border-bottom:3px solid transparent; transition:border-bottom-color 0.2s; }
+.brief-cell:last-child { border-right:none; }
+.brief-cell:hover { border-bottom-color:var(--red); }
+.bc-num   { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; color:var(--rule); line-height:1; margin-bottom:8px; }
+.bc-title { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:8px; }
+.bc-text  { font-size:13px; color:#555; line-height:1.6; }
+.bc-text strong { font-weight:700; color:var(--ink); }
+
+/* SÉPARATEUR ANALYSE */
+.analyse-header { max-width:1080px; margin:0 auto; padding:16px 64px; display:flex; align-items:center; gap:14px; border-bottom:1px solid var(--rule); background:var(--paper); }
+.ah-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.ah-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:2px 8px; background:var(--ink); color:var(--paper); }
+.ah-desc  { font-size:11px; color:var(--muted); }
+.ah-time  { font-size:10px; color:var(--muted); margin-left:auto; }
+
+/* RESSOURCES */
+.ressources-block { max-width:1080px; margin:0 auto; padding:36px 64px; border-top:1px solid var(--rule); background:white; }
+.rb-header { display:flex; align-items:center; gap:14px; margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--rule); }
+.rb-label  { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.rb-note   { font-size:12px; color:var(--muted); margin-left:auto; font-style:italic; }
+.rb-grid   { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.rb-item   { padding:14px 16px; border:1px solid var(--rule); display:flex; flex-direction:column; gap:4px; }
+.ri-type   { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); }
+.ri-title  { font-size:13px; font-weight:600; color:var(--ink); line-height:1.35; }
+.ri-source { font-size:11px; color:var(--muted); }
+
+
+/* ── GRAPHIQUES ── */
+.graphique-block { background:var(--white); border:1px solid var(--rule); border-left:4px solid var(--red); padding:20px 24px; margin:28px 0; max-width:640px; }
+.graphique-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:14px; }
+/* ── FOOTER ── */
+.footer { border-top:3px double var(--ink); padding:20px 64px; display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; }
+.f-brand { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; }
+.f-copy { font-size:11px; color:var(--muted); }
+.f-url { font-size:11px; color:var(--red); font-weight:600; }
+
+@media(max-width:820px){
+  .wrap { grid-template-columns:1fr; }
+  .article { padding:32px 24px; border-right:none; border-bottom:1px solid var(--rule); }
+  .sidebar { padding:32px 24px; }
+  .masthead,.hero,.footer { padding-left:24px; padding-right:24px; }
+  .hero-title { font-size:36px; }
+  .hero-time { margin-left:0; }
+  .module-nav { padding:0 16px; top:48px; }
+  .verdict-block,.brief-block,.analyse-header,.ressources-block { padding-left:24px; padding-right:24px; }
+  .brief-inner { grid-template-columns:1fr; }
+  .brief-cell { border-right:none; border-bottom:1px solid var(--rule); }
+  .rb-grid { grid-template-columns:1fr; }
+}
+
+
+/* ── Gate CSS ── */
+.uca-gate {
+  padding: 28px 36px 32px; max-width: 640px;
+  background: var(--ink, #0A0A14);
+  margin-top: 0; border-radius: 2px;
+}
+.uca-gate-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold, #B8973A); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.uca-gate-eyebrow::before {
+  content: ''; width: 20px; height: 1px; background: var(--gold, #B8973A); flex-shrink: 0;
+}
+.uca-gate-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px,2.5vw,26px); font-weight: 700; line-height: 1.25;
+  color: #fff; margin-bottom: 8px;
+}
+.uca-gate-title em       { font-style: italic; color: var(--red, #C8102E); }
+.uca-gate-title .em-gold { font-style: italic; color: var(--gold, #B8973A); }
+.uca-gate-sub {
+  font-family: 'Lora', serif; font-size: 14px;
+  color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 20px;
+}
+.uca-gate-form { display: flex; max-width: 400px; margin-bottom: 10px; }
+.uca-gate-form input {
+  flex: 1; padding: 13px 16px;
+  border: 1px solid var(--rule, #E0DDD8); border-right: none;
+  font-size: 14px; font-family: 'Barlow', sans-serif; background: #fff; outline: none; min-width: 0;
+}
+.uca-gate-form button {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 13px 20px; background: var(--red, #C8102E); color: #fff; border: none; cursor: pointer;
+}
+.uca-gate-btn-gold {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 13px 28px; background: var(--gold, #B8973A); color: var(--ink, #0A0A14);
+  text-decoration: none; margin-bottom: 10px; transition: opacity 0.2s;
+}
+.uca-gate-btn-gold:hover { opacity: 0.88; }
+.uca-gate-note { font-family: 'Barlow', sans-serif; font-size: 11px; color: rgba(255,255,255,0.4); }
+.uca-gated-nl                       { display: none; }
+.uca-gated-nl        { display: block !important; }
+.uca-gate-nl                        { display: block; }
+.uca-gate-nl         { display: none !important; }
+
+.uca-gate-form { flex-direction: column; }
+.uca-gate-form input  { border-right: 1px solid var(--rule); border-bottom: none; }
+.uca-gate-form button { width: 100%; }
+
+/* ── Dossier : masquage / affichage ── */
+.uca-gated-dossier                     { display: none; overflow: hidden; }
+body.has-premium .uca-gated-dossier    { display: block !important; }
+.uca-gate-dossier                      { display: block !important; }
+body.has-premium .uca-gate-dossier     { display: none !important; }
+
+/* ── ANIMATION ONGLETS NAVIGATION ── */
+@keyframes ucaGlowGold {
+  0%   { background: rgba(184,151,58,0);    color: inherit; }
+  20%  { background: rgba(184,151,58,0.22); color: #B8973A; border-color: rgba(184,151,58,0.7); }
+  80%  { background: rgba(184,151,58,0.22); color: #B8973A; border-color: rgba(184,151,58,0.7); }
+  100% { background: rgba(184,151,58,0);    color: inherit; }
+}
+.mn-item.uca-glow { animation: ucaGlowGold 2.5s ease-in-out forwards; }
+.mn-item { position: relative; }
+/* Tooltip survol */
+.mn-item::after {
+  content: 'Naviguer par section';
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10,10,20,0.92);
+  color: var(--gold, #B8973A);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 5px 12px;
+  pointer-events: none;
+  z-index: 300;
+  border: 1px solid rgba(184,151,58,0.4);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.mn-item:hover::after { opacity: 1; }
+/* Badge "Naviguez ici" visible 3 sec au chargement */
+#uca-nav-hint {
+  position: fixed;
+  z-index: 9000;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #B8973A;
+  background: rgba(10,10,20,0.92);
+  border: 1px solid rgba(184,151,58,0.5);
+  padding: 6px 16px;
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+</style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="L’IA Agentique — Dossier N°2 | Un Cran d’Avance">
+  <meta property="og:description" content="Du chatbot a l’agent autonome. Ce qui arrive maintenant est structurellement different.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/dossier-2026-02-agentique.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="L’IA Agentique — Dossier N°2 | Un Cran d’Avance">
+  <meta name="twitter:description" content="Du chatbot a l’agent autonome. Ce qui arrive maintenant est structurellement different.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/dossier-2026-02-agentique.html">
+  <meta name="description" content="L'IA Agentique - Dossier N°2 | Un Cran d'Avance. Du chatbot a l'agent autonome. Ce qui arrive maintenant est structurellement different.">
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <a href="index.html" class="m-brand" style="text-decoration:none;color:inherit;">✦ Un Cran d'Avance</a>
+  <div class="m-tag">Dossier Mensuel</div>
+  <div class="m-meta">Février 2026</div>
+</div>
+
+<!-- BARRE DE NAVIGATION MODULAIRE -->
+<nav class="module-nav">
+  <a class="mn-item" href="#verdict">
+    <span class="mn-badge" style="background:var(--red);color:white;">① 45s</span>
+    <span class="mn-label">Verdict</span>
+  </a>
+  <a class="mn-item" href="#brief">
+    <span class="mn-badge" style="background:#444;color:white;">② 3 min</span>
+    <span class="mn-label">Le brief</span>
+  </a>
+  <a class="mn-item" href="#analyse">
+    <span class="mn-badge" style="background:var(--a);color:white;">③ 10 min</span>
+    <span class="mn-label">L'analyse complète</span>
+  </a>
+  <a class="mn-item" href="#ressources">
+    <span class="mn-badge" style="background:#2A5C2A;color:white;">④ Sur demande</span>
+    <span class="mn-label">Sources & ressources</span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-kicker">Dossier mensuel · Abonnés Premium · Février 2026 · Couche A — LEAP™</div>
+  <h1 class="hero-title">L'IA Agentique :<br><em>Ce qui change</em><br>quand c'est le système qui décide.</h1>
+  <p class="hero-deck">Ce qui arrive maintenant est structurellement différent. L'IA agentique n'est pas une version améliorée des outils que vous connaissez — c'est le passage d'un système qui répond à un système qui décide. Et quand c'est le système qui décide, la question de la responsabilité change de nature.</p>
+  <div class="hero-row">
+    <div class="hero-chip filled">Dossier N°1</div>
+    <div class="hero-chip">Tous secteurs</div>
+    <div class="hero-chip">Couche A — LEAP™</div>
+    <div class="hero-time">① 45s · ② 3 min · ③ 10 min · ④ Sources</div>
+  </div>
+</div>
+
+<!-- INTRO AUTEUR -->
+<div style="max-width:1080px; margin:0 auto; padding:32px 64px 28px; border-bottom:1px solid var(--rule);">
+  <div style="display:flex; gap:16px; align-items:flex-start; max-width:680px;">
+    <img src="aziz-el-kihel.png" style="width:44px; height:44px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--rule);" alt="">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">Un mot avant de commencer</div>
+      <p style="font-family:'Lora',serif; font-size:14px; color:#555; line-height:1.8; margin:0 0 10px;">En janvier, on a posé le cadre — les deux questions fondamentales, le cadre LEAP™, et pourquoi 2026 est l'année où l'IA devient un sujet de direction. Ce deuxième dossier va plus loin sur le sujet qui revient le plus dans vos réponses : l'IA agentique. Tout le monde en parle, presque personne ne comprend vraiment ce que ça change. Pas par manque d'intérêt — par excès de bruit. Ce dossier est ma tentative de réponse concrète. Pas de prospective — des cas documentés, des chiffres réels, et un chemin gradué selon votre couche LEAP™.</p>
+      <div style="margin-top:12px; font-size:12px; font-weight:600; color:var(--ink);">Aziz El Kihel <span style="font-weight:400; color:var(--muted);">· Fondateur, Un Cran d'Avance</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT — 45 secondes -->
+<div id="verdict" class="verdict-block">
+  <div class="vb-label">① Le verdict — 45 secondes</div>
+  <div class="vb-text">"L'IA agentique n'est pas une question technologique. C'est une question de gouvernance : qui décide, qui risque, qui capture la valeur — quand c'est l'agent qui agit."</div>
+  <div class="vb-sub">Si vous ne retenez qu'une chose de ce dossier, c'est celle-là. Le reste est la démonstration.</div>
+</div>
+
+<!-- BRIEF — 3 minutes -->
+<div id="brief" class="brief-block">
+  <div class="brief-header">
+    <span class="bh-label">② Le brief</span>
+    <span class="bh-badge">Ce qui se passe · Pourquoi maintenant · Ce que ça change pour vous</span>
+    <span class="bh-time">⏱ 3 minutes</span>
+  </div>
+  <div class="brief-inner">
+    <div class="brief-cell">
+      <div class="bc-num">01</div>
+      <div class="bc-title">Ce qui se passe</div>
+      <div class="bc-text">L'IA conversationnelle répond à vos questions. L'IA agentique <strong>agit à votre place</strong> — elle reçoit un objectif, s'organise, exécute, vérifie, ajuste. Sans attendre que vous la relancez. La différence n'est pas de degré. Elle est de nature.</div>
+    </div>
+    <div class="brief-cell">
+      <div class="bc-num">02</div>
+      <div class="bc-title">Pourquoi maintenant</div>
+      <div class="bc-text"><strong>40 % des logiciels que vous utilisez déjà</strong> intégreront des agents d'ici fin 2026 (Gartner). Vous n'aurez pas à les acheter. Ils arriveront dans votre interface habituelle. Et KPMG vient d'imposer une baisse de 14 % à Grant Thornton au motif de l'efficacité IA — le premier précédent tarifaire documenté.</div>
+    </div>
+    <div class="brief-cell">
+      <div class="bc-num">03</div>
+      <div class="bc-title">Ce que ça change pour vous</div>
+      <div class="bc-text">Deux vitesses s'installent. Les organisations avec une stratégie IA formalisée sont <strong>3 à 4 fois plus susceptibles</strong> d'en tirer des bénéfices mesurables. 16 % des firmes juridiques ont déjà déployé des agents à l'échelle. Les autres regardent. L'écart se creuse maintenant.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SÉPARATEUR ANALYSE -->
+<div id="analyse" class="analyse-header">
+  <span class="ah-label">③ L'analyse complète</span>
+  <span class="ah-badge">7 sections · Cas documentés · Plan d'action LEAP · Cadres DRIVEN™</span>
+  <span class="ah-desc">Pour ceux qui veulent comprendre avant de décider.</span>
+  <span class="ah-time">⏱ ~10 minutes</span>
+</div>
+
+<!-- CONTENT -->
+<div class="wrap">
+<div class="article">
+
+<!-- ════════════════════════════════
+     01 — LE CONCEPT
+════════════════════════════════ -->
+<div class="section-num">01</div>
+<h2 class="section-title">Le concept expliqué simplement</h2>
+
+<p>L'IA que vous utilisez aujourd'hui — ChatGPT, Copilot, Claude — fonctionne en mode conversationnel. Vous posez une question. Elle répond. Vous donnez une instruction. Elle exécute. Chaque échange est isolé. L'outil attend que vous agissiez.</p>
+
+<p>L'IA agentique fonctionne différemment. Elle reçoit un <strong>objectif</strong> — pas une instruction — et elle s'organise pour l'atteindre de façon autonome. Elle observe son environnement, prend des décisions, exécute des actions, vérifie les résultats, et ajuste sa stratégie en cours de route. Sans attendre que vous la relancez à chaque étape.</p>
+
+<div class="pull-quote">Pensez à la différence entre un stagiaire qui attend qu'on lui dise quoi faire et un collaborateur senior à qui vous confiez un dossier en lui disant : « Règle ça d'ici vendredi. »</div>
+
+<p><strong>Ce que ça veut dire concrètement.</strong> Dans une direction financière : l'agent reçoit un dossier de clôture, détecte les écritures manquantes, réclame les pièces automatiquement, réalise la réconciliation, prépare le reporting, le soumet à révision humaine, et archive le tout avec piste d'audit — sans qu'un collaborateur ait coordonné chacune de ces étapes.</p>
+
+<p>Dans un cabinet juridique : un agent surveille les échéances de renouvellement de contrats, analyse les clauses à risque, prépare un résumé des points d'attention pour l'avocat, et génère un premier projet de redline — le tout avant que l'avocat ouvre le dossier.</p>
+
+<div class="callout">
+  <div class="callout-label">Distinction technique à retenir</div>
+  <p>L'IA générative <em>crée du contenu</em>. L'IA agentique <em>agit sur le monde</em>. C'est la différence entre un outil qui écrit un courriel pour vous et un système qui envoie le courriel, suit la réponse, met à jour votre CRM, et planifie le suivi — parce que vous lui avez dit d'assurer le suivi de cette opportunité jusqu'à conclusion.</p>
+</div>
+
+<!-- LEAP INSERT 1 — après la définition -->
+<div class="leap-toggle-bar" onclick="toggleLeap('leap1')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label1">Cadre LEAP™ — Lire la grille de lecture</span>
+  <span class="ltb-chevron" id="ltb-chevron1">▼</span>
+</div>
+<div class="leap-insert" id="leap1">
+  <div class="leap-box">
+    <div class="lb-header">
+      <div class="lb-letter l">L</div>
+      <div class="lb-meta">
+        <div class="lb-layer l">Couche 1 · Local</div>
+        <div class="lb-name">L'IA conversationnelle décrite dans cette section, c'est la couche L</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      Ce que vous utilisez aujourd'hui — ChatGPT, Copilot, usage individuel — se situe en <strong>couche L</strong> du Cadre LEAP™. C'est de l'adoption non gouvernée : des individus utilisent des outils IA sans coordination organisationnelle. L'avantage concurrentiel est limité car votre concurrent fait exactement la même chose.
+    </div>
+    <div class="leap-pills-row">
+      <span class="lpr-pill active">L — Local ◀ ici</span>
+      <span class="lpr-pill">E — Efficiency</span>
+      <span class="lpr-pill">A — Agentique</span>
+      <span class="lpr-pill">P — Pivot</span>
+    </div>
+  </div>
+  <div class="leap-box" style="border-left-color:var(--a);">
+    <div class="lb-header">
+      <div class="lb-letter a">A</div>
+      <div class="lb-meta">
+        <div class="lb-layer a">Couche 3 · Agentique</div>
+        <div class="lb-name">L'IA agentique décrite dans ce dossier, c'est la couche A</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      L'IA agentique représente le saut de la <strong>couche L/E vers la couche A</strong>. On ne délègue plus une tâche — on délègue une responsabilité. C'est le stade où l'avantage concurrentiel devient structurel et difficile à répliquer rapidement. Ce dossier vous explique ce que ça prend pour y arriver.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     02 — POURQUOI MAINTENANT
+════════════════════════════════ -->
+<div class="divider"><span>Contexte de marché</span></div>
+<div class="section-num">02</div>
+<h2 class="section-title">Pourquoi ça change quelque chose maintenant</h2>
+
+<div class="stat-hero">40%</div>
+<div class="stat-label">des applications d'entreprise intégreront des agents IA spécialisés d'ici fin 2026 — contre moins de 5 % aujourd'hui. (Gartner, 2025)</div>
+<div class="graphique-block">
+  <div class="graphique-label">Adoption de l'IA agentique — Trois niveaux de maturité 2026</div>
+  <div style="position:relative; width:100%; height:200px;">
+    <canvas id="adoptionChart"></canvas>
+  </div>
+  <div style="display:flex; gap:20px; margin-top:10px; font-size:11px; color:var(--muted); flex-wrap:wrap;">
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;background:#2C5282;border-radius:2px;display:inline-block;"></span>Expérimentent (39%)</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;background:#9C4221;border-radius:2px;display:inline-block;"></span>Déploient à l'échelle (23%)</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;background:#C8102E;border-radius:2px;display:inline-block;"></span>Cadre de gouvernance formel (14%)</span>
+  </div>
+</div>
+
+
+<p>Ce chiffre est plus radical qu'il n'y paraît. Il ne dit pas que 40 % des organisations utiliseront l'IA. Il dit que <strong>40 % des logiciels que vous utilisez déjà</strong> — votre ERP, votre CRM, votre logiciel de gestion — auront des agents intégrés d'ici la fin de l'année. Vous n'aurez pas à les acheter séparément. Ils arriveront dans votre interface habituelle.</p>
+
+<div class="pull-quote">La question n'est plus « allons-nous adopter l'IA agentique ? » mais « sommes-nous prêts à en tirer parti quand elle arrivera dans nos outils ? »</div>
+
+<p><strong>Le précédent KPMG–Grant Thornton.</strong> En février 2026, KPMG a exigé de Grant Thornton une réduction de 14 % de ses honoraires d'audit — au motif que l'IA réduisait désormais le temps de travail requis. Grant Thornton a accepté. C'est le premier précédent documenté d'un client exigeant une réduction tarifaire directement liée à l'efficacité de l'IA.</p>
+
+<p>Pour les grandes organisations, ce précédent est un signal d'alarme : vos clients et partenaires commencent à comprendre que l'IA compresse vos coûts. <strong>La pression sur les tarifs n'est plus une question théorique.</strong></p>
+
+<p><strong>Deux vitesses, une fracture qui s'accélère.</strong> Le rapport Thomson Reuters 2026 documente une fracture nette dans les secteurs juridique, comptable et conseil. Les organisations qui ont formalisé une stratégie IA sont trois à quatre fois plus susceptibles d'en tirer des bénéfices mesurables. 30 % des professionnels juridiques utilisent déjà l'IA plusieurs fois par jour, mais seulement 16 % des firmes ont déployé de l'IA agentique à l'échelle organisationnelle.</p>
+
+<!-- LEAP INSERT 2 — après les signaux marché -->
+<div class="leap-toggle-bar" onclick="toggleLeap('leap2')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label2">Cadre LEAP™ — Ce que ces signaux révèlent sur la maturité du marché</span>
+  <span class="ltb-chevron" id="ltb-chevron2">▼</span>
+</div>
+<div class="leap-insert" id="leap2">
+  <div class="leap-box" style="border-left-color:var(--p);">
+    <div class="lb-header">
+      <div class="lb-letter p">P</div>
+      <div class="lb-meta">
+        <div class="lb-layer p">Couche 4 · Pivot</div>
+        <div class="lb-name">Le précédent KPMG–Grant Thornton est un signal de couche P</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      KPMG n'a pas juste utilisé l'IA — il a <strong>redéfini la valeur des honoraires d'audit en conséquence</strong>. C'est exactement ce que fait un Disrupteur en couche P : il transforme l'avantage opérationnel acquis en couche A en pression économique sur ses partenaires et concurrents. Ce précédent est la preuve que la compression tarifaire IA ne vient pas de la technologie — elle vient des organisations qui ont franchi toutes les couches.
+    </div>
+    <div class="leap-verrou">
+      <div class="lv-icon">🔒</div>
+      <div>
+        <div class="lv-name">Verrou A → P · Identité</div>
+        <div class="lv-text">Redéfinir ce que vous vendez, à qui, à quel prix — c'est ce que KPMG a fait. La plupart des dirigeants reportent cette décision jusqu'à ce qu'un concurrent les y force. Dossier Premium — août 2026.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     03 — CE QUE ÇA CHANGE POUR LES GRANDES ORGANISATIONS
+════════════════════════════════ -->
+<div class="divider"><span>Impact organisationnel</span></div>
+<div class="section-num">03</div>
+<h2 class="section-title">Ce que ça change pour les grandes organisations</h2>
+
+<p>Dans une grande organisation, l'IA agentique n'arrive pas par un projet de transformation. Elle arrive par les outils — une mise à jour de Microsoft 365, une nouvelle fonctionnalité Salesforce, un module activé par défaut dans votre ERP. Vos équipes commencent à l'utiliser avant que la direction ait décidé si c'était une bonne idée. C'est la caractéristique la plus importante à comprendre : <strong>dans les grandes organisations, l'IA agentique ne demande pas la permission.</strong></p>
+
+<p>Ce qui change selon la direction :</p>
+
+<p><strong>Direction des opérations.</strong> Les agents prennent en charge les workflows de coordination — collecte de pièces, relances, escalades, reporting. Ce qui consommait 40% du temps d'une équipe devient une surveillance d'exception. La question n'est pas "est-ce que l'agent fait bien le travail" — c'est "qui décide quand l'agent a tort et comment on le sait ?"</p>
+
+<p><strong>Direction RH.</strong> Les agents gèrent déjà des premières interactions candidats dans certaines organisations — tri de CV, planification d'entretiens, réponses automatisées. L'EU AI Act classe ces systèmes en risque élevé. Les organisations qui les ont déployés sans registre ni propriétaire nommé ont une exposition réglementaire qu'elles n'ont pas encore mesurée.</p>
+
+<p><strong>Direction juridique et conformité.</strong> Les agents accélèrent la revue contractuelle et la veille réglementaire. Mais ils créent aussi un nouveau risque : des analyses produites par un système que personne ne peut auditer. Dans un contexte réglementaire en évolution rapide, l'incapacité à expliquer comment une décision a été prise est un risque en soi.</p>
+
+<p><strong>Direction financière.</strong> Les agents de réconciliation, de clôture automatisée, de préparation des reportings sont déjà en production dans plusieurs grandes organisations. Le signal qui revient systématiquement : les gains de productivité sont réels, mais le retravail sur les exceptions non gérées par l'agent absorbe une partie significative du gain.</p>
+
+<div class="pull-quote">Dans chaque direction, la question de l'IA agentique n'est pas "est-ce que ça marche ?" — c'est "est-ce que je sais ce que ça fait quand ça ne marche pas ?"</div>
+
+<p>Ce que ces quatre directions ont en commun : elles déploient des agents sur des processus à conséquences réelles — pour des collaborateurs, des clients, des régulateurs. Et dans la grande majorité des cas, elles n'ont pas encore répondu à la question de la responsabilité. Pas par négligence — par absence de cadre.</p>
+
+<div class="callout">
+  <div class="callout-label">Observation terrain — Février 2026</div>
+  <p>Dans une grande organisation de services financiers européenne, un audit interne révèle en janvier 2026 que 7 agents IA sont actifs en production dans 3 directions différentes. Aucun n'a de propriétaire formel nommé. Deux ont été déployés sans passer par la DSI. La direction générale n'en connaissait que 3. Ce n'est pas un cas isolé — c'est le pattern le plus fréquent que j'observe dans les grandes organisations en 2026.</p>
+</div>
+
+<!-- LEAP INSERT 3 — après l'impact organisationnel -->
+<div class="leap-toggle-bar" onclick="toggleLeap('leap3')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label3">Cadre LEAP™ — Où se situent ces directions dans la progression</span>
+  <span class="ltb-chevron" id="ltb-chevron3">▼</span>
+</div>
+<div class="leap-insert" id="leap3">
+  <div class="leap-box" style="border-left-color:var(--e);">
+    <div class="lb-header">
+      <div class="lb-letter e">E</div>
+      <div class="lb-meta">
+        <div class="lb-layer e">Couche 2 · Efficiency</div>
+        <div class="lb-name">La réconciliation automatisée, la revue contractuelle = couche E</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      Les cas décrits dans les directions financières et juridiques sont majoritairement de <strong>couche E</strong> — automatisation de processus répétitifs avec ROI mesurable. Excellents premiers pas, mais ce ne sont pas encore des agents IA au sens strict. La distinction compte : un processus automatisé suit des règles fixes. Un agent adapte son comportement en fonction du contexte. Le verrou E→A est précisément là.
+    </div>
+  </div>
+  <div class="leap-box" style="border-left-color:var(--a);">
+    <div class="lb-header">
+      <div class="lb-letter a">A</div>
+      <div class="lb-meta">
+        <div class="lb-layer a">Couche 3 · Agentique</div>
+        <div class="lb-name">Les agents RH, opérations, coordination = couche A</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      Les agents qui gèrent des workflows entiers — tri de candidats, gestion des exceptions, coordination inter-équipes — sont en <strong>couche A</strong>. C'est là que la question de la responsabilité devient non négociable. Un agent qui agit sur des décisions à conséquence humaine (recrutement, conformité, relation client) sans propriétaire nommé est une exposition réglementaire et reputationnelle que peu d'organisations ont chiffrée.
+      <div class="leap-verrou" style="margin-top:10px;">
+        <div class="lv-icon">🔒</div>
+        <div>
+          <div class="lv-name">Verrou E → A · Intégration et responsabilité</div>
+          <div class="lv-text">Le verrou n'est pas technique — c'est organisationnel. Qui décide ce que l'agent peut faire ? Qui le sait quand il dérive ? Qui peut l'arrêter sans validation hiérarchique ?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin:32px 0 0;max-width:640px;border:1px solid var(--rule);overflow:hidden;">
+  <div style="background:var(--ink);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);">Cadre analytique · DRIVEN™</span>
+    <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:1px;">6 axes · Réservé Premium</span>
+  </div>
+  <div style="padding:16px 20px;background:#FAFAF7;">
+    <p style="font-family:'Lora',serif;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Le cadre DRIVEN™ audite votre organisation sur 6 dimensions. L'analyse complète est dans la suite du dossier.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">D</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Décision — Où est le pouvoir décisionnel ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">R</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Risque — Qui porte le risque réel ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">I</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Impact valeur — Qui capture la valeur créée ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">V</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Vulnérabilité — Où est la dépendance structurelle ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">E</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Engagement — Qui est responsable quand ça échoue ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">N</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Nécessité humaine — Les finances et les équipes suivent-elles ?</span>
+      </div>
+    </div>
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:12px;text-align:center;">↓ L'application à votre situation est dans la suite du dossier</p>
+  </div>
+</div>
+
+<div class="uca-fadeout-wrap">
+  <p style="font-family:'Lora',serif;font-size:15px;color:rgba(10,10,20,0.18);line-height:1.8;pointer-events:none;">Le cadre d'analyse complet, les données terrain, les priorités 90 jours et la roadmap applicable vous attendent dans la suite de ce dossier…</p>
+</div>
+
+<div class="uca-gate-dossier uca-gate" id="gate-dossier-block">
+  <div class="uca-gate-eyebrow">Réservé aux membres Premium</div>
+  <h3 class="uca-gate-title">Il reste <span class="em-gold">60% de ce dossier.</span></h3>
+    <ul style="list-style:none;margin:0 0 20px;padding:0;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;">
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 04 — Les leaders qui font les bons choix : cas documentés</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 05 — Par où commencer si vous voulez agir</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 05b — La roadmap : 90 jours pour votre premier déploiement agentique</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 06 — Ce que ça coûte vraiment · § 07 — Impact sur vos équipes</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 08 — Ce que vous faites lundi matin</span></li>
+  </ul>
+  <a href="https://buy.stripe.com/3cI4gz1Gf2kDgD4914gUM00" class="uca-gate-btn-gold">Rejoindre Premium →</a>
+  <a href="page-vente.html" style="display:block;margin-top:8px;font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,0.35);text-decoration:none;text-align:center;">En savoir plus sur l'offre →</a>
+  <div class="uca-gate-note" style="margin-top:8px;">Accès immédiat aux 4 dossiers · 199€/an · Offre fondateurs jusqu'au 31 mai</div>
+</div>
+
+
+
+</div><!-- /article -->
+
+
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+  <!-- INTRO LEAP — pour les nouveaux lecteurs -->
+  <div class="sb-section">
+    <div style="background:var(--ink); padding:16px; margin-bottom:12px;">
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:10px;">Nouveau ? Le Cadre LEAP™ en 30 secondes</div>
+      <div style="font-family:'Barlow',sans-serif; font-size:12px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:12px;">LEAP mesure où en est votre organisation dans sa transformation IA. Quatre couches, quatre réalités :</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; gap:10px; align-items:baseline;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--l); flex-shrink:0; width:16px;">L</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.55); line-height:1.4;"><strong style="color:rgba(255,255,255,0.8);">Local</strong> — Vous utilisez l'IA individuellement, sans coordination.</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:baseline;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--e); flex-shrink:0; width:16px;">E</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.55); line-height:1.4;"><strong style="color:rgba(255,255,255,0.8);">Efficiency</strong> — Vous automatisez des processus répétitifs.</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:baseline; background:rgba(156,66,33,0.2); margin:0 -8px; padding:6px 8px;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--a); flex-shrink:0; width:16px;">A</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.75); line-height:1.4;"><strong style="color:white;">Agentique</strong> — Vous déléguez des objectifs entiers à des agents. <em style="color:var(--a);">← Ce dossier</em></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:baseline;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--p); flex-shrink:0; width:16px;">P</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.55); line-height:1.4;"><strong style="color:rgba(255,255,255,0.8);">Pivot</strong> — Vous redéfinissez votre modèle économique.</span>
+        </div>
+      </div>
+      <div style="margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08);">
+        <div style="font-size:11px; color:rgba(255,255,255,0.4); margin-bottom:6px;">Pas sûr de votre couche ?</div>
+        <a href="page-diagnostic.html" class="cta-btn" style="font-size:10px; padding:7px 12px;">Faire la Scorecard LEAP™ — 10 min →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Grille de lecture LEAP™</div>
+    <div class="mini-leap">
+      <div class="ml-item">
+        <div class="ml-letter ml-L">L</div>
+        <div><div class="ml-name ml-L">Local</div><div class="ml-sub">Usage individuel</div></div>
+      </div>
+      <div class="ml-item">
+        <div class="ml-letter ml-E">E</div>
+        <div><div class="ml-name ml-E">Efficiency</div><div class="ml-sub">Automatisation</div></div>
+      </div>
+      <div class="ml-item hl">
+        <div class="ml-letter ml-A">A</div>
+        <div><div class="ml-name ml-A">Agentique ◀</div><div class="ml-sub">Ce dossier</div></div>
+      </div>
+      <div class="ml-item">
+        <div class="ml-letter ml-P">P</div>
+        <div><div class="ml-name ml-P">Pivot</div><div class="ml-sub">Modèle économique</div></div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5;">Cliquez les encadrés <strong>⬡ Cadre LEAP™</strong> dans le texte pour activer la grille à chaque section.</p>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Chiffres du dossier</div>
+
+    <div class="sb-stat">
+      <div class="ss-val">40<em>%</em></div>
+      <div class="ss-label">des applis entreprise avec agents IA d'ici fin 2026</div>
+      <div class="ss-src">Gartner, 2025</div>
+    </div>
+    <div class="sb-stat">
+      <div class="ss-val">14<em>%</em></div>
+      <div class="ss-label">réduction honoraires imposée par KPMG à Grant Thornton</div>
+      <div class="ss-src">Février 2026</div>
+    </div>
+    <div class="sb-stat">
+      <div class="ss-val">89<em>%</em></div>
+      <div class="ss-label">réduction des erreurs dans le cas gestion de baux</div>
+      <div class="ss-src">Harvard Business Review</div>
+    </div>
+    <div class="sb-stat">
+      <div class="ss-val">16<em>%</em></div>
+      <div class="ss-label">des firmes juridiques avec IA agentique à l'échelle</div>
+      <div class="ss-src">Thomson Reuters, 2026</div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="cta-box">
+      <div class="sb-label">Outil associé</div>
+      <div class="cta-title">Scorecard LEAP™</div>
+      <div class="cta-desc">12 questions · 10 minutes · Trouvez votre couche et votre verrou prioritaire.</div>
+      <a href="page-diagnostic.html" class="cta-btn">Faire la scorecard →</a>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Prochain dossier</div>
+    <div class="next-box">
+      <div class="nb-label">Dossier Premium · Mars 2026</div>
+      <div class="nb-title">Le ROI de l'IA — Mesurer les deux côtés</div>
+      <div class="nb-sub">Gains visibles et coûts cachés — le bi-bilan IA · Couche E→A</div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Sources</div>
+    <p style="font-size:11px;color:#999;line-height:1.65;">MIT Sloan Management Review · Gartner Magic Quadrant AI 2025 · Deloitte Tech Trends 2026 · Thomson Reuters Future of Professionals 2026 · McKinsey Global AI Survey 2025 · CPA Practice Advisor · Harvard Business Review · Conseil National des Barreaux</p>
+  </div>
+
+  <!-- AUTEUR — sidebar compact -->
+  <div class="sb-section">
+    <div class="sb-label">Ce dossier est écrit par</div>
+    <div style="display:flex; gap:12px; align-items:flex-start;">
+      <img src="aziz-el-kihel.png" style="width:40px; height:40px; border-radius:50%; object-fit:cover; flex-shrink:0; border:1.5px solid var(--rule);" alt="">
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--ink); margin-bottom:3px;">Aziz El Kihel</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Fondateur · Un Cran d'Avance<br>Cadres LEAP™ et DRIVEN™</div>
+        <div style="margin-top:8px; font-size:11px; color:var(--red); font-weight:600;"><a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /sidebar -->
+</div><!-- /wrap -->
+<div class="wrap"><div class="article"><div class="uca-gated-dossier" style="display:none!important;">
+
+<!-- ════════════════════════════════
+     04 — LES LEADERS
+════════════════════════════════ -->
+<div class="divider"><span>Cas documentés</span></div>
+<div class="section-num">04</div>
+<h2 class="section-title">Ce que les organisations leaders font déjà</h2>
+
+<p><strong>Le cas DeVry University.</strong> Deloitte et Computerworld documentent comment l'institution a déployé son premier agent IA en avril 2025. En février 2026, le système gère de façon autonome plusieurs workflows critiques de l'admission à l'accompagnement étudiant. La clé de leur succès : ils ont commencé par identifier les <strong>processus à haute fréquence et faible valeur ajoutée</strong>, pas les plus complexes. Chaque agent lancé était assorti d'un ROI calculé et signé par un partenaire financier avant le déploiement.</p>
+
+<p><strong>Le cas du gestionnaire immobilier américain.</strong> Selon Harvard Business Review, un grand gestionnaire immobilier a déployé un système multi-agents pour la gestion des baux : un agent orchestrateur coordonne trois agents spécialisés — analyse documentaire, récupération de données, gouvernance. Résultat : un processus qui prenait 5 jours de travail humain distribué est maintenant complété en 4 heures, avec une réduction des erreurs de 89 %.</p>
+
+<div class="pull-quote">La leçon commune à toutes les implémentations réussies : ils n'ont pas automatisé le passé. Ils ont repensé le processus autour des capacités de l'agent.</div>
+
+<p><strong>Le signal McKinsey sur l'adoption.</strong> 39 % des organisations expérimentent actuellement des agents IA, mais seulement 23 % ont commencé à les déployer à l'échelle dans au moins une fonction. L'écart entre l'expérimentation et le déploiement réel est <strong>le territoire où se jouera la compétitivité des 24 prochains mois</strong>.</p>
+
+<!-- LEAP INSERT 4 — après les cas -->
+<div class="leap-toggle-bar" onclick="toggleLeap('leap4')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label4">Cadre LEAP™ — Ce que ces organisations ont en commun</span>
+  <span class="ltb-chevron" id="ltb-chevron4">▼</span>
+</div>
+<div class="leap-insert" id="leap4">
+  <div class="leap-box" style="border-left-color:var(--a);">
+    <div class="lb-header">
+      <div class="lb-letter a">A</div>
+      <div class="lb-meta">
+        <div class="lb-layer a">Couche 3 · Agentique</div>
+        <div class="lb-name">Ce que DeVry et le gestionnaire immobilier ont fait avant de déployer</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      Ces organisations ont toutes d'abord franchi le <strong>verrou d'intégration</strong> : elles avaient des systèmes connectés par API, des données accessibles, et des seuils de supervision définis. DeVry a mis 10 mois entre sa première expérimentation et son premier déploiement en production. Ce n'est pas de la lenteur — c'est de la méthode. Le signal McKinsey confirme : <strong>l'écart entre expérimenter et déployer est exactement là où vous pouvez prendre de l'avance.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     05 — PLAN D'ACTION
+════════════════════════════════ -->
+<div class="divider"><span>Par où commencer</span></div>
+<div class="section-num">05</div>
+<h2 class="section-title">Par où commencer si vous voulez agir</h2>
+
+<p>L'IA agentique n'exige pas un budget de grande organisation ni un département TI dédié pour commencer. Ce qui est requis, c'est une méthode.</p>
+
+<div class="niveau niveau-1">
+  <div class="niveau-label">Niveau 1 · 0–3 mois · Vous débutez</div>
+  <div class="niveau-title">Identifier votre premier processus automatisable</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Identifiez le processus le plus répétitif de votre organisation — celui qui consomme le plus de temps qualifié pour le moins de valeur ajoutée.</div></div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Testez un outil agentique grand public sur ce processus précis : <strong>Zapier AI, Microsoft Copilot Studio, ou Make</strong>. Ces plateformes permettent de créer des agents simples sans coder.</div></div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Mesurez le temps avant et après. Un ROI positif sur un seul processus est le meilleur argument interne pour aller plus loin.</div></div>
+</div>
+
+<div class="niveau niveau-2">
+  <div class="niveau-label">Niveau 2 · 3–6 mois · Vous avez déjà expérimenté</div>
+  <div class="niveau-title">Cartographier et activer ce qui est déjà payé</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Cartographiez les 5 workflows les plus coûteux en temps. Pour chacun, évaluez si un agent pourrait en prendre 60 % en charge.</div></div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Identifiez les outils déjà dans votre stack qui intègrent des agents natifs : <strong>Microsoft 365 Copilot, Salesforce Agentforce, Intapp Celeste</strong>. Vous payez peut-être déjà pour des capacités que vous n'utilisez pas.</div></div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Formez un « <strong>champion interne</strong> » — une personne dont le rôle est de comprendre et d'évaluer les options agentiques pour votre contexte.</div></div>
+</div>
+
+<div class="niveau niveau-3">
+  <div class="niveau-label">Niveau 3 · 6–12 mois · Vous êtes prêt à transformer</div>
+  <div class="niveau-title">Repenser un processus core à partir des capacités agentiques</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Repensez un processus core de votre organisation en partant des <strong>capacités agentiques</strong>, pas en automatisant le processus existant. Décomposez-le en étapes, identifiez celles qui requièrent du jugement humain, déléguez les autres.</div></div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Définissez votre <strong>cadre de gouvernance</strong> : qui peut déployer un agent, quelles données y ont accès, qui est responsable en cas d'erreur, quelle piste d'audit est requise.</div></div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Établissez des <strong>métriques de ROI claires avant le déploiement</strong> — temps récupéré, coûts évités, erreurs réduites. Ce qui n'est pas mesuré ne sera pas financé.</div></div>
+</div>
+
+
+<div class="graphique-block">
+  <div class="graphique-label">ROI relatif par couche LEAP™ — sur 12 mois</div>
+  <div style="position:relative; width:100%; height:200px;">
+    <canvas id="roiCoucheChart"></canvas>
+  </div>
+  <p style="font-size:11px; color:var(--muted); margin-top:10px;">Le ROI augmente exponentiellement à mesure qu'on monte dans les couches — à condition que chaque verrou soit résolu correctement. Sauter des couches sans les résoudre réduit le ROI réel.</p>
+</div>
+<!-- LEAP INSERT 5 — plan d'action réinterprété selon LEAP -->
+<div class="leap-toggle-bar" onclick="toggleLeap('leap5')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label5">Cadre LEAP™ — Ces niveaux correspondent à votre couche actuelle</span>
+  <span class="ltb-chevron" id="ltb-chevron5">▼</span>
+</div>
+<div class="leap-insert" id="leap5">
+  <div class="leap-box" style="border-left-color:var(--l);">
+    <div class="lb-header">
+      <div class="lb-letter l">L</div>
+      <div class="lb-meta">
+        <div class="lb-layer l">Niveau 1 = Couche L</div>
+        <div class="lb-name">Votre priorité : franchir le verrou de gouvernance</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      Si le Niveau 1 décrit votre situation, vous êtes en <strong>couche L</strong>. Le premier processus automatisable que vous identifiez est votre point de bascule vers la couche E. Mais pour qu'il tienne, vous avez besoin d'une décision organisationnelle — pas seulement d'un outil testé par un individu curieux.
+      <div class="leap-verrou" style="margin-top:10px;">
+        <div class="lv-icon">🔒</div>
+        <div>
+          <div class="lv-name">Verrou L → E · Gouvernance</div>
+          <div class="lv-text">Qui décide quels processus automatiser ? Avec quelles données ? Sous quelle responsabilité ? Sans répondre à ces trois questions, vous restez en couche L.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="leap-box" style="border-left-color:var(--e);">
+    <div class="lb-header">
+      <div class="lb-letter e">E</div>
+      <div class="lb-meta">
+        <div class="lb-layer e">Niveau 2 = Couche E</div>
+        <div class="lb-name">Votre priorité : résoudre le verrou d'intégration</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      Si le Niveau 2 décrit votre situation, vous êtes en <strong>couche E</strong>. Vous automatisez déjà. La cartographie des 5 workflows et l'identification du champion interne sont exactement les actions du verrou E→A. La question centrale : vos systèmes sont-ils connectables par API ?
+      <div class="leap-verrou" style="margin-top:10px;">
+        <div class="lv-icon">🔒</div>
+        <div>
+          <div class="lv-name">Verrou E → A · Intégration</div>
+          <div class="lv-text">Les agents IA ont besoin d'accéder à vos données en temps réel. Si vos systèmes ne parlent pas entre eux, les agents ne peuvent pas orchestrer.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="leap-box" style="border-left-color:var(--a);">
+    <div class="lb-header">
+      <div class="lb-letter a">A</div>
+      <div class="lb-meta">
+        <div class="lb-layer a">Niveau 3 = Couche A → P</div>
+        <div class="lb-name">Votre priorité : préparer le Pivot pendant que vous avancez</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      Si le Niveau 3 décrit votre situation, vous êtes en <strong>couche A</strong> ou sur le seuil. La gouvernance décrite (qui déploie, quelles données, quelle piste d'audit) est précisément ce qui sépare une organisation agentique mature d'une organisation qui expérimente. Pendant que vous bâtissez cette infrastructure, commencez à modéliser le Pivot : si vous pouvez faire X en 4 heures au lieu de 5 jours, comment est-ce que vous refacturez ça ?
+    </div>
+  </div>
+  <div style="padding:12px 20px; background:#F7F5F0; border:1px solid var(--rule); border-top:none;">
+    <p style="font-size:12px; color:var(--muted); margin:0; font-family:'Barlow',sans-serif;">→ Vous ne savez pas dans quelle couche vous êtes ? La <strong>Scorecard LEAP™</strong> vous positionne en 10 minutes.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     05b — ROADMAP 90 JOURS
+════════════════════════════════ -->
+<div class="divider"><span>Roadmap 90 jours</span></div>
+<div class="section-num" style="margin-top:52px;">05b</div>
+<h2 class="section-title">La roadmap : 90 jours pour votre premier déploiement agentique</h2>
+
+<p>L'IA agentique n'est pas un projet de transformation sur 18 mois. Un premier déploiement peut être en production en 90 jours — si on choisit le bon processus, si on définit le périmètre avant de déployer, et si on construit la surveillance en même temps que le système. <strong>Un agent en production avec un cadre minimal vaut infiniment mieux qu'un agent parfait encore en conception.</strong></p>
+
+<h2 class="section-title" style="font-size:20px; margin-top:28px;">Mois 1 — Identifier</h2>
+<p style="font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Objectif : choisir le bon premier processus</p>
+
+<p><strong>Semaines 1-2 : L'inventaire des processus candidats.</strong> Une seule question à poser à chaque direction : quels sont vos processus les plus répétitifs, à haute fréquence, et dont la qualité dépend aujourd'hui de la disponibilité de vos collaborateurs ? Pas les plus complexes — les plus fréquents. Dans chaque organisation que j'ai observée, trois à cinq processus candidats émergent immédiatement. Le premier agent devra être choisi parmi eux.</p>
+
+<p><strong>Semaines 3-4 : Définir le périmètre du premier agent.</strong> Trois questions avant de choisir : que peut décider l'agent sans validation humaine ? Qu'est-ce qu'il doit escalader ? Qu'est-ce qu'il ne peut jamais faire ? Ces questions prennent deux heures à répondre avant le déploiement. Elles prennent des semaines à reconstruire après un incident.</p>
+
+<p><em>Livrable Mois 1 : Processus sélectionné · Périmètre de décision documenté · Propriétaire nommé · Métriques de succès définies avant le déploiement.</em></p>
+
+<h2 class="section-title" style="font-size:20px; margin-top:28px;">Mois 2 — Déployer</h2>
+<p style="font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Objectif : mettre en production avec surveillance intégrée</p>
+
+<p><strong>Semaines 5-6 : Le déploiement en double-run.</strong> L'agent tourne en parallèle du processus manuel pendant deux semaines. Pas pour valider que ça marche techniquement — pour construire la confiance des équipes dans les outputs, et pour détecter les cas d'exception que le périmètre n'avait pas anticipés. Le double-run n'est pas une étape optionnelle.</p>
+
+<p><strong>Semaines 7-8 : Activation et premier protocole de surveillance.</strong> L'agent passe en production exclusive. Un humain consacre 30 minutes par semaine à réviser un échantillon des décisions — pas toutes, un échantillon représentatif. Ce n'est pas du micromanagement. C'est le mécanisme qui détecte les dérives avant qu'elles deviennent des incidents.</p>
+
+<p><em>Livrable Mois 2 : Agent en production · Protocole de surveillance hebdomadaire actif · Journal des exceptions documenté · Premier bilan bi-bilan (gains vs coûts cachés).</em></p>
+
+<h2 class="section-title" style="font-size:20px; margin-top:28px;">Mois 3 — Gouverner</h2>
+<p style="font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Objectif : installer le cadre qui permet de passer au deuxième agent</p>
+
+<p><strong>Semaines 9-10 : Le premier bilan formel.</strong> Quatre questions : le ROI réel correspond-il aux métriques définies en mois 1 ? Quelles exceptions ont émergé ? Le périmètre de décision est-il toujours juste ? Quels processus candidats pour le deuxième agent ? Ce bilan n'est pas une réunion de plus — c'est la décision de continuer, d'ajuster, ou d'arrêter.</p>
+
+<p><strong>Semaines 11-12 : La documentation du cadre.</strong> Pas un manuel de 40 pages. Une page qui documente : quel processus, quel périmètre, qui surveille, comment on escalade, comment on arrête. Cette page est la base sur laquelle chaque déploiement suivant s'appuie — elle réduit de moitié le temps de déploiement du deuxième agent.</p>
+
+<p><em>Livrable Mois 3 : Bilan formel ROI · Cadre de déploiement v1 documenté · Décision go/no-go sur le deuxième processus · Organisation prête à scaler.</em></p>
+
+<div class="leap-toggle-bar" onclick="toggleLeap('leap5b')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label5b">Cadre LEAP™ — La roadmap selon votre couche actuelle</span>
+  <span class="ltb-chevron" id="ltb-chevron5b">▼</span>
+</div>
+<div class="leap-insert" id="leap5b">
+  <div class="leap-box" style="border-left-color:var(--l);">
+    <div class="lb-header">
+      <div class="lb-letter" style="color:var(--l); font-family:'Playfair Display',serif; font-size:36px; font-weight:900; line-height:1; flex-shrink:0;">L</div>
+      <div class="lb-meta">
+        <div class="lb-layer" style="color:var(--l); font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase;">Couche L → point de départ</div>
+        <div class="lb-name">Si vous êtes en couche L : cette roadmap est votre passage direct vers E et A</div>
+      </div>
+    </div>
+    <div class="lb-body">En couche L, vous n'avez pas encore de processus agentique en production. Cette roadmap vous donne un chemin structuré pour votre premier déploiement — sans brûler les étapes qui créent la dette de gouvernance. Le mois 1 est particulièrement important : choisir le bon premier processus conditionne tout ce qui suit.</div>
+  </div>
+  <div class="leap-box" style="border-left-color:var(--e);">
+    <div class="lb-header">
+      <div class="lb-letter" style="color:var(--e); font-family:'Playfair Display',serif; font-size:36px; font-weight:900; line-height:1; flex-shrink:0;">E</div>
+      <div class="lb-meta">
+        <div class="lb-layer" style="color:var(--e); font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase;">Couche E → accélération</div>
+        <div class="lb-name">Si vous êtes en couche E : vous pouvez compresser les mois 1 et 2</div>
+      </div>
+    </div>
+    <div class="lb-body">En couche E, vous avez déjà des processus automatisés et des intégrations API en place. Les mois 1 et 2 peuvent être compressés — vous connaissez vos processus candidats, vos systèmes sont connectables. L'essentiel est le mois 3 : documenter le cadre pour que chaque déploiement suivant bénéficie des apprentissages du précédent. <strong>C'est le verrou E→A : pas la technologie — la méthode.</strong></div>
+  </div>
+  <div class="leap-box" style="border-left-color:var(--a);">
+    <div class="lb-header">
+      <div class="lb-letter" style="color:var(--a); font-family:'Playfair Display',serif; font-size:36px; font-weight:900; line-height:1; flex-shrink:0;">A</div>
+      <div class="lb-meta">
+        <div class="lb-layer" style="color:var(--a); font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase;">Couche A → consolidation</div>
+        <div class="lb-name">Si vous êtes déjà en couche A : utilisez cette roadmap pour auditer l'existant</div>
+      </div>
+    </div>
+    <div class="lb-body">En couche A, vous avez des agents en production. La question n'est plus de déployer — c'est de savoir si chaque agent existant a un périmètre documenté, un propriétaire nommé, et un protocole de surveillance actif. Cette roadmap est votre grille d'audit rétrospectif : appliquez-la à chaque agent déjà déployé et identifiez les trous avant qu'ils deviennent des incidents.</div>
+  </div>
+</div>
+
+<!-- GRAPHIQUE TIMELINE 90 JOURS AGENTIQUE -->
+<div class="graphique-block">
+  <div class="graphique-label">Roadmap visuelle — 90 jours pour votre premier agent en production</div>
+  <svg width="100%" viewBox="0 0 600 220" style="overflow:visible;">
+    <line x1="40" y1="70" x2="560" y2="70" stroke="#D8D4CC" stroke-width="2"/>
+    <circle cx="40" cy="70" r="5" fill="#D8D4CC"/>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#888880" x="40" y="90" text-anchor="middle">Départ</text>
+    <!-- M1 -->
+    <circle cx="170" cy="70" r="10" fill="#9C4221"/>
+    <text font-family="Barlow, sans-serif" font-size="11" font-weight="700" fill="white" x="170" y="74" text-anchor="middle">1</text>
+    <rect x="110" y="100" width="120" height="82" rx="6" fill="none" stroke="#9C4221" stroke-width="0.8" opacity="0.6"/>
+    <text font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="700" fill="#9C4221" x="170" y="120" text-anchor="middle">IDENTIFIER</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="170" y="137" text-anchor="middle">Processus candidat</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="170" y="152" text-anchor="middle">Périmètre défini</text>
+    <text font-family="Barlow, sans-serif" font-size="10" fill="#888" x="170" y="174" text-anchor="middle">→ Propriétaire nommé</text>
+    <!-- M2 -->
+    <circle cx="320" cy="70" r="10" fill="#9C4221"/>
+    <text font-family="Barlow, sans-serif" font-size="11" font-weight="700" fill="white" x="320" y="74" text-anchor="middle">2</text>
+    <rect x="260" y="100" width="120" height="82" rx="6" fill="none" stroke="#9C4221" stroke-width="0.8" opacity="0.6"/>
+    <text font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="700" fill="#9C4221" x="320" y="120" text-anchor="middle">DÉPLOYER</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="320" y="137" text-anchor="middle">Double-run</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="320" y="152" text-anchor="middle">Surveillance active</text>
+    <text font-family="Barlow, sans-serif" font-size="10" fill="#888" x="320" y="174" text-anchor="middle">→ Agent en production</text>
+    <!-- M3 -->
+    <circle cx="470" cy="70" r="10" fill="#9C4221"/>
+    <text font-family="Barlow, sans-serif" font-size="11" font-weight="700" fill="white" x="470" y="74" text-anchor="middle">3</text>
+    <rect x="410" y="100" width="120" height="82" rx="6" fill="none" stroke="#9C4221" stroke-width="0.8" opacity="0.6"/>
+    <text font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="700" fill="#9C4221" x="470" y="120" text-anchor="middle">GOUVERNER</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="470" y="137" text-anchor="middle">Bilan formel</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="470" y="152" text-anchor="middle">Cadre documenté</text>
+    <text font-family="Barlow, sans-serif" font-size="10" fill="#888" x="470" y="174" text-anchor="middle">→ Prêt à scaler</text>
+    <!-- Arrow end -->
+    <line x1="560" y1="70" x2="590" y2="70" stroke="#9C4221" stroke-width="1.5" opacity="0.5" marker-end="url(#arr_a)"/>
+    <defs><marker id="arr_a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#9C4221" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+    <!-- Brace -->
+    <path d="M40 205 L40 198 L470 198 L470 205" fill="none" stroke="#D8D4CC" stroke-width="0.8"/>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#888" x="255" y="216" text-anchor="middle">90 jours — premier agent en production, gouverné</text>
+  </svg>
+</div>
+
+<!-- ════════════════════════════════
+     06 — CE QUE ÇA COÛTE (FINOPS)
+════════════════════════════════ -->
+<div class="divider"><span>Analyse FinOps</span></div>
+<div class="section-num">06</div>
+<h2 class="section-title">Ce que ça coûte vraiment</h2>
+
+<p>L'IA agentique n'est pas gratuite — et les coûts surprennent presque toujours ceux qui ne les ont pas modélisés avant de déployer. Trois postes à avoir en tête.</p>
+
+<p><strong>Coûts d'implémentation (one-time).</strong> Pour un premier agent sur un workflow simple — réconciliation bancaire, collecte de pièces manquantes — les estimations documentées par CPA Practice Advisor et Deloitte situent l'investissement entre 15 000 et 60 000 $ selon la complexité des intégrations API requises. Ces fourchettes concernent les premiers déploiements à l'échelle d'une équipe ou d'une fonction isolée. Dans un environnement de grande organisation avec des systèmes legacy et des exigences de conformité élevées — assurance, banque, grands groupes — l'investissement initial se situe typiquement entre 150 000 et 500 000 $, principalement absorbé par le verrou d'intégration. Les organisations qui réussissent ont systématiquement investi en amont dans la connexion de leurs systèmes (DMS, CRM, ERP) — ce n'est pas le coût de l'agent, c'est le coût du verrou d'intégration.</p>
+
+<p><strong>Coûts récurrents.</strong> Les plateformes agentiques (Microsoft Copilot Studio, Salesforce Agentforce, Zapier AI) facturent à l'usage — par exécution, par token consommé, ou par utilisateur. À l'échelle d'une équipe de 10 à 50 personnes, les estimations de marché situent les coûts récurrents entre 500 et 3 000 $/mois selon l'intensité d'utilisation. Le risque de dérive est réel : sans tableau de bord FinOps, les coûts peuvent tripler en six mois sans que personne ne le remarque avant la facture.</p>
+
+<div class="callout">
+  <div class="callout-label">Ordre de grandeur ROI documenté</div>
+  <p>Le gestionnaire immobilier cité en section 04 a récupéré l'équivalent de 5 jours de travail humain par cycle de traitement. À 40 cycles/mois, cela représente environ 200 jours de travail récupérés — réorientés vers des tâches à valeur ajoutée. L'investissement initial (intégrations + déploiement) a été amorti en moins de 8 mois.</p>
+</div>
+
+<p><strong>La question FinOps à poser avant de déployer :</strong> quel est votre seuil de rentabilité en nombre de dossiers traités par mois ? Si vous ne pouvez pas répondre à cette question avec un chiffre précis, le déploiement est prématuré.</p>
+
+<!-- LEAP INSERT 06 -->
+<div class="leap-toggle-bar" onclick="toggleLeap('leap6')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label6">Cadre DRIVEN™ — Axe N · Ce que ces coûts révèlent</span>
+  <span class="ltb-chevron" id="ltb-chevron6">▼</span>
+</div>
+<div class="leap-insert" id="leap6">
+  <div class="leap-box" style="border-left-color:var(--a);">
+    <div class="lb-header">
+      <div class="lb-letter a" style="color:#1A4A3A;">N</div>
+      <div class="lb-meta">
+        <div class="lb-layer a" style="color:#1A4A3A;">Axe N — Nécessité humaine · FinOps</div>
+        <div class="lb-name">Le vrai coût de l'IA agentique n'est pas le coût de l'agent — c'est le coût du verrou d'intégration</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      L'axe N du Cadre DRIVEN™ pose deux questions que la plupart des organisations éludent jusqu'à ce qu'il soit trop tard : <strong>Combien ça coûte vraiment ?</strong> et <strong>Qui surveille les dérives ?</strong> Sans tableau de bord FinOps dédié à l'IA, les coûts tokens et licences s'accumulent invisiblement. Les organisations qui réussissent ont un responsable nommé pour le pilotage des coûts IA — pas seulement pour le déploiement technique.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     07 — IMPACT SUR VOS ÉQUIPES
+════════════════════════════════ -->
+<div class="divider"><span>Conduite du changement</span></div>
+<div class="section-num">07</div>
+<h2 class="section-title">Impact sur vos équipes</h2>
+
+<p>La majorité des implémentations agentiques qui échouent n'échouent pas techniquement. Elles échouent parce que les équipes contournent les nouveaux outils, les utilisent à moitié, ou continuent en parallèle avec les anciennes méthodes. L'agent est déployé. La transformation, non.</p>
+
+<p><strong>Ce qui change pour les collaborateurs.</strong> Le McKinsey Global AI Survey 2025 est explicite : dans les organisations en couche A, les travailleurs du savoir deviennent des <em>gestionnaires d'agents</em>. Leur travail change de nature — moins d'exécution, plus de supervision, de définition des objectifs, de validation des sorties. C'est un glissement de compétences, pas une suppression de poste. Mais ce glissement doit être nommé, accompagné, et reconnu dans les descriptions de rôle.</p>
+
+<p><strong>Les résistances probables.</strong> Elles sont prévisibles et légitimes. Première résistance : <em>"Je ne fais plus confiance aux sorties de l'agent."</em> — résoudre avec des seuils de supervision clairs et des exemples documentés d'erreurs corrigées. Deuxième résistance : <em>"C'est plus rapide de le faire moi-même."</em> — vrai au départ, faux à l'échelle. Troisième résistance (la plus difficile) : <em>"Mon expertise ne sert plus à rien."</em> — répondre en montrant concrètement ce que l'agent ne peut pas faire et ce que l'humain supervise.</p>
+
+<div class="callout">
+  <div class="callout-label">Observation terrain — Février 2026</div>
+  <p>Dans une direction des opérations d'un grand groupe d'assurance, le déploiement d'un agent de gestion des réclamations simples a failli être abandonné à la semaine 6. Non pas parce que l'agent ne fonctionnait pas — il traitait 73% des cas correctement. Mais parce que les gestionnaires avaient peur d'être évalués sur les 27% d'erreurs plutôt que sur les 73% de réussite. La direction a résolu le problème en une décision : les erreurs de l'agent sont de la responsabilité du propriétaire du système, pas des gestionnaires qui le supervisent. Deux semaines plus tard, les résistances avaient disparu.</p>
+</div>
+
+<div class="pull-quote">Un agent déployé sans programme d'adoption n'est pas une transformation. C'est un outil qui attend que quelqu'un décide de s'en servir vraiment.</div>
+
+<p><strong>Ce que le dirigeant doit anticiper.</strong> Trois actions concrètes avant tout déploiement agentique : nommer un champion interne (Section 05, Niveau 2), définir explicitement les nouveaux rôles de supervision, et prévoir une période de double-run (agent + méthode manuelle en parallèle) d'au moins 30 jours pour construire la confiance dans les sorties.</p>
+
+<!-- LEAP INSERT 07 -->
+<div class="leap-toggle-bar" onclick="toggleLeap('leap7')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label7">Cadre DRIVEN™ — Axe N · Ce que ça change pour vos équipes</span>
+  <span class="ltb-chevron" id="ltb-chevron7">▼</span>
+</div>
+<div class="leap-insert" id="leap7">
+  <div class="leap-box" style="border-left-color:#1A4A3A;">
+    <div class="lb-header">
+      <div class="lb-letter" style="color:#1A4A3A; font-family:'Playfair Display',serif; font-size:36px; font-weight:900; line-height:1; flex-shrink:0;">N</div>
+      <div class="lb-meta">
+        <div class="lb-layer" style="color:#1A4A3A; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase;">Axe N — Nécessité humaine · Conduite du changement</div>
+        <div class="lb-name">L'adoption humaine est le verrou invisible que la plupart des déploiements ignorent</div>
+      </div>
+    </div>
+    <div class="lb-body">
+      L'axe N du Cadre DRIVEN™ pose la question que les DSI n'aiment pas entendre : <strong>vos collaborateurs utilisent-ils vraiment les outils déployés ?</strong> Le signal d'alerte le plus fiable n'est pas technique — c'est comportemental : si vos équipes maintiennent leurs anciennes méthodes en parallèle des agents six semaines après le déploiement, le problème n'est pas l'agent. C'est l'absence de programme d'adoption.
+      <div class="leap-verrou" style="margin-top:10px;">
+        <div class="lv-icon">🔒</div>
+        <div>
+          <div class="lv-name" style="color:#B8973A;">Verrou adoption — Confiance + Compétence + Rôle redéfini</div>
+          <div class="lv-text">La confiance se construit par les preuves (erreurs documentées + corrections). La compétence s'acquiert par la pratique supervisée. Le rôle se redéfinit par la direction — pas spontanément.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CE QUE VOUS FAITES LUNDI MATIN -->
+<div class="divider"><span>Décisions concrètes</span></div>
+<div class="section-num">08</div>
+<h2 class="section-title">Ce que vous faites lundi matin</h2>
+
+<p>Un dossier qui se termine par des recommandations générales est un dossier qu'on range. Celui-ci se termine par cinq décisions que vous pouvez prendre cette semaine — sans budget supplémentaire, sans validation externe.</p>
+
+<div class="niveau niveau-1" style="margin-top:28px;">
+  <div class="niveau-label">Décision 1</div>
+  <div class="niveau-title">Cartographier les agents actifs dans vos outils existants</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Cette semaine, demandez à votre DSI une liste des fonctionnalités IA activées dans vos outils Microsoft 365, Salesforce, ou tout autre logiciel enterprise. Pas un projet — une question. La réponse révèle souvent plus d'agents actifs que la direction ne le pensait. C'est votre point de départ.</div></div>
+</div>
+
+<div class="niveau niveau-1" style="margin-top:12px;">
+  <div class="niveau-label">Décision 2</div>
+  <div class="niveau-title">Nommer un propriétaire pour chaque agent identifié</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Pas créer un comité. Pour chaque agent actif, une personne — que vous avez déjà — est nommée responsable par écrit. Elle a trois responsabilités : savoir ce que l'agent décide, être alertée quand il déraille, avoir l'autorité de l'arrêter. Votre DPO est souvent le candidat naturel pour les systèmes à risque élevé.</div></div>
+</div>
+
+<div class="niveau niveau-1" style="margin-top:12px;">
+  <div class="niveau-label">Décision 3</div>
+  <div class="niveau-title">Identifier votre premier processus candidat pour un déploiement agentique</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Une seule question à poser à chaque directeur de département : quel est le processus le plus répétitif de votre équipe — celui qui consomme le plus de temps qualifié pour le moins de valeur ajoutée ? Notez les réponses. Votre premier agent se trouve dans cette liste.</div></div>
+</div>
+
+<div class="niveau niveau-1" style="margin-top:12px;">
+  <div class="niveau-label">Décision 4</div>
+  <div class="niveau-title">Définir le périmètre de décision avant tout déploiement</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Pour le processus candidat identifié, répondez à trois questions en deux heures : que peut décider l'agent sans validation humaine ? Qu'est-ce qu'il doit escalader ? Qu'est-ce qu'il ne peut jamais faire ? Ces questions prennent deux heures maintenant — et des semaines à reconstruire après un incident.</div></div>
+</div>
+
+<div class="niveau niveau-1" style="margin-top:12px;">
+  <div class="niveau-label">Décision 5</div>
+  <div class="niveau-title">Préparer votre réponse de crise agentique</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Réservez une heure cette semaine pour rédiger la réponse que vous donneriez si un agent de votre organisation prenait une mauvaise décision visible par un client ou un régulateur. Qui est informé en premier ? En combien de temps ? Qui parle au nom de l'organisation ? Si vous ne pouvez pas répondre à ces questions aujourd'hui, c'est une information importante.</div></div>
+</div>
+
+<!-- MOT DE LA FIN -->
+<div class="divider"><span>Conclusion</span></div>
+
+<p>L'IA agentique n'est pas une technologie réservée aux grandes organisations avec des budgets démesurés. C'est une capacité qui arrive dans vos outils, que vous l'ayez planifié ou non. La question n'est pas de savoir si vous allez la rencontrer — c'est de savoir si vous allez la subir ou la piloter.</p>
+
+<p>Les organisations qui obtiennent des résultats aujourd'hui partagent une caractéristique : elles ont <strong>commencé petit, mesuré vite, et élargi méthodiquement</strong>. Elles ne cherchaient pas la transformation globale. Elles cherchaient le premier cas d'usage gagnable.</p>
+
+<div class="pull-quote">Vous n'avez pas besoin d'une stratégie IA parfaite pour commencer. Vous avez besoin d'un premier processus, d'un premier agent, et d'une première mesure.</div>
+
+<p style="color:var(--muted); font-size:14px; font-style:italic; margin-top:28px;">Prochain dossier — #-1 · Mars 2026 · Le ROI de l'IA : mesurer ce qu'on ne sait pas mesurer — les deux côtés de l'équation.</p>
+
+<!-- NOTE DE L'AUTEUR -->
+<div style="margin-top:40px; padding:24px 28px; background:var(--paper); border-left:3px solid var(--gold);">
+  <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:12px;">Note de l'auteur</div>
+  <p style="font-family:'Lora',serif; font-size:14px; color:#444; line-height:1.8; margin:0 0 12px;">Ce qui m'a le plus frappé en préparant ce dossier, ce n'est pas la technologie. C'est la vitesse à laquelle la question de la valeur est devenue concrète et chiffrée. Le précédent KPMG–Grant Thornton n'était pas prévisible il y a dix-huit mois. Il l'est maintenant. Et ce qui m'intéresse dans les prochains mois, c'est la suite : qui dans votre organisation aura le mandat de poser cette question à vos propres fournisseurs — et qui sera capable d'y répondre quand vos clients vous la poseront ?</p>
+  <p style="font-family:'Lora',serif; font-size:14px; color:#444; line-height:1.8; margin:0;">Ce sont les questions Le dossier de mars creuse la question du ROI réel de l'IA — parce qu'on ne peut pas gouverner ce qu'on ne sait pas mesurer. Et le dossier d'avril donne le cadre opérationnel complet : la gouvernance IA en 90 jours, pour les organisations qui ont décidé de ne plus improviser. Je lis chaque réponse que vous m'envoyez — elles orientent ce que j'écris.</p>
+  <div style="margin-top:14px; font-size:12px; font-weight:600; color:var(--ink);">Aziz El Kihel</div>
+</div>
+
+<!-- BIO AUTEUR — pied d'article -->
+<div style="margin-top:48px; padding-top:28px; border-top:2px solid var(--rule); max-width:640px;">
+  <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">L'auteur</div>
+  <div style="display:flex; gap:16px; align-items:flex-start;">
+    <img src="aziz-el-kihel.png" style="width:52px; height:52px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--rule);" alt="">
+    <div>
+      <div style="font-size:14px; font-weight:700; color:var(--ink); margin-bottom:4px;">Aziz El Kihel — Fondateur, Un Cran d'Avance</div>
+      <p style="font-family:'Lora',serif; font-size:13px; color:#555; line-height:1.65; margin:0 0 10px;">Vingt ans à observer les organisations en transformation. Je traduis chaque semaine l'actualité IA en décisions concrètes pour les organisations opérant en Europe et en Amérique du Nord — avec les Cadres LEAP™ et DRIVEN™ comme outils de lecture.</p>
+      <div style="font-size:12px; color:var(--muted);">Une question sur ce dossier ? <span style="color:var(--red); font-weight:600;"><a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a></span></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div id="ressources" class="ressources-block">
+  <div class="rb-header">
+    <span class="rb-label">④ Sources & ressources</span>
+    <span class="rb-note">Pour ceux qui veulent creuser. Toutes les affirmations de ce dossier sont sourcées.</span>
+  </div>
+  <div class="rb-grid">
+    <div class="rb-item">
+      <div class="ri-type">Statistique clé</div>
+      <div class="ri-title">40 % des applications d'entreprise avec agents IA d'ici fin 2026</div>
+      <div class="ri-source">Gartner Magic Quadrant AI, 2025</div>
+    </div>
+    <div class="rb-item">
+      <div class="ri-type">Précédent documenté</div>
+      <div class="ri-title">KPMG–Grant Thornton : réduction honoraires de 14 % liée à l'IA</div>
+      <div class="ri-source">Reuters, février 2026</div>
+    </div>
+    <div class="rb-item">
+      <div class="ri-type">Cas terrain</div>
+      <div class="ri-title">DeVry University — déploiement agentique en 10 mois, workflows admission</div>
+      <div class="ri-source">Deloitte Tech Trends 2026 · Computerworld</div>
+    </div>
+    <div class="rb-item">
+      <div class="ri-type">Cas terrain</div>
+      <div class="ri-title">Gestionnaire immobilier — 5 jours → 4h, réduction erreurs 89 %</div>
+      <div class="ri-source">Harvard Business Review, 2025</div>
+    </div>
+    <div class="rb-item">
+      <div class="ri-type">Rapport sectoriel</div>
+      <div class="ri-title">73 % des avocats : plus de 40 % du temps en tâches administratives</div>
+      <div class="ri-source">Conseil National des Barreaux · Thomson Reuters Future of Professionals 2026</div>
+    </div>
+    <div class="rb-item">
+      <div class="ri-type">Signal marché</div>
+      <div class="ri-title">39 % expérimentent les agents, 23 % seulement les déploient à l'échelle</div>
+      <div class="ri-source">McKinsey Global AI Survey, 2025</div>
+    </div>
+    <div class="rb-item">
+      <div class="ri-type">Lecture approfondie</div>
+      <div class="ri-title">The agentic AI revolution — MIT Sloan Management Review</div>
+      <div class="ri-source">sloanreview.mit.edu</div>
+    </div>
+    <div class="rb-item">
+      <div class="ri-type">Lecture approfondie</div>
+      <div class="ri-title">Practitioners' guide to agentic AI — Deloitte</div>
+      <div class="ri-source">deloitte.com/insights</div>
+    </div>
+  </div>
+</div>
+<</div><!-- /article-gated --></div><!-- /wrap-gated -->/div><!-- /uca-gated-dossier -->
+
+
+<!-- RESSOURCES — à la demande -->
+
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="f-brand">✦ Un Cran d'Avance</div>
+  <div class="f-copy">Février 2026 · Réservé aux membres Premium
+  <a href="mentions-legales.html" style="font-size:11px;color:var(--muted);text-decoration:none;margin-right:12px;">Mentions légales</a><a href="politique-confidentialite.html" style="font-size:11px;color:var(--muted);text-decoration:none;">Confidentialité</a></div>
+  <div class="f-url">uncrandavance.com</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function toggleLeap(id) {
+  const insert = document.getElementById(id);
+  if (!insert) return;
+  const num = id.replace('leap','');
+  const label = document.getElementById('ltb-label' + num);
+  const chevron = document.getElementById('ltb-chevron' + num);
+  let bar = insert.previousElementSibling;
+  while (bar && !bar.classList.contains('leap-toggle-bar')) { bar = bar.previousElementSibling; }
+  const isOpen = insert.classList.contains('open');
+  insert.classList.toggle('open', !isOpen);
+  if (bar) bar.classList.toggle('open', !isOpen);
+  if (chevron) chevron.classList.toggle('open', !isOpen);
+  if (label) {
+    label.classList.toggle('open', !isOpen);
+    if (!isOpen) { label.textContent = 'Fermer ✕'; }
+    else {
+      const labels = {
+        '1': 'Cadre LEAP™ — Lire la grille de lecture',
+        '2': 'Cadre LEAP™ — Ce que ces signaux révèlent sur la maturité du marché',
+        '3': 'Cadre LEAP™ — Où se situent ces exemples dans la progression',
+        '4': 'Cadre LEAP™ — Ce que ces organisations ont en commun',
+        '5': 'Cadre LEAP™ — Ces niveaux correspondent à votre couche actuelle',
+        '6': 'Cadre DRIVEN™ — Axe N · Ce que ces coûts révèlent',
+        '7': 'Cadre DRIVEN™ — Axe N · Ce que ça change pour vos équipes',
+      };
+      label.textContent = labels[num] || 'Cadre LEAP™';
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const ctx = document.getElementById('adoptionChart');
+  if (ctx) {
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ["Expérimentent", "Déploient à l’échelle", "Cadre de gouvernance"],
+        datasets: [{ data: [39, 23, 14], backgroundColor:['#2C5282','#9C4221','#C8102E'], borderRadius:4, borderWidth:0 }]
+      },
+      options: {
+        responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: function(c){ return c.raw + '% des organisations'; } } } },
+        scales:{
+          x:{ grid:{display:false}, ticks:{color:'#888880', font:{size:10}} },
+          y:{ grid:{color:'rgba(0,0,0,0.06)'}, ticks:{color:'#888880', font:{size:10}, callback:function(v){ return v+'%'; }}, max:50 }
+        }
+      }
+    }
+  );
+  }
+  const ctx2 = document.getElementById('roiCoucheChart');
+  if (ctx2) {
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['Couche L','Couche E','Couche A','Couche P'],
+        datasets: [{ data:[10,35,75,140], backgroundColor:['#2C5282','#276749','#9C4221','#C8102E'], borderRadius:4, borderWidth:0 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } } }
+      }
+    });
+  }
+});
+</script>
+
+<script src="uca-gate.js"></script>
+
+<!-- MODAL INSCRIPTION -->
+<div id="uca-subscribe-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:rgba(10,10,20,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;padding:40px 36px;position:relative;">
+    <button onclick="ucaCloseModal()" aria-label="Fermer" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#6B6B6B;line-height:1;">✕</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:16px;">Newsletter gratuite · Chaque mardi</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;color:#0A0A14;margin-bottom:8px;">5 signaux IA.<br>Chaque mardi matin.</h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.7;margin-bottom:24px;">Ce que les dirigeants utilisent pour décider avant les autres. Gratuit, désabonnement en 1 clic.</p>
+    <!-- Formulaire -->
+    <div id="modal-form-wrap">
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <input type="email" id="modal-email-input" autocomplete="email" required placeholder="votre@email.com" style="flex:1;padding:14px 16px;font-family:'Barlow',sans-serif;font-size:14px;border:1px solid #E0DDD8;border-right:none;outline:none;min-width:0;" />
+        <button onclick="ucaModalSubmit()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 20px;background:#C8102E;color:#fff;border:none;cursor:pointer;white-space:nowrap;">Accès immédiat — gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <input type="checkbox" id="modal-consent" style="margin-top:3px;flex-shrink:0;accent-color:#C8102E;" />
+        <label for="modal-consent" style="font-family:'Barlow',sans-serif;font-size:12px;color:#6B6B6B;line-height:1.5;cursor:pointer;">J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre <a href="politique-confidentialite.html" style="color:#6B6B6B;text-decoration:underline;">politique de confidentialité</a>. Désabonnement en 1 clic.</label>
+      </div>
+      <div id="modal-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;color:#C8102E;margin-top:6px;"></div>
+    </div>
+    <!-- Succès -->
+    <div id="modal-success" style="display:none;text-align:center;padding:16px 0;">
+      <div style="font-size:32px;margin-bottom:12px;">✓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#0A0A14;margin-bottom:8px;">Bienvenue !</div>
+      <div style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.6;">Votre premier signal arrive mardi. Votre Pack de bienvenue est disponible maintenant.</div>
+      <a href="membre-welcome.html" style="display:inline-block;margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;background:#0A0A14;color:#fff;text-decoration:none;">Voir mon Pack de bienvenue →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function ucaOpenModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (!m) return;
+  // Si déjà abonné, rediriger vers bienvenue
+  if (localStorage.getItem('uca_has_email') === '1') {
+    window.location.href = 'membre-welcome.html';
+    return;
+  }
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var inp = document.getElementById('modal-email-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+function ucaCloseModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (m) m.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function ucaModalSubmit() {
+  var inp = document.getElementById('modal-email-input');
+  var consent = document.getElementById('modal-consent');
+  var errEl = document.getElementById('modal-error');
+  var email = inp ? inp.value.trim() : '';
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!re.test(email)) {
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    if (inp) inp.style.borderColor = '#C8102E';
+    return;
+  }
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid #C8102E';
+    return;
+  }
+  if (inp) inp.style.borderColor = '';
+  if (consent) consent.style.outline = '';
+  if (errEl) errEl.style.display = 'none';
+
+  // Déverrouillage immédiat
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyDossierAccess === 'function') applyDossierAccess();
+  if (typeof applyNLAccess === 'function') applyNLAccess();
+
+  // Afficher succès
+  var formWrap = document.getElementById('modal-form-wrap');
+  var success = document.getElementById('modal-success');
+  if (formWrap) formWrap.style.display = 'none';
+  if (success) success.style.display = 'block';
+
+  // Appel réseau en arrière-plan
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+}
+// Fermer en cliquant hors de la modal
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('uca-subscribe-modal');
+  if (modal && e.target === modal) ucaCloseModal();
+});
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') ucaCloseModal();
+});
+</script>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session pour mémoriser votre accès. Aucun cookie tiers. <a href="/politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('uca_cookie_consent')) {
+    var b = document.getElementById('uca-cookie-banner');
+    if (b) b.style.displ

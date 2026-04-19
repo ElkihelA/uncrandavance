@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accès — Un Cran d'Avance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink:    #0A0A14;
+    --paper:  #F7F3E8;
+    --gold:   #B8973A;
+    --red:    #C8102E;
+    --muted:  rgba(247,243,232,0.5);
+    --rule:   rgba(247,243,232,0.12);
+  }
+
+  body {
+    font-family: 'Lora', serif;
+    background: var(--ink);
+    color: var(--paper);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+  }
+
+  .brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 48px; text-decoration: none;
+  }
+  .brand:hover { opacity: 0.8; }
+
+  .card {
+    width: 100%; max-width: 440px;
+    border: 1px solid var(--rule);
+    padding: 40px 36px;
+    text-align: center;
+  }
+
+  .icon { font-size: 28px; margin-bottom: 24px; opacity: 0.7; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 28px);
+    font-weight: 700; line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  h1 em { font-style: italic; color: var(--gold); }
+
+  .subtitle {
+    font-size: 14px; line-height: 1.75;
+    color: var(--muted); margin-bottom: 32px;
+  }
+
+  /* ── Formulaire ─────────────────────────────────────────────── */
+  .form-row {
+    display: flex; gap: 0;
+    border: 1px solid rgba(247,243,232,0.2);
+    margin-bottom: 12px;
+  }
+  .form-row:focus-within { border-color: var(--gold); }
+
+  #email-input {
+    flex: 1; min-width: 0;
+    background: rgba(255,255,255,0.04);
+    border: none; outline: none;
+    color: var(--paper);
+    font-family: 'Lora', serif; font-size: 14px;
+    padding: 14px 16px;
+  }
+  #email-input::placeholder { color: var(--muted); font-size: 13px; }
+
+  #submit-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--gold); color: var(--ink);
+    border: none; padding: 14px 20px; cursor: pointer;
+    white-space: nowrap; flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  #submit-btn:hover:not(:disabled) { background: #d4aa42; }
+  #submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .note {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 1px;
+    color: rgba(247,243,232,0.3);
+    text-transform: uppercase;
+  }
+
+  /* ── États ──────────────────────────────────────────────────── */
+  #status {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing: 1px;
+    padding: 10px 0; min-height: 36px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  #status.loading { color: var(--gold); }
+  #status.error   { color: #FF5252; }
+  #status.success { color: #00E676; }
+
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(184,151,58,0.3);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: none;
+  }
+  .loading .spinner { display: block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Bloc premium ───────────────────────────────────────────── */
+  #premium-block {
+    display: none;
+    background: rgba(184,151,58,0.08);
+    border: 1px solid rgba(184,151,58,0.25);
+    padding: 24px; margin-top: 24px; text-align: left;
+  }
+  #premium-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--gold);
+  }
+  #premium-block p {
+    font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 20px;
+  }
+  .btn-premium {
+    display: block; text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--red); color: white;
+    padding: 14px 24px; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-premium:hover { background: #e01535; }
+
+  .back-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(247,243,232,0.25); text-decoration: none;
+    display: block; margin-top: 32px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--gold); }
+</style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="Un Cran d’Avance">
+  <meta property="og:description" content="L’essentiel de l’IA pour decider mieux, chaque semaine.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/gate.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Un Cran d’Avance">
+  <meta name="twitter:description" content="L’essentiel de l’IA pour decider mieux, chaque semaine.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/gate.html">
+</head>
+<body>
+
+<a href="/index.html" class="brand">✦ Un Cran d'Avance</a>
+
+<div class="card">
+
+  <div id="main-content">
+    <div class="icon" id="gate-icon">✦</div>
+    <h1 id="gate-title">Accès <em>gratuit</em><br>en un clic.</h1>
+    <p class="subtitle" id="gate-subtitle">
+      Entrez votre email pour accéder à cette édition.<br>
+      Si vous êtes déjà abonné, vous serez reconnu automatiquement.
+    </p>
+
+    <div class="form-row">
+      <input
+        type="email" autocomplete="email" required
+        id="email-input"
+        placeholder="votre@email.com"
+        autocomplete="email"
+        autocapitalize="off"
+      >
+      <div style="margin-top:12px;display:flex;align-items:flex-start;gap:8px;">
+  <input type="checkbox" id="consent-gate" required style="margin-top:3px;flex-shrink:0;accent-color:#B8973A;width:13px;height:13px;cursor:pointer;">
+  <label for="consent-gate" style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,0.35);line-height:1.5;cursor:pointer;">
+    J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>.
+    <a href="politique-confidentialite.html" style="color:rgba(255,255,255,0.5);text-decoration:underline;" target="_blank">Politique de confidentialité</a> · Désabonnement en 1 clic.
+  </label>
+</div>
+<button id="submit-btn" onclick="handleSubmit()">Accéder →</button>
+    </div>
+
+    <div id="status"><span class="spinner"></span><span id="status-text"></span></div>
+
+    <p class="note">Désabonnement en un clic · Aucun spam</p>
+  </div>
+
+  <!-- Affiché uniquement si l'email est free et le contenu est premium -->
+  <div id="premium-block">
+    <h2>Contenu réservé aux membres</h2>
+    <p>
+      Ce dossier est réservé aux membres premium d'Un Cran d'Avance.
+      Accès à tous les dossiers mensuels, archives complètes, et outils exclusifs.
+    </p>
+    <a href="/page-vente.html" class="btn-premium">Devenir membre — 199€/an →</a>
+  </div>
+
+</div>
+
+<a href="/page-newsletter.html" class="back-link">← Retour aux éditions</a>
+
+<script>
+// ── Auto-submit si email déjà connu (re-vérification transparente) ──
+// Si l'utilisateur a déjà donné son email, on tente de le re-vérifier
+// silencieusement sans qu'il voie le formulaire.
+(async function tryAutoVerify() {
+  const stored = localStorage.getItem('uca_email');
+  if (!stored) return; // Première visite — afficher le formulaire normalement
+
+  // Montrer un état de chargement discret
+  setStatus('loading', 'Vérification en cours…');
+  document.getElementById('submit-btn').disabled = true;
+
+  try {
+    const res  = await fetch('/.netlify/functions/verify-email', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ email: stored }),
+    });
+    const data = await res.json();
+
+    if (res.ok && (data.status === 'free' || data.status === 'premium')) {
+      if (data.status === 'premium' || reason !== 'premium') {
+        setStatus('success', '✓ Accès confirmé — redirection…');
+        setTimeout(() => { window.location.href = redirectTo; }, 600);
+        return;
+      }
+    }
+  } catch (e) { /* échec réseau — afficher le formulaire normalement */ }
+
+  // Pré-remplir l'email et réactiver le bouton
+  document.getElementById('email-input').value = stored;
+  document.getElementById('submit-btn').disabled = false;
+  setStatus('', '');
+})();
+
+// ── Lecture des paramètres URL ─────────────────────────────────────
+const params     = new URLSearchParams(window.location.search);
+const redirectTo = params.get('redirect') || '/page-newsletter.html';
+const reason     = params.get('reason')   || 'auth';
+
+// Adapter le texte selon le contexte
+if (reason === 'premium') {
+  document.getElementById('gate-icon').textContent    = '◈';
+  document.getElementById('gate-title').innerHTML     = 'Contenu <em>réservé</em><br>aux membres.';
+  document.getElementById('gate-subtitle').textContent =
+    'Entrez votre email. Si vous êtes membre premium, vous accéderez immédiatement.';
+}
+
+// ── Soumission ─────────────────────────────────────────────────────
+async function handleSubmit() {
+  const emailInput = document.getElementById('email-input');
+  const btn        = document.getElementById('submit-btn');
+  const email      = emailInput.value.trim().toLowerCase();
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    setStatus('error', 'Adresse email invalide.');
+    emailInput.focus();
+    return;
+  }
+
+  btn.disabled = true;
+  setStatus('loading', 'Vérification en cours…');
+
+  try {
+    const res = await fetch('/.netlify/functions/verify-email', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setStatus('error', data.error || 'Une erreur est survenue.');
+      btn.disabled = false;
+      return;
+    }
+
+    if (data.status === 'premium') {
+      // ✅ Membre premium → rediriger vers le contenu demandé
+      setStatus('success', '✓ Accès membre confirmé — redirection…');
+      setTimeout(() => { window.location.href = redirectTo; }, 800);
+
+    } else if (data.status === 'free' && reason === 'premium') {
+      // Email free mais contenu premium → montrer le bloc upsell
+      setStatus('success', '✓ Email reconnu.');
+      document.getElementById('premium-block').style.display = 'block';
+      btn.disabled = false;
+
+    } else {
+      // ✅ Email free (abonné existant ou nouveau) → rediriger
+      setStatus('success', '✓ Accès confirmé — redirection…');
+      setTimeout(() => { window.location.href = redirectTo; }, 800);
+    }
+
+  } catch (err) {
+    setStatus('error', 'Erreur réseau. Réessayez dans un instant.');
+    btn.disabled = false;
+  }
+}
+
+function setStatus(type, text) {
+  const el = document.getElementById('status');
+  const txt = document.getElementById('status-text');
+  el.className = type;
+  txt.textContent = text;
+}
+
+// ── Soumission au Enter ────────────────────────────────────────────
+document.getElementById('email-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') handleSubmit();
+});
+</script>
+
+
+<div style="padding:16px clamp(24px,5vw,80px);border-top:1px solid rgba(255,255,255,0.08);text-align:center;">
+  <a href="mentions-legales.html" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);text-decoration:none;margin:0 12px;">Mentions légales</a>
+  <a href="politique-confidentialite.html" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);text-decoration:none;margin:0 12px;">Confidentialité</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenue — Un Cran d'Avance</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap');
+:root{--ink:#0A0A14;--paper:#F7F5F0;--white:#FFFFFF;--muted:#6B6B6B;--rule:#D8D4CC;--light:#F0EDE8;--red:#C8102E;--gold:#B8973A;--l:#2C5282;--e:#276749;--a:#9C4221;--p:#C8102E;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{ overflow-x: hidden;font-family:'Barlow',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;padding-bottom:56px;}
+/* NAV */
+.masthead{border-bottom:3px double var(--ink);padding:16px clamp(20px,5vw,64px);display:flex;align-items:center;justify-content:space-between;background:var(--paper);position:sticky;top:0;z-index:100;}
+.m-brand{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;text-decoration:none;color:var(--ink);}
+.m-tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;background:var(--ink);color:var(--paper);}
+.m-meta{font-family:'Barlow Condensed',sans-serif;font-size:10px;color:var(--muted);text-align:right;line-height:1.4;}
+/* HERO */
+.hero{padding:clamp(40px,5vw,72px) clamp(20px,5vw,64px) 40px;border-bottom:1px solid var(--rule);max-width:960px;margin:0 auto;}
+.hero-kicker{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.hero-kicker::before{content:'';width:24px;height:1px;background:var(--red);display:block;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,56px);font-weight:900;line-height:1.05;margin-bottom:14px;}
+.hero-title em{font-style:italic;color:var(--red);}
+.hero-deck{font-family:'Lora',serif;font-size:17px;color:var(--muted);line-height:1.75;max-width:600px;margin-bottom:28px;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.chip{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--rule);color:var(--muted);}
+.chip.filled{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+/* OUVERTURE */
+.ouverture{max-width:960px;margin:0 auto;padding:36px clamp(20px,5vw,64px);border-bottom:1px solid var(--rule);}
+.ouv-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.ouv-text{font-family:'Lora',serif;font-size:16px;color:#444;line-height:1.82;max-width:620px;margin-bottom:16px;}
+.ouv-author{display:flex;align-items:center;gap:12px;margin-top:20px;}
+.ouv-photo{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--rule);flex-shrink:0;}
+.ouv-name{font-size:13px;font-weight:600;color:var(--ink);}
+.ouv-role{font-size:12px;color:var(--muted);}
+/* SIGNAL */
+.layer-header{padding:36px clamp(20px,5vw,64px) 16px;max-width:960px;margin:0 auto;}
+.layer-badge{display:inline-flex;gap:14px;align-items:center;padding:12px 20px;border:1px solid var(--rule);}
+.lb-letter{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;line-height:1;}
+.lb-meta{display:flex;flex-direction:column;gap:2px;}
+.lb-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.lb-desc{font-size:12px;color:var(--muted);}
+.signal-wrap{max-width:960px;margin:0 auto;padding:0 clamp(20px,5vw,64px);}
+.signal{border:1px solid var(--rule);margin-bottom:16px;background:var(--white);}
+.sig-header{padding:16px 20px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:14px;}
+.sig-num{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;line-height:1;flex-shrink:0;width:32px;}
+.sig-meta{flex:1;}
+.sig-theme{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
+.sig-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;line-height:1.3;color:var(--ink);}
+.sig-body{padding:18px 20px 0;}
+.sig-body p{font-family:'Lora',serif;font-size:14px;color:#444;line-height:1.75;margin-bottom:14px;}
+.sig-question{margin:0 20px 20px;padding:12px 16px;background:var(--light);border-left:3px solid var(--gold);}
+.sq-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.sq-text{font-family:'Playfair Display',serif;font-size:14px;font-style:italic;color:var(--ink);line-height:1.5;}
+/* LEAP */
+.leap-section{max-width:960px;margin:0 auto;padding:36px clamp(20px,5vw,64px);border-top:1px solid var(--rule);}
+.leap-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+.leap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.leap-cell{background:var(--white);padding:16px;}
+.lc-letter{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;line-height:1;margin-bottom:6px;}
+.lc-name{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.lc-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+/* DRIVEN */
+.driven-section{background:var(--ink);padding:32px clamp(20px,5vw,64px);}
+.driven-inner{max-width:960px;margin:0 auto;}
+.driven-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:16px;}
+.driven-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:10px;}
+.driven-title em{font-style:italic;color:var(--gold);}
+.driven-text{font-family:'Lora',serif;font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:16px;max-width:600px;}
+.driven-cta{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:10px 20px;background:var(--red);color:var(--white);text-decoration:none;display:inline-block;}
+/* CHECKLIST */
+.checklist-section{max-width:960px;margin:0 auto;padding:36px clamp(20px,5vw,64px);border-top:1px solid var(--rule);}
+.cl-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.cl-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.3;}
+.cl-intro{font-family:'Lora',serif;font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px;max-width:600px;}
+.cl-item{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--rule);}
+.cl-item:last-child{border-bottom:none;}
+.cl-check{width:20px;height:20px;border:2px solid var(--rule);flex-shrink:0;margin-top:2px;}
+.cl-text{font-family:'Lora',serif;font-size:14px;color:#333;line-height:1.6;}
+.cl-text strong{font-weight:600;color:var(--ink);}
+.cl-hint{font-size:12px;color:var(--muted);margin-top:3px;}
+/* RESULTAT */
+.resultat-section{max-width:960px;margin:0 auto;padding:32px clamp(20px,5vw,64px);border-top:1px solid var(--rule);}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:20px;}
+.res-cell{background:var(--white);padding:20px;}
+.rc-range{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:6px;}
+.rc-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.rc-couche{font-size:12px;font-weight:600;margin-bottom:8px;}
+.rc-text{font-size:12px;color:var(--muted);line-height:1.55;}
+/* SUITE */
+.suite-section{background:var(--ink);padding:32px clamp(20px,5vw,64px);}
+.suite-inner{max-width:960px;margin:0 auto;}
+/* GATE */
+.fadeout-wrap{position:relative;overflow:hidden;max-height:160px;max-width:960px;margin:0 auto;padding:0 clamp(20px,5vw,64px);background:var(--white);}
+.fadeout-wrap>div{padding-top:24px;}
+.fadeout-grad{position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);pointer-events:none;}
+.gate-block{background:var(--ink);border-top:3px solid var(--rule);}
+.gate-main{padding:32px clamp(20px,5vw,64px);text-align:center;}
+.gate-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.gate-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:10px;}
+.gate-title em{font-style:italic;color:var(--gold);}
+.gate-sub{font-family:'Lora',serif;font-size:14px;color:rgba(255,255,255,0.55);line-height:1.65;max-width:480px;margin:0 auto 20px;}
+.gate-form{display:flex;gap:0;max-width:440px;margin:0 auto 10px;}
+.gate-input{flex:1;padding:12px 16px;border:1px solid rgba(255,255,255,0.2);border-right:none;font-size:13px;font-family:'Barlow',sans-serif;background:rgba(255,255,255,0.07);color:#fff;outline:none;min-width:0;}
+.gate-input::placeholder{color:rgba(255,255,255,0.3);}
+.gate-input:focus{border-color:var(--gold);}
+.gate-btn{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 20px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;white-space:nowrap;}
+.gate-btn:hover{opacity:0.88;}
+.gate-error{font-size:11px;color:#ff6b6b;margin-bottom:6px;display:none;}
+.gate-note{font-size:10px;color:rgba(255,255,255,0.25);font-style:italic;margin:0;}
+.diag-bridge{padding:14px clamp(20px,5vw,64px);border-top:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.db-text{font-family:'Lora',serif;font-size:13px;color:rgba(255,255,255,0.55);margin:0;}
+.db-text strong{color:#fff;}
+.db-cta{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 16px;background:var(--gold);color:var(--ink);text-decoration:none;white-space:nowrap;flex-shrink:0;}
+#mw-content-full{display:none;}
+/* FOOTER */
+.footer{border-top:3px double var(--rule);padding:20px clamp(20px,5vw,64px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;max-width:960px;margin:0 auto;}
+.f-brand{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;}
+.f-copy{font-size:11px;color:var(--muted);}
+.f-links a{color:var(--red);text-decoration:none;font-size:11px;margin-left:12px;}
+/* STICKY */
+#uca-sticky-banner{position:fixed;bottom:0;left:0;right:0;background:var(--ink);border-top:2px solid var(--gold);padding:12px clamp(16px,4vw,40px);display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;z-index:999;box-shadow:0 -4px 20px rgba(0,0,0,0.3);}
+#uca-sticky-banner.hidden{display:none;}
+.usb-text{font-family:'Lora',serif;font-size:13px;color:rgba(255,255,255,0.8);white-space:nowrap;}
+.usb-text strong{color:#fff;}
+.usb-form{display:flex;gap:0;}
+.usb-input{padding:9px 14px;border:1px solid rgba(255,255,255,0.2);border-right:none;font-size:12px;font-family:'Barlow',sans-serif;background:rgba(255,255,255,0.07);color:#fff;outline:none;width:220px;}
+.usb-input::placeholder{color:rgba(255,255,255,0.3);}
+.usb-btn{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 16px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;white-space:nowrap;}
+.usb-close{font-size:16px;color:rgba(255,255,255,0.3);cursor:pointer;background:none;border:none;padding:4px 8px;line-height:1;flex-shrink:0;}
+@media(max-width:700px){
+  .leap-grid,.res-grid{grid-template-columns:1fr 1fr;}
+  .masthead{flex-wrap:wrap;gap:8px;}
+  .gate-form{flex-direction:column;gap:8px;}
+  .gate-input{border-right:1px solid rgba(255,255,255,0.2);}
+  .gate-btn{width:100%;}
+  .usb-text{font-size:12px;white-space:normal;}
+  .usb-input{width:130px;}
+}
+
+/* ══ BIENVENUE — funnel gate ══ */
+/* Gate visible par défaut, contenu masqué */
+#nl-content-gate { display: block; }
+#mw-content-full { display: none; }
+
+/* Email donné → masquer gate, afficher contenu */
+body.has-email #nl-content-gate { display: none; }
+body.has-email #mw-content-full { display: block; }
+
+/* Sticky banner — visible seulement si pas abonné */
+#uca-sticky-banner { display: none; }
+body:not(.has-email) #uca-sticky-banner { display: block; }
+
+/* CTA Premium dans SUITE — 3 états */
+.suite-cta-free    { display: none; }
+.suite-cta-premium { display: none; }
+body.has-email .suite-cta-free      { display: block; }
+body.has-premium .suite-cta-free    { display: none; }
+body.has-premium .suite-cta-premium { display: block; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .mw-signals-grid { grid-template-columns: 1fr !important; }
+  .mw-leap-grid    { grid-template-columns: 1fr !important; }
+}
+
+/* CTA FINAL — états abonné */
+.bvn-cta-free    { display: none; }
+.bvn-cta-premium { display: none; }
+body.has-email:not(.has-premium) .bvn-cta-free    { display: block; }
+body.has-premium .bvn-cta-free    { display: none; }
+body.has-premium .bvn-cta-premium { display: block; }
+
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .bvn-hero { padding: 32px 20px; }
+  .bvn-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .bvn-signals { padding: 0 !important; }
+  .bvn-signal-item { flex-direction: column; gap: 8px; }
+  .signal-preview { padding: 24px 20px !important; }
+  .signal-cta { padding: 24px 20px !important; }
+  .signal-gate-form { flex-direction: column !important; }
+  .signal-gate-form input { border-right: 1px solid var(--rule) !important; border-bottom: none !important; }
+  .signal-gate-form button { width: 100% !important; }
+  .premium-cta-section { padding: 40px 20px !important; }
+  .premium-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 480px) {
+  h1, .bvn-title { font-size: clamp(28px, 8vw, 36px) !important; }
+}
+</style>
+  <meta name="description" content="Pack de bienvenue UCA — 10 signaux faibles de l'IA que les dirigeants manquent. Cadre LEAP™, questions stratégiques. Gratuit.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="Pack de bienvenue — Un Cran d’Avance">
+  <meta property="og:description" content="10 signaux faibles de l’IA que les dirigeants manquent. Cadre LEAP(tm), questions strategiques.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/bienvenue.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pack de bienvenue — Un Cran d’Avance">
+  <meta name="twitter:description" content="10 signaux faibles de l’IA que les dirigeants manquent. Cadre LEAP(tm), questions strategiques.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/bienvenue.html">
+</head>
+<body>
+
+<div class="masthead">
+  <a href="page-newsletter.html" class="m-brand">✦ Un Cran d'Avance</a>
+  <div class="m-tag">Pack de bienvenue</div>
+  <div class="m-meta">Document exclusif<br>Abonnés Un Cran d'Avance</div>
+</div>
+
+<!-- HERO — visible librement -->
+<div class="hero">
+  <div class="hero-kicker">Pack de bienvenue · Document exclusif</div>
+  <h1 class="hero-title">10 signaux faibles de l'IA<br><em>que les dirigeants manquent.</em></h1>
+  <p class="hero-deck">Ce document n'est pas un tour d'horizon de l'IA. C'est une liste de ce que vous ne voyez pas encore — structurés pour passer du signal à la décision, avant que les sujets ne s'imposent d'eux-mêmes.</p>
+  <div class="hero-chips">
+    <div class="chip filled">10 signaux</div>
+    <div class="chip">LEAP™</div>
+    <div class="chip">~15 min</div>
+    <div class="chip">Questions stratégiques</div>
+  </div>
+</div>
+
+<!-- MOT D'OUVERTURE — visible librement -->
+<div class="ouverture">
+  <div class="ouv-label">Mot d'ouverture</div>
+  <p class="ouv-text">Il y a quelques semaines, j'ai eu une conversation avec le directeur financier d'une organisation de 800 personnes. Il venait de lire un rapport McKinsey sur l'IA et m'a dit quelque chose qui m'a frappé : « Je comprends que ça va tout changer. Je ne comprends pas ce que je dois faire lundi matin. »</p>
+  <p class="ouv-text">C'est exactement pour ça qu'Un Cran d'Avance existe. Pas pour vous expliquer que l'IA est importante — vous le savez. Pas pour vous livrer de la prospective sans lendemain. Pour vous aider à voir ce que les autres ne voient pas encore, et à décider avec méthode.</p>
+  <p class="ouv-text">Ce document est structuré autour du cadre LEAP™ — quatre couches de maturité IA qui décrivent où en est votre organisation et ce qui vous attend au prochain niveau.</p>
+  <div class="ouv-author">
+    <img src="aziz-el-kihel-general.jpg" class="ouv-photo" alt="Aziz El Kihel">
+    <div>
+      <div class="ouv-name">Aziz El Kihel — Fondateur, Un Cran d'Avance</div>
+      <div class="ouv-role"><a href="/cdn-cgi/l/email-protection#b9d8c3d0c3f9ccd7dacbd8d7ddd8cfd8d7dadc97dad6d4" style="color:var(--muted);text-decoration:none;"><span class="__cf_email__" data-cfemail="b1d0cbd8cbf1c4dfd2c3d0dfd5d0c7d0dfd2d49fd2dedc">[email&#160;protected]</span></a></div>
+    </div>
+  </div>
+</div>
+
+<!-- FADE-OUT Signal 1 — aperçu visible -->
+<div class="fadeout-wrap">
+  <div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--l);margin-bottom:12px;">Signal 1 · Couche L · Usage individuel</div>
+    <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;line-height:1.3;color:var(--ink);margin-bottom:10px;">Vos collaborateurs utilisent déjà l'IA — sans que vous le sachiez</div>
+    <div style="font-family:'Lora',serif;font-size:14px;color:#444;line-height:1.75;">Une étude Microsoft 2025 révèle que 78 % des travailleurs du savoir utilisent des outils IA personnels au travail — et que 52 % d'entre eux ne le déclarent pas à leur employeur…</div>
+  </div>
+  <div class="fadeout-grad"></div>
+</div>
+
+<!-- BLOC GATE + DIAGNOSTIC -->
+<div class="gate-block" id="nl-content-gate">
+  <div class="gate-main">
+    <div class="gate-eyebrow">Contenu réservé aux abonnés</div>
+    <div class="gate-title">La suite est gratuite<br><em>et immédiate.</em></div>
+    <p class="gate-sub">Les 10 signaux complets, le cadre LEAP™, le score DRIVEN™ et la checklist des 15 questions — accessibles immédiatement.</p>
+    <div style="max-width:460px;margin:0 auto;">
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <input type="email" autocomplete="email" required id="gate-email-input" placeholder="votre@email.com" style="flex:1;padding:14px 16px;border:1px solid rgba(255,255,255,0.2);border-right:none;font-size:14px;font-family:'Barlow',sans-serif;background:rgba(255,255,255,0.08);color:#fff;outline:none;min-width:0;" />
+        <button onclick="bienvHandleEmail()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 20px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;white-space:nowrap;">Accès immédiat — gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <input type="checkbox" id="consent-gate" name="consent" style="margin-top:3px;flex-shrink:0;accent-color:var(--gold);width:13px;height:13px;cursor:pointer;">
+        <label for="consent-gate" style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,0.45);line-height:1.5;cursor:pointer;text-align:left;">J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre <a href="politique-confidentialite.html" style="color:rgba(255,255,255,0.6);text-decoration:underline;" target="_blank">politique de confidentialité</a>. Désabonnement en 1 clic.</label>
+      </div>
+      <div id="gate-email-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;color:rgba(255,120,120,0.9);margin-top:4px;text-align:left;"></div>
+    </div>
+    <p style="margin-top:14px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;justify-content:center;gap:8px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;"></span>Pack de bienvenue inclus — 10 signaux LEAP™ livrés immédiatement</p>
+    <p class="gate-note">Gratuit · Désabonnement en 1 clic</p>
+  </div>
+</div>
+
+<!-- CONTENU DÉBLOQUÉ APRÈS EMAIL -->
+<div id="mw-content-full">
+
+<!-- COUCHE L -->
+<div class="layer-header" style="padding-top:36px;">
+  <div class="layer-badge" style="border-color:var(--l);">
+    <div class="lb-letter" style="color:var(--l);">L</div>
+    <div class="lb-meta">
+      <div class="lb-name" style="color:var(--l);">Local — Usage individuel non gouverné</div>
+      <div class="lb-desc">Vos collaborateurs utilisent l'IA seuls, sans politique, sans coordination.</div>
+    </div>
+  </div>
+</div>
+<div class="signal-wrap">
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--l);">1</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--l);">Couche L · Usage individuel</div>
+        <div class="sig-title">Vos collaborateurs utilisent déjà l'IA — sans que vous le sachiez</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>Une étude Microsoft 2025 révèle que 78 % des travailleurs du savoir utilisent des outils IA personnels au travail — et que 52 % d'entre eux ne le déclarent pas à leur employeur. Dans votre organisation, en ce moment, des comptes rendus sont rédigés par ChatGPT, des analyses financières sont accélérées par Copilot, des propositions clients sont structurées par Claude. Sans politique. Sans traçabilité. Sans que vous ayez validé ce qui peut être partagé avec un modèle externe.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Savez-vous quels outils IA vos équipes utilisent réellement — et quelles données passent dans ces modèles sans votre accord ?</div>
+    </div>
+  </div>
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--l);">2</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--l);">Couche L · Gouvernance</div>
+        <div class="sig-title">L'absence de politique IA est elle-même une décision — et rarement la bonne</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>Les organisations qui n'ont pas de politique IA formalisée ne sont pas « en attente ». Elles sont en train de laisser chaque collaborateur inventer les règles seul. Le résultat documenté par Deloitte : adoption chaotique, incidents de confidentialité non déclarés, et une résistance au changement qui s'installe avant même le premier déploiement organisé. La politique IA n'est pas un document RH. C'est le premier actif stratégique de votre transformation.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Si un collaborateur vous demandait demain ce qu'il peut et ne peut pas partager avec un outil IA, quelle serait votre réponse — et en combien de temps pourriez-vous la donner ?</div>
+    </div>
+  </div>
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--l);">3</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--l);">Couche L · Compétences</div>
+        <div class="sig-title">Le vrai écart de compétences n'est pas technique — il est décisionnel</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>La plupart des formations IA en entreprise apprennent aux collaborateurs à utiliser les outils. Presque aucune ne leur apprend à décider quand ne pas les utiliser. Or c'est cette compétence-là qui différenciera les organisations capables de piloter leur transformation de celles qui la subissent. Savoir prompter ChatGPT est une compétence de 2024. Savoir à quel moment confier un jugement à un agent — et quand ne jamais le faire — est la compétence de 2026.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Vos programmes de formation IA entraînent-ils vos équipes à utiliser les outils, ou à exercer leur jugement sur ce que ces outils peuvent et ne peuvent pas décider ?</div>
+    </div>
+  </div>
+</div>
+
+<!-- COUCHE E -->
+<div class="layer-header" style="padding-top:36px;">
+  <div class="layer-badge" style="border-color:var(--e);">
+    <div class="lb-letter" style="color:var(--e);">E</div>
+    <div class="lb-meta">
+      <div class="lb-name" style="color:var(--e);">Efficiency — Automatisation des processus</div>
+      <div class="lb-desc">Vos premières automatisations sont en place. Le ROI est mesurable. Le prochain verrou est l'intégration système.</div>
+    </div>
+  </div>
+</div>
+<div class="signal-wrap">
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--e);">4</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--e);">Couche E · ROI</div>
+        <div class="sig-title">Les organisations qui mesurent le ROI de l'IA obtiennent 3× plus de budget pour la suite</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>Le rapport Thomson Reuters 2026 est explicite : les organisations qui ont formalisé un cadre de mesure ROI pour leurs premiers déploiements IA sont trois à quatre fois plus susceptibles d'obtenir un budget d'expansion l'année suivante. Ce n'est pas une surprise — c'est de la gestion. Ce qui est surprenant, c'est que 67 % des organisations qui expérimentent l'IA n'ont aucun indicateur de résultat défini avant le déploiement. Elles mesurent l'enthousiasme, pas la valeur.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Pour chaque projet IA en cours dans votre organisation, pouvez-vous nommer le KPI principal, la baseline de départ, et la date à laquelle vous évaluerez le résultat ?</div>
+    </div>
+  </div>
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--e);">5</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--e);">Couche E · Coûts</div>
+        <div class="sig-title">Les coûts IA dérivent — et personne ne le voit avant la facture</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>Les plateformes IA facturent à l'usage : par token consommé, par exécution, par utilisateur. À l'échelle d'une équipe de 20 personnes, les coûts récurrents peuvent tripler en six mois sans que personne ne reçoive d'alerte. Gartner documente ce phénomène sous le terme « IA sprawl » : une prolifération d'outils non coordonnés, dont les coûts combinés dépassent régulièrement les budgets alloués sans qu'aucune ligne budgétaire ne soit formellement dépassée. Le problème n'est pas le coût. C'est l'invisibilité du coût.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Savez-vous combien votre organisation dépense en outils IA ce mois-ci — en additionnant tous les abonnements, API, et licences, y compris ceux achetés par les équipes sans validation centrale ?</div>
+    </div>
+  </div>
+</div>
+
+<!-- COUCHE A -->
+<div class="layer-header" style="padding-top:36px;">
+  <div class="layer-badge" style="border-color:var(--a);">
+    <div class="lb-letter" style="color:var(--a);">A</div>
+    <div class="lb-meta">
+      <div class="lb-name" style="color:var(--a);">Agentique — Délégation d'objectifs</div>
+      <div class="lb-desc">Des agents agissent de façon autonome sur des workflows entiers. L'humain supervise, valide, corrige — il n'exécute plus.</div>
+    </div>
+  </div>
+</div>
+<div class="signal-wrap">
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--a);">6</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--a);">Couche A · Adoption</div>
+        <div class="sig-title">40 % des logiciels que vous utilisez déjà auront des agents intégrés d'ici fin 2026</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>Le chiffre Gartner est trompeur en apparence : 40 % des applications d'entreprise intégreront des agents IA spécialisés d'ici fin 2026 — contre moins de 1 % aujourd'hui. Ce qui change, c'est que l'IA agentique n'arrivera pas par un projet de transformation. Elle arrivera par une mise à jour de Microsoft 365, une nouvelle fonctionnalité Salesforce, un module activé par défaut dans votre ERP. Vos équipes commenceront à l'utiliser avant que la direction ait décidé si c'était une bonne idée.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Avez-vous un processus pour évaluer les nouvelles fonctionnalités IA qui s'activent automatiquement dans vos outils existants — avant que vos équipes ne commencent à les utiliser ?</div>
+    </div>
+  </div>
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--a);">7</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--a);">Couche A · Risque</div>
+        <div class="sig-title">Quand l'agent se trompe, qui répond ? La question n'a pas de réponse dans la plupart des organisations</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>Un agent IA qui gère des emails clients, déclenche des commandes ou qualifie des dossiers RH prend des décisions. Quand ces décisions sont mauvaises — et elles le seront parfois — votre organisation doit être capable de répondre à trois questions en moins de 24 heures : qu'est-ce qui s'est passé exactement, qui était responsable de superviser ce système, et comment est-ce qu'on y remédie. Dans 80 % des organisations qui déploient des agents, aucune de ces trois questions n'a de réponse préparée.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Pour chaque agent IA en production dans votre organisation, pouvez-vous nommer la personne responsable en cas d'erreur — pas un comité, une personne ?</div>
+    </div>
+  </div>
+</div>
+
+<!-- COUCHE P -->
+<div class="layer-header" style="padding-top:36px;">
+  <div class="layer-badge" style="border-color:var(--p);">
+    <div class="lb-letter" style="color:var(--p);">P</div>
+    <div class="lb-meta">
+      <div class="lb-name" style="color:var(--p);">Pivot — Redéfinition du modèle</div>
+      <div class="lb-desc">L'IA redéfinit votre modèle économique, vos prix, votre proposition de valeur. La gouvernance devient un avantage concurrentiel.</div>
+    </div>
+  </div>
+</div>
+<div class="signal-wrap">
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--p);">8</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--p);">Couche P · Pression tarifaire</div>
+        <div class="sig-title">Vos clients vont vous demander leur part des gains de productivité IA — et certains ont déjà commencé</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>KPMG a imposé une réduction de 14 % à Grant Thornton en citant explicitement les gains de productivité attendus de l'IA. Ce n'est pas un cas isolé — c'est le début d'une dynamique de marché. Les organisations qui facturent du temps ou de l'expertise vont faire face à une pression croissante de leurs clients pour répercuter les gains de productivité IA. La question n'est pas de savoir si ça va arriver — c'est de préparer votre réponse avant qu'on vous la pose.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Avez-vous préparé votre réponse si un client vous demande une réduction de tarif justifiée par votre efficacité IA — y compris les chiffres qui soutiendraient votre position ?</div>
+    </div>
+  </div>
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--p);">9</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--p);">Couche P · Dépendance</div>
+        <div class="sig-title">La dépendance à un seul fournisseur IA est le nouveau risque stratégique que les conseils d'administration ne voient pas encore</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>En 2024, plusieurs grandes organisations ont découvert que le modèle IA sur lequel reposaient leurs workflows critiques avait été modifié unilatéralement par son fournisseur — performances dégradées, comportements changés, conditions d'utilisation révisées. Sans alternative, sans plan de continuité, sans levier de négociation. La dépendance technologique n'est pas nouvelle. La vitesse à laquelle elle peut se transformer en vulnérabilité stratégique, elle, l'est.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Si votre principal fournisseur IA changeait ses conditions ou ses performances demain, combien de temps vous faudrait-il pour basculer sur une alternative — et avez-vous testé cette alternative ?</div>
+    </div>
+  </div>
+  <div class="signal">
+    <div class="sig-header">
+      <div class="sig-num" style="color:var(--p);">10</div>
+      <div class="sig-meta">
+        <div class="sig-theme" style="color:var(--p);">Couche P · Gouvernance comme avantage</div>
+        <div class="sig-title">Les organisations qui ont structuré leur gouvernance IA avancent 30 à 40 % plus vite que les autres — ce n'est plus un paradoxe</div>
+      </div>
+    </div>
+    <div class="sig-body">
+      <p>Le contre-intuitif de 2026 : les organisations les plus structurées sur la gouvernance IA sont aussi celles qui déploient le plus vite. Pas malgré la gouvernance — grâce à elle. Quand les décisions sont déjà prises (quelles données, quel niveau de risque, qui approuve), les équipes n'attendent pas de validation ad hoc. Elles avancent dans un cadre connu. McKinsey documente un écart de 30 à 40 % sur la vélocité de déploiement entre organisations structurées et non structurées.</p>
+    </div>
+    <div class="sig-question">
+      <div class="sq-label">Question stratégique</div>
+      <div class="sq-text">Dans votre organisation, la gouvernance IA est-elle perçue comme un frein ou comme ce qui permet d'aller vite sans tout refaire ?</div>
+    </div>
+  </div>
+</div>
+
+<!-- LEAP -->
+<div class="leap-section">
+  <div class="leap-label">Le cadre de lecture — LEAP™</div>
+  <div class="leap-grid">
+    <div class="leap-cell">
+      <div class="lc-letter" style="color:var(--l);">L</div>
+      <div class="lc-name" style="color:var(--l);">Local</div>
+      <div class="lc-desc">Usage individuel non gouverné. L'IA est dans les mains des collaborateurs, pas dans la stratégie.</div>
+    </div>
+    <div class="leap-cell">
+      <div class="lc-letter" style="color:var(--e);">E</div>
+      <div class="lc-name" style="color:var(--e);">Efficiency</div>
+      <div class="lc-desc">Automatisation des processus. Premiers ROI mesurables. Le verrou est l'intégration système.</div>
+    </div>
+    <div class="leap-cell">
+      <div class="lc-letter" style="color:var(--a);">A</div>
+      <div class="lc-name" style="color:var(--a);">Agentique</div>
+      <div class="lc-desc">Agents autonomes sur des workflows entiers. La question "qui répond ?" devient critique.</div>
+    </div>
+    <div class="leap-cell">
+      <div class="lc-letter" style="color:var(--p);">P</div>
+      <div class="lc-name" style="color:var(--p);">Pivot</div>
+      <div class="lc-desc">Redéfinition du modèle économique autour des capacités IA. La gouvernance devient un avantage.</div>
+    </div>
+  </div>
+</div>
+
+<!-- DRIVEN -->
+<div class="driven-section">
+  <div class="driven-inner">
+    <div class="driven-label">Concept propriétaire UCA · Score DRIVEN™</div>
+    <div class="driven-title">Un classement vivant pour votre<br><em>maîtrise organisationnelle IA.</em></div>
+    <p class="driven-text">Le classement ATP d'un joueur n'est pas sa performance d'il y a 3 ans. C'est sa performance des 12 derniers mois, recalculée en permanence. Votre Score DRIVEN™ fonctionne de la même façon — il mesure où en est votre système IA aujourd'hui, pas au moment de son déploiement. 6 axes (Décision · Risque · Impact · Vulnérabilité · Engagement · Nécessité humaine) · Score 0-100 · Signal de dérive automatique.</p>
+    <a href="page-diagnostic.html" class="driven-cta">Calculer votre Score DRIVEN™ →</a>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="checklist-section">
+  <div class="cl-label">Checklist dirigeant</div>
+  <h2 class="cl-title">15 questions pour évaluer votre maturité IA</h2>
+  <p class="cl-intro">Répondez honnêtement. Comptez vos OUI. Le résultat est en bas.</p>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Avez-vous une politique IA formalisée et communiquée à toutes vos équipes ?</strong></div><div class="cl-hint">Un document accessible, pas une intention.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Savez-vous quels outils IA sont utilisés dans votre organisation — y compris ceux non autorisés officiellement ?</strong></div><div class="cl-hint">Incluant les outils personnels utilisés au travail.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Vos collaborateurs savent-ils précisément quelles données ne doivent jamais être partagées avec un outil IA ?</strong></div><div class="cl-hint">Pas seulement une formation générale — une liste précise.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Avez-vous au moins un processus IA déployé avec un KPI de résultat mesuré ?</strong></div><div class="cl-hint">Baseline avant déploiement + mesure après.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Connaissez-vous le budget total dépensé en outils IA ce mois-ci dans toute votre organisation ?</strong></div><div class="cl-hint">Tous les abonnements, API, licences — centralisés et non centralisés.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Avez-vous un tableau de bord de suivi des coûts IA avec des alertes en cas de dérive ?</strong></div><div class="cl-hint">FinOps IA — pas seulement IT général.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Vos équipes ont-elles reçu une formation sur quand ne pas utiliser l'IA — pas seulement comment l'utiliser ?</strong></div><div class="cl-hint">Le jugement sur les limites, pas seulement les usages.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Avez-vous identifié votre premier processus candidat à l'automatisation agentique ?</strong></div><div class="cl-hint">Avec périmètre de décision documenté avant déploiement.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Pour chaque agent déployé, avez-vous défini qui est responsable quand il produit une erreur ?</strong></div><div class="cl-hint">Une personne nommée, pas un comité.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Avez-vous un programme d'adoption structuré accompagnant vos déploiements — au-delà de la formation technique ?</strong></div><div class="cl-hint">Gestionnaires d'agents, pas seulement utilisateurs.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Vos systèmes clés (ERP, CRM, DMS) sont-ils connectés par API de façon à permettre une orchestration agentique ?</strong></div><div class="cl-hint">Intégration réelle, pas seulement interfaces UI.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Avez-vous préparé votre réponse si un client demande une réduction de tarif justifiée par votre efficacité IA ?</strong></div><div class="cl-hint">Pas une réaction — une position préparée.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Avez-vous évalué votre dépendance structurelle à vos principaux fournisseurs IA ?</strong></div><div class="cl-hint">Plan de continuité si le fournisseur change ses conditions.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Votre conseil d'administration a-t-il discuté du risque de dépendance IA comme d'un risque stratégique ?</strong></div><div class="cl-hint">Dans un ordre du jour formel. Pas dans un couloir.</div></div></div>
+  <div class="cl-item"><div class="cl-check"></div><div><div class="cl-text"><strong>Avez-vous une feuille de route IA à 12 mois, validée par la direction, avec des jalons mesurables ?</strong></div><div class="cl-hint">Une feuille de route opérationnelle. Pas un PowerPoint de vision stratégique.</div></div></div>
+</div>
+
+<!-- RÉSULTAT -->
+<div class="resultat-section">
+  <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Votre résultat</div>
+  <div class="res-grid">
+    <div class="res-cell">
+      <div class="rc-range" style="color:var(--l);">0 à 5 OUI</div>
+      <div class="rc-label" style="color:var(--l);">Retard critique</div>
+      <div class="rc-couche">Couche L</div>
+      <div class="rc-text">Fondation manquante. Priorité : inventaire des usages réels et première politique IA.</div>
+    </div>
+    <div class="res-cell">
+      <div class="rc-range" style="color:var(--e);">6 à 10 OUI</div>
+      <div class="rc-label" style="color:var(--e);">En transition</div>
+      <div class="rc-couche">Couche E→A</div>
+      <div class="rc-text">Vous avancez. Des gains réels sont masqués par l'absence de mesure et de gouvernance.</div>
+    </div>
+    <div class="res-cell">
+      <div class="rc-range" style="color:var(--a);">11 à 15 OUI</div>
+      <div class="rc-label" style="color:var(--a);">Structuré</div>
+      <div class="rc-couche">Couche A→P</div>
+      <div class="rc-text">Vous pilotez. La question est stratégique : capturez-vous la valeur créée ?</div>
+    </div>
+  </div>
+</div>
+
+<!-- SUITE -->
+<div class="suite-section">
+  <div class="suite-inner">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:12px;">Et maintenant ?</div>
+    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:10px;">Vous avez identifié vos signaux.<br><em style="font-style:italic;color:var(--gold);">La question change.</em></div>
+    <p style="font-family:'Lora',serif;font-size:14px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:20px;max-width:600px;">Elle n'est plus « Est-ce que l'IA va impacter mon organisation ? » — vous connaissez déjà la réponse. Elle est devenue <strong style="color:rgba(255,255,255,0.85);">« Comment reprendre le contrôle et structurer ma stratégie avant que mes concurrents ne le fassent ? »</strong></p>
+    <p style="font-family:'Lora',serif;font-size:14px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:20px;max-width:600px;">C'est précisément ce que traite chaque édition d'Un Cran d'Avance — et chaque dossier mensuel en profondeur. Pas de la prospective. Des cas documentés, des chiffres réels, et un chemin gradué selon là où vous en êtes dans la grille LEAP™.</p>
+    <a href="page-newsletter.html" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:10px 24px;background:var(--red);color:var(--white);text-decoration:none;display:inline-block;">Lire la prochaine édition →</a>
+      <!-- CTAs selon statut -->
+      <div class="suite-cta-free" style="margin-top:24px;padding:24px;background:rgba(184,151,58,0.08);border:1px solid rgba(184,151,58,0.25);">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#B8973A;margin-bottom:8px;">⏱ Offre fondateurs — expire 31 mai 2026</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#0A0A14;margin-bottom:12px;">Les dossiers Premium donnent le plan d'action.</div>
+        <a href="page-vente.html" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:13px 24px;background:#C8102E;color:#fff;text-decoration:none;display:inline-block;">Devenir membre Premium — 199€/an →</a>
+      </div>
+      <div class="suite-cta-premium" style="margin-top:24px;padding:24px;background:rgba(184,151,58,0.08);border:1px solid rgba(184,151,58,0.25);">
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#0A0A14;margin-bottom:12px;">Vos dossiers Premium vous attendent.</div>
+        <a href="page-newsletter.html" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:13px 24px;background:#B8973A;color:#0A0A14;text-decoration:none;display:inline-block;">Accéder à mes dossiers →</a>
+      </div>
+  </div>
+</div>
+
+
+<!-- CTA FINAL — abonné gratuit -->
+<div class="bvn-cta-free" style="background:#0A0A14;padding:clamp(40px,6vw,72px) clamp(24px,5vw,80px);border-top:1px solid rgba(255,255,255,0.08);">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:12px;"><span style="display:inline-block;width:20px;height:1px;background:#B8973A;"></span>Aller plus loin<span style="display:inline-block;width:20px;height:1px;background:#B8973A;"></span></div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,40px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px;">Ces 10 signaux sont<br><em style="font-style:italic;color:#B8973A;">le point de départ.</em></h2>
+    <p style="font-family:'Lora',serif;font-size:15px;color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:32px;">Les dossiers Premium donnent les cadres pour agir sur ces signaux — analyse terrain, DRIVEN™ complet, trajectoire 90 jours. Un sujet par mois, une décision.</p>
+    <a href="page-vente.html" style="display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:15px 40px;background:#C8102E;color:#fff;text-decoration:none;margin-bottom:14px;">Découvrir l'offre Premium — 199€/an →</a>
+    <p style="font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:20px;">63 places fondateurs · Expire 31 mai 2026</p>
+    <a href="membre-welcome.html" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:1px;">Retour à mon espace →</a>
+  </div>
+</div>
+
+<!-- CTA FINAL — membre premium -->
+<div class="bvn-cta-premium" style="background:#0A0A14;padding:clamp(32px,5vw,56px) clamp(24px,5vw,80px);border-top:1px solid rgba(255,255,255,0.08);">
+  <div style="max-width:480px;margin:0 auto;text-align:center;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:16px;">Vous êtes membre Premium</div>
+    <p style="font-family:'Lora',serif;font-size:15px;color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:24px;">Vos dossiers Premium vont plus loin sur chacun de ces sujets — cadres complets et trajectoires 90 jours.</p>
+    <a href="membre-welcome.html" style="display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:13px 32px;background:rgba(184,151,58,0.15);color:#B8973A;border:1px solid rgba(184,151,58,0.3);text-decoration:none;">Retour à mon espace →</a>
+  </div>
+</div>
+</div><!-- /mw-content-full -->
+
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="f-brand">✦ Un Cran d'Avance</div>
+  <div class="f-copy">© 2026 · Document exclusif abonnés</div>
+  <div class="f-links">
+    <a href="page-newsletter.html">Newsletter</a>
+    <a href="page-vente.html">Premium</a>
+    <a href="page-apropos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </div>
+</div>
+
+<!-- STICKY -->
+<div id="uca-sticky-banner" style="display:none!important">
+  <p class="usb-text"><strong>Chaque mardi</strong> — les signaux IA qui comptent pour les décideurs</p>
+  <div class="usb-form">
+    <input type="email" autocomplete="email" required class="usb-input" id="usb-email-input" placeholder="votre@email.com">
+    <button class="usb-btn" onclick="ucaStickySubmit()">Commencer gratuitement →</button>
+  </div>
+  <button class="usb-close" onclick="ucaStickyClose()" title="Fermer">✕</button>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="uca-gate.js"></script>
+<script>
+// Override applyNLAccess pour cibler mw-content-full
+document.addEventListener('DOMContentLoaded', function() {
+  var gate = document.getElementById('nl-content-gate');
+  var content = document.getElementById('mw-content-full');
+  if (localStorage.getItem('uca_has_email') === '1') {
+    if (gate) gate.closest('.gate-block').style.display = 'none';
+    if (content) content.style.display = 'block';
+  }
+  if (localStorage.getItem('uca_has_email') === '1' || sessionStorage.getItem('uca_banner_closed') === '1') {
+    var b = document.getElementById('uca-sticky-banner');
+    if (b) b.classList.add('hidden');
+  }
+  var inp = document.getElementById('usb-email-input');
+  if (inp) inp.addEventListener('keydown', function(e){ if(e.key==='Enter') ucaStickySubmit(); });
+});
+function bienvHandleEmail() {
+  var inp = document.getElementById('gate-email-input');
+  var consent = document.getElementById('consent-gate');
+  var errEl = document.getElementById('gate-email-error');
+  var email = inp ? inp.value.trim() : '';
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!re.test(email)) {
+    if (inp) inp.style.borderColor = 'rgba(255,100,100,0.8)';
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    return;
+  }
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid rgba(255,100,100,0.8)';
+    return;
+  }
+  if (inp) inp.style.borderColor = '';
+  if (consent) consent.style.outline = '';
+  if (errEl) errEl.style.display = 'none';
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  var gate = document.getElementById('nl-content-gate');
+  if (gate) gate.style.display = 'none';
+  var content = document.getElementById('mw-content-full');
+  if (content) content.style.display = 'block';
+  document.body.classList.add('has-email');
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+}
+function ucaStickyClose(){var b=document.getElementById('uca-sticky-banner');if(b)b.classList.add('hidden');sessionStorage.setItem('uca_banner_closed','1');}
+function ucaStickySubmit(){var inp=document.getElementById('usb-email-input');if(!inp)return;var email=inp.value.trim();var re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;if(!re.test(email)){inp.style.borderColor='rgba(255,100,100,0.8)';return;}inp.style.borderColor='';localStorage.setItem('uca_has_email','1');localStorage.setItem('uca_email',email);if(typeof applyNLAccess==='function')applyNLAccess();if(typeof handleEmailSubmit==='function')handleEmailSubmit(email).catch(function(){});var b=document.getElementById('uca-sticky-banner');if(b)b.classList.add('hidden');setTimeout(function(){window.location.href='membre-welcome.html';},1200);}
+</script>
+
+<!-- MODAL INSCRIPTION -->
+<div id="uca-subscribe-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:rgba(10,10,20,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;padding:40px 36px;position:relative;">
+    <button onclick="ucaCloseModal()" aria-label="Fermer" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#6B6B6B;line-height:1;">✕</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:16px;">Newsletter gratuite · Chaque mardi</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;color:#0A0A14;margin-bottom:8px;">5 signaux IA.<br>Chaque mardi matin.</h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.7;margin-bottom:24px;">Ce que les dirigeants utilisent pour décider avant les autres. Gratuit, désabonnement en 1 clic.</p>
+    <!-- Formulaire -->
+    <div id="modal-form-wrap">
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <input type="email" id="modal-email-input" autocomplete="email" required placeholder="votre@email.com" style="flex:1;padding:14px 16px;font-family:'Barlow',sans-serif;font-size:14px;border:1px solid #E0DDD8;border-right:none;outline:none;min-width:0;" />
+        <button onclick="ucaModalSubmit()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 20px;background:#C8102E;color:#fff;border:none;cursor:pointer;white-space:nowrap;">Accès immédiat — gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <input type="checkbox" id="modal-consent" style="margin-top:3px;flex-shrink:0;accent-color:#C8102E;" />
+        <label for="modal-consent" style="font-family:'Barlow',sans-serif;font-size:12px;color:#6B6B6B;line-height:1.5;cursor:pointer;">J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre <a href="politique-confidentialite.html" style="color:#6B6B6B;text-decoration:underline;">politique de confidentialité</a>. Désabonnement en 1 clic.</label>
+      </div>
+      <div id="modal-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;color:#C8102E;margin-top:6px;"></div>
+    </div>
+    <!-- Succès -->
+    <div id="modal-success" style="display:none;text-align:center;padding:16px 0;">
+      <div style="font-size:32px;margin-bottom:12px;">✓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#0A0A14;margin-bottom:8px;">Bienvenue !</div>
+      <div style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.6;">Votre premier signal arrive mardi. Votre Pack de bienvenue est disponible maintenant.</div>
+      <a href="bienvenue.html" style="display:inline-block;margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;background:#0A0A14;color:#fff;text-decoration:none;">Voir mon Pack de bienvenue →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function ucaOpenModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (!m) return;
+  // Si déjà abonné, rediriger vers bienvenue
+  if (localStorage.getItem('uca_has_email') === '1') {
+    window.location.href = 'bienvenue.html';
+    return;
+  }
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var inp = document.getElementById('modal-email-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+function ucaCloseModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (m) m.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function ucaModalSubmit() {
+  var inp = document.getElementById('modal-email-input');
+  var consent = document.getElementById('modal-consent');
+  var errEl = document.getElementById('modal-error');
+  var email = inp ? inp.value.trim() : '';
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!re.test(email)) {
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    if (inp) inp.style.borderColor = '#C8102E';
+    return;
+  }
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid #C8102E';
+    return;
+  }
+  if (inp) inp.style.borderColor = '';
+  if (consent) consent.style.outline = '';
+  if (errEl) errEl.style.display = 'none';
+
+  // Déverrouillage immédiat
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyDossierAccess === 'function') applyDossierAccess();
+  if (typeof applyNLAccess === 'function') applyNLAccess();
+
+  // Afficher succès
+  var formWrap = document.getElementById('modal-form-wrap');
+  var success = document.getElementById('modal-success');
+  if (formWrap) formWrap.style.display = 'none';
+  if (success) success.style.display = 'block';
+
+  // Appel réseau en arrière-plan
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+}
+// Fermer en cliquant hors de la modal
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('uca-subscribe-modal');
+  if (modal && e.target === modal) ucaCloseModal();
+});
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') ucaCloseModal();
+});
+</script>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session pour mémoriser votre accès. Aucun cookie tiers. <a href="/politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  localStorage.removeItem('uca_has_email'); localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='

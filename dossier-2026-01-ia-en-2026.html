@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="color-scheme" content="light">
+<style>:root { color-scheme: light; }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier N°3 — L'IA en 2026 | Un Cran d'Avance</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --ink:   #0D0D1A;
+  --paper: #F7F5F0;
+  --red:   #C8102E;
+  --gold:  #B8973A;
+  --muted: #888880;
+  --rule:  #D8D4CC;
+  --white: #FFFFFF;
+  --l: #2C5282;
+  --e: #276749;
+  --a: #9C4221;
+  --p: #C8102E;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Barlow', sans-serif; background: var(--paper); color: var(--ink); }
+
+.masthead { border-bottom: 3px double var(--ink); padding: 16px 64px; display: flex; align-items: center; justify-content: space-between; background: var(--paper); position: sticky; top: 0; z-index: 100; }
+.m-brand { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; }
+.m-tag   { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; background:var(--ink); color:var(--paper); }
+.m-meta  { font-size:11px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; text-align:right; }
+
+.module-nav { background: var(--ink); padding: 0 64px; display: flex; align-items: center; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 53px; z-index: 99; overflow-x: auto; }
+.mn-item { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border-right: 1px solid rgba(255,255,255,0.07); cursor: pointer; text-decoration: none; transition: background 0.15s; white-space: nowrap; flex-shrink: 0; }
+.mn-item:hover { background: rgba(255,255,255,0.05); }
+.mn-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:800; letter-spacing:1px; text-transform:uppercase; padding:2px 7px; }
+.mn-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); }
+
+.hero { padding:64px 64px 48px; max-width:1080px; margin:0 auto; border-bottom:1px solid var(--rule); }
+.hero-kicker { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--red); margin-bottom:14px; }
+.hero-title { font-family:'Playfair Display',serif; font-size:52px; font-weight:900; line-height:1.05; margin-bottom:20px; max-width:760px; }
+.hero-title em { font-style:italic; color:var(--red); }
+.hero-deck { font-family:'Lora',serif; font-size:18px; color:#555; line-height:1.7; max-width:640px; margin-bottom:32px; }
+.hero-row { display:flex; gap:24px; align-items:center; flex-wrap:wrap; padding-top:20px; border-top:1px solid var(--rule); }
+.hero-chip { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 14px; border:1.5px solid var(--ink); }
+.hero-chip.filled { background:var(--ink); color:var(--paper); }
+.hero-time { font-size:12px; color:var(--muted); margin-left:auto; }
+
+/* MOT AUTEUR */
+.author-intro { max-width:1080px; margin:0 auto; padding:32px 64px 28px; border-bottom:1px solid var(--rule); }
+
+/* VERDICT */
+.verdict-block { background:var(--ink); padding:28px 64px; max-width:1080px; margin:0 auto; border-bottom:3px solid var(--red); }
+.vb-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.vb-label::before { content:''; display:block; width:20px; height:1px; background:var(--red); }
+.vb-text { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; font-style:italic; color:var(--white); line-height:1.45; max-width:740px; }
+.vb-bullets { margin-top:20px; display:flex; flex-direction:column; gap:12px; }
+.vb-bullet { display:flex; gap:14px; align-items:flex-start; }
+.vb-dash { color:var(--red); font-weight:700; flex-shrink:0; margin-top:2px; }
+.vb-btext { font-size:14px; color:rgba(255,255,255,0.75); line-height:1.55; }
+.vb-btext strong { color:var(--white); }
+.vb-sub { font-size:12px; color:rgba(255,255,255,0.4); margin-top:14px; font-style:italic; }
+
+/* BRIEF */
+.brief-block { background:white; border-bottom:1px solid var(--rule); padding:0 64px; max-width:1080px; margin:0 auto; }
+.brief-header { padding:14px 0 12px; display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--rule); }
+.bh-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.bh-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:2px 8px; background:#F0EDE8; color:var(--muted); }
+.bh-time { font-size:10px; color:var(--muted); margin-left:auto; }
+.brief-inner { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-left:1px solid var(--rule); border-right:1px solid var(--rule); }
+.brief-cell { padding:24px; border-right:1px solid var(--rule); border-bottom:3px solid transparent; transition:border-bottom-color 0.2s; }
+.brief-cell:last-child { border-right:none; }
+.brief-cell:hover { border-bottom-color:var(--red); }
+.bc-num   { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; color:var(--rule); line-height:1; margin-bottom:8px; }
+.bc-title { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:8px; }
+.bc-text  { font-size:13px; color:#555; line-height:1.6; }
+.bc-text strong { font-weight:700; color:var(--ink); }
+
+.analyse-header { max-width:1080px; margin:0 auto; padding:16px 64px; display:flex; align-items:center; gap:14px; border-bottom:1px solid var(--rule); background:var(--paper); }
+.ah-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.ah-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:2px 8px; background:var(--ink); color:var(--paper); }
+.ah-desc  { font-size:11px; color:var(--muted); }
+.ah-time  { font-size:10px; color:var(--muted); margin-left:auto; }
+
+.wrap { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 280px; }
+
+.article { padding:56px 52px 72px 64px; border-right:1px solid var(--rule); }
+.article p { font-family:'Lora',serif; font-size:16px; color:#333; line-height:1.82; margin-bottom:20px; max-width:640px; }
+.article p strong { font-weight:600; color:var(--ink); }
+.section-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:var(--ink); margin:52px 0 14px; max-width:620px; line-height:1.25; }
+.section-num { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:6px; }
+.pull-quote { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; font-style:italic; color:var(--ink); line-height:1.45; padding:24px 0 24px 24px; border-left:4px solid var(--red); margin:36px 0; max-width:580px; }
+.stat-hero { font-family:'Playfair Display',serif; font-size:72px; font-weight:900; color:var(--ink); line-height:1; margin:28px 0 4px; }
+.stat-label { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+
+.callout { background:var(--white); border:1px solid var(--rule); border-left:4px solid var(--gold); padding:18px 22px; margin:28px 0; max-width:640px; }
+.callout p { font-family:'Barlow',sans-serif; font-size:14px; color:#444; line-height:1.65; margin:0; max-width:none; }
+.callout-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+
+.data-table { width:100%; max-width:640px; border-collapse:collapse; margin:24px 0; font-size:13px; }
+.data-table th { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; background:var(--ink); color:var(--paper); padding:10px 14px; text-align:left; }
+.data-table td { padding:10px 14px; border-bottom:1px solid var(--rule); color:#444; line-height:1.5; }
+.data-table tr:last-child td { border-bottom:none; }
+.data-table tr:nth-child(even) td { background:rgba(0,0,0,0.02); }
+
+.niveau { padding:26px 30px; margin:20px 0; max-width:640px; background:var(--ink); }
+.niveau-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:8px; }
+.niveau-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); margin-bottom:16px; line-height:1.3; }
+.niveau-item { display:flex; gap:12px; margin-bottom:13px; align-items:flex-start; }
+.niveau-arrow { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; color:var(--gold); flex-shrink:0; margin-top:2px; }
+.niveau-text { font-size:13px; color:rgba(255,255,255,0.82); line-height:1.55; }
+.niveau-text strong { color:var(--white); }
+
+.divider { display:flex; align-items:center; gap:14px; margin:44px 0 36px; }
+.divider::before,.divider::after { content:''; flex:1; height:1px; background:var(--rule); }
+.divider span { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+
+.graphique-block { background:var(--white); border:1px solid var(--rule); border-left:4px solid var(--red); padding:20px 24px; margin:28px 0; max-width:640px; }
+.graphique-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:14px; }
+
+.leap-toggle-bar { display:flex; align-items:center; gap:12px; margin:36px 0 0; max-width:640px; padding:10px 16px; background:var(--white); border:1px solid var(--rule); cursor:pointer; user-select:none; }
+.leap-toggle-bar:hover { border-color:var(--ink); }
+.leap-toggle-bar.open { border-color:var(--l); border-left:3px solid var(--l); }
+.ltb-icon { font-size:16px; }
+.ltb-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+.ltb-label.open { color:var(--l); }
+.ltb-chevron { margin-left:auto; font-size:12px; color:var(--muted); transition:transform 0.25s; }
+.ltb-chevron.open { transform:rotate(180deg); color:var(--l); }
+.leap-insert { max-width:640px; overflow:hidden; max-height:0; transition:max-height 0.4s ease, opacity 0.3s ease; opacity:0; }
+.leap-insert.open { max-height:600px; opacity:1; }
+.leap-box { border:1px solid var(--rule); border-top:none; border-left:3px solid var(--l); background:#F5F8FF; padding:20px 24px; margin-bottom:4px; }
+.lb-header { display:flex; gap:12px; align-items:flex-start; margin-bottom:10px; }
+.lb-letter { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; line-height:1; flex-shrink:0; color:var(--l); }
+.lb-layer { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:2px; color:var(--l); }
+.lb-name { font-size:14px; font-weight:600; color:var(--ink); }
+.lb-body { font-family:'Barlow',sans-serif; font-size:13px; color:#555; line-height:1.6; }
+.lb-body strong { color:var(--ink); font-weight:600; }
+
+.sidebar { padding:48px 28px; background:var(--white); position:sticky; top:106px; height:fit-content; align-self:start; }
+.sb-section { margin-bottom:36px; padding-bottom:36px; border-bottom:1px solid var(--rule); }
+.sb-section:last-child { border-bottom:none; margin-bottom:0; }
+.sb-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+.mini-leap { display:flex; flex-direction:column; gap:2px; }
+.ml-item { display:flex; gap:10px; padding:9px 10px; align-items:center; }
+.ml-item.hl { background:#EFF4FF; border-left:3px solid var(--l); }
+.ml-letter { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; line-height:1; width:26px; flex-shrink:0; }
+.ml-L { color:var(--l); } .ml-E { color:var(--e); } .ml-A { color:var(--a); } .ml-P { color:var(--p); }
+.ml-name { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:1px; }
+.ml-sub { font-size:11px; color:var(--muted); line-height:1.3; }
+.sb-stat { margin-bottom:18px; }
+.ss-val { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--ink); line-height:1; }
+.ss-val em { font-style:normal; font-size:18px; color:var(--red); }
+.ss-label { font-size:12px; color:var(--muted); line-height:1.4; margin-top:3px; }
+.ss-src { font-size:10px; color:#bbb; font-style:italic; margin-top:1px; }
+.cta-box { background:var(--ink); padding:18px; }
+.cta-box .sb-label { color:rgba(255,255,255,0.35); }
+.cta-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--white); margin-bottom:7px; line-height:1.3; }
+.cta-desc { font-size:12px; color:rgba(255,255,255,0.55); line-height:1.5; margin-bottom:14px; }
+.cta-btn { display:block; text-align:center; background:var(--red); color:var(--white); font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:9px 14px; border:none; width:100%; cursor:pointer; }
+.next-box { border:1px solid var(--rule); padding:14px; }
+.nb-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
+.nb-title { font-size:13px; font-weight:600; color:var(--ink); line-height:1.3; margin-bottom:3px; }
+.nb-sub { font-size:11px; color:var(--muted); }
+
+.ressources-block { max-width:1080px; margin:0 auto; padding:36px 64px; border-top:1px solid var(--rule); background:white; }
+.rb-header { display:flex; align-items:center; gap:14px; margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--rule); }
+.rb-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.rb-note  { font-size:12px; color:var(--muted); margin-left:auto; font-style:italic; }
+.rb-grid  { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.rb-item  { padding:14px 16px; border:1px solid var(--rule); display:flex; flex-direction:column; gap:4px; }
+.ri-type  { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red); }
+.ri-title { font-size:13px; font-weight:600; color:var(--ink); line-height:1.35; }
+.ri-source { font-size:11px; color:var(--muted); }
+
+.footer { border-top:3px double var(--ink); padding:20px 64px; display:flex; align-items:center; justify-content:space-between; max-width:1080px; margin:0 auto; }
+.f-brand { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; }
+.f-copy { font-size:11px; color:var(--muted); }
+.f-url { font-size:11px; color:var(--red); font-weight:600; }
+
+@media(max-width:820px){
+  .wrap { grid-template-columns:1fr; }
+  .article { padding:32px 24px; border-right:none; }
+  .sidebar { padding:32px 24px; }
+  .masthead,.hero,.footer { padding-left:24px; padding-right:24px; }
+  .hero-title { font-size:36px; }
+  .module-nav { padding:0 16px; top:48px; }
+  .verdict-block,.brief-block,.analyse-header,.ressources-block,.author-intro { padding-left:24px; padding-right:24px; }
+  .brief-inner { grid-template-columns:1fr; }
+  .rb-grid { grid-template-columns:1fr; }
+}
+
+/* GATES */
+.content-email-private { display: none; }
+.content-premium-private { display: none; }
+.gate-email { max-width:640px; margin:40px 0; border:1px solid var(--rule); overflow:hidden; }
+.gate-email-top { background:var(--ink); padding:22px 26px; }
+.get-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-bottom:8px; }
+.get-title { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; font-style:italic; color:var(--white); line-height:1.4; margin-bottom:8px; }
+.get-sub { font-family:'Lora',serif; font-size:12px; color:rgba(255,255,255,0.5); line-height:1.55; }
+.gate-email-body { padding:20px 26px; background:var(--white); }
+.geb-unlock { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+.geb-list { list-style:none; padding:0; margin:0 0 16px; display:flex; flex-direction:column; gap:5px; }
+.geb-list li { font-family:'Lora',serif; font-size:13px; color:#444; padding-left:14px; position:relative; line-height:1.4; }
+.geb-list li::before { content:"\2192"; position:absolute; left:0; color:var(--gold); font-family:"Barlow",sans-serif; font-size:11px; font-weight:700; }
+.gate-form { display:flex; gap:0; }
+.gate-input { flex:1; padding:10px 14px; border:1px solid var(--rule); border-right:none; font-size:13px; font-family:"Barlow",sans-serif; outline:none; background:var(--white); min-width:0; }
+.gate-input:focus { border-color:var(--ink); }
+.gate-btn { font-family:"Barlow Condensed",sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:10px 16px; background:var(--red); color:var(--white); border:none; cursor:pointer; flex-shrink:0; white-space:nowrap; }
+.gate-btn:hover { background:#a50d24; }
+.gate-error { font-size:11px; color:var(--red); margin-top:6px; display:none; }
+.gate-note { font-size:10px; color:var(--muted); margin-top:8px; font-style:italic; }
+.gate-premium { max-width:640px; margin:40px 0; border:1px solid rgba(184,151,58,0.35); overflow:hidden; }
+.gate-premium-top { background:var(--ink); padding:22px 26px; border-left:4px solid var(--gold); }
+.gpt-label { font-family:"Barlow Condensed",sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+.gpt-title { font-family:"Playfair Display",serif; font-size:17px; font-weight:700; font-style:italic; color:var(--white); line-height:1.4; margin-bottom:8px; }
+.gpt-sub { font-family:"Lora",serif; font-size:12px; color:rgba(255,255,255,0.5); line-height:1.55; }
+.gate-premium-body { padding:20px 26px; background:#FFFBF0; }
+.gpb-list { list-style:none; padding:0; margin:0 0 16px; display:flex; flex-direction:column; gap:5px; }
+.gpb-list li { font-family:"Lora",serif; font-size:13px; color:#444; padding-left:14px; position:relative; line-height:1.4; }
+.gpb-list li::before { content:"\2736"; position:absolute; left:0; color:var(--gold); font-size:9px; top:3px; }
+.gpb-cta { display:inline-block; font-family:"Barlow Condensed",sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:12px 20px; background:var(--gold); color:var(--ink); text-decoration:none; }
+.gpb-cta:hover { opacity:0.88; }
+.gpb-note { font-size:10px; color:var(--muted); margin-top:8px; font-style:italic; }
+
+/* ══ GATE ══ */
+.uca-fadeout-wrap {
+  position: relative; max-height: 100px; overflow: hidden;
+}
+.uca-fadeout-wrap::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 100px;
+  background: linear-gradient(to bottom, rgba(247,245,240,0) 0%, rgba(247,245,240,0.7) 60%, #F7F5F0 100%);
+  pointer-events: none;
+}
+.uca-gate {
+  padding: 28px 36px 32px; max-width: 640px;
+  background: var(--ink, #0A0A14);
+  margin-top: 0; border-radius: 2px;
+}
+.uca-gate-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold, #B8973A); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.uca-gate-eyebrow::before {
+  content: ''; width: 20px; height: 1px; background: var(--gold, #B8973A); flex-shrink: 0;
+}
+.uca-gate-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px,2.5vw,26px); font-weight: 700; line-height: 1.25;
+  color: #fff; margin-bottom: 8px;
+}
+.uca-gate-title em       { font-style: italic; color: var(--red, #C8102E); }
+.uca-gate-title .em-gold { font-style: italic; color: var(--gold, #B8973A); }
+.uca-gate-sub {
+  font-family: 'Lora', serif; font-size: 14px;
+  color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 20px;
+}
+.uca-gate-form { display: flex; max-width: 400px; margin-bottom: 10px; }
+.uca-gate-form input {
+  flex: 1; padding: 13px 16px;
+  border: 1px solid var(--rule, #E0DDD8); border-right: none;
+  font-size: 14px; font-family: 'Barlow', sans-serif; background: #fff; outline: none; min-width: 0;
+}
+.uca-gate-form button {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 13px 20px; background: var(--red, #C8102E); color: #fff; border: none; cursor: pointer;
+}
+.uca-gate-btn-gold {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 13px 28px; background: var(--gold, #B8973A); color: var(--ink, #0A0A14);
+  text-decoration: none; margin-bottom: 10px; transition: opacity 0.2s;
+}
+.uca-gate-btn-gold:hover { opacity: 0.88; }
+.uca-gate-note { font-family: 'Barlow', sans-serif; font-size: 11px; color: rgba(255,255,255,0.4); }
+
+/* ── NL : masquage / affichage ── */
+.uca-gated-nl                       { display: none; }
+body.has-email .uca-gated-nl        { display: block !important; }
+.uca-gate-nl                        { display: block; }
+body.has-email .uca-gate-nl         { display: none !important; }
+
+/* ── Dossier : masquage / affichage ── */
+.uca-gated-dossier                     { display: none; overflow: hidden; }
+body.has-premium .uca-gated-dossier    { display: block !important; }
+.uca-gate-dossier                      { display: block !important; }
+body.has-premium .uca-gate-dossier     { display: none !important; }
+
+@media (max-width: 500px) {
+  .uca-gate-form { flex-direction: column; }
+  .uca-gate-form input  { border-right: 1px solid var(--rule); border-bottom: none; }
+  .uca-gate-form button { width: 100%; }
+}
+
+
+/* ── ANIMATION ONGLETS NAVIGATION ── */
+@keyframes ucaGlowGold {
+  0%   { background: rgba(184,151,58,0);    color: inherit; }
+  20%  { background: rgba(184,151,58,0.22); color: #B8973A; border-color: rgba(184,151,58,0.7); }
+  80%  { background: rgba(184,151,58,0.22); color: #B8973A; border-color: rgba(184,151,58,0.7); }
+  100% { background: rgba(184,151,58,0);    color: inherit; }
+}
+.mn-item.uca-glow { animation: ucaGlowGold 2.5s ease-in-out forwards; }
+.mn-item { position: relative; }
+/* Tooltip survol */
+.mn-item::after {
+  content: 'Naviguer par section';
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10,10,20,0.92);
+  color: var(--gold, #B8973A);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 5px 12px;
+  pointer-events: none;
+  z-index: 300;
+  border: 1px solid rgba(184,151,58,0.4);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.mn-item:hover::after { opacity: 1; }
+/* Badge "Naviguez ici" visible 3 sec au chargement */
+#uca-nav-hint {
+  position: fixed;
+  z-index: 9000;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #B8973A;
+  background: rgba(10,10,20,0.92);
+  border: 1px solid rgba(184,151,58,0.5);
+  padding: 6px 16px;
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+/* ── ANIMATION ONGLETS NAVIGATION ── */
+@keyframes ucaPulseGold {
+  0%   { box-shadow: 0 0 0 0 rgba(184,151,58,0.7); }
+  70%  { box-shadow: 0 0 0 7px rgba(184,151,58,0); }
+  100% { box-shadow: 0 0 0 0 rgba(184,151,58,0); }
+}
+.mn-item.uca-pulse { animation: ucaPulseGold 0.85s ease-out; }
+.mn-item { position: relative; }
+.mn-item::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10,10,20,0.92);
+  color: #fff;
+  font-family: 'Barlow', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  padding: 4px 10px;
+  pointer-events: none;
+  z-index: 300;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.mn-item:hover::after { opacity: 1; }
+</style>
+  <meta name="description" content="L'IA en 2026 — ce qui change vraiment pour les décideurs. Dossier N°1, cadre LEAP™, roadmap 90 jours.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="L’IA en 2026 — Dossier N°1 | Un Cran d’Avance">
+  <meta property="og:description" content="Ce qui change vraiment pour les decideurs. Cadre LEAP(tm), roadmap 90 jours.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/dossier-2026-01-ia-en-2026.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="L’IA en 2026 — Dossier N°1 | Un Cran d’Avance">
+  <meta name="twitter:description" content="Ce qui change vraiment pour les decideurs. Cadre LEAP(tm), roadmap 90 jours.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/dossier-2026-01-ia-en-2026.html">
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <a href="page-newsletter.html" class="m-brand" style="text-decoration:none;color:inherit;">✦ Un Cran d'Avance</a>
+  <div class="m-tag">Dossier Mensuel</div>
+  <div class="m-meta">Dossier N°3<br>Janvier 2026</div>
+</div>
+
+<!-- NAVIGATION -->
+<nav class="module-nav">
+  <a class="mn-item" href="#verdict">
+    <span class="mn-badge" style="background:var(--red);color:white;">① 45s</span>
+    <span class="mn-label">Verdict</span>
+  </a>
+  <a class="mn-item" href="#brief">
+    <span class="mn-badge" style="background:#444;color:white;">② 3 min</span>
+    <span class="mn-label">Le brief</span>
+  </a>
+  <a class="mn-item" href="#analyse">
+    <span class="mn-badge" style="background:var(--l);color:white;">③ 10 min</span>
+    <span class="mn-label">L'analyse complète</span>
+  </a>
+  <a class="mn-item" href="#ressources">
+    <span class="mn-badge" style="background:#2A5C2A;color:white;">④ Sur demande</span>
+    <span class="mn-label">Sources & ressources</span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-kicker">Dossier mensuel · Abonnés Premium · Janvier 2026 · Couche L→E — LEAP™</div>
+  <h1 class="hero-title">L'IA en 2026 :<br><em>Ce qui change vraiment</em><br>pour les organisations.</h1>
+  <p class="hero-deck">L'IA n'est plus un sujet technologique. C'est un sujet de direction. Ce dossier pose le cadre de lecture pour toute l'année — et les deux questions que chaque dirigeant doit pouvoir répondre.</p>
+  <div class="hero-row">
+    <div class="hero-chip filled">Dossier N°3</div>
+    <div class="hero-chip">Toutes couches</div>
+    <div class="hero-chip">Dossier de lancement</div>
+    <div class="hero-time">① 45s · ② 3 min · ③ 10 min · ④ Sources</div>
+  </div>
+</div>
+
+<!-- MOT DE L'AUTEUR -->
+<div class="author-intro">
+  <div style="display:flex; gap:16px; align-items:center; max-width:680px;">
+    <img src="aziz-el-kihel-general.jpg" style="width:44px; height:44px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--rule);" alt="">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">Un mot avant de commencer</div>
+      <p style="font-family:'Lora',serif; font-size:14px; color:#555; line-height:1.8; margin:0 0 10px;">J'ai lancé Un Cran d'Avance en janvier 2026 pour une raison simple : les dirigeants des grandes organisations n'ont pas besoin d'un flux de veille supplémentaire. Ils ont besoin d'un filtre — quelqu'un qui lit tout, qui fait le tri, et qui traduit ce qui compte en décisions concrètes. Ce premier dossier pose le cadre de lecture pour tout ce qui va suivre. Pas une liste d'outils. Pas des prédictions. Un cadre pour décider.</p>
+      <div style="margin-top:12px; font-size:12px; font-weight:600; color:var(--ink);">Aziz El Kihel <span style="font-weight:400; color:var(--muted);">· Fondateur, Un Cran d'Avance</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<div id="verdict" class="verdict-block">
+  <div class="vb-label">① Le verdict — 45 secondes</div>
+  <div class="vb-text">«&nbsp;L'IA n'est plus un sujet technologique. C'est un sujet de direction. La question n'est plus "faut-il investir dans l'IA" — c'est "qui dans votre organisation décide de ce que l'IA fait en votre nom ?"&nbsp;»</div>
+  <div class="vb-bullets">
+    <div class="vb-bullet">
+      <div class="vb-dash">—</div>
+      <div class="vb-btext"><strong>2026 est l'année du passage à l'échelle.</strong> Les organisations qui expérimentaient depuis 2023 doivent maintenant décider ce qu'elles déploient vraiment — et sous quelle responsabilité.</div>
+    </div>
+    <div class="vb-bullet">
+      <div class="vb-dash">—</div>
+      <div class="vb-btext"><strong>Deux vitesses s'installent durablement.</strong> Les organisations avec un cadre de lecture et une stratégie explicite creusent l'écart sur celles qui attendent de voir.</div>
+    </div>
+    <div class="vb-bullet">
+      <div class="vb-dash">—</div>
+      <div class="vb-btext"><strong>Le cadre LEAP™ est votre boussole.</strong> Quatre couches — Local, Efficiency, Agentique, Pivot — pour savoir où vous en êtes et ce que vous devez faire ensuite.</div>
+    </div>
+  </div>
+  <div class="vb-sub">Si vous ne retenez qu'une chose de ce dossier, c'est la première phrase. Le reste est la démonstration.</div>
+</div>
+
+<!-- BRIEF -->
+<div id="brief" class="brief-block">
+  <div class="brief-header">
+    <span class="bh-label">② Le brief</span>
+    <span class="bh-badge">Le contexte · Pourquoi 2026 · Ce que vous allez décider</span>
+    <span class="bh-time">⏱ 3 minutes</span>
+  </div>
+  <div class="brief-inner">
+    <div class="brief-cell">
+      <div class="bc-num">01</div>
+      <div class="bc-title">Le contexte</div>
+      <div class="bc-text">L'IA existe dans vos organisations depuis 2023. Ce qui change en 2026 : <strong>les décisions de déploiement à l'échelle ne peuvent plus être reportées.</strong> Les outils sont matures. Les coûts ont baissé. La pression réglementaire arrive. Le moment de décider ce qu'on fait vraiment — c'est maintenant.</div>
+    </div>
+    <div class="brief-cell">
+      <div class="bc-num">02</div>
+      <div class="bc-title">Pourquoi 2026</div>
+      <div class="bc-text">Trois signaux convergent simultanément : <strong>l'EU AI Act entre en application</strong>, les premiers précédents tarifaires liés à l'IA apparaissent, et les organizations qui ont structuré leur approche commencent à distancer les autres de manière mesurable.</div>
+    </div>
+    <div class="brief-cell">
+      <div class="bc-num">03</div>
+      <div class="bc-title">Ce que vous allez décider</div>
+      <div class="bc-text">Où en est votre organisation sur le cadre LEAP™. Quelles sont vos deux ou trois priorités IA pour 2026. <strong>Qui dans votre organisation a la responsabilité explicite</strong> de piloter cette transformation — pas de faire de l'IA, de la piloter.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYSE HEADER -->
+<div id="analyse" class="analyse-header">
+  <span class="ah-label">③ L'analyse complète</span>
+  <span class="ah-badge">6 sections · Cadre LEAP™ · Signaux 2026 · Plan d'action</span>
+  <span class="ah-desc">Pour ceux qui veulent comprendre avant de décider.</span>
+  <span class="ah-time">⏱ ~10 minutes</span>
+</div>
+
+<!-- CONTENU -->
+<div class="wrap">
+<div class="article">
+
+<!-- SECTION 1 -->
+<div class="section-num">01</div>
+<h2 class="section-title">Ce qui a changé — et ce qui ne changera plus</h2>
+
+<p>Il y a trois ans, la question IA dans les comités de direction était : "est-ce qu'on investit ?" Il y a deux ans : "quels cas d'usage on priorise ?" Aujourd'hui, la question est différente. Elle est : <strong>"qui répond de ce que notre IA fait ?"</strong></p>
+
+<p>Ce n'est pas une question technique. C'est une question de gouvernance d'entreprise. Et elle marque un tournant : l'IA est passée du département IT à la table de direction. Pas parce que les dirigeants ont décidé de s'en emparer — parce que les risques et les opportunités sont devenus trop significatifs pour rester délégués.</p>
+
+<div class="pull-quote">L'IA ne demande plus la permission d'être stratégique. Elle l'est déjà — que vous ayez une stratégie ou non.</div>
+
+<p>Ce changement a une implication concrète : les organisations sans position explicite sur l'IA n'ont pas une position neutre. Elles ont une position par défaut — celle que leurs équipes, leurs fournisseurs, et leurs concurrents ont choisie pour elles.</p>
+
+<div class="callout">
+  <div class="callout-label">Signal de lancement — Janvier 2026</div>
+  <p>Dans une grande organisation d'assurance européenne, l'audit IA de janvier 2026 a révélé 23 systèmes IA actifs. La direction en connaissait 7. Les 16 autres avaient été déployés par les équipes — pas en violation des règles, mais dans l'absence de règles. Ce n'est pas de la mauvaise volonté. C'est de l'absence de cadre.</p>
+</div>
+
+<div class="leap-toggle-bar" onclick="toggleLeap('leap1')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label1">Cadre LEAP™ — Comprendre les 4 couches</span>
+  <span class="ltb-chevron" id="ltb-chevron1">▼</span>
+</div>
+<div class="leap-insert" id="leap1">
+  <div class="leap-box">
+    <div class="lb-header">
+      <div class="lb-letter">L</div>
+      <div class="lb-meta">
+        <div class="lb-layer">Couche 1 · Local</div>
+        <div class="lb-name">Là où commence toute transformation</div>
+      </div>
+    </div>
+    <div class="lb-body">La couche L est le point de départ universel. L'IA existe dans l'organisation, mais de façon individuelle et non coordonnée. Chaque collaborateur fait selon sa pratique. Pas de politique commune, pas de registre, pas de mesure. <strong>C'est la position la plus courante en 2026 — et le potentiel de gains est maximal si on structure maintenant.</strong></div>
+  </div>
+</div>
+
+<div class="divider"><span>Section 02</span></div>
+
+<!-- SECTION 2 -->
+<div class="section-num">02</div>
+<h2 class="section-title">Le cadre LEAP™ — votre boussole pour 2026</h2>
+
+<p>LEAP™ est le cadre de lecture qui structure tous les dossiers et toutes les éditions d'Un Cran d'Avance. Quatre couches, quatre réalités organisationnelles distinctes. L'objectif n'est pas d'atteindre la couche P le plus vite possible — c'est de savoir où vous en êtes vraiment, et de prendre les bonnes décisions pour l'étape suivante.</p>
+
+<table class="data-table">
+  <thead>
+    <tr><th>Couche</th><th>Réalité</th><th>Signal caractéristique</th><th>Verrou principal</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong style="color:var(--l);">L — Local</strong></td><td>Usage individuel, non coordonné</td><td>"Chacun utilise ce qu'il veut"</td><td>Absence de politique commune</td></tr>
+    <tr><td><strong style="color:var(--e);">E — Efficiency</strong></td><td>Automatisation de processus</td><td>Premiers déploiements en production</td><td>Registre et propriétaires absents</td></tr>
+    <tr><td><strong style="color:var(--a);">A — Agentique</strong></td><td>Agents autonomes sur des objectifs</td><td>Décisions sans validation humaine</td><td>Surveillance proactive manquante</td></tr>
+    <tr><td><strong style="color:var(--p);">P — Pivot</strong></td><td>Modèle économique redéfini par l'IA</td><td>L'IA change la proposition de valeur</td><td>Mesure de valeur et réglementation</td></tr>
+  </tbody>
+</table>
+
+<p>Une précision importante : ces couches ne sont pas des stades séquentiels où l'organisation entière avance en bloc. Dans la même organisation, la direction RH peut être en couche E pendant que la direction financière est en couche L et que l'équipe data science expérimente en couche A. <strong>Ce qui compte : savoir où chaque déploiement en est — pas où "l'organisation" en est en général.</strong></p>
+
+<div class="graphique-block">
+  <div class="graphique-label">Répartition LEAP™ — grandes organisations opérant en Europe et en Amérique du Nord 2026</div>
+  <div style="position:relative; width:100%; height:200px;">
+    <canvas id="leapChart"></canvas>
+  </div>
+  <div style="display:flex; gap:16px; margin-top:10px; font-size:11px; color:var(--muted); flex-wrap:wrap;">
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;background:#2C5282;border-radius:2px;display:inline-block;"></span>L — Local (52%)</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;background:#276749;border-radius:2px;display:inline-block;"></span>E — Efficiency (31%)</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;background:#9C4221;border-radius:2px;display:inline-block;"></span>A — Agentique (13%)</span>
+    <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;background:#C8102E;border-radius:2px;display:inline-block;"></span>P — Pivot (4%)</span>
+  </div>
+</div>
+
+<!-- MATRICE LEAP × DRIVEN — VERSION ALLÉGÉE -->
+<div style="margin-top:40px;">
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+  <span>LEAP™ × DRIVEN™ — Vue d'ensemble</span>
+  <span style="flex:1;height:1px;background:var(--rule);display:block;"></span>
+</div>
+<p style="font-family:'Lora',serif;font-size:14px;color:#555;line-height:1.75;margin-bottom:20px;max-width:640px;">LEAP™ positionne. DRIVEN™ audite. Les 6 axes de DRIVEN™ se manifestent différemment selon votre couche — cette lecture croisée vous donne les priorités à chaque stade.</p>
+<table style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:16px;">
+  <thead>
+    <tr>
+      <th style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--ink);color:var(--gold);padding:9px 12px;text-align:left;width:80px;border:1px solid var(--rule);">LEAP™</th>
+      <th style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--ink);color:rgba(255,255,255,0.5);padding:9px 12px;text-align:left;border:1px solid var(--rule);">⚖️ Décision</th>
+      <th style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--ink);color:rgba(255,255,255,0.5);padding:9px 12px;text-align:left;border:1px solid var(--rule);">🎯 Risque</th>
+      <th style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--ink);color:rgba(255,255,255,0.5);padding:9px 12px;text-align:left;border:1px solid var(--rule);">💎 Impact valeur</th>
+      <th style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--ink);color:rgba(255,255,255,0.5);padding:9px 12px;text-align:left;border:1px solid var(--rule);">🧭 Nécessité humaine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#2C5282;background:white;padding:9px 12px;border:1px solid var(--rule);border-left:3px solid #2C5282;white-space:nowrap;">L</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#BBCCBB;margin-right:4px;vertical-align:middle;"></span>Individus agissent seuls</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#E8B840;margin-right:4px;vertical-align:middle;"></span>Données publiques</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#BBCCBB;margin-right:4px;vertical-align:middle;"></span>Valeur dispersée</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#BBCCBB;margin-right:4px;vertical-align:middle;"></span>Adoption spontanée</td>
+    </tr>
+    <tr>
+      <td style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#276749;background:white;padding:9px 12px;border:1px solid var(--rule);border-left:3px solid #276749;white-space:nowrap;">E</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#E8B840;margin-right:4px;vertical-align:middle;"></span>Qui valide les résultats ?</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#E8B840;margin-right:4px;vertical-align:middle;"></span>Piste d'audit requise</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#E8B840;margin-right:4px;vertical-align:middle;"></span>ROI interne mesurable</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#E8B840;margin-right:4px;vertical-align:middle;"></span>Rythmes d'adoption inégaux</td>
+    </tr>
+    <tr>
+      <td style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9C4221;background:white;padding:9px 12px;border:1px solid var(--rule);border-left:3px solid #9C4221;white-space:nowrap;">A</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8102E;margin-right:4px;vertical-align:middle;"></span>Seuils supervision critiques</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8102E;margin-right:4px;vertical-align:middle;"></span>Erreur en cascade</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8102E;margin-right:4px;vertical-align:middle;"></span>Clients commencent à chiffrer</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8102E;margin-right:4px;vertical-align:middle;"></span>Équipes = gestionnaires d'agents</td>
+    </tr>
+    <tr>
+      <td style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C8102E;background:white;padding:9px 12px;border:1px solid var(--rule);border-left:3px solid #C8102E;white-space:nowrap;">P</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8102E;margin-right:4px;vertical-align:middle;"></span>Modèle économique redéfini</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8102E;margin-right:4px;vertical-align:middle;"></span>Concurrents P déstabilisent</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8102E;margin-right:4px;vertical-align:middle;"></span>Valeur captée ou subie</td>
+      <td style="font-size:11px;color:#555;line-height:1.5;background:white;padding:9px 12px;border:1px solid var(--rule);"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8102E;margin-right:4px;vertical-align:middle;"></span>Réorganisation à l'échelle</td>
+    </tr>
+  </tbody>
+</table>
+<div style="display:flex;gap:16px;font-size:11px;color:var(--muted);margin-bottom:16px;">
+  <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#BBCCBB;margin-right:4px;vertical-align:middle;"></span>Attention faible</span>
+  <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#E8B840;margin-right:4px;vertical-align:middle;"></span>Vigilance recommandée</span>
+  <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#C8102E;margin-right:4px;vertical-align:middle;"></span>Priorité de gouvernance</span>
+</div>
+<p style="font-size:12px;color:var(--muted);font-style:italic;">→ Version complète avec les 6 axes sur <span style="color:var(--red);font-weight:600;">uncrandavance.com/cadres</span></p>
+</div>
+
+<div class="divider"><span>Section 03</span></div>
+
+<!-- SECTION 3 -->
+<div class="section-num">03</div>
+<h2 class="section-title">Les 5 signaux qui définissent 2026</h2>
+
+<p>Cinq tendances convergent en 2026 et créent le contexte dans lequel toutes vos décisions IA vont s'inscrire. Les ignorer ne les fait pas disparaître.</p>
+
+<p><strong>Signal 1 — L'EU AI Act entre en application.</strong> Ce n'est plus un texte en préparation. Les premières obligations sont effectives depuis février 2025. Les obligations pour les systèmes à risque élevé arrivent en août 2026. Pour les organisations qui n'ont pas commencé, la fenêtre sans pression se ferme.</p>
+
+<p><strong>Signal 2 — Les premiers précédents tarifaires apparaissent.</strong> KPMG a imposé une réduction de 14% à Grant Thornton en citant les gains de productivité IA. Ce n'est pas un cas isolé — c'est le début d'une mécanique de redistribution de la valeur créée par l'IA. Vos clients vont poser la question.</p>
+
+<div style="margin:32px 0 0;max-width:640px;border:1px solid var(--rule);overflow:hidden;">
+  <div style="background:var(--ink);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);">Cadre analytique · DRIVEN™</span>
+    <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:1px;">6 axes · Réservé Premium</span>
+  </div>
+  <div style="padding:16px 20px;background:#FAFAF7;">
+    <p style="font-family:'Lora',serif;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;">Le cadre DRIVEN™ audite votre organisation sur 6 dimensions. L'analyse complète est dans la suite du dossier.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">D</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Décision — Où est le pouvoir décisionnel ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">R</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Risque — Qui porte le risque réel ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">I</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Impact valeur — Qui capture la valeur créée ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">V</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Vulnérabilité — Où est la dépendance structurelle ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">E</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Engagement — Qui est responsable quand ça échoue ?</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--gold);">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ink);line-height:1;flex-shrink:0;">N</span>
+        <span style="font-family:'Barlow',sans-serif;font-size:12px;color:#555;">Nécessité humaine — Les finances et les équipes suivent-elles ?</span>
+      </div>
+    </div>
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:12px;text-align:center;">↓ L'application à votre situation est dans la suite du dossier</p>
+  </div>
+</div>
+
+<div class="uca-fadeout-wrap">
+  <p style="font-family:'Lora',serif;font-size:15px;color:rgba(10,10,20,0.18);line-height:1.8;pointer-events:none;">Le cadre d'analyse complet, les données terrain, les priorités 90 jours et la roadmap applicable vous attendent dans la suite de ce dossier…</p>
+</div>
+
+<div class="uca-gate-dossier uca-gate" id="gate-dossier-block">
+  <div class="uca-gate-eyebrow">Réservé aux membres Premium</div>
+  <h3 class="uca-gate-title">Il reste <span class="em-gold">60% de ce dossier.</span></h3>
+  <ul style="list-style:none;margin:0 0 20px;padding:0;border-top:1px solid rgba(255,255,255,0.08);padding-top:12px;">
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">Signal 3 — L'écart entre expérimentateurs et déployeurs se mesure</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">Signal 4 — Les talents IA choisissent leurs employeurs sur la gouvernance</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">Signal 5 — Les deux vitesses s'installent</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 04 — Le cadre DRIVEN™ appliqué à votre situation</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 05 — La roadmap : 90 jours pour passer de L à E</span></li>
+    <li style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span style="color:#B8973A;flex-shrink:0;">→</span><span style="font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,0.75);">§ 06 — Ce que vous faites lundi matin</span></li>
+  </ul>
+  <a href="https://buy.stripe.com/3cI4gz1Gf2kDgD4914gUM00" class="uca-gate-btn-gold">Rejoindre Premium →</a>
+  <a href="page-vente.html" style="display:block;margin-top:8px;font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,0.35);text-decoration:none;text-align:center;">En savoir plus sur l'offre →</a>
+  <div class="uca-gate-note" style="margin-top:8px;">Accès immédiat aux 4 dossiers · 199€/an · Offre fondateurs jusqu'au 31 mai</div>
+</div>
+
+
+</div><!-- /article -->
+
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-section">
+    <div style="background:var(--ink); padding:16px; margin-bottom:12px;">
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:10px;">Le Cadre LEAP™ en 30 secondes</div>
+      <div style="font-family:'Barlow',sans-serif; font-size:12px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:12px;">LEAP mesure où en est votre organisation dans sa transformation IA :</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; gap:10px; align-items:baseline; background:rgba(44,82,130,0.3); margin:0 -8px; padding:6px 8px;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--l); flex-shrink:0; width:16px;">L</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.75); line-height:1.4;"><strong style="color:white;">Local</strong> — Usage individuel, non coordonné. <em style="color:var(--l);">← Ce dossier</em></span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:baseline;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--e); flex-shrink:0; width:16px;">E</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.55); line-height:1.4;"><strong style="color:rgba(255,255,255,0.8);">Efficiency</strong> — Automatisation de processus.</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:baseline;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--a); flex-shrink:0; width:16px;">A</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.55); line-height:1.4;"><strong style="color:rgba(255,255,255,0.8);">Agentique</strong> — Délégation d'objectifs.</span>
+        </div>
+        <div style="display:flex; gap:10px; align-items:baseline;">
+          <span style="font-family:'Playfair Display',serif; font-size:18px; font-weight:900; color:var(--p); flex-shrink:0; width:16px;">P</span>
+          <span style="font-size:12px; color:rgba(255,255,255,0.55); line-height:1.4;"><strong style="color:rgba(255,255,255,0.8);">Pivot</strong> — Modèle économique redéfini.</span>
+        </div>
+      </div>
+      <div style="margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08);">
+        <a href="page-diagnostic.html" class="cta-btn" style="font-size:10px; padding:7px 12px;">Faire la Scorecard LEAP™ →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Grille LEAP™</div>
+    <div class="mini-leap">
+      <div class="ml-item hl"><div class="ml-letter ml-L">L</div><div><div class="ml-name ml-L">Local ◀</div><div class="ml-sub">Ce dossier</div></div></div>
+      <div class="ml-item"><div class="ml-letter ml-E">E</div><div><div class="ml-name ml-E">Efficiency</div><div class="ml-sub">Automatisation</div></div></div>
+      <div class="ml-item"><div class="ml-letter ml-A">A</div><div><div class="ml-name ml-A">Agentique</div><div class="ml-sub">Agents autonomes</div></div></div>
+      <div class="ml-item"><div class="ml-letter ml-P">P</div><div><div class="ml-name ml-P">Pivot</div><div class="ml-sub">Modèle économique</div></div></div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5;">Cliquez les encadrés <strong>⬡ Cadre LEAP™</strong> dans le texte pour activer la grille.</p>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Chiffres du dossier</div>
+    <div class="sb-stat">
+      <div class="ss-val">39<em>%</em></div>
+      <div class="ss-label">des organisations testent des agents IA</div>
+      <div class="ss-src">McKinsey, 2025</div>
+    </div>
+    <div class="sb-stat">
+      <div class="ss-val">16<em>pts</em></div>
+      <div class="ss-label">d'écart entre expérimentateurs et déployeurs</div>
+      <div class="ss-src">McKinsey, 2025</div>
+    </div>
+    <div class="sb-stat">
+      <div class="ss-val">52<em>%</em></div>
+      <div class="ss-label">des grandes organisations en couche L</div>
+      <div class="ss-src">Estimation UCA, Jan. 2026</div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="cta-box">
+      <div class="sb-label">Outil associé</div>
+      <div class="cta-title">Scorecard LEAP™</div>
+      <div class="cta-desc">12 questions · 10 minutes · Trouvez votre couche et votre verrou prioritaire.</div>
+      <a href="page-diagnostic.html" class="cta-btn">Faire la scorecard →</a>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Prochain dossier</div>
+    <div class="next-box">
+      <div class="nb-label">Dossier N°2 · Février 2026</div>
+      <div class="nb-title">L'IA Agentique — du chatbot à l'agent</div>
+      <div class="nb-sub">Ce qui arrive maintenant est structurellement différent · Couche A</div>
+    </div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Sources</div>
+    <p style="font-size:11px;color:#999;line-height:1.65;">McKinsey Global AI Survey 2025 · Gartner AI Forecast 2026 · EU AI Act (Journal officiel UE, 2024) · Deloitte Tech Trends 2026 · OCDE Principes sur l'IA · Synthèse terrain Un Cran d'Avance</p>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-label">Ce dossier est écrit par</div>
+    <div style="display:flex; gap:12px; align-items:flex-start;">
+      <img src="aziz-el-kihel-general.jpg" style="width:40px; height:40px; border-radius:50%; object-fit:cover; flex-shrink:0; border:1.5px solid var(--rule);" alt="">
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--ink); margin-bottom:3px;">Aziz El Kihel</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Fondateur · Un Cran d'Avance<br>Cadres LEAP™ et DRIVEN™</div>
+        <div style="margin-top:8px; font-size:11px; color:var(--red); font-weight:600;"><a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a></div>
+      </div>
+    </div>
+  </div>
+</div><!-- /sidebar -->
+</div><!-- /wrap -->
+<div class="wrap"><div class="article"><div class="uca-gated-dossier" style="display:none!important;">
+<p><strong>Signal 3 — L'écart entre expérimentateurs et déployeurs se mesure.</strong> McKinsey 2025 : 39% des organisations testent des agents IA, 23% seulement les déploient à l'échelle. Cet écart de 16 points s'explique principalement par l'absence de cadre de gouvernance — pas par des problèmes techniques.</p>
+
+<p><strong>Signal 4 — Les talents IA choisissent leurs employeurs sur la gouvernance.</strong> Les profils seniors posent des questions sur le cadre avant de poser des questions sur les projets. Construire un cadre de gouvernance solide est devenu un argument de recrutement.</p>
+
+<p><strong>Signal 5 — Les deux vitesses s'installent.</strong> Les organisations qui ont structuré leur approche en 2024-2025 déploient leurs projets 30 à 40% plus vite que leurs projets précédents. L'écart se creuse maintenant.</p>
+
+<div class="leap-toggle-bar" onclick="toggleLeap('leap3')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-label3">Cadre LEAP™ — Lire les signaux selon votre couche</span>
+  <span class="ltb-chevron" id="ltb-chevron3">▼</span>
+</div>
+<div class="leap-insert" id="leap3">
+  <div class="leap-box">
+    <div class="lb-header">
+      <div class="lb-letter">L</div>
+      <div class="lb-meta">
+        <div class="lb-layer">Couche 1 · Local</div>
+        <div class="lb-name">Ce que ces signaux signifient pour vous</div>
+      </div>
+    </div>
+    <div class="lb-body">Si vous êtes en couche L, ces 5 signaux définissent votre fenêtre d'action. L'EU AI Act va s'appliquer à vos systèmes futurs — autant construire le cadre maintenant. Les deux vitesses qui s'installent signifient que chaque mois de retard est un mois de plus à rattraper sous pression. <strong>La bonne nouvelle : la couche L est la plus facile à quitter — parce qu'il suffit de commencer.</strong></div>
+  </div>
+</div>
+
+
+<!-- ROADMAP 90 JOURS ─ JANVIER -->
+<div class="divider"><span>Roadmap 90 jours</span></div>
+<div class="section-num" style="margin-top:52px;">05b</div>
+<h2 class="section-title">La roadmap : 90 jours pour passer de L à E</h2>
+
+<p>Le passage de la couche L à la couche E n'est pas un projet de transformation. C'est une séquence de trois décisions, prises dans le bon ordre, avec le bon niveau d'ambition. <strong>L'objectif n'est pas d'être parfait en 90 jours — c'est d'avoir un cadre qui fonctionne.</strong></p>
+
+<h2 class="section-title" style="font-size:20px; margin-top:28px;">Mois 1 — Cartographier</h2>
+<p style="font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Objectif : savoir ce qu'on a vraiment</p>
+
+<p><strong>Semaines 1-2 : L'audit de l'existant.</strong> Une seule question posée à chaque département : quels outils IA utilisez-vous, pour quelles décisions, avec quelles données ? Pas un formulaire de 40 champs — un entretien de 30 minutes. Dans chaque organisation que j'ai observée, cet audit révèle systématiquement plus d'outils IA que la direction ne le pensait. Pas par malveillance — par dispersion naturelle de l'adoption.</p>
+
+<p><strong>Semaines 3-4 : Positionner chaque usage sur le cadre LEAP™.</strong> Pour chaque outil identifié : est-il en couche L (usage individuel) ou en couche E (processus automatisé) ? Cette cartographie simple révèle où se concentre votre exposition réelle — et où se trouvent vos opportunités de structuration.</p>
+
+<p><em>Livrable Mois 1 : Inventaire complet des usages IA · Positionnement LEAP™ par outil · Premiers verrous identifiés.</em></p>
+
+<h2 class="section-title" style="font-size:20px; margin-top:28px;">Mois 2 — Structurer</h2>
+<p style="font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Objectif : mettre en place le cadre minimum</p>
+
+<p><strong>Semaines 5-6 : La politique d'usage commune.</strong> Une page. Pas un manuel. Ce que vos collaborateurs peuvent faire, ce qu'ils doivent éviter, qui contacter en cas de doute. Cette politique signale à l'organisation que l'IA est un sujet de direction — pas un sujet IT. Le signal organisationnel est au moins aussi important que le contenu.</p>
+
+<p><strong>Semaines 7-8 : Nommer le responsable IA.</strong> Pas un comité — une personne. Elle a trois responsabilités : suivre l'évolution des usages, alerter la direction quand une décision mérite attention, être l'interlocuteur des équipes qui ont des questions. Votre DPO ou votre directeur de la transformation sont souvent les candidats naturels.</p>
+
+<p><em>Livrable Mois 2 : Politique d'usage v1 validée et communiquée · Responsable IA nommé par écrit · Mandat validé par la direction.</em></p>
+
+<h2 class="section-title" style="font-size:20px; margin-top:28px;">Mois 3 — Décider</h2>
+<p style="font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Objectif : prendre les premières décisions stratégiques</p>
+
+<p><strong>Semaines 9-10 : Prioriser les premiers déploiements E.</strong> Avec la cartographie du mois 1 et le cadre du mois 2, vous pouvez maintenant décider : quels processus automatiser en priorité ? Quel ROI attendu ? Quel niveau de risque acceptable ? Ces décisions se prennent en comité de direction — pas en mode projet IT.</p>
+
+<p><strong>Semaines 11-12 : Valider le cadre avec la direction.</strong> Une réunion de 90 minutes. Quatre questions : qu'avons-nous trouvé ? Qu'avons-nous structuré ? Quelles décisions prenons-nous ? Quel est notre engagement pour les 90 prochains jours ? Ce moment installe l'IA comme sujet permanent à l'agenda de direction.</p>
+
+<p><em>Livrable Mois 3 : Premières décisions de déploiement documentées · Cadre de gouvernance L→E validé · IA à l'agenda de direction.</em></p>
+
+<div class="leap-toggle-bar" onclick="toggleLeap('leapRm')">
+  <span class="ltb-icon">⬡</span>
+  <span class="ltb-label" id="ltb-labelRm">Cadre LEAP™ — Cette roadmap selon votre couche actuelle</span>
+  <span class="ltb-chevron" id="ltb-chevronRm">▼</span>
+</div>
+<div class="leap-insert" id="leapRm">
+  <div class="leap-box" style="border-left-color:var(--l); background:#F5F8FF;">
+    <div class="lb-header">
+      <div class="lb-letter" style="color:var(--l); font-family:'Playfair Display',serif; font-size:36px; font-weight:900; line-height:1; flex-shrink:0;">L</div>
+      <div class="lb-meta">
+        <div class="lb-layer" style="color:var(--l); font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase;">Couche L → point de départ universel</div>
+        <div class="lb-name">Si vous êtes en couche L : cette roadmap est exactement pour vous</div>
+      </div>
+    </div>
+    <div class="lb-body">Cette roadmap est conçue pour le passage L→E. Si l'audit du mois 1 confirme que vous êtes en couche L, vous êtes exactement là où vous devez être pour commencer. <strong>La couche L n'est pas un retard — c'est le point de départ de toute transformation sérieuse.</strong> Ce qui compte : ne pas sauter directement à la couche A sans passer par E.</div>
+  </div>
+  <div class="leap-box" style="border-left-color:var(--e); background:#F0FAF5;">
+    <div class="lb-header">
+      <div class="lb-letter" style="color:var(--e); font-family:'Playfair Display',serif; font-size:36px; font-weight:900; line-height:1; flex-shrink:0;">E</div>
+      <div class="lb-meta">
+        <div class="lb-layer" style="color:var(--e); font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase;">Couche E → consolider avant d'avancer</div>
+        <div class="lb-name">Si vous êtes en couche E : utilisez cette roadmap pour auditer vos fondations</div>
+      </div>
+    </div>
+    <div class="lb-body">Si vous êtes déjà en couche E, cette roadmap est un audit rétrospectif. Avez-vous vraiment fait le mois 1 — la cartographie complète ? Le mois 2 — la politique et le responsable ? Si non, vous avez construit la couche E sur des fondations L. Le dossier de février (agentique) et d'avril (gouvernance) vous attendent — mais pas sans avoir consolidé ces bases.</div>
+  </div>
+</div>
+
+<!-- GRAPHIQUE TIMELINE 90 JOURS JANVIER -->
+<div class="graphique-block">
+  <div class="graphique-label">Roadmap visuelle — 90 jours pour passer de la couche L à la couche E</div>
+  <svg width="100%" viewBox="0 0 600 220" style="overflow:visible;">
+    <line x1="40" y1="70" x2="560" y2="70" stroke="#D8D4CC" stroke-width="2"/>
+    <circle cx="40" cy="70" r="5" fill="#D8D4CC"/>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#888880" x="40" y="90" text-anchor="middle">Couche L</text>
+    <circle cx="170" cy="70" r="10" fill="#2C5282"/>
+    <text font-family="Barlow, sans-serif" font-size="11" font-weight="700" fill="white" x="170" y="74" text-anchor="middle">1</text>
+    <rect x="110" y="100" width="120" height="82" rx="6" fill="none" stroke="#2C5282" stroke-width="0.8" opacity="0.6"/>
+    <text font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="700" fill="#2C5282" x="170" y="120" text-anchor="middle">CARTOGRAPHIER</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="170" y="137" text-anchor="middle">Audit existant</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="170" y="152" text-anchor="middle">Position LEAP™</text>
+    <text font-family="Barlow, sans-serif" font-size="10" fill="#888" x="170" y="174" text-anchor="middle">→ Inventaire complet</text>
+    <circle cx="320" cy="70" r="10" fill="#2C5282"/>
+    <text font-family="Barlow, sans-serif" font-size="11" font-weight="700" fill="white" x="320" y="74" text-anchor="middle">2</text>
+    <rect x="260" y="100" width="120" height="82" rx="6" fill="none" stroke="#2C5282" stroke-width="0.8" opacity="0.6"/>
+    <text font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="700" fill="#2C5282" x="320" y="120" text-anchor="middle">STRUCTURER</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="320" y="137" text-anchor="middle">Politique commune</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="320" y="152" text-anchor="middle">Responsable nommé</text>
+    <text font-family="Barlow, sans-serif" font-size="10" fill="#888" x="320" y="174" text-anchor="middle">→ Cadre minimum</text>
+    <circle cx="470" cy="70" r="10" fill="#276749"/>
+    <text font-family="Barlow, sans-serif" font-size="11" font-weight="700" fill="white" x="470" y="74" text-anchor="middle">3</text>
+    <rect x="410" y="100" width="120" height="82" rx="6" fill="none" stroke="#276749" stroke-width="0.8" opacity="0.6"/>
+    <text font-family="Barlow Condensed, sans-serif" font-size="12" font-weight="700" fill="#276749" x="470" y="120" text-anchor="middle">DÉCIDER</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="470" y="137" text-anchor="middle">Premiers déploiements</text>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#555" x="470" y="152" text-anchor="middle">IA à l'agenda</text>
+    <text font-family="Barlow, sans-serif" font-size="10" fill="#888" x="470" y="174" text-anchor="middle">→ Couche E</text>
+    <line x1="560" y1="70" x2="590" y2="70" stroke="#276749" stroke-width="1.5" opacity="0.5" marker-end="url(#arr_jan)"/>
+    <defs><marker id="arr_jan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#276749" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+    <path d="M40 205 L40 198 L470 198 L470 205" fill="none" stroke="#D8D4CC" stroke-width="0.8"/>
+    <text font-family="Barlow, sans-serif" font-size="11" fill="#888" x="255" y="216" text-anchor="middle">90 jours — de la couche L à la couche E</text>
+  </svg>
+</div>
+
+<div class="divider"><span>Décisions concrètes</span></div>
+
+<div class="section-num">06</div>
+<h2 class="section-title">Ce que vous faites lundi matin</h2>
+
+<p>Un dossier qui se termine par des recommandations générales est un dossier qu'on range. Celui-ci se termine par cinq décisions que vous pouvez prendre cette semaine — sans budget supplémentaire, sans validation externe.</p>
+
+<div class="niveau" style="margin-top:28px;">
+  <div class="niveau-label">Décision 1</div>
+  <div class="niveau-title">Faire la Scorecard LEAP™ — et accepter le résultat honnêtement</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">12 questions, 10 minutes. Le résultat vous positionne sur le cadre LEAP™ avec votre verrou prioritaire. L'honnêteté sur votre position actuelle est le seul prérequis à tout ce qui suit. Disponible sur uncrandavance.com/page-diagnostic.</div></div>
+</div>
+
+<div class="niveau" style="margin-top:12px;">
+  <div class="niveau-label">Décision 2</div>
+  <div class="niveau-title">Envoyer l'email d'audit à vos directeurs de département</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Cette semaine, un email à chacun de vos directeurs : "Quels outils IA votre équipe utilise-t-elle, pour quelles décisions, avec quelles données ?" Deux lignes. L'envoi de cet email signal à votre organisation que l'IA est un sujet de direction. Les réponses vous donnent le mois 1 de votre roadmap.</div></div>
+</div>
+
+<div class="niveau" style="margin-top:12px;">
+  <div class="niveau-label">Décision 3</div>
+  <div class="niveau-title">Identifier votre candidat naturel pour le rôle de responsable IA</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Pas nommer officiellement — identifier. Qui dans votre organisation combine une sensibilité technologique, une légitimité transversale, et un accès direct à la direction ? Votre DPO, votre directeur de la transformation, ou un directeur métier senior. Notez ce nom cette semaine.</div></div>
+</div>
+
+<div class="niveau" style="margin-top:12px;">
+  <div class="niveau-label">Décision 4</div>
+  <div class="niveau-title">Inscrire "Bilan IA" à l'agenda du prochain comité de direction</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Pas une présentation de 40 slides — 15 minutes. Deux questions : où en sommes-nous ? Quelle est notre prochaine décision ? Ce moment installe l'IA comme sujet permanent à l'agenda de direction. Il n'a pas besoin d'être parfait pour être important.</div></div>
+</div>
+
+<div class="niveau" style="margin-top:12px;">
+  <div class="niveau-label">Décision 5</div>
+  <div class="niveau-title">Répondre aux deux questions de la Section 4 — par écrit</div>
+  <div class="niveau-item"><div class="niveau-arrow">→</div><div class="niveau-text">Savez-vous ce que votre IA fait ? Qui répond de ce qu'elle décide ? Écrivez vos réponses en deux paragraphes. Si vous ne pouvez pas les écrire aujourd'hui, c'est votre priorité des 90 prochains jours. Si vous pouvez les écrire, c'est votre point de départ pour la roadmap.</div></div>
+</div>
+
+<!-- NOTE DE L'AUTEUR -->
+<div style="margin-top:56px; padding:24px 28px; background:var(--paper); border-left:3px solid var(--gold);">
+  <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:12px;">Note de l'auteur</div>
+  <p style="font-family:'Lora',serif; font-size:14px; color:#444; line-height:1.8; margin:0 0 12px;">Ce premier dossier est différent des suivants. Il pose le cadre plus qu'il n'analyse un sujet. C'est délibéré — parce que sans cadre de lecture commun, les dossiers suivants seraient des analyses sans ancrage. Les mois qui suivent vont creuser chaque dimension : l'IA agentique en février, le ROI en mars, la gouvernance en avril. Mais tout part de ici — de la question de qui décide et qui répond.</p>
+  <p style="font-family:'Lora',serif; font-size:14px; color:#444; line-height:1.8; margin:0;">Je lis chaque réponse que vous m'envoyez. Elles orientent ce que j'écris.</p>
+  <div style="margin-top:14px; font-size:12px; font-weight:600; color:var(--ink);">Aziz El Kihel</div>
+</div>
+
+<p style="color:var(--muted); font-size:14px; font-style:italic; margin-top:36px;">Prochain dossier — #-2 · Février 2026 · L'IA Agentique : du chatbot qui répond à l'agent qui agit.</p>
+
+<!-- BIO AUTEUR -->
+<div style="margin-top:48px; padding-top:28px; border-top:2px solid var(--rule); max-width:640px;">
+  <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">L'auteur</div>
+  <div style="display:flex; gap:16px; align-items:flex-start;">
+    <img src="aziz-el-kihel-general.jpg" style="width:52px; height:52px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid var(--rule);" alt="">
+    <div>
+      <div style="font-size:14px; font-weight:700; color:var(--ink); margin-bottom:4px;">Aziz El Kihel — Fondateur, Un Cran d'Avance</div>
+      <p style="font-family:'Lora',serif; font-size:13px; color:#555; line-height:1.65; margin:0 0 10px;">Vingt ans à observer les organisations en transformation technologique dans les secteurs financiers et opérationnels. Je traduis chaque semaine l'actualité IA en décisions concrètes pour les organisations opérant en Europe et en Amérique du Nord — avec les cadres LEAP™ et DRIVEN™ comme outils de lecture.</p>
+      <div style="font-size:12px; color:var(--muted);">Une question sur ce dossier ? <span style="color:var(--red); font-weight:600;"><a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a></span></div>
+    </div>
+  </div>
+</div>
+<</div><!-- /article-gated --></div><!-- /wrap-gated -->/div><!-- /uca-gated-dossier -->
+
+<script>
+function toggleLeap(id) {
+  var insert = document.getElementById(id);
+  if (!insert) return;
+  var num = id.replace('leap','');
+  var label = document.getElementById('ltb-label' + num);
+  var chevron = document.getElementById('ltb-chevron' + num);
+  var bar = insert.previousElementSibling;
+  while (bar && !bar.classList.contains('leap-toggle-bar')) { bar = bar.previousElementSibling; }
+  var isOpen = insert.classList.contains('open');
+  insert.classList.toggle('open', !isOpen);
+  if (bar) bar.classList.toggle('open', !isOpen);
+  if (label) label.classList.toggle('open', !isOpen);
+  if (chevron) chevron.classList.toggle('open', !isOpen);
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script src="uca-gate.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var ctx = document.getElementById("leapChart");
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["L — Local","E — Efficiency","A — Agentique","P — Pivot"],
+      datasets: [{ data: [52,31,13,4], backgroundColor: ["#2C5282","#276749","#9C4221","#C8102E"], borderWidth: 0 }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+  });
+});
+</script>
+<!-- MENTIONS LÉGALES -->
+<div style="text-align:center;padding:16px;border-top:1px solid var(--rule,#E0DDD8);margin-top:0;">
+  <span style="font-size:11px;color:var(--muted,#6B6B6B);">
+    <a href="mentions-legales.html" style="color:var(--muted,#6B6B6B);text-decoration:none;">Mentions légales</a>
+    &nbsp;·&nbsp;
+    <a href="politique-confidentialite.html" style="color:var(--muted,#6B6B6B);text-decoration:none;">Confidentialité</a>
+    &nbsp;·&nbsp;
+    © 2026 Un Cran d'Avance
+  </span>
+</div>
+
+<!-- MODAL INSCRIPTION -->
+<div id="uca-subscribe-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:rgba(10,10,20,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;padding:40px 36px;position:relative;">
+    <button onclick="ucaCloseModal()" aria-label="Fermer" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#6B6B6B;line-height:1;">✕</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:16px;">Newsletter gratuite · Chaque mardi</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;color:#0A0A14;margin-bottom:8px;">5 signaux IA.<br>Chaque mardi matin.</h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.7;margin-bottom:24px;">Ce que les dirigeants utilisent pour décider avant les autres. Gratuit, désabonnement en 1 clic.</p>
+    <!-- Formulaire -->
+    <div id="modal-form-wrap">
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <input type="email" id="modal-email-input" autocomplete="email" required placeholder="votre@email.com" style="flex:1;padding:14px 16px;font-family:'Barlow',sans-serif;font-size:14px;border:1px solid #E0DDD8;border-right:none;outline:none;min-width:0;" />
+        <button onclick="ucaModalSubmit()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 20px;background:#C8102E;color:#fff;border:none;cursor:pointer;white-space:nowrap;">Accès immédiat — gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <input type="checkbox" id="modal-consent" style="margin-top:3px;flex-shrink:0;accent-color:#C8102E;" />
+        <label for="modal-consent" style="font-family:'Barlow',sans-serif;font-size:12px;color:#6B6B6B;line-height:1.5;cursor:pointer;">J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre <a href="politique-confidentialite.html" style="color:#6B6B6B;text-decoration:underline;">politique de confidentialité</a>. Désabonnement en 1 clic.</label>
+      </div>
+      <div id="modal-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;color:#C8102E;margin-top:6px;"></div>
+    </div>
+    <!-- Succès -->
+    <div id="modal-success" style="display:none;text-align:center;padding:16px 0;">
+      <div style="font-size:32px;margin-bottom:12px;">✓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#0A0A14;margin-bottom:8px;">Bienvenue !</div>
+      <div style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.6;">Votre premier signal arrive mardi. Votre Pack de bienvenue est disponible maintenant.</div>
+      <a href="membre-welcome.html" style="display:inline-block;margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;background:#0A0A14;color:#fff;text-decoration:none;">Voir mon Pack de bienvenue →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function ucaOpenModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (!m) return;
+  // Si déjà abonné, rediriger vers bienvenue
+  if (localStorage.getItem('uca_has_email') === '1') {
+    window.location.href = 'membre-welcome.html';
+    return;
+  }
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var inp = document.getElementById('modal-email-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+function ucaCloseModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (m) m.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function ucaModalSubmit() {
+  var inp = document.getElementById('modal-email-input');
+  var consent = document.getElementById('modal-consent');
+  var errEl = document.getElementById('modal-error');
+  var email = inp ? inp.value.trim() : '';
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!re.test(email)) {
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    if (inp) inp.style.borderColor = '#C8102E';
+    return;
+  }
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid #C8102E';
+    return;
+  }
+  if (inp) inp.style.borderColor = '';
+  if (consent) consent.style.outline = '';
+  if (errEl) errEl.style.display = 'none';
+
+  // Déverrouillage immédiat
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyDossierAccess === 'function') applyDossierAccess();
+  if (typeof applyNLAccess === 'function') applyNLAccess();
+
+  // Afficher succès
+  var formWrap = document.getElementById('modal-form-wrap');
+  var success = document.getElementById('modal-success');
+  if (formWrap) formWrap.style.display = 'none';
+  if (success) success.style.display = 'block';
+
+  // Appel réseau en arrière-plan
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+}
+// Fermer en cliquant hors de la modal
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('uca-subscribe-modal');
+  if (modal && e.target === modal) ucaCloseModal();
+});
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') ucaCloseModal();
+});
+</script>
+
+
+<!-- FOOTER -->
+<div style="padding:24px clamp(24px,5vw,80px);border-top:3px double var(--rule);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+  <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ink);">✦ Un Cran d'Avance</div>
+  <div style="font-size:11px;color:var(--muted);">© 2026 · L'essentiel de l'IA pour décider mieux, chaque semaine.</div>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;">
+    <a href="page-newsletter.html" style="font-size:11px;color:var(--muted);text-decoration:none;">Newsletter</a>
+    <a href="page-vente.html" style="font-size:11px;color:var(--muted);text-decoration:none;">Premium</a>
+    <a href="page-apropos.html" style="font-size:11px;color:var(--muted);text-decoration:none;">À propos</a>
+    <span style="color:var(--rule);">|</span>
+    <a href="mentions-legales.html" style="font-size:11px;color:var(--muted);text-decoration:none;opacity:0.6;">Mentions légales</a>
+    <a href="politique-confidentialite.html" style="font-size:11px;color:var(--muted);text-decoration:none;opacity:0.6;">Confidentialité</a>
+  </div>
+</div>
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session pour mémoriser votre accès. Aucun cookie tiers. <a href="/politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('uca_cookie_consent')) {
+    var b = document.getElementById('uca-cookie-banner');
+    if (b) b.style.display = 'flex';
+  }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var items = document.querySelectorAll('.mn-item');
+  if (!items.length) return;
+  if (sessionStorage.getItem('uca-nav-pulsed')) return;
+  sessionStorage.setItem('uca-nav-pulsed', '1');
+
+  // Illumination dorée
+  setTimeout(function() {
+    items.forEach(function(item) {
+      item.classList.add('uca-glow');
+      setTimeout(function() { item.classList.remove('uca-glow'); }, 2800);
+    });
+  }, 1500);
+
+  // Badge "Naviguez

@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="color-scheme" content="light">
+<style>:root {
+
+  /* ── Variables LEAP™ couches ── */
+  --l: #2C5282; --e: #276749; --a: #9C4221; --p: #C8102E;
+ color-scheme: light; }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnostic IA — Où en êtes-vous vraiment ? · Un Cran d'Avance</title>
+<meta name="description" content="Évaluez votre maturité IA en 7 minutes. Identifiez vos angles morts et vos priorités avant qu'ils ne vous coûtent davantage.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0A14; --white: #FFFFFF; --muted: #6B6B6B;
+  --light: #F4F4F0; --paper: #F7F5F0; --rule: #E0DDD8;
+  --red: #C8102E; --red-dark: #A50E26; --gold: #B8973A;
+  --d: #1B3A5C; --r: #7A1C1C; --i: #1E5240;
+  --v: #4A3210; --e: #3A1F58; --n: #1A3A2A; --ec: #2A3A1A;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { overflow-x: hidden; font-family: 'Barlow', sans-serif; background: var(--white); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+/* ── NAV ── */
+nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); padding: 0 clamp(20px,5vw,80px); display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.nav-brand { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-cta { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 8px 20px; background: var(--red); color: var(--white); text-decoration: none; transition: background 0.2s; }
+.nav-cta:hover { background: var(--red-dark); }
+.nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: pointer; padding: 4px; background: none; border: none; z-index: 200; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); transition: all 0.3s ease; transform-origin: center; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile-overlay { display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.98); z-index: 150; flex-direction: column; padding: 32px clamp(24px,5vw,80px); backdrop-filter: blur(8px); overflow-y: auto; }
+.nav-mobile-overlay.open { display: flex; }
+.nav-mobile-overlay a { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 16px 0; border-bottom: 1px solid var(--rule); transition: color 0.2s; }
+.nav-mobile-overlay a:hover { color: var(--red); }
+.nav-mobile-overlay .mob-cta { margin-top: 24px; background: var(--ink); color: #fff !important; text-align: center; padding: 14px 24px !important; border-bottom: none !important; }
+@media (max-width: 900px) {
+  .nav-hamburger { display: flex; }
+  .nav-links { display: none !important; }
+  .nav-cta { display: none; }
+}
+
+/* ── HERO ── */
+.hero { background: var(--ink); padding: clamp(64px,8vw,112px) clamp(24px,5vw,80px); text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -40%; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(200,16,46,0.08) 0%, transparent 70%); pointer-events: none; }
+.hero-kicker { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+.hero-kicker span { display: inline-flex; align-items: center; gap: 6px; }
+.hero-kicker span::before { content: '·'; }
+.hero-kicker span:first-child::before { display: none; }
+.hero-title { font-family: 'Playfair Display', serif; font-size: clamp(32px,5vw,64px); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 20px; max-width: 820px; margin-left: auto; margin-right: auto; }
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-deck { font-family: 'Lora', serif; font-size: clamp(16px,2vw,19px); color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 560px; margin: 0 auto 12px; }
+.hero-tension { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,0.3); margin-bottom: 36px; font-style: italic; }
+.btn-primary { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 36px; background: var(--red); color: var(--white); text-decoration: none; transition: background 0.2s, transform 0.1s; cursor: pointer; border: none; }
+.btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+.hero-reassurance { margin-top: 16px; font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.5px; }
+
+/* ── VALEUR ── */
+.valeur { padding: clamp(48px,6vw,80px) clamp(24px,5vw,80px); border-bottom: 1px solid var(--rule); background: var(--paper); }
+.valeur-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); max-width: 960px; margin: 0 auto; }
+.valeur-item { background: var(--white); padding: 32px 28px; }
+.vi-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 900; color: var(--red); line-height: 1; margin-bottom: 16px; }
+.vi-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink); margin-bottom: 8px; }
+.vi-text { font-family: 'Lora', serif; font-size: 14px; color: var(--muted); line-height: 1.65; }
+.vi-arrow { font-size: 12px; color: var(--red); margin-top: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 1px; }
+@media (max-width: 768px) { .valeur-grid { grid-template-columns: 1fr; } }
+
+/* ── POUR QUI ── */
+.pour-qui { padding: clamp(48px,6vw,80px) clamp(48px,7vw,80px); border-bottom: 1px solid var(--rule); }
+.section-kicker { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.section-kicker::before { content: ''; width: 20px; height: 1px; background: var(--red); display: block; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(24px,3vw,38px); font-weight: 900; margin-bottom: 32px; line-height: 1.15; }
+.section-title em { font-style: italic; color: var(--red); }
+.pq-list { list-style: none; max-width: 640px; margin: 0; }
+.pq-list li { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-family: 'Lora', serif; font-size: 16px; color: #333; line-height: 1.6; }
+.pq-list li::before { content: '→'; color: var(--red); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+
+/* ── DIAGNOSTIC TOOL ── */
+.diag-section { padding: clamp(48px,6vw,80px) clamp(24px,5vw,80px); background: var(--paper); border-bottom: 1px solid var(--rule); }
+.diag-wrap { max-width: 720px; margin: 0 auto; }
+
+/* Progress */
+.diag-progress { margin-bottom: 40px; }
+.dp-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; display: flex; justify-content: space-between; }
+.dp-bar { height: 3px; background: var(--rule); position: relative; }
+.dp-fill { height: 100%; background: var(--red); transition: width 0.4s ease; width: 0%; }
+.dp-dots { display: flex; gap: 8px; margin-top: 10px; }
+.dp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rule); transition: background 0.3s; }
+.dp-dot.done { background: var(--red); }
+.dp-dot.current { background: var(--ink); }
+
+/* Question card */
+.diag-card { background: var(--white); border: 1px solid var(--rule); padding: clamp(28px,4vw,48px); position: relative; }
+.dc-instruction { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--rule); font-style: italic; }
+.dc-question { font-family: 'Playfair Display', serif; font-size: clamp(18px,2.5vw,24px); font-weight: 700; color: var(--ink); line-height: 1.35; margin-bottom: 28px; }
+.dc-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.dc-option { display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px; border: 1px solid var(--rule); cursor: pointer; transition: border-color 0.2s, background 0.2s; background: var(--white); }
+.dc-option:hover { border-color: var(--ink); background: var(--light); }
+.dc-option.selected { border-color: var(--ink); background: var(--ink); }
+.dc-option.selected .dc-opt-text { color: var(--white); }
+.dc-opt-radio { width: 16px; height: 16px; border: 1.5px solid var(--rule); border-radius: 50%; flex-shrink: 0; margin-top: 2px; position: relative; transition: all 0.2s; }
+.dc-option.selected .dc-opt-radio { border-color: var(--white); background: var(--red); }
+.dc-opt-text { font-family: 'Lora', serif; font-size: 14px; color: #333; line-height: 1.55; }
+.dc-nav { display: flex; align-items: center; justify-content: space-between; }
+.dc-back { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0; transition: color 0.2s; }
+.dc-back:hover { color: var(--ink); }
+.dc-back:disabled { opacity: 0.3; cursor: default; }
+.btn-next { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 12px 28px; background: var(--ink); color: var(--white); border: none; cursor: pointer; transition: background 0.2s; }
+.btn-next:hover { background: var(--red); }
+.btn-next:disabled { background: var(--rule); color: var(--muted); cursor: default; }
+
+/* ── RÉSULTATS PARTIELS ── */
+#results-partial { display: none; }
+.rp-wrap { max-width: 720px; margin: 0 auto; }
+.rp-score-box { background: var(--ink); padding: clamp(32px,4vw,48px); margin-bottom: 2px; }
+.rp-level { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+.rp-niveau { font-family: 'Playfair Display', serif; font-size: clamp(28px,4vw,44px); font-weight: 900; color: var(--white); margin-bottom: 4px; }
+.rp-score { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: var(--gold); letter-spacing: 2px; margin-bottom: 20px; }
+.rp-bar-wrap { height: 6px; background: rgba(255,255,255,0.1); margin-bottom: 20px; }
+.rp-bar-fill { height: 100%; background: var(--red); transition: width 1s ease; }
+.rp-compare { font-family: 'Lora', serif; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; font-style: italic; }
+.rp-tension { font-family: 'Lora', serif; font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-top: 14px; }
+
+.rp-insights { background: var(--white); border: 1px solid var(--rule); border-top: none; padding: clamp(24px,3vw,36px); margin-bottom: 2px; }
+.rp-insights-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.rp-insight { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); font-family: 'Lora', serif; font-size: 14px; color: #333; line-height: 1.55; }
+.rp-insight::before { content: '✓'; color: var(--e); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; flex-shrink: 0; }
+.rp-insight.locked { color: var(--muted); }
+.rp-insight.locked::before { content: '🔒'; }
+.rp-potentiel { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 14px; font-family: 'Lora', serif; }
+
+.rp-capture { background: var(--paper); border: 1px solid var(--rule); border-top: 3px solid var(--red); padding: clamp(28px,4vw,44px); }
+.rp-capture-tension { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 8px; }
+.rp-capture-tension em { font-style: italic; color: var(--red); }
+.rp-capture-sub { font-family: 'Lora', serif; font-size: 14px; color: var(--muted); margin-bottom: 20px; line-height: 1.65; }
+.rp-bullets { list-style: none; margin-bottom: 24px; }
+.rp-bullets li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #333; padding: 6px 0; font-family: 'Lora', serif; }
+.rp-bullets li::before { content: '·'; color: var(--red); font-weight: 900; flex-shrink: 0; font-size: 18px; line-height: 1.2; }
+.rp-email-form { display: flex; flex-direction: column; gap: 10px; }
+.rp-email-input { padding: 14px 16px; border: 1px solid var(--rule); font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--ink); background: var(--white); outline: none; transition: border-color 0.2s; }
+.rp-email-input:focus { border-color: var(--ink); }
+.rp-email-input::placeholder { color: var(--muted); }
+.rp-privacy { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* ── RÉSULTATS COMPLETS ── */
+/* #results-full remplacé par #results-email + #results-upsell + #results-premium */
+.rf-wrap { max-width: 720px; margin: 0 auto; }
+.rf-synthese { background: var(--ink); padding: clamp(28px,4vw,44px); margin-bottom: 2px; }
+.rf-synthese-text { font-family: 'Lora', serif; font-size: 16px; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 20px; font-style: italic; }
+.rf-niveau { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+.rf-score-big { font-family: 'Playfair Display', serif; font-size: clamp(32px,4vw,48px); font-weight: 900; color: var(--white); margin-bottom: 4px; }
+.rf-compare { font-size: 13px; color: rgba(255,255,255,0.35); font-style: italic; font-family: 'Lora', serif; }
+
+.rf-dims { background: var(--white); border: 1px solid var(--rule); border-top: none; padding: clamp(24px,3vw,40px); margin-bottom: 2px; }
+.rf-dims-title { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+.rf-dim { margin-bottom: 18px; }
+.rf-dim:last-child { margin-bottom: 0; }
+.rf-dim-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.rf-dim-name { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+.rf-dim-name .dim-badge { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.rf-dim-score { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; color: var(--muted); }
+.rf-dim-bar { height: 4px; background: var(--rule); }
+.rf-dim-fill { height: 100%; transition: width 0.8s ease; }
+.rf-dim.blocage .rf-dim-name { color: var(--red); }
+.rf-dim.blocage .rf-dim-score { color: var(--red); }
+.blocage-label { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-left: 8px; }
+
+.rf-blocage { background: #FFF5F5; border: 1px solid #FCCACA; border-left: 3px solid var(--red); padding: clamp(20px,3vw,32px); margin-bottom: 2px; }
+.rfb-label { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.rfb-label::before { content: '⚠'; font-style: normal; }
+.rfb-dim { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.rfb-score { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--red); letter-spacing: 1px; margin-bottom: 12px; }
+.rfb-text { font-family: 'Lora', serif; font-size: 14px; color: #555; line-height: 1.7; }
+
+.rf-priorites { background: var(--white); border: 1px solid var(--rule); border-top: none; padding: clamp(24px,3vw,40px); margin-bottom: 2px; }
+.rfp-title { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.rfp-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.rfp-item:last-child { border-bottom: none; }
+.rfp-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--rule); line-height: 1; flex-shrink: 0; }
+.rfp-text { font-family: 'Lora', serif; font-size: 14px; color: #333; line-height: 1.65; }
+.rfp-text strong { color: var(--ink); font-weight: 600; }
+
+.rf-projection { background: var(--paper); border: 1px solid var(--rule); border-top: none; border-left: 3px solid var(--gold); padding: clamp(20px,3vw,32px); margin-bottom: 2px; }
+.rfpr-text { font-family: 'Lora', serif; font-size: 15px; color: #444; line-height: 1.75; font-style: italic; margin-bottom: 10px; }
+.rfpr-finale { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); }
+.rf-note { text-align: center; padding: 16px; font-size: 11px; color: var(--muted); font-style: italic; font-family: 'Lora', serif; border: 1px solid var(--rule); border-top: none; background: var(--white); }
+
+/* ── UPSELL ── */
+.upsell { background: var(--ink); padding: clamp(56px,7vw,96px) clamp(24px,5vw,80px); text-align: center; }
+.upsell-inner { max-width: 640px; margin: 0 auto; }
+.up-kicker { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 24px; }
+.up-title { font-family: 'Playfair Display', serif; font-size: clamp(24px,3vw,36px); font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+.up-separator { display: flex; align-items: center; gap: 16px; margin: 20px 0; }
+.up-separator::before, .up-separator::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+.up-separator span { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+.up-text { font-family: 'Lora', serif; font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.8; margin-bottom: 36px; }
+.up-ctas { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.btn-up-primary { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 40px; background: var(--red); color: var(--white); text-decoration: none; transition: background 0.2s; display: inline-block; }
+.btn-up-primary:hover { background: var(--red-dark); }
+.btn-up-secondary { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; padding: 8px 0; }
+.btn-up-secondary:hover { color: rgba(255,255,255,0.7); }
+.up-price { font-size: 12px; color: rgba(255,255,255,0.2); margin-top: 12px; font-family: 'Lora', serif; }
+
+/* ── ÉTATS UPSELL ── */
+.diag-upsell-anonymous, .diag-upsell-free, .diag-upsell-premium { display: none; }
+
+
+/* Résultats email (score + dimensions) */
+#results-email { display: none; }
+/* Résultats premium (blocage + priorités) */
+#results-premium { display: none; }
+/* Upsell interstitiel */
+#results-upsell { display: none; background: var(--ink); border-top: 4px solid var(--gold); padding: clamp(48px,6vw,80px) clamp(24px,5vw,80px); }
+.ru-wrap { max-width: 720px; margin: 0 auto; }
+.ru-kicker { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.ru-kicker::before { content: ''; width: 16px; height: 1px; background: var(--gold); display: block; }
+.ru-title { font-family: 'Playfair Display', serif; font-size: clamp(24px,3vw,38px); font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+.ru-title em { font-style: italic; color: var(--gold); }
+.ru-blocage-name { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); padding: 6px 12px; border: 1px solid rgba(184,151,58,0.4); display: inline-block; margin-bottom: 20px; }
+.ru-desc { font-family: 'Lora', serif; font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 28px; }
+.ru-gets { list-style: none; margin-bottom: 32px; }
+.ru-gets li { display: flex; align-items: flex-start; gap: 10px; font-family: 'Lora', serif; font-size: 14px; color: rgba(255,255,255,0.75); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08); line-height: 1.5; }
+.ru-gets li::before { content: '→'; color: var(--gold); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; flex-shrink: 0; }
+.ru-cta-primary { display: block; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 40px; background: var(--gold); color: var(--ink); text-decoration: none; transition: background 0.2s; margin-bottom: 12px; max-width: 400px; }
+.ru-cta-primary:hover { background: #a07a2a; color: var(--ink); }
+.ru-cta-secondary { display: block; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); text-decoration: none; padding: 10px 0; max-width: 400px; transition: color 0.2s; }
+.ru-cta-secondary:hover { color: rgba(255,255,255,0.65); }
+.ru-price { font-family: 'Lora', serif; font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 16px; font-style: italic; }
+/* Fix liens bleus partout dans les résultats */
+#results-email a, #results-upsell a, #results-premium a, .rp-wrap a, .diag-section a { color: inherit; text-decoration: none; }
+/* Palier pédagogique */
+.niveau-what { font-family: 'Barlow', sans-serif; font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; margin-top: 12px; max-width: 520px; }
+.niveau-action { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 14px; }
+/* Blocage name preview pour email users */
+.rfb-preview { background: var(--paper); border: 1px solid var(--rule); border-left: 3px solid var(--gold); padding: clamp(20px,3vw,32px); margin-bottom: 2px; }
+.rfb-preview-label { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.rfb-preview-dim { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.rfb-preview-score { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--red); letter-spacing: 1px; margin-bottom: 10px; }
+.rfb-preview-lock { font-family: 'Lora', serif; font-size: 13px; color: var(--muted); font-style: italic; line-height: 1.6; }
+
+
+/* ── Cadres dans résultats ── */
+.leap-diag-block { margin:24px 0; max-width:720px; }
+.leap-diag-kicker { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:flex; align-items:center; gap:10px; }
+.leap-diag-kicker::before { content:''; width:16px; height:1px; background:var(--gold); }
+.leap-couches { display:flex; flex-direction:column; gap:4px; }
+.leap-couche { display:flex; gap:12px; align-items:center; padding:8px 12px; border:1px solid var(--rule); background:var(--white); transition:all 0.2s; }
+.leap-couche.active { border-color:var(--gold); background:rgba(184,151,58,0.06); }
+.leap-couche-letter { font-family:'Playfair Display',serif; font-size:24px; font-weight:900; line-height:1; width:24px; flex-shrink:0; }
+.leap-couche.active .leap-couche-letter { color:var(--gold); }
+.leap-couche-info { flex:1; }
+.leap-couche-name { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:2px; }
+.leap-couche.active .leap-couche-name { color:var(--ink); }
+.leap-couche-desc { font-family:'Lora',serif; font-size:12px; color:var(--muted); line-height:1.4; }
+.leap-couche-badge { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); background:rgba(184,151,58,0.12); border:1px solid rgba(184,151,58,0.3); padding:3px 8px; white-space:nowrap; }
+/* DRIVEN compact */
+.driven-diag-block { margin:24px 0; max-width:720px; background:var(--paper); border:1px solid var(--rule); border-left:3px solid var(--ink); padding:20px 24px; }
+.driven-diag-axes { display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; margin-top:12px; }
+.dda-item { display:flex; gap:8px; align-items:baseline; }
+.dda-letter { font-family:'Playfair Display',serif; font-size:16px; font-weight:900; color:var(--ink); line-height:1; width:16px; flex-shrink:0; }
+.dda-text { font-family:'Barlow',sans-serif; font-size:12px; color:var(--muted); line-height:1.4; }
+.dda-text strong { color:var(--ink); font-weight:600; }
+/* Matrice premium */
+.cadres-premium-wrap { max-width:720px; margin:32px 0; }
+.cp-kicker { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+.matrix-section { margin:0; }
+.matrix-intro { font-family:'Lora',serif; font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:16px; }
+.matrix-table { width:100%; border-collapse:collapse; font-size:11px; }
+.matrix-table th { background:var(--ink); color:rgba(255,255,255,0.6); font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:8px 10px; text-align:left; }
+.matrix-table td { padding:8px 10px; border-bottom:1px solid var(--rule); font-family:'Lora',serif; color:#333; line-height:1.45; vertical-align:top; }
+.matrix-table .couche { font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:1px; }
+.dot { display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:4px; vertical-align:middle; }
+.dot-hi { background:#C8102E; } .dot-med { background:#B8973A; } .dot-lo { background:var(--rule); }
+.gold { color:var(--gold); }
+.usage-section { margin:24px 0; }
+.usage-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+.usage-card { background:var(--white); border:1px solid var(--rule); padding:16px; }
+.uc-step { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+.uc-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--ink); margin-bottom:8px; line-height:1.3; }
+.uc-text { font-family:'Lora',serif; font-size:12px; color:var(--muted); line-height:1.6; }
+@media(max-width:600px) { .driven-diag-axes { grid-template-columns:1fr; } .usage-grid { grid-template-columns:1fr; } }
+
+
+/* ── MATRICE LEAP × DRIVEN — design premium à onglets ── */
+.lxd-wrap { max-width:720px; margin:32px 0; }
+
+/* Onglets */
+.lxd-tabs { display:flex; gap:0; border-bottom:3px solid var(--ink); }
+.lxd-tab {
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
+  padding:14px 8px 12px; background:var(--light); border:1px solid var(--rule);
+  border-bottom:none; border-right:none; cursor:pointer; transition:all 0.18s;
+  font-family:'Barlow Condensed',sans-serif; position:relative;
+}
+.lxd-tab:first-child { border-left:1px solid var(--rule); }
+.lxd-tab:hover { background:var(--white); }
+.lxd-tab.active { background:var(--ink); border-color:var(--ink); bottom:-3px; padding-bottom:15px; z-index:2; }
+.lxd-tab-letter { font-family:'Playfair Display',serif; font-size:26px; font-weight:900; line-height:1; }
+.lxd-tab.active .lxd-tab-letter { filter:brightness(1.4); }
+.lxd-tab-name { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+.lxd-tab.active .lxd-tab-name { color:rgba(255,255,255,0.45); }
+
+/* Panneaux */
+.lxd-panel { display:none; animation:lxdFadeIn 0.2s ease; }
+.lxd-panel.active { display:block; }
+@keyframes lxdFadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
+
+.lxd-panel-header {
+  padding:20px 24px 18px; background:var(--paper);
+  border:1px solid var(--rule); border-top:none;
+  border-bottom:1px solid var(--rule);
+}
+.lxd-couche-label {
+  font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase; margin-bottom:6px;
+}
+.lxd-couche-desc { font-family:'Lora',serif; font-size:13px; color:var(--muted); line-height:1.65; }
+
+/* Grille 6 cartes */
+.lxd-cards {
+  display:grid; grid-template-columns:1fr 1fr;
+  border:1px solid var(--rule); border-top:none;
+  gap:0;
+}
+.lxd-card {
+  padding:16px 18px; background:var(--white);
+  border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  border-left:3px solid transparent;
+  transition:background 0.15s;
+}
+.lxd-card:nth-child(even) { border-right:none; }
+.lxd-card:hover { background:rgba(184,151,58,0.03); }
+.lxd-axis {
+  font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase; margin-bottom:6px;
+}
+.lxd-cell { font-family:'Lora',serif; font-size:12px; color:#444; line-height:1.65; }
+
+/* Niveaux par couleur de bordure gauche */
+.lxd-lo  { border-left-color:#ddd; }
+.lxd-lo .lxd-axis  { color:#bbb; }
+.lxd-med { border-left-color:var(--gold); }
+.lxd-med .lxd-axis { color:var(--gold); }
+.lxd-hi  { border-left-color:#b36a00; background:rgba(179,106,0,0.02); }
+.lxd-hi .lxd-axis  { color:#b36a00; }
+.lxd-crit{ border-left-color:var(--red); background:rgba(200,16,46,0.025); }
+.lxd-crit .lxd-axis{ color:var(--red); }
+
+/* Légende */
+.lxd-legend {
+  display:flex; gap:20px; flex-wrap:wrap; align-items:center;
+  padding:10px 16px; background:var(--paper);
+  border:1px solid var(--rule); border-top:none;
+  font-family:'Barlow Condensed',sans-serif; font-size:9px;
+  font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted);
+}
+.lxd-leg { display:flex; align-items:center; gap:6px; }
+.lxd-dot { width:7px; height:7px; border-radius:50%; }
+.lxd-dot.lo { background:#ddd; }
+.lxd-dot.med { background:var(--gold); }
+.lxd-dot.hi { background:#b36a00; }
+.lxd-dot.crit { background:var(--red); }
+
+/* Guide usage */
+.lxd-usage { margin-top:32px; }
+.lxd-usage-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+.lxd-usage-card {
+  background:var(--white); border:1px solid var(--rule);
+  border-top:2px solid var(--gold); padding:18px 20px;
+}
+.lxd-usage-step {
+  font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:8px;
+}
+.lxd-usage-title {
+  font-family:'Playfair Display',serif; font-size:15px; font-weight:700;
+  color:var(--ink); margin-bottom:8px; line-height:1.3; font-style:italic;
+}
+.lxd-usage-text { font-family:'Lora',serif; font-size:12px; color:var(--muted); line-height:1.65; }
+
+@media(max-width:600px) {
+  .lxd-cards { grid-template-columns:1fr; }
+  .lxd-card:nth-child(even) { border-right:1px solid var(--rule); }
+  .lxd-usage-grid { grid-template-columns:1fr; }
+  .lxd-tab-name { display:none; }
+}
+
+/* ── FOOTER ── */
+footer { padding: 32px clamp(24px,5vw,80px); border-top: 3px double var(--rule); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.f-brand { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; }
+.f-copy { font-size: 11px; color: var(--muted); }
+.f-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.f-links a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.f-links a:hover { color: var(--red); }
+@media (max-width: 600px) {
+  footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .f-links { flex-direction: column; gap: 8px; }
+}
+
+/* ── UTILS ── */
+.hidden { display: none !important; }
+
+/* ── Diagnostic — funnel statut ── */
+.diag-upsell-anonymous { display: block; }
+.diag-upsell-free      { display: none; }
+.diag-upsell-premium   { display: none; }
+body.has-email .diag-upsell-anonymous { display: none; }
+body.has-email .diag-upsell-free      { display: block; }
+body.has-premium .diag-upsell-free    { display: none; }
+body.has-premium .diag-upsell-premium { display: block; }
+
+/* Résultats partiels : si déjà abonné, skip l'email et afficher complet */
+body.has-email #rp-email-block { display: none; }
+body.has-email #rp-skip-block  { display: block; }
+#rp-skip-block { display: none; }
+
+
+/* ── Pulse sur dernier bouton ── */
+@keyframes pulse-btn {
+  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(200,16,46,0.4); }
+  70%  { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(200,16,46,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(200,16,46,0); }
+}
+#btn-next.pulse { animation: pulse-btn 0.8s ease 2; }
+
+
+/* ── Options deux niveaux ── */
+.dc-opt-titre {
+  display: block;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.dc-opt-detail {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+  line-height: 1.5;
+}
+.dc-option.selected .dc-opt-titre { color: inherit; }
+.dc-option.selected .dc-opt-detail { color: rgba(255,255,255,0.7); }
+
+
+/* ── Diagnostic — responsive mobile ── */
+@media (max-width: 600px) {
+  /* Hero — 3 puces en colonne */
+  .diag-hero-puces { flex-direction: column !important; gap: 8px !important; }
+  
+  /* Options — padding réduit */
+  .dc-option { padding: 12px 14px !important; }
+  .dc-opt-titre { font-size: 14px !important; }
+  .dc-opt-detail { font-size: 11px !important; }
+  
+  /* Navigation boutons */
+  .dp-nav { flex-direction: column !important; gap: 8px !important; }
+  #btn-next, #btn-back { width: 100% !important; }
+  
+  /* Résultats — barres full width */
+  .rf-dim-header { flex-direction: column !important; gap: 4px !important; }
+  
+  /* Upsell — boutons full width */
+  .diag-upsell-free a { display: block !important; text-align: center !important; max-width: 100% !important; }
+}
+
+</style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="Diagnostic IA — Evaluez votre maturite">
+  <meta property="og:description" content="7 dimensions, 7 minutes. Votre niveau reel + point de blocage + 3 priorites. Gratuit.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/page-diagnostic.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Diagnostic IA — Evaluez votre maturite">
+  <meta name="twitter:description" content="7 dimensions, 7 minutes. Votre niveau reel + point de blocage + 3 priorites. Gratuit.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/page-diagnostic.html">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="page-newsletter.html" class="nav-brand">✦ Un Cran d'Avance</a>
+  <div class="nav-links">
+    <a href="page-newsletter.html">Newsletter</a>
+    <a href="page-vente.html">Premium</a>
+    <a href="page-apropos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </div>
+  <button onclick="ucaOpenModal()" class="nav-cta" style="cursor:pointer;border:none;">Commencer gratuitement →</button>
+  <button class="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile-overlay">
+  <a href="page-newsletter.html">Newsletter</a>
+  <a href="page-vente.html">Premium</a>
+  <a href="page-apropos.html">À propos</a>
+  <a href="mentions-legales.html">Mentions légales</a>
+  <a href="politique-confidentialite.html">Confidentialité</a>
+  <button onclick="ucaOpenModal();document.querySelector('.nav-mobile-overlay').classList.remove('open')" class="mob-cta" style="cursor:pointer;border:none;width:100%;text-align:center;">Commencer gratuitement →</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-kicker">
+    <span>Outil gratuit</span>
+    <span>7 minutes</span>
+    <span>Accès aux archives</span>
+  </div>
+  <h1 class="hero-title">
+    Où en êtes-vous vraiment face à l'IA —<br>
+    <em>et qu'est-ce que cela vous coûte déjà ?</em>
+  </h1>
+  <p class="hero-deck">Identifiez vos angles morts et vos priorités avant qu'ils ne vous coûtent davantage.</p>
+  <p class="hero-tension">La plupart des organisations se trompent sur leur niveau réel.</p>
+  <button class="btn-primary" onclick="scrollToDiag()">Commencer le diagnostic →</a>
+    <div class="diag-hero-puces" style="display:flex;gap:0;flex-wrap:wrap;margin-top:20px;border-top:1px solid rgba(255,255,255,0.2);padding-top:16px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.9);display:flex;align-items:center;gap:8px;padding-right:20px;margin-right:20px;border-right:1px solid rgba(255,255,255,0.2);">
+        <span style="color:var(--gold);font-size:14px;">①</span> Votre niveau réel
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.9);display:flex;align-items:center;gap:8px;padding-right:20px;margin-right:20px;border-right:1px solid rgba(255,255,255,0.2);">
+        <span style="color:var(--gold);font-size:14px;">②</span> Vos zones de risque
+      </div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.9);display:flex;align-items:center;gap:8px;">
+        <span style="color:var(--gold);font-size:14px;">③</span> Vos priorités 90 jours
+      </div>
+    </div
+    </div>
+    <p style="display:none</button>
+  <p class="hero-reassurance">Gratuit · Sans inscription · Accès aux archives</p>
+</section>
+
+<!-- CE QUE VOUS OBTENEZ — intégré dans hero -->
+<!-- POUR QUI -->
+<section class="pour-qui-section pour-qui">
+  <div class="section-kicker">Pour qui</div>
+  <h2 class="section-title">Ce diagnostic est fait<br><em>pour vous si…</em></h2>
+  <ul class="pq-list">
+    <li>Vous devez arbitrer des investissements IA sans visibilité claire sur votre maturité réelle</li>
+    <li>Vous sentez que certaines décisions sont mal cadrées — sans savoir exactement où</li>
+    <li>Vous avancez sans pouvoir mesurer concrètement votre progression</li>
+    <li>Vous voulez objectiver votre situation avant de l'exposer en comité de direction</li>
+  </ul>
+</section>
+
+<!-- LE DIAGNOSTIC -->
+<section class="diag-section" id="diag-section">
+  <div class="diag-wrap">
+    <div class="section-kicker">Le diagnostic</div>
+    <h2 class="section-title" style="margin-bottom:12px;">Votre évaluation<br><em>en 7 questions</em></h2>
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:28px;">Structuré autour du cadre <a href="page-apropos.html" style="color:var(--muted);text-decoration:underline;letter-spacing:1px;">DRIVEN™</a> · Un Cran d'Avance</p>
+
+    <!-- Progress -->
+    <div class="diag-progress">
+      <div class="dp-label">
+        <span id="q-label">Question 1 / 7</span>
+        <span id="q-pct">0%</span>
+      </div>
+      <div class="dp-bar"><div class="dp-fill" id="dp-fill"></div></div>
+      <div class="dp-dots" id="dp-dots"></div>
+    </div>
+
+    <!-- Question card -->
+    <div class="diag-card" id="diag-card">
+      <div id="dc-dim-label" style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:3px 10px;color:#fff;display:inline-block;margin-bottom:14px;"></div>
+      <div class="dc-instruction">Répondez en fonction de votre situation actuelle — pas de ce que vous visez.</div>
+      <div class="dc-question" id="dc-question"></div>
+      <div class="dc-options" id="dc-options"></div>
+      <div class="dc-nav">
+        <button class="dc-back" id="btn-back" onclick="prevQuestion()" disabled>← Précédent</button>
+        <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Suivant →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSULTATS PARTIELS -->
+<section class="diag-section" id="results-partial">
+  <div class="rp-wrap">
+    <div class="section-kicker">Votre diagnostic</div>
+    <h2 class="section-title" style="margin-bottom:24px;">Vos résultats<br><em>partiels</em></h2>
+
+    <div class="rp-score-box">
+      <div class="rp-level">Niveau de maturité IA</div>
+      <div class="rp-niveau" id="rp-niveau">—</div>
+      <div class="rp-score" id="rp-score">— / 70</div>
+      <div class="rp-bar-wrap"><div class="rp-bar-fill" id="rp-bar"></div></div>
+      <div class="rp-compare" id="rp-compare"></div>
+      <div class="rp-tension">Ce diagnostic révèle votre situation actuelle — pas votre potentiel.</div>
+    </div>
+
+    <div class="rp-insights">
+      <div class="rp-insights-label">Premiers constats</div>
+      <div class="rp-insight" id="insight-1"></div>
+      <div class="rp-insight" id="insight-2"></div>
+      <div class="rp-insight locked">Identifié — visible dans votre analyse complète</div>
+      <div class="rp-insight locked">Vos priorités 90 jours — accessibles après validation</div>
+      <p class="rp-potentiel">Ce diagnostic révèle votre situation actuelle — pas votre potentiel.</p>
+    </div>
+
+    <div class="rp-capture">
+      <div class="rp-capture-tension">Vous avez une base solide —<br><em>mais un point critique limite vos décisions aujourd'hui.</em></div>
+      <p class="rp-capture-sub">Et il n'est probablement pas là où vous pensez.</p>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Accédez à votre diagnostic complet :</p>
+      <ul class="rp-bullets">
+        <li>Votre point de blocage principal</li>
+        <li>Vos 3 priorités d'action concrètes</li>
+        <li>Votre positionnement réel par rapport aux organisations de même taille</li>
+      </ul>
+      <div class="rp-email-form">
+        <input type="email" autocomplete="email" required class="rp-email-input" id="rp-email" placeholder="votre@email.com">
+        <div class="rgpd-consent" style="margin-top:10px;display:flex;align-items:flex-start;gap:8px;">
+  <input type="checkbox" id="consent-diag" name="consent" required style="margin-top:3px;flex-shrink:0;accent-color:#B8973A;width:13px;height:13px;cursor:pointer;">
+  <label for="consent-diag" style="font-family:'Barlow',sans-serif;font-size:11px;color:#6B6B6B;line-height:1.5;cursor:pointer;">
+    J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre
+    <a href="politique-confidentialite.html" style="color:#6B6B6B;text-decoration:underline;" target="_blank">politique de confidentialité</a>.
+    Désabonnement en 1 clic.
+  </label>
+</div>
+<button class="btn-primary" onclick="submitEmail()" style="width:100%;justify-content:center;">Recevoir mon diagnostic complet →</button>
+        <p class="rp-privacy">Gratuit · Vos données ne sont pas partagées · Désinscription en 1 clic</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSULTATS COMPLETS -->
+<!-- RÉSULTATS EMAIL — score + dimensions (déverrouillé par email) -->
+<section class="diag-section" id="results-email">
+  <div class="rf-wrap">
+    <div class="section-kicker">Votre résultat</div>
+    <h2 class="section-title" style="margin-bottom:24px;">Votre score<br><em>de maturité IA</em></h2>
+
+    <div class="rf-synthese">
+      <div class="rf-synthese-text" id="rf-synthese"></div>
+      <div class="rf-niveau" id="rf-niveau-label"></div>
+      <div class="rf-score-big" id="rf-score-big"></div>
+      <div class="rf-compare" id="rf-compare-full"></div>
+      <div class="niveau-what" id="rf-niveau-what"></div>
+      <div class="niveau-action" id="rf-niveau-action"></div>
+    </div>
+
+    <div class="rf-dims">
+      <div class="rf-dims-title">Détail par dimension</div>
+      <div id="rf-dims-list"></div>
+    </div>
+
+    <div class="rfb-preview">
+      <div class="rfb-preview-label">Point de blocage identifié</div>
+      <div class="rfb-preview-dim" id="rfb-dim-preview"></div>
+      <div class="rfb-preview-score" id="rfb-score-preview"></div>
+      <div class="rfb-preview-lock">L'analyse détaillée de ce blocage et les 3 priorités d'action pour le traiter sont disponibles pour les membres Premium.</div>
+    </div>
+
+    <!-- CADRES LEAP™ × DRIVEN™ — version email -->
+    <div class="leap-diag-block">
+      <div class="leap-diag-kicker">Votre position LEAP™</div>
+      <p style="font-family:'Lora',serif;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px;">LEAP™ positionne votre organisation sur sa maturité IA — de l'usage individuel non coordonné à la redéfinition du modèle économique.</p>
+      <div class="leap-couches" id="leap-couches-diag">
+        <div class="leap-couche" data-leap="L">
+          <div class="leap-couche-letter" style="color:var(--l);">L</div>
+          <div class="leap-couche-info">
+            <div class="leap-couche-name">Local — Usage individuel</div>
+            <div class="leap-couche-desc">Les outils IA sont utilisés de façon non coordonnée. Aucune politique IA commune.</div>
+          </div>
+        </div>
+        <div class="leap-couche" data-leap="E">
+          <div class="leap-couche-letter" style="color:var(--e);">E</div>
+          <div class="leap-couche-info">
+            <div class="leap-couche-name">Efficiency — Automatisation</div>
+            <div class="leap-couche-desc">Les processus répétitifs sont automatisés. ROI mesurable. Gouvernance à construire.</div>
+          </div>
+        </div>
+        <div class="leap-couche" data-leap="A">
+          <div class="leap-couche-letter" style="color:var(--a);">A</div>
+          <div class="leap-couche-info">
+            <div class="leap-couche-name">Agentique — Délégation d'objectifs</div>
+            <div class="leap-couche-desc">Des agents autonomes prennent des décisions. La maîtrise humaine est l'enjeu central.</div>
+          </div>
+        </div>
+        <div class="leap-couche" data-leap="P">
+          <div class="leap-couche-letter" style="color:var(--p);">P</div>
+          <div class="leap-couche-info">
+            <div class="leap-couche-name">Pivot — Modèle économique redéfini</div>
+            <div class="leap-couche-desc">L'IA redéfinit ce que vous vendez, à qui et à quel prix. Transformation systémique.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="driven-diag-block">
+      <div class="leap-diag-kicker">Les 6 axes DRIVEN™ que vous venez de mesurer</div>
+      <p style="font-family:'Lora',serif;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px;">DRIVEN™ audite si votre organisation maîtrise encore sa transformation IA — sur 6 dimensions précises.</p>
+      <div class="driven-diag-axes">
+        <div class="dda-item"><div class="dda-letter">D</div><div class="dda-text"><strong>Décision</strong> — Où est le pouvoir décisionnel ?</div></div>
+        <div class="dda-item"><div class="dda-letter">R</div><div class="dda-text"><strong>Risque</strong> — Qui porte le risque réel ?</div></div>
+        <div class="dda-item"><div class="dda-letter">I</div><div class="dda-text"><strong>Impact valeur</strong> — Qui capture la valeur créée ?</div></div>
+        <div class="dda-item"><div class="dda-letter">V</div><div class="dda-text"><strong>Vulnérabilité</strong> — Où est la dépendance structurelle ?</div></div>
+        <div class="dda-item"><div class="dda-letter">E</div><div class="dda-text"><strong>Engagement</strong> — Qui est responsable quand ça échoue ?</div></div>
+        <div class="dda-item"><div class="dda-letter">N</div><div class="dda-text"><strong>Nécessité humaine</strong> — Les finances et les équipes suivent-elles ?</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UPSELL INTERSTITIEL — entre email et premium -->
+<section id="results-upsell">
+  <div class="ru-wrap">
+    <div class="ru-kicker" id="ru-kicker">Offre fondateurs — expire 31 mai 2026</div>
+    <h2 class="ru-title">Vous savez où vous en êtes.<br><em>La question maintenant : qu'est-ce que vous faites ?</em></h2>
+    <div class="ru-blocage-name" id="ru-blocage-name"></div>
+    <p class="ru-desc" id="ru-desc">Votre dimension de blocage freine l'ensemble de vos projets IA. Les membres Premium accèdent au plan d'action 90 jours pour traiter ce point — et aux dossiers mensuels pour maintenir l'avance.</p>
+    <ul class="ru-gets">
+      <li>L'analyse complète de votre point de blocage — pourquoi il freine et comment le traiter</li>
+      <li>Vos 3 priorités d'action concrètes pour les 90 prochains jours</li>
+      <li>L'accès aux dossiers mensuels — chaque mois, le plan d'action sur un enjeu clé</li>
+    </ul>
+    <a href="page-vente.html" class="ru-cta-primary">Devenir membre Premium — 199 € / an →</a>
+    <a href="page-newsletter.html" class="ru-cta-secondary">Voir toutes les éditions gratuites →</a>
+    <p class="ru-price">37 membres · 63 places restantes · Offre expire le 31 mai 2026</p>
+  </div>
+</section>
+
+<!-- RÉSULTATS PREMIUM — blocage + priorités (membres seulement) -->
+<section class="diag-section" id="results-premium">
+  <div class="rf-wrap">
+    <div class="section-kicker">Plan d'action</div>
+    <h2 class="section-title" style="margin-bottom:24px;">Votre analyse<br><em>complète</em></h2>
+
+    <div class="rf-blocage" id="rf-blocage">
+      <div class="rfb-label">Point de blocage principal</div>
+      <div class="rfb-dim" id="rfb-dim"></div>
+      <div class="rfb-score" id="rfb-score"></div>
+      <div class="rfb-text" id="rfb-text"></div>
+    </div>
+
+    <div class="rf-priorites">
+      <div class="rfp-title">Vos 3 priorités d'action — 90 jours</div>
+      <div id="rfp-list"></div>
+    </div>
+
+    <div class="rf-projection">
+      <p class="rfpr-text">Sans action sur ces points, vos prochains projets IA rencontreront les mêmes résistances. Les organisations qui avancent ont traité cela en premier.</p>
+      <div class="rfpr-finale">Votre progression dépend maintenant de vos décisions.</div>
+    </div>
+
+
+    <!-- CADRES COMPLETS — version premium -->
+    <div class="cadres-premium-wrap">
+      <div class="cp-kicker">Lecture de vos résultats — Cadres LEAP™ × DRIVEN™</div>
+
+      <div class="lxd-wrap">
+
+        <!-- Onglets LEAP -->
+        <div class="lxd-tabs">
+          <button class="lxd-tab active" data-leap="L" onclick="lxdSwitch('L',this)">
+            <span class="lxd-tab-letter" style="color:var(--l);">L</span>
+            <span class="lxd-tab-name">Local</span>
+          </button>
+          <button class="lxd-tab" data-leap="E" onclick="lxdSwitch('E',this)">
+            <span class="lxd-tab-letter" style="color:var(--e);">E</span>
+            <span class="lxd-tab-name">Efficiency</span>
+          </button>
+          <button class="lxd-tab" data-leap="A" onclick="lxdSwitch('A',this)">
+            <span class="lxd-tab-letter" style="color:var(--a);">A</span>
+            <span class="lxd-tab-name">Agentique</span>
+          </button>
+          <button class="lxd-tab" data-leap="P" onclick="lxdSwitch('P',this)">
+            <span class="lxd-tab-letter" style="color:var(--p);">P</span>
+            <span class="lxd-tab-name">Pivot</span>
+          </button>
+        </div>
+
+        <!-- L -->
+        <div class="lxd-panel active" id="lxd-L">
+          <div class="lxd-panel-header">
+            <div class="lxd-couche-label" style="color:var(--l);">Couche L — Local</div>
+            <div class="lxd-couche-desc">Usage individuel non coordonné. Chacun agit seul — sans politique ni gouvernance commune.</div>
+          </div>
+          <div class="lxd-cards">
+            <div class="lxd-card lxd-lo"><div class="lxd-axis">Décision</div><div class="lxd-cell">Individus agissent seuls. Aucune délégation formelle — mais aucun contrôle non plus.</div></div>
+            <div class="lxd-card lxd-hi"><div class="lxd-axis">Risque</div><div class="lxd-cell">Données confidentielles dans des outils publics. Risque réel, souvent invisible.</div></div>
+            <div class="lxd-card lxd-lo"><div class="lxd-axis">Impact valeur</div><div class="lxd-cell">Gains individuels dispersés. Valeur non capturée par l'organisation.</div></div>
+            <div class="lxd-card lxd-lo"><div class="lxd-axis">Vulnérabilité</div><div class="lxd-cell">Dépendance individuelle. Encore réversible sans impact systémique.</div></div>
+            <div class="lxd-card lxd-hi"><div class="lxd-axis">Engagement</div><div class="lxd-cell">Floue. L'individu agit ; l'organisation ne sait pas et n'a pas consenti.</div></div>
+            <div class="lxd-card lxd-lo"><div class="lxd-axis">Nécessité humaine</div><div class="lxd-cell">Budget informel. Pas de conduite du changement — l'adoption est spontanée.</div></div>
+          </div>
+        </div>
+
+        <!-- E -->
+        <div class="lxd-panel" id="lxd-E">
+          <div class="lxd-panel-header">
+            <div class="lxd-couche-label" style="color:var(--e);">Couche E — Efficiency</div>
+            <div class="lxd-couche-desc">L'automatisation s'installe. Les processus répétitifs sont délégués à l'IA. Le ROI devient mesurable.</div>
+          </div>
+          <div class="lxd-cards">
+            <div class="lxd-card lxd-med"><div class="lxd-axis">Décision</div><div class="lxd-cell">L'organisation décide. Mais qui valide les résultats des processus automatisés ?</div></div>
+            <div class="lxd-card lxd-hi"><div class="lxd-axis">Risque</div><div class="lxd-cell">Processus automatisés sur données réelles. Piste d'audit indispensable.</div></div>
+            <div class="lxd-card lxd-med"><div class="lxd-axis">Impact valeur</div><div class="lxd-cell">ROI interne mesurable. Pression tarifaire externe commence à émerger.</div></div>
+            <div class="lxd-card lxd-med"><div class="lxd-axis">Vulnérabilité</div><div class="lxd-cell">Dépendance à 1–2 outils. Plan de continuité à formaliser.</div></div>
+            <div class="lxd-card lxd-med"><div class="lxd-axis">Engagement</div><div class="lxd-cell">Responsable désigné dans le projet — pas toujours en gouvernance long terme.</div></div>
+            <div class="lxd-card lxd-med"><div class="lxd-axis">Nécessité humaine</div><div class="lxd-cell">Budget IA visible mais non structuré. Équipes adoptent à des rythmes inégaux.</div></div>
+          </div>
+        </div>
+
+        <!-- A -->
+        <div class="lxd-panel" id="lxd-A">
+          <div class="lxd-panel-header">
+            <div class="lxd-couche-label" style="color:var(--a);">Couche A — Agentique</div>
+            <div class="lxd-couche-desc">Des agents autonomes prennent des décisions multi-étapes. La supervision humaine devient l'enjeu central.</div>
+          </div>
+          <div class="lxd-cards">
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Décision</div><div class="lxd-cell">Agents prennent des décisions multi-étapes. Seuils de supervision humaine critiques.</div></div>
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Risque</div><div class="lxd-cell">Risque amplifié par cascade. Une erreur de l'agent peut s'enchaîner sur plusieurs systèmes.</div></div>
+            <div class="lxd-card lxd-hi"><div class="lxd-axis">Impact valeur</div><div class="lxd-cell">Avantage structurel réel. Vos clients commencent à le chiffrer contre vous.</div></div>
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Vulnérabilité</div><div class="lxd-cell">Multi-systèmes connectés. Fragilité en cas de changement d'API fournisseur.</div></div>
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Engagement</div><div class="lxd-cell">Piste d'audit obligatoire. Qui signe les sorties de l'agent ?</div></div>
+            <div class="lxd-card lxd-hi"><div class="lxd-axis">Nécessité humaine</div><div class="lxd-cell">FinOps IA requis. Les équipes doivent devenir gestionnaires d'agents.</div></div>
+          </div>
+        </div>
+
+        <!-- P -->
+        <div class="lxd-panel" id="lxd-P">
+          <div class="lxd-panel-header">
+            <div class="lxd-couche-label" style="color:var(--p);">Couche P — Pivot</div>
+            <div class="lxd-couche-desc">L'IA redéfinit le modèle économique. Ce que vous vendez, à qui, à quel prix — tout est remis en question.</div>
+          </div>
+          <div class="lxd-cards">
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Décision</div><div class="lxd-cell">Nouveau modèle économique. La nature du pouvoir dans la relation client change.</div></div>
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Risque</div><div class="lxd-cell">Risque stratégique dominant : un concurrent en couche P peut déstabiliser tout le secteur.</div></div>
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Impact valeur</div><div class="lxd-cell">Valeur redéfinie et capturée — ou subie si vous n'avez pas pivoté à temps.</div></div>
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Vulnérabilité</div><div class="lxd-cell">Dépendance systémique. Portabilité des données essentielles à sécuriser.</div></div>
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Engagement</div><div class="lxd-cell">Responsabilité engagée sur le modèle économique lui-même, pas seulement sur les outils.</div></div>
+            <div class="lxd-card lxd-crit"><div class="lxd-axis">Nécessité humaine</div><div class="lxd-cell">Réorganisation des rôles à l'échelle. Budget IA intégré dans la stratégie.</div></div>
+          </div>
+        </div>
+
+        <div class="lxd-legend">
+          <span class="lxd-leg"><span class="lxd-dot lo"></span>Attention faible</span>
+          <span class="lxd-leg"><span class="lxd-dot med"></span>Vigilance recommandée</span>
+          <span class="lxd-leg"><span class="lxd-dot hi"></span>Priorité de gouvernance</span>
+          <span class="lxd-leg"><span class="lxd-dot crit"></span>Point critique</span>
+        </div>
+
+      </div><!-- /lxd-wrap -->
+
+      <!-- Guide usage -->
+      <div class="lxd-usage">
+        <div class="cp-kicker" style="margin-top:32px;">Comment utiliser ces cadres</div>
+        <div class="lxd-usage-grid">
+          <div class="lxd-usage-card">
+            <div class="lxd-usage-step">Étape 1 · LEAP™</div>
+            <div class="lxd-usage-title">Positionner avant d'agir</div>
+            <div class="lxd-usage-text">Posez les deux questions fondamentales : savez-vous ce que votre IA fait ? Qui répond de ce qu'elle décide ? Le résultat vous donne votre couche réelle et votre verrou prioritaire.</div>
+          </div>
+          <div class="lxd-usage-card">
+            <div class="lxd-usage-step">Étape 2 · DRIVEN™</div>
+            <div class="lxd-usage-title">Auditer avant de déployer</div>
+            <div class="lxd-usage-text">Pour chaque déploiement IA, passez les 6 axes en revue. Six questions, 30 minutes. Ce qui ne peut pas être répondu est votre zone grise.</div>
+          </div>
+          <div class="lxd-usage-card">
+            <div class="lxd-usage-step">Étape 3 · Trimestriel</div>
+            <div class="lxd-usage-title">Recalibrer régulièrement</div>
+            <div class="lxd-usage-text">Votre couche LEAP™ évolue. Vos réponses DRIVEN™ changent. Une revue de 90 minutes par trimestre suffit à maintenir le cadre à jour.</div>
+          </div>
+          <div class="lxd-usage-card">
+            <div class="lxd-usage-step">Étape 4 · Dossiers</div>
+            <div class="lxd-usage-title">Lire avec le cadre</div>
+            <div class="lxd-usage-text">Chaque dossier mensuel est positionné sur une couche LEAP™. Avec le temps, vous développez une lecture réflexe des signaux IA.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cadres-premium-wrap -->
+    <div class="rf-note">Recalculez ce diagnostic chaque trimestre. Votre score évolue avec vos déploiements et vos décisions.</div>
+  </div>
+</section>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">✦ Un Cran d'Avance</div>
+  <div class="f-copy">© 2026 · L'essentiel de l'IA pour décider mieux, chaque semaine.</div>
+  <div class="f-links">
+    <a href="page-newsletter.html">Newsletter</a>
+    <a href="page-vente.html">Premium</a>
+    <a href="page-apropos.html">À propos</a>
+    <span style="color:var(--rule);user-select:none;">|</span>
+    <a href="mentions-legales.html" style="opacity:0.55;">Mentions légales</a>
+    <a href="politique-confidentialite.html" style="opacity:0.55;">Confidentialité</a>
+  </div>
+</footer>
+
+<script>
+// ── DONNÉES ──────────────────────────────────────────────────────────────
+const QUESTIONS = [
+  {
+    dim: 'decision',
+    label: 'Décision',
+    driven: 'D',
+    color: '#1B3A5C',
+    question: "Dans vos projets IA actifs, qui dispose réellement du pouvoir de décision — arrêter un projet, redéfinir son périmètre, valider un déploiement ?",
+    options: [
+      "Personne n'a clairement ce pouvoir. Les décisions IA se prennent par consensus ou remontée systématique.",
+      "Les équipes tech décident du déploiement, la direction valide après. Le pouvoir est fragmenté.",
+      "Un responsable identifié par projet, avec mandat clair. Les arbitrages sont documentés.",
+      "Gouvernance IA formalisée. Les pouvoirs décisionnels sont définis, audités et connus de tous."
+    ],
+    insights: [
+      "Le pouvoir décisionnel IA n'est pas structuré — vos projets avancent sans arbitre clair.",
+      "Le pouvoir est fragmenté entre tech et direction. Les décisions tardent ou se dupliquent.",
+      "Vos projets ont un responsable — mais le cadre de gouvernance reste à formaliser.",
+      "Votre gouvernance décisionnelle IA est un avantage structurel réel."
+    ],
+    blocage: "L'absence de pouvoir décisionnel clair ralentit chaque projet IA et crée des conflits de périmètre silencieux.",
+    priorites: [
+      { title: "Nommer un responsable IA par projet", detail: "Un nom, un mandat, une limite de périmètre. Sans ça, chaque décision est une négociation." },
+      { title: "Définir les seuils d'escalade", detail: "Quel type de décision remonte ? À qui ? Sous quel délai ? Trois règles simples suffisent." },
+      { title: "Documenter les arbitrages passés", detail: "Un registre des décisions IA prises — même minimal — crée la mémoire institutionnelle qui manque." }
+    ]
+  },
+  {
+    dim: 'risque',
+    label: 'Risque',
+    driven: 'R',
+    color: '#7A1C1C',
+    question: "Quand un système IA de votre organisation produit un résultat erroné ou problématique, qui porte concrètement la responsabilité ?",
+    options: [
+      "Personne clairement identifiée. La responsabilité se dilue entre équipes tech, métier et direction.",
+      "Le fournisseur est implicitement tenu responsable. En interne, la chaîne de responsabilité est floue.",
+      "Un responsable désigné par système — mais sans cadre formalisé de responsabilité légale.",
+      "Responsabilités documentées par système IA. Couverture réglementaire vérifiée (EU AI Act, Loi 25)."
+    ],
+    insights: [
+      "Le risque IA est porté par personne — ce qui signifie qu'il sera porté par tout le monde au mauvais moment.",
+      "Votre dépendance implicite au fournisseur crée une exposition légale que vous ne contrôlez pas.",
+      "La responsabilité est désignée mais pas formalisée — une situation intermédiaire fragile.",
+      "Votre cartographie du risque IA est un actif rare — et une protection concrète."
+    ],
+    blocage: "Sans responsabilité formalisée, chaque incident IA devient un conflit de périmètre. La réglementation n'attend pas.",
+    priorites: [
+      { title: "Identifier les systèmes IA à risque élevé", detail: "EU AI Act et Loi 25 s'appliquent déjà. Trois questions : qui décide, qui valide, qui répond ?" },
+      { title: "Formaliser la chaîne de responsabilité", detail: "Pour chaque système actif : un responsable nommé, un périmètre documenté, un circuit d'escalade." },
+      { title: "Impliquer la direction juridique en amont", detail: "Pas après un incident — avant le prochain déploiement. Trente minutes de cadrage valent six mois de gestion de crise." }
+    ]
+  },
+  {
+    dim: 'impact',
+    label: 'Impact valeur',
+    driven: 'I',
+    color: '#1E5240',
+    question: "Vos projets IA créent-ils de la valeur mesurable — et savez-vous qui la capture réellement ?",
+    options: [
+      "Les bénéfices restent estimés ou déclaratifs. Aucun ROI documenté après déploiement.",
+      "Quelques cas avec valeur mesurée, mais la pratique n'est pas systématique.",
+      "Processus de mesure en place sur les projets prioritaires. KPIs métier définis avant déploiement.",
+      "ROI documenté sur la majorité des projets. La valeur capturée est attribuée aux directions concernées."
+    ],
+    insights: [
+      "Vous ne mesurez pas la valeur créée — ni la valeur perdue. Les deux dérivent en silence.",
+      "Votre mesure d'impact est encore trop partielle pour défendre vos investissements IA en comité.",
+      "Votre approche de la mesure est sur la bonne trajectoire. La systématisation est l'enjeu suivant.",
+      "Votre capacité à documenter la valeur IA est un avantage décisif — et rare."
+    ],
+    blocage: "Sans mesure systématique, vous ne pouvez pas défendre vos investissements IA — ni identifier ce qui ne fonctionne pas.",
+    priorites: [
+      { title: "Définir 3 KPIs métier par projet actif", detail: "Des indicateurs mesurables avant le déploiement — pas après. Le ROI se construit en amont." },
+      { title: "Créer un bilan IA trimestriel", detail: "Gains documentés, coûts réels, valeur attribuée par direction. Présenté en COMEX, pas seulement en IT." },
+      { title: "Identifier les projets sans valeur mesurable", detail: "Arrêter ou redéfinir les projets qui ne peuvent pas démontrer de valeur dans 90 jours." }
+    ]
+  },
+  {
+    dim: 'vulnerabilite',
+    label: 'Vulnérabilité',
+    driven: 'V',
+    color: '#4A3210',
+    question: "Quelle est votre capacité réelle à changer de fournisseur ou de modèle IA si nécessaire ?",
+    options: [
+      "Forte dépendance à un ou deux fournisseurs. Coût de sortie inconnu — ou connu comme prohibitif.",
+      "Conscience des dépendances, quelques actions de diversification, mais pas de stratégie formalisée.",
+      "Cartographie des dépendances établie. Alternatives identifiées pour les systèmes critiques.",
+      "Écosystème maîtrisé. Capacité prouvée à migrer sans blocage opérationnel majeur."
+    ],
+    insights: [
+      "Votre dépendance fournisseurs crée une fragilité structurelle — visible seulement en cas de crise.",
+      "Vous avez conscience du problème mais pas encore de filet de sécurité opérationnel.",
+      "Votre maîtrise des dépendances est en bonne progression. La résilience se construit.",
+      "Votre capacité à changer de fournisseur est un avantage de négociation permanent."
+    ],
+    blocage: "Une dépendance forte à un ou deux fournisseurs IA vous expose — sur les prix, la continuité et la réglementation.",
+    priorites: [
+      { title: "Cartographier vos dépendances IA", detail: "Fournisseurs critiques, contrats à risque, coûts de sortie estimés. Une journée suffit pour commencer." },
+      { title: "Évaluer le coût de migration par système", detail: "Pour chaque outil critique : combien ? Combien de temps ? Quelle alternative disponible ?" },
+      { title: "Définir une stratégie de diversification minimale", detail: "Pas nécessairement changer — mais avoir une alternative identifiée par système critique." }
+    ]
+  },
+  {
+    dim: 'engagement',
+    label: 'Engagement',
+    driven: 'E',
+    color: '#3A1F58',
+    question: "Quand un projet IA échoue ou produit des effets non désirés, comment votre organisation réagit-elle ?",
+    options: [
+      "Pas de protocole. Chacun cherche à ne pas être associé à l'échec. La responsabilité reste diffuse.",
+      "Un post-mortem informel a lieu. Des leçons sont tirées mais pas formalisées ni partagées.",
+      "Processus de revue structuré. Un responsable identifié pour chaque incident significatif.",
+      "Culture de la responsabilité assumée. Les échecs sont documentés, les responsabilités claires, les corrections systématiques."
+    ],
+    insights: [
+      "L'absence de protocole signifie que chaque échec IA crée un précédent non traité — et se répète.",
+      "Les leçons tirées informellement disparaissent avec les personnes. La mémoire institutionnelle ne se construit pas.",
+      "Votre processus de revue existe — le passage à une culture d'engagement est l'étape suivante.",
+      "Votre culture de l'engagement est un accélérateur d'apprentissage organisationnel réel."
+    ],
+    blocage: "Sans protocole d'échec, vos projets IA répètent les mêmes erreurs. L'engagement reste déclaratif.",
+    priorites: [
+      { title: "Créer un protocole d'incident IA minimal", detail: "Trois questions pour chaque incident : que s'est-il passé, qui était responsable, qu'est-ce qui change ?" },
+      { title: "Nommer un responsable de revue post-déploiement", detail: "Pas le chef de projet — quelqu'un dont le rôle est de documenter ce qui n'a pas fonctionné." },
+      { title: "Partager les post-mortems en interne", detail: "Un résumé en deux pages, diffusé aux directions concernées. La transparence interne réduit la répétition des erreurs." }
+    ]
+  },
+  {
+    dim: 'necessite',
+    label: 'Nécessité humaine',
+    driven: 'N',
+    color: '#1A3A2A',
+    question: "Les ressources humaines et financières allouées à vos projets IA correspondent-elles aux ambitions affichées ?",
+    options: [
+      "Fort décalage. La stratégie IA est ambitieuse mais les budgets et les compétences ne suivent pas.",
+      "Ressources insuffisantes sur certains projets clés. La montée en compétence est lente.",
+      "Alignement en cours. Les budgets et la formation s'adaptent progressivement aux priorités IA.",
+      "Ressources calibrées sur les ambitions. Les équipes sont formées, les budgets dédiés et suivis."
+    ],
+    insights: [
+      "Votre stratégie IA est déconnectée de vos capacités réelles — un écart qui fragilise chaque projet.",
+      "L'insuffisance de ressources sur les projets clés crée des délais et des demi-mesures coûteuses.",
+      "L'alignement ressources-ambitions progresse. Le rythme déterminera votre position dans 12 mois.",
+      "Votre alignement ressources-ambitions est un avantage d'exécution rare."
+    ],
+    blocage: "Un écart ambitions-ressources crée de la méfiance en interne et ralentit tous vos projets IA.",
+    priorites: [
+      { title: "Recalibrer la feuille de route IA", detail: "Réduire le scope aux 3 projets avec le meilleur ratio impact / capacités disponibles." },
+      { title: "Formaliser un budget IA dédié", detail: "Pas une ligne dans le budget IT — une enveloppe avec un responsable, des objectifs et un suivi trimestriel." },
+      { title: "Lancer un programme de montée en compétence ciblé", detail: "Pas une formation générique — des compétences précises pour les décideurs des projets actifs." }
+    ]
+  },
+  {
+    dim: 'ecosysteme',
+    label: 'Écosystème & partenaires',
+    driven: null,
+    color: '#2A3A1A',
+    question: "Comment qualifiez-vous la maîtrise de votre écosystème technologique IA — intégrations, données partagées, partenaires externes ?",
+    options: [
+      "Écosystème non cartographié. Les intégrations entre systèmes IA se font au cas par cas, sans vue d'ensemble.",
+      "Une cartographie partielle existe. Certaines intégrations sont documentées, d'autres restent dans des connaissances individuelles.",
+      "Cartographie des intégrations établie. Les flux de données entre systèmes sont documentés et gouvernés.",
+      "Écosystème maîtrisé. Les intégrations, dépendances et flux de données sont audités régulièrement."
+    ],
+    insights: [
+      "Votre écosystème IA évolue sans vue d'ensemble — chaque nouvelle intégration crée une zone grise.",
+      "Votre cartographie partielle est un début — mais les angles morts sont là où les incidents surviennent.",
+      "Votre maîtrise de l'écosystème progresse bien. La gouvernance des flux de données est l'enjeu suivant.",
+      "Votre maîtrise de l'écosystème est un avantage de résilience et de conformité."
+    ],
+    blocage: "Un écosystème non cartographié expose votre organisation à des risques de conformité et de continuité invisibles.",
+    priorites: [
+      { title: "Cartographier les intégrations IA actives", detail: "Quels systèmes communiquent entre eux ? Quelles données sont partagées ? Qui est responsable de chaque flux ?" },
+      { title: "Documenter les dépendances critiques", detail: "Pour chaque partenaire ou fournisseur externe : quel est le niveau de dépendance et quel est le plan de continuité ?" },
+      { title: "Mettre en place une revue d'écosystème trimestrielle", detail: "30 minutes par trimestre pour vérifier que la cartographie est toujours à jour et que les risques nouveaux sont identifiés." }
+    ]
+  }
+];
+
+const NIVEAUX = [
+  {
+    min: 0, max: 17, label: 'Exploration', desc: 'Vous démarrez', color: '#888888',
+    synthese: "Vos premières expériences IA existent, mais elles restent dispersées et sans cadre commun. C'est le moment de poser des fondations solides avant d'accélérer.",
+    compare: "Environ 30 % des grandes organisations se situent à ce niveau — la marge de progression est importante.",
+    what: "Vos initiatives IA sont isolées. Chaque projet repart de zéro, sans capitalisation sur les expériences précédentes.",
+    action: "Poser les fondations : gouvernance data, identification des cas d'usage prioritaires, compétences de base."
+  },
+  {
+    min: 18, max: 35, label: 'Construction', desc: 'Vous bâtissez', color: '#B8973A',
+    synthese: "Vos fondations existent, mais plusieurs points limitent votre capacité à passer à l'échelle. Les décisions que vous prenez maintenant détermineront votre positionnement dans 12 mois.",
+    compare: "Vous vous situez dans la moyenne des organisations de même taille — en retrait des plus avancées sur 2 à 3 dimensions clés.",
+    what: "Des succès existent mais restent isolés. L'enjeu est de rendre ces résultats reproductibles et systémiques.",
+    action: "Standardiser ce qui fonctionne et traiter les frictions qui bloquent la généralisation à l'échelle."
+  },
+  {
+    min: 36, max: 53, label: 'Accélération', desc: 'Vous avancez', color: '#276749',
+    synthese: "Vous avez des bases solides et des succès documentés. L'enjeu est de maintenir le rythme et de traiter les fragilités avant qu'elles ne deviennent des freins.",
+    compare: "Vous vous situez au-dessus de la majorité — mais les organisations les plus avancées ont déjà une longueur d'avance sur vos dimensions les plus faibles.",
+    what: "L'IA génère de la valeur réelle dans plusieurs domaines. Une ou deux fragilités persistantes pourraient plafonner votre trajectoire.",
+    action: "Renforcer les dimensions les plus faibles avant qu'elles ne deviennent un frein à l'ensemble de votre programme."
+  },
+  {
+    min: 54, max: 70, label: 'Maturité', desc: 'Vous pilotez', color: '#1B3A5C',
+    synthese: "Vous avez construit une capacité de transformation IA réelle et systémique. L'enjeu est de maintenir cette avance dans un environnement qui évolue vite.",
+    compare: "Vous vous situez parmi les organisations les plus avancées — ce qui crée une obligation de maintenir ce niveau face à des concurrents qui rattrapent.",
+    what: "La transformation IA est pilotée et documentée. Vous anticipez les risques et mesurez la valeur créée.",
+    action: "Étendre la maturité aux dimensions encore en développement et anticiper les prochaines vagues d'évolution."
+  }
+];
+
+// ── ÉTAT ─────────────────────────────────────────────────────────────────
+let current = 0;
+let answers = new Array(7).fill(null);
+let scores = {};
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+function init() {
+  renderDots();
+  renderQuestion(0);
+}
+
+function renderDots() {
+  const container = document.getElementById('dp-dots');
+  container.innerHTML = QUESTIONS.map((_, i) =>
+    `<div class="dp-dot ${i === 0 ? 'current' : ''}" id="dot-${i}"></div>`
+  ).join('');
+}
+
+function updateProgress(idx) {
+  const pct = Math.round((idx / 7) * 100);
+  document.getElementById('dp-fill').style.width = pct + '%';
+  const mins = Math.max(0, Math.round((6 - idx) * 0.5));
+  const timeStr = idx === 0 ? '7 questions · ~3 minutes' :
+                  mins === 0 ? 'Dernière question' :
+                  '~' + (mins < 1 ? '30 secondes' : mins + ' minute' + (mins > 1 ? 's' : ''));
+  document.getElementById('q-label').textContent = `Question ${idx + 1} / 7  ·  ${timeStr}`;
+  document.getElementById('q-pct').textContent = pct + '%';
+  QUESTIONS.forEach((_, i) => {
+    const dot = document.getElementById('dot-' + i);
+    dot.className = 'dp-dot' + (i < idx ? ' done' : i === idx ? ' current' : '');
+  });
+}function renderQuestion(idx) {
+  const q = QUESTIONS[idx];
+  updateProgress(idx);
+  // Afficher le label de la dimension
+  const dimLabel = document.getElementById('dc-dim-label');
+  if (dimLabel) {
+    var drivenLabel = q.driven ? ' · ' + q.driven : ' · +';
+    dimLabel.textContent = 'DRIVEN™' + drivenLabel + ' — ' + q.label + ' · ' + (idx + 1) + '/7';
+    dimLabel.style.background = q.color;
+  }
+  document.getElementById('dc-question').textContent = q.question;
+
+  const container = document.getElementById('dc-options');
+  container.innerHTML = q.options.map((opt, i) => {
+    // Séparer le titre (avant le premier '.') du détail
+    const dotIdx = opt.indexOf('. ');
+    const hasDetail = dotIdx !== -1 && dotIdx < opt.length - 2;
+    const titre = hasDetail ? opt.substring(0, dotIdx + 1) : opt;
+    const detail = hasDetail ? opt.substring(dotIdx + 2) : '';
+    return `
+    <div class="dc-option ${answers[idx] === i ? 'selected' : ''}" onclick="selectOption(${i})">
+      <div class="dc-opt-radio"></div>
+      <div class="dc-opt-text">
+        <span class="dc-opt-titre">${titre}</span>
+        ${detail ? `<span class="dc-opt-detail">${detail}</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('btn-back').disabled = idx === 0;
+  document.getElementById('btn-next').disabled = answers[idx] === null;
+  document.getElementById('btn-next').textContent = idx === 6 ? 'Voir mes résultats →' : 'Suivant →';
+}
+
+function selectOption(optIdx) {
+  answers[current] = optIdx;
+  renderQuestion(current);
+
+  // Avancement automatique après 350ms — réduit la friction
+  clearTimeout(window._autoNext);
+  window._autoNext = setTimeout(function() {
+    if (current < 6) {
+      nextQuestion();
+    } else {
+      // Dernière question — bouton "Voir mes résultats" s'active visuellement
+      document.getElementById('btn-next').classList.add('pulse');
+    }
+  }, 350);
+}
+
+function nextQuestion() {
+  if (answers[current] === null) return;
+  if (current === 6) {
+    showPartialResults();
+    return;
+  }
+  current++;
+  renderQuestion(current);
+}
+
+function prevQuestion() {
+  if (current === 0) return;
+  current--;
+  renderQuestion(current);
+}
+
+function scrollToDiag() {
+  // Masquer la section "Pour qui" pour aller direct au diagnostic
+  const pourQui = document.querySelector('.pour-qui-section');
+  if (pourQui) pourQui.style.display = 'none';
+  const diagSection = document.getElementById('diag-section');
+  if (diagSection) diagSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── CALCUL ────────────────────────────────────────────────────────────────
+function calculateScores() {
+  let total = 0;
+  QUESTIONS.forEach((q, i) => {
+    const pts = (answers[i] + 1) * 2.5; // 2.5 / 5 / 7.5 / 10
+    scores[q.dim] = Math.round(pts);
+    total += Math.round(pts);
+  });
+  return total;
+}
+
+function getNiveau(total) {
+  return NIVEAUX.find(n => total >= n.min && total <= n.max) || NIVEAUX[0];
+}
+
+function getWeakestDim() {
+  return QUESTIONS.reduce((worst, q) =>
+    scores[q.dim] < scores[worst.dim] ? q : worst
+  );
+}
+
+// ── RÉSULTATS PARTIELS ────────────────────────────────────────────────────
+function showPartialResults() {
+  const total = calculateScores();
+  const niveau = getNiveau(total);
+  const pct = Math.round((total / 70) * 100);
+
+  document.getElementById('diag-card').closest('section').style.display = 'none';
+  const rp = document.getElementById('results-partial');
+  rp.style.display = 'block';
+
+  document.getElementById('rp-niveau').textContent = niveau.label + ' — ' + niveau.desc;
+  var score100 = Math.round((total / 70) * 100);
+  document.getElementById('rp-score').textContent = score100 + ' / 100';
+
+  setTimeout(() => {
+    document.getElementById('rp-bar').style.width = pct + '%';
+    document.getElementById('rp-bar').style.background = niveau.color;
+  }, 100);
+
+  // Comparaison
+  const compares = {
+    'Exploration': 'Vous démarrez — comme 30% des organisations de même taille.',
+    'Construction': 'Vous vous situez dans la moyenne des organisations — mais plusieurs points fragilisent vos décisions.',
+    'Accélération': 'Vous êtes au-dessus de la moyenne — mais les plus avancées ont déjà une longueur d\'avance.',
+    'Maturité': 'Vous faites partie des organisations les plus avancées sur la maturité IA.'
+  };
+  document.getElementById('rp-compare').textContent = compares[niveau.label];
+
+  // Insights visibles (3 premières dimensions)
+  const dim0 = QUESTIONS[0];
+  const dim1 = QUESTIONS[1];
+  const dim2 = QUESTIONS[2];
+  if (document.getElementById('insight-1')) document.getElementById('insight-1').textContent = dim0.insights[answers[0]];
+  if (document.getElementById('insight-2')) document.getElementById('insight-2').textContent = dim1.insights[answers[1]];
+  if (document.getElementById('insight-3')) document.getElementById('insight-3').textContent = dim2.insights[answers[2]];
+
+  // Si déjà abonné — afficher directement les résultats complets
+  const hasEmail = localStorage.getItem('uca_has_email') === '1';
+  if (hasEmail) {
+    setTimeout(function() {
+      document.getElementById('results-partial').style.display = 'none';
+      showEmailResults();
+    }, 800);
+  }
+
+  rp.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Afficher le formulaire email après 1.5 secondes
+  // Le visiteur voit d'abord le score et les insights
+  const emailBlock = document.getElementById('rp-email-block');
+  if (emailBlock) {
+    emailBlock.style.opacity = '0';
+    emailBlock.style.transition = 'opacity 0.5s';
+    setTimeout(function() {
+      emailBlock.style.opacity = '1';
+    }, 1500);
+  }
+}
+
+// ── CAPTURE EMAIL ─────────────────────────────────────────────────────────
+function submitEmail() {
+  const emailInput = document.getElementById('rp-email');
+  const consentInput = document.getElementById('consent-diag');
+  const email = emailInput ? emailInput.value.trim().toLowerCase() : '';
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (emailInput) emailInput.style.borderColor = 'var(--red)';
+    return;
+  }
+  if (consentInput && !consentInput.checked) {
+    consentInput.style.outline = '2px solid var(--red)';
+    return;
+  }
+  if (emailInput) emailInput.style.borderColor = '';
+  if (consentInput) consentInput.style.outline = '';
+
+  // Désactiver le bouton pendant la vérification
+  const btn = document.querySelector('.rp-capture .btn-primary');
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+
+  // Appel au gate sécurisé côté serveur
+  fetch('/.netlify/functions/verify-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    // Synchroniser localStorage (uca-gate.js s'occupera du cookie)
+    localStorage.setItem('uca_has_email', '1');
+    localStorage.setItem('uca_email', email);
+    if (data.status === 'premium') localStorage.setItem('uca_is_premium', '1');
+    document.getElementById('results-partial').style.display = 'none';
+    showEmailResults();
+  })
+  .catch(function(e) {
+    // Erreur réseau — afficher quand même les résultats complets
+    console.warn('verify-email:', e);
+    localStorage.setItem('uca_has_email', '1');
+    localStorage.setItem('uca_email', email);
+    document.getElementById('results-partial').style.display = 'none';
+    showEmailResults();
+  });
+}
+
+// ── RÉSULTATS COMPLETS ────────────────────────────────────────────────────
+// ── RÉSULTATS EMAIL (score + dimensions + blocage name) ──────────────
+function showEmailResults() {
+  const total = calculateScores();
+  const score100 = Math.round((total / 70) * 100);
+  const niveau = getNiveau(total);
+  const weakest = getWeakestDim();
+
+  // Sauvegarder
+  try {
+    localStorage.setItem('uca_diag_score',  score100);
+    localStorage.setItem('uca_diag_niveau', niveau.label);
+    localStorage.setItem('uca_diag_blocage',weakest.label);
+    localStorage.setItem('uca_diag_date',   new Date().toLocaleDateString('fr-CA'));
+    localStorage.setItem('uca_diag_scores', JSON.stringify(scores));
+  } catch(e) {}
+
+  // Masquer sections précédentes
+  document.querySelectorAll('.diag-section').forEach(function(el) {
+    if (el.id === 'results-email' || el.id === 'results-premium') return;
+    el.style.display = 'none';
+  });
+  var partial = document.getElementById('results-partial');
+  if (partial) partial.style.display = 'none';
+
+  // Afficher section email
+  var re2 = document.getElementById('results-email');
+  if (re2) re2.style.display = 'block';
+
+  // Peupler : synthèse + score /100
+  var synEl  = document.getElementById('rf-synthese');
+  var nivEl  = document.getElementById('rf-niveau-label');
+  var scEl   = document.getElementById('rf-score-big');
+  var cmpEl  = document.getElementById('rf-compare-full');
+  var whatEl = document.getElementById('rf-niveau-what');
+  var actEl  = document.getElementById('rf-niveau-action');
+  if (synEl)  synEl.textContent  = niveau.synthese;
+  if (nivEl)  nivEl.textContent  = 'Niveau · ' + niveau.label + ' · ' + niveau.desc;
+  if (scEl)   scEl.textContent   = score100 + ' / 100';
+  if (cmpEl)  cmpEl.textContent  = niveau.compare;
+  if (whatEl) whatEl.textContent = niveau.what;
+  if (actEl)  actEl.textContent  = 'Ce que ça implique : ' + niveau.action;
+
+  // Positionner la couche LEAP™ selon le score /100
+  var leapMap = [
+    { max:25, letter:'L' }, { max:50, letter:'E' },
+    { max:75, letter:'A' }, { max:100, letter:'P' }
+  ];
+  var leapLetter = 'L';
+  for (var li=0; li<leapMap.length; li++) { if (score100 <= leapMap[li].max) { leapLetter = leapMap[li].letter; break; } }
+  document.querySelectorAll('#leap-couches-diag .leap-couche').forEach(function(el) {
+    var isActive = el.getAttribute('data-leap') === leapLetter;
+    el.classList.toggle('active', isActive);
+    if (isActive) {
+      var badge = document.createElement('div');
+      badge.className = 'leap-couche-badge';
+      badge.textContent = 'Votre position';
+      el.appendChild(badge);
+    }
+  });
+
+  // 7 dimensions
+  var dimsList = document.getElementById('rf-dims-list');
+  if (dimsList) {
+    dimsList.innerHTML = QUESTIONS.map(function(q) {
+      var s = scores[q.dim];
+      var isW = q.dim === weakest.dim;
+      var bp  = (s / 10) * 100;
+      return '<div class="rf-dim ' + (isW ? 'blocage' : '') + '">' +
+        '<div class="rf-dim-header">' +
+          '<div class="rf-dim-name">' +
+            '<span class="dim-badge" style="background:' + q.color + '"></span>' +
+            q.label +
+            (isW ? '<span class="blocage-label">← point de blocage</span>' : '') +
+          '</div>' +
+          '<div class="rf-dim-score">' + s + '/10</div>' +
+        '</div>' +
+        '<div class="rf-dim-bar"><div class="rf-dim-fill" style="width:' + bp + '%;background:' + (isW ? 'var(--red)' : q.color) + '"></div></div>' +
+      '</div>';
+    }).join('');
+    setTimeout(function() {
+      dimsList.querySelectorAll('.rf-dim-fill').forEach(function(el) {
+        var w = el.style.width; el.style.width = '0%';
+        setTimeout(function(){ el.style.width = w; }, 50);
+      });
+    }, 100);
+  }
+
+  // Preview blocage (nom + score seulement)
+  var dimPrev = document.getElementById('rfb-dim-preview');
+  var scPrev  = document.getElementById('rfb-score-preview');
+  if (dimPrev) dimPrev.textContent = weakest.label;
+  if (scPrev)  scPrev.textContent  = scores[weakest.dim] + ' / 10';
+
+  // Upsell interstitiel ou résultats premium
+  var isPremium = localStorage.getItem('uca_is_premium') === '1';
+  if (isPremium) {
+    showPremiumResults(weakest);
+  } else {
+    var upsell = document.getElementById('results-upsell');
+    if (upsell) {
+      upsell.style.display = 'block';
+      var nameEl = document.getElementById('ru-blocage-name');
+      var descEl = document.getElementById('ru-desc');
+      if (nameEl) nameEl.textContent = 'Blocage identifié : ' + weakest.label;
+      if (descEl) descEl.textContent = weakest.blocage + " Les membres Premium accèdent au plan d'action 90 jours pour traiter ce point.";
+    }
+  }
+
+  if (re2) re2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(lxdActivateFromDiag, 250);
+}
+
+// ── RÉSULTATS PREMIUM (blocage détaillé + priorités) ──────────────────
+function showPremiumResults(weakest) {
+  if (!weakest) { calculateScores(); weakest = getWeakestDim(); }
+  var rp = document.getElementById('results-premium');
+  if (rp) rp.style.display = 'block';
+  var upsell = document.getElementById('results-upsell');
+  if (upsell) upsell.style.display = 'none';
+
+  var dimEl  = document.getElementById('rfb-dim');
+  var scEl2  = document.getElementById('rfb-score');
+  var txtEl  = document.getElementById('rfb-text');
+  if (dimEl)  dimEl.textContent  = weakest.label;
+  if (scEl2)  scEl2.textContent  = scores[weakest.dim] + ' / 10';
+  if (txtEl)  txtEl.textContent  = weakest.blocage;
+
+  var pList = document.getElementById('rfp-list');
+  if (pList) {
+    pList.innerHTML = weakest.priorites.map(function(p, i) {
+      return '<div class="rfp-item">' +
+        '<div class="rfp-num">0' + (i+1) + '</div>' +
+        '<div class="rfp-text"><strong>' + p.title + '</strong><br>' + p.detail + '</div>' +
+      '</div>';
+    }).join('');
+  }
+  setTimeout(function(){ if (rp) rp.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 400);
+}
+
+// Alias rétrocompatibilité
+function showFullResults() { showEmailResults(); }
+
+/* ── Onglets LEAP × DRIVEN ── */
+function lxdSwitch(letter, btn) {
+  document.querySelectorAll('.lxd-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.lxd-panel').forEach(function(p) { p.classList.remove('active'); });
+  btn.classList.add('active');
+  var panel = document.getElementById('lxd-' + letter);
+  if (panel) panel.classList.add('active');
+}
+function lxdActivateFromDiag() {
+  var active = document.querySelector('#leap-couches-diag .leap-couche.active');
+  if (!active) return;
+  var letter = active.getAttribute('data-leap');
+  var tab = document.querySelector('.lxd-tab[data-leap="' + letter + '"]');
+  if (tab) lxdSwitch(letter, tab);
+}
+
+
+// ── NAV HAMBURGER ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  init();
+
+  // Nav CTA conditionnel
+  var hasEmail = localStorage.getItem('uca_has_email') === '1';
+  var navCta = document.querySelector('.nav-cta');
+  if (hasEmail && navCta) {
+    // Remplacer le <button> par un <a> — href ne fonctionne pas sur un button
+    var navLink = document.createElement('a');
+    navLink.href = 'membre-welcome.html';
+    navLink.className = navCta.className;
+    navLink.textContent = 'Mon espace →';
+    navCta.parentNode.replaceChild(navLink, navCta);
+  }
+  var mobCta = document.querySelector('.mob-cta');
+  if (hasEmail && mobCta) {
+    mobCta.textContent = 'Mon espace →';
+    mobCta.onclick = function() {
+      document.querySelector('.nav-mobile-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      window.location.href = 'membre-welcome.html';
+    };
+  }
+
+  var btn = document.querySelector('.nav-hamburger');
+  var overlay = document.querySelector('.nav-mobile-overlay');
+  if (!btn || !overlay) return;
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = overlay.classList.contains('open');
+    btn.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  });
+  overlay.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      btn.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (overlay.classList.contains('open') && !overlay.contains(e.target) && !btn.contains(e.target)) {
+      btn.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Premium avec diagnostic déjà complété → bannière de rappel
+  if (localStorage.getItem('uca_is_premium') === '1' && localStorage.getItem('uca_diag_scores')) {
+    var savedScores = null;
+    try { savedScores = JSON.parse(localStorage.getItem('uca_diag_scores')); } catch(e) {}
+    if (savedScores) {
+      var recallBanner = document.createElement('div');
+      recallBanner.id = 'diag-recall-banner';
+      recallBanner.style.cssText = 'background:var(--ink);padding:14px clamp(24px,5vw,80px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--gold);';
+      recallBanner.innerHTML =
+        '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);">' +
+          'Diagnostic du ' + (localStorage.getItem('uca_diag_date') || '') + ' &nbsp;·&nbsp; ' +
+          '<span style="color:var(--gold);">' + (localStorage.getItem('uca_diag_niveau') || '') + ' &nbsp;·&nbsp; ' + (localStorage.getItem('uca_diag_score') || '') + ' / 100</span>' +
+        '</div>' +
+        '<button onclick="recallDiagnostic()" style="font-family:\'Barlow Condensed\',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;white-space:nowrap;">Voir mon dernier résultat →</button>';
+      var hero = document.querySelector('.hero');
+      if (hero) hero.parentNode.insertBefore(recallBanner, hero.nextSibling);
+    }
+  }
+});
+
+// Recharger le diagnostic depuis localStorage sans refaire le questionnaire
+function recallDiagnostic() {
+  var savedScores = null;
+  try { savedScores = JSON.parse(localStorage.getItem('uca_diag_scores')); } catch(e) {}
+  if (!savedScores) return;
+
+  // Reconstituer scores et answers depuis localStorage
+  scores = savedScores;
+  answers = QUESTIONS.map(function(q) {
+    var s = scores[q.dim] || 0;
+    if (s <= 2.5) return 0;
+    if (s <= 5)   return 1;
+    if (s <= 7.5) return 2;
+    return 3;
+  });
+
+  // Masquer banner + sections intro
+  var b = document.getElementById('diag-recall-banner');
+  if (b) b.style.display = 'none';
+  document.querySelectorAll('.hero, .pour-qui-section, .diag-section').forEach(function(el) {
+    if (el.id !== 'results-email' && el.id !== 'results-upsell' && el.id !== 'results-premium') {
+      el.style.display = 'none';
+    }
+  });
+
+  // Afficher les résultats (email → puis premium si applicable)
+  showEmailResults();
+}
+</script>
+
+<script src="uca-gate.js"></script>
+<!-- MODAL INSCRIPTION -->
+<div id="uca-subscribe-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:rgba(10,10,20,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;padding:40px 36px;position:relative;">
+    <button onclick="ucaCloseModal()" aria-label="Fermer" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#6B6B6B;line-height:1;">✕</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:16px;">Newsletter gratuite · Chaque mardi</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;color:#0A0A14;margin-bottom:8px;">5 signaux IA.<br>Chaque mardi matin.</h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.7;margin-bottom:24px;">Ce que les dirigeants utilisent pour décider avant les autres. Gratuit, désabonnement en 1 clic.</p>
+    <!-- Formulaire -->
+    <div id="modal-form-wrap">
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <input type="email" id="modal-email-input" autocomplete="email" required placeholder="votre@email.com" style="flex:1;padding:14px 16px;font-family:'Barlow',sans-serif;font-size:14px;border:1px solid #E0DDD8;border-right:none;outline:none;min-width:0;" />
+        <button onclick="ucaModalSubmit()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 20px;background:var(--red);color:#fff;border:none;cursor:pointer;white-space:nowrap;">Accès immédiat — gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <input type="checkbox" id="modal-consent" style="margin-top:3px;flex-shrink:0;accent-color:var(--red);" />
+        <label for="modal-consent" style="font-family:'Barlow',sans-serif;font-size:12px;color:#6B6B6B;line-height:1.5;cursor:pointer;">J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre <a href="politique-confidentialite.html" style="color:#6B6B6B;text-decoration:underline;">politique de confidentialité</a>. Désabonnement en 1 clic.</label>
+      </div>
+      <div id="modal-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;color:var(--red);margin-top:6px;"></div>
+    </div>
+    <!-- Succès -->
+    <div id="modal-success" style="display:none;text-align:center;padding:16px 0;">
+      <div style="font-size:28px;margin-bottom:12px;color:#276749;">✓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#0A0A14;margin-bottom:8px;">Accès déverrouillé.</div>
+      <div id="modal-success-msg" style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.6;margin-bottom:16px;">Votre diagnostic complet s'affiche maintenant.</div>
+      <button id="modal-success-btn" onclick="ucaModalSuccessAction()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;background:#0A0A14;color:#fff;border:none;cursor:pointer;display:inline-block;">Voir les résultats →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function ucaOpenModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (!m) return;
+  // Si déjà abonné, rediriger vers bienvenue
+  if (localStorage.getItem('uca_has_email') === '1') {
+    window.location.href = 'membre-welcome.html';
+    return;
+  }
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var inp = document.getElementById('modal-email-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+function ucaCloseModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (m) m.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function ucaModalSubmit() {
+  var inp = document.getElementById('modal-email-input');
+  var consent = document.getElementById('modal-consent');
+  var errEl = document.getElementById('modal-error');
+  var email = inp ? inp.value.trim() : '';
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!re.test(email)) {
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    if (inp) inp.style.borderColor = '#C8102E';
+    return;
+  }
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid #C8102E';
+    return;
+  }
+  if (inp) inp.style.borderColor = '';
+  if (consent) consent.style.outline = '';
+  if (errEl) errEl.style.display = 'none';
+
+  // Déverrouillage immédiat
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyDossierAccess === 'function') applyDossierAccess();
+  if (typeof applyNLAccess === 'function') applyNLAccess();
+
+  // Détecter le contexte (diagnostic ou autre page)
+  var onDiag = window.location.href.indexOf('page-diagnostic') !== -1;
+  if (onDiag) {
+    // Sur la page diagnostic : personnaliser le message selon l'état
+    var diagDone = typeof answers !== 'undefined' && answers.every(function(a){ return a !== null; });
+    var msgEl = document.getElementById('modal-success-msg');
+    var btnEl = document.getElementById('modal-success-btn');
+    if (diagDone) {
+      if (msgEl) msgEl.textContent = "Votre diagnostic complet s'affiche maintenant.";
+      if (btnEl) btnEl.textContent = 'Voir mes résultats →';
+    } else {
+      if (msgEl) msgEl.textContent = 'Accès déverrouillé. Votre espace membre vous attend.';
+      if (btnEl) { btnEl.textContent = 'Mon espace →'; btnEl.onclick = function(){ window.location.href='membre-welcome.html'; }; }
+    }
+  }
+
+  // Afficher succès
+  var formWrap = document.getElementById('modal-form-wrap');
+  var success = document.getElementById('modal-success');
+  if (formWrap) formWrap.style.display = 'none';
+  if (success) success.style.display = 'block';
+
+  // Appel réseau en arrière-plan
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+}
+
+function ucaModalSuccessAction() {
+  ucaCloseModal();
+  var diagDone = typeof answers !== 'undefined' && answers.every(function(a){ return a !== null; });
+  if (diagDone && typeof showEmailResults === 'function') {
+    showEmailResults();
+  } else {
+    window.location.href = 'membre-welcome.html';
+  }
+}
+// Fermer en cliquant hors de la modal
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('uca-subscribe-modal');
+  if (modal && e.target === modal) ucaCloseModal();
+});
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') ucaCloseModal();
+});
+</script>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session (localStorage) pour mémoriser votre accès à la newsletter. Aucun cookie tiers. <a href="politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  // Clear any stored access data if refused
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('uca_cookie_consent')) {
+    var b = document.getElementById('uca-cookie-banner');
+    if (b) b.style.display = 'flex';
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="color-scheme" content="light">
+<style>:root { color-scheme: light; }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un Cran d'Avance — L'essentiel de l'IA pour décider mieux</title>
+<meta name="description" content="Newsletter IA pour les dirigeants des grandes organisations. 5 signaux filtrés chaque mardi — traduits en décisions concrètes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:   #0A0A14;
+  --white: #FFFFFF;
+  --paper: #F7F5F0;
+  --muted: #6B6B6B;
+  --light: #F4F4F0;
+  --rule:  #E0DDD8;
+  --red:   #C8102E;
+  --gold:  #B8973A;
+  --gap:   clamp(56px, 8vw, 112px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; font-family: 'Barlow', sans-serif; background: var(--white); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+/* ══ NAV ══ */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 clamp(20px, 5vw, 80px);
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.nav-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; flex-shrink: 0;
+}
+.nav-brand span { color: var(--red); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 8px 20px; background: var(--ink); color: var(--white);
+  text-decoration: none; transition: background 0.2s; white-space: nowrap;
+}
+.nav-cta:hover { background: var(--red); }
+.nav-hamburger {
+  display: none; flex-direction: column; justify-content: center;
+  gap: 5px; width: 36px; height: 36px;
+  cursor: pointer; padding: 4px; background: none; border: none; z-index: 200;
+}
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); transition: all 0.3s ease; transform-origin: center; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile-overlay {
+  display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.98); z-index: 150;
+  flex-direction: column; padding: 32px clamp(24px,5vw,80px);
+  backdrop-filter: blur(8px); overflow-y: auto;
+}
+.nav-mobile-overlay.open { display: flex; }
+.nav-mobile-overlay a {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--ink);
+  text-decoration: none; padding: 16px 0; border-bottom: 1px solid var(--rule); transition: color 0.2s;
+}
+.nav-mobile-overlay a:hover { color: var(--red); }
+.nav-mobile-overlay .mob-cta {
+  margin-top: 24px; background: var(--ink); color: #fff !important;
+  text-align: center; padding: 14px 24px !important; border-bottom: none !important;
+}
+.nav-mobile-overlay .mob-cta:hover { background: var(--red); }
+@media (max-width: 900px) {
+  .nav-hamburger { display: flex; }
+  .nav-links { display: none !important; }
+  .nav-cta { display: none; }
+}
+
+/* ══ BOUTONS ══ */
+.btn-primary {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 15px 36px; background: var(--red); color: var(--white);
+  text-decoration: none; transition: background 0.2s;
+}
+.btn-primary:hover { background: #a50d24; }
+.btn-gold {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 15px 36px; background: var(--gold); color: var(--ink);
+  text-decoration: none; transition: opacity 0.2s;
+}
+.btn-gold:hover { opacity: 0.88; }
+
+/* ══ SECTION LABEL ══ */
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--muted); display: flex; align-items: center; gap: 12px; margin-bottom: 48px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+/* ══ HERO ══ */
+.hero {
+  min-height: 88vh;
+  padding: clamp(56px, 9vw, 128px) clamp(24px, 5vw, 80px);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px); align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-left {}
+.hero-kicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 28px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 0 10px 16px; border-left: 3px solid var(--red);
+}
+.hero-kicker::before { display: none; }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5.5vw, 76px);
+  font-weight: 900; line-height: 1.06;
+  margin-bottom: 24px;
+}
+.hero-title em { font-style: italic; color: var(--red); }
+.hero-tension {
+  font-family: 'Lora', serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: var(--muted); line-height: 1.8;
+  margin-bottom: 40px; max-width: 460px;
+  border-left: 2px solid var(--rule); padding-left: 20px;
+}
+.hero-tension strong { color: var(--ink); font-weight: 500; }
+.hero-proof {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 20px;
+}
+.hero-proof-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 900; color: var(--ink); line-height: 1;
+}
+.hero-proof-text {
+  font-size: 12px; color: var(--muted); line-height: 1.5; max-width: 180px;
+}
+
+/* Hero droite — formulaire */
+.hero-right {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: clamp(28px, 3.5vw, 48px);
+}
+.hero-right-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
+}
+.hero-right-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 2vw, 26px); font-weight: 700; line-height: 1.3;
+  margin-bottom: 24px;
+}
+.hero-right-title em { font-style: italic; color: var(--red); }
+.hero-right-list {
+  list-style: none; margin-bottom: 28px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.hero-right-list li {
+  font-family: 'Lora', serif; font-size: 14px;
+  color: var(--muted); line-height: 1.5;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.hero-right-list li::before {
+  content: '→'; color: var(--red); font-family: sans-serif;
+  font-size: 12px; margin-top: 2px; flex-shrink: 0;
+}
+.hero-right-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 10px; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+}
+
+/* ══ PREUVE — EXTRAIT RÉEL ══ */
+.proof-section {
+  padding: var(--gap) clamp(24px, 5vw, 80px);
+  border-bottom: 1px solid var(--rule);
+}
+.proof-inner { max-width: 820px; }
+.proof-kicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+.proof-edition {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 500; letter-spacing: 1px;
+  color: var(--muted); margin-bottom: 32px;
+}
+.proof-signal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2.5vw, 32px); font-weight: 700; line-height: 1.3;
+  margin-bottom: 20px;
+}
+.proof-signal-title em { font-style: italic; color: var(--red); }
+.proof-body {
+  font-family: 'Lora', serif;
+  font-size: clamp(15px, 1.3vw, 17px); line-height: 1.85;
+  color: var(--muted); margin-bottom: 20px;
+}
+.proof-body strong { color: var(--ink); font-weight: 500; }
+.proof-editorial {
+  font-family: 'Lora', serif; font-size: 14px;
+  font-style: italic; color: var(--ink);
+  border-left: 2px solid var(--gold); padding-left: 20px;
+  margin-bottom: 32px; line-height: 1.7;
+}
+.proof-question {
+  background: var(--ink); color: var(--white);
+  padding: 24px 28px; margin-bottom: 32px;
+}
+.proof-question-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.proof-question-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px, 1.5vw, 20px); font-weight: 700; line-height: 1.4; color: var(--white);
+}
+.proof-cta {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.proof-cta-text {
+  font-size: 13px; color: var(--muted); font-style: italic;
+}
+
+/* ══ GRATUIT vs PREMIUM ══ */
+.diff-section {
+  padding: var(--gap) clamp(24px, 5vw, 80px);
+  background: var(--ink);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.diff-header {
+  text-align: center; margin-bottom: clamp(40px, 5vw, 64px);
+}
+.diff-header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; line-height: 1.2;
+  color: var(--white); margin-bottom: 12px;
+}
+.diff-header-title em { font-style: italic; color: var(--gold); }
+.diff-header-sub {
+  font-family: 'Lora', serif; font-size: 16px;
+  color: rgba(255,255,255,0.45); line-height: 1.7;
+}
+.diff-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; max-width: 860px; margin: 0 auto;
+}
+.diff-col {
+  padding: clamp(28px, 3.5vw, 48px);
+}
+.diff-col-free { background: rgba(255,255,255,0.04); }
+.diff-col-premium { background: rgba(184,151,58,0.1); border: 1px solid rgba(184,151,58,0.25); }
+.diff-col-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.diff-col-free .diff-col-label { color: rgba(255,255,255,0.4); }
+.diff-col-premium .diff-col-label { color: var(--gold); }
+.diff-col-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 2vw, 26px); font-weight: 700; line-height: 1.2;
+  color: var(--white); margin-bottom: 8px;
+}
+.diff-col-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  margin-bottom: 28px;
+}
+.diff-col-free .diff-col-price { color: rgba(255,255,255,0.4); }
+.diff-col-premium .diff-col-price { color: var(--gold); }
+.diff-items { display: flex; flex-direction: column; gap: 0; }
+.diff-item {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.diff-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+.diff-item-icon { font-size: 13px; margin-top: 1px; flex-shrink: 0; }
+.diff-item-text { font-family: 'Lora', serif; font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.6); }
+.diff-item-text strong { color: var(--white); font-weight: 500; }
+.diff-col-premium .diff-item-text { color: rgba(255,255,255,0.75); }
+.diff-cta { margin-top: 28px; }
+
+@media (max-width: 640px) { .diff-grid { grid-template-columns: 1fr; } }
+
+/* ══ DIAGNOSTIC ══ */
+.diag-section {
+  padding: var(--gap) clamp(24px, 5vw, 80px);
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.diag-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px); align-items: center;
+}
+.diag-kicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.diag-kicker::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+.diag-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 3vw, 40px); font-weight: 700; line-height: 1.2; margin-bottom: 16px;
+}
+.diag-title em { font-style: italic; color: var(--red); }
+.diag-desc {
+  font-family: 'Lora', serif; font-size: 16px;
+  color: var(--muted); line-height: 1.8; margin-bottom: 32px;
+}
+.diag-meta { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 12px; }
+.diag-right { display: flex; flex-direction: column; gap: 0; }
+.diag-dim {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 0; border-bottom: 1px solid var(--rule);
+}
+.diag-dim:first-child { border-top: 1px solid var(--rule); }
+.diag-dim-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 900; color: var(--gold);
+  width: 22px; flex-shrink: 0; line-height: 1;
+}
+.diag-dim-text { font-size: 13px; color: var(--muted); line-height: 1.4; }
+.diag-dim-text strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 760px) {
+  .diag-inner { grid-template-columns: 1fr; gap: 32px; }
+  .diag-right { display: none; }
+}
+
+/* ══ CTA FINAL ══ */
+.cta-final {
+  padding: var(--gap) clamp(24px, 5vw, 80px);
+  background: var(--ink); text-align: center;
+}
+.cta-final-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 52px); font-weight: 900;
+  color: var(--white); line-height: 1.1; margin-bottom: 16px;
+}
+.cta-final-title em { font-style: italic; color: var(--gold); }
+.cta-final-tension {
+  font-family: 'Lora', serif; font-size: 16px; font-style: italic;
+  color: rgba(255,255,255,0.45); line-height: 1.7;
+  max-width: 480px; margin: 0 auto 40px;
+}
+.cta-final-note {
+  margin-top: 16px; font-size: 11px;
+  color: rgba(255,255,255,0.25); font-style: italic;
+}
+
+/* ══ FOOTER ══ */
+footer { padding: 28px clamp(24px, 5vw, 80px); border-top: 3px double var(--rule); }
+.f-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 10px;
+}
+.f-copy { font-size: 11px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+.f-links { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.f-links a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.f-links a:hover { color: var(--red); }
+
+/* ══ FORMULAIRE EMAIL ══ */
+.email-form { display: flex; gap: 0; max-width: 460px; margin-bottom: 14px; }
+.email-form input {
+  flex: 1; padding: 14px 18px;
+  border: 1px solid var(--rule); border-right: none;
+  font-size: 14px; font-family: 'Barlow', sans-serif;
+  background: #fff; color: var(--ink); outline: none; min-width: 0;
+}
+.email-form input::placeholder { color: var(--muted); }
+.email-form input:focus { border-color: var(--ink); }
+.email-form button {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 14px 24px; background: var(--red); color: #fff;
+  border: none; cursor: pointer; white-space: nowrap; transition: background 0.2s;
+}
+.email-form button:hover { background: #a50d24; }
+.email-form-error { font-size: 12px; font-weight: 600; color: #C8102E; margin-top: 6px; margin-bottom: 6px; padding: 6px 10px; background: rgba(200,16,46,0.07); border-left: 3px solid #C8102E; display: none; }
+.email-form-success {
+  font-family: 'Lora', serif; font-size: 14px; color: var(--ink);
+  padding: 14px 0; display: none;
+}
+.email-form.dark input {
+  background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2);
+  color: #fff; border-right: none;
+}
+.email-form.dark input::placeholder { color: rgba(255,255,255,0.35); }
+.email-form.dark input:focus { border-color: rgba(255,255,255,0.5); }
+.email-form.dark button { background: var(--gold); color: var(--ink); }
+.email-form.dark button:hover { opacity: 0.88; }
+@media (max-width: 600px) {
+  .email-form { flex-direction: column; gap: 8px; }
+  .email-form input { border-right: 1px solid var(--rule); }
+  .email-form.dark input { border-right: 1px solid rgba(255,255,255,0.2); }
+  .email-form button { width: 100%; }
+}
+
+/* ══ FUNNEL — ÉTATS UTILISATEUR ══════════════════════════════════
+   Les classes has-email et has-premium sont posées par uca-gate.js
+   sur document.body dès le chargement.
+   Tout le switching se fait en CSS — zéro flash de contenu.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Inconnu : voit tout sauf les blocs abonné/premium */
+.for-free    { display: none; }
+.for-premium { display: none; }
+.for-anonymous { display: block; }
+
+/* Abonné gratuit */
+body.has-email .for-anonymous { display: none; }
+body.has-email .for-free      { display: block; }
+
+/* Premium — désactive aussi le bloc "free" */
+body.has-premium .for-free    { display: none; }
+body.has-premium .for-premium { display: block; }
+
+/* ── Hero variants ── */
+.hero-right-anonymous {}
+.hero-right-free    { display: none; padding: clamp(28px,3.5vw,48px); background: var(--paper); border: 1px solid var(--rule); }
+.hero-right-premium { display: none; padding: clamp(28px,3.5vw,48px); background: rgba(184,151,58,0.08); border: 1px solid rgba(184,151,58,0.3); }
+
+body.has-email .hero-right-anonymous { display: none; }
+body.has-email:not(.has-premium) .hero-right-free { display: block; }
+body.has-premium .hero-right-premium { display: block; }
+
+/* ── Urgence premium ── */
+.urgency-badge {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--white); background: var(--red);
+  padding: 4px 10px; margin-bottom: 16px;
+}
+
+/* ── Welcome message ── */
+.hero-welcome {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-welcome::before { content: '✓'; }
+
+/* ── CTA final variants ── */
+.cta-final-anonymous {}
+.cta-final-free    { display: none; }
+.cta-final-premium { display: none; }
+
+body.has-email .cta-final-anonymous { display: none; }
+body.has-email:not(.has-premium) .cta-final-free { display: block; }
+body.has-premium .cta-final-premium { display: block; }
+
+/* ── Diff section — colonne premium mise en avant pour abonnés gratuits ── */
+body.has-email:not(.has-premium) .diff-col-premium {
+  background: rgba(184,151,58,0.15);
+  border: 2px solid rgba(184,151,58,0.5);
+  transform: scale(1.02);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+body.has-premium .diff-section { display: none; }
+
+/* ── Preuve — masquer le CTA inscription si déjà abonné ── */
+.proof-cta-anonymous {}
+.proof-cta-free    { display: none; }
+body.has-email .proof-cta-anonymous { display: none; }
+body.has-email .proof-cta-free { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+/* ── Lien NL direct premium ── */
+.btn-premium-access {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 15px 36px; background: var(--gold); color: var(--ink);
+  text-decoration: none; transition: opacity 0.2s;
+}
+.btn-premium-access:hover { opacity: 0.88; }
+
+
+/* ── Nav : masquer Premium aux inconnus ── */
+.nav-premium { transition: opacity 0.3s; }
+body:not(.has-email) .nav-premium { opacity: 0; pointer-events: none; }
+
+
+/* ── Nav CTA : deux états (anonyme / abonné) ── */
+.nav-cta-anon { display: inline-block; }
+.nav-cta-member { display: none; }
+body.has-email .nav-cta-anon { display: none; }
+body.has-email .nav-cta-member { display: inline-block; }
+
+
+/* ══ RESPONSIVE MOBILE — corrections ciblées ═══════════════════════
+
+/* ── Hero states free/premium ── */
+@media (max-width: 900px) {
+  .hero-right-free,
+  .hero-right-premium {
+    padding: 28px 24px;
+    margin-top: 0;
+  }
+  .hero-right-anonymous {
+    padding: 28px 24px;
+  }
+  .hero-proof {
+    margin-top: 28px;
+  }
+  .hero-proof-num {
+    font-size: 40px;
+  }
+  .hero-tension {
+    max-width: 100%;
+  }
+}
+
+/* ── Proof section ── */
+@media (max-width: 760px) {
+  .proof-signal-title {
+    font-size: clamp(20px, 5vw, 28px);
+  }
+  .proof-editorial {
+    padding-left: 16px;
+    font-size: 14px;
+  }
+  .proof-question {
+    padding: 20px 20px;
+  }
+  .proof-question-text {
+    font-size: clamp(15px, 4vw, 18px);
+  }
+  .proof-body {
+    font-size: 15px;
+  }
+  .proof-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .proof-cta-free {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* ── Diff section ── */
+@media (max-width: 640px) {
+  /* Supprimer le scale sur mobile — crée un overflow horizontal */
+  body.has-email:not(.has-premium) .diff-col-premium {
+    transform: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  .diff-col {
+    padding: 24px 20px;
+  }
+  .diff-col-name {
+    font-size: 22px;
+  }
+  .urgency-badge {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+}
+
+/* ── CTA final ── */
+@media (max-width: 600px) {
+  .cta-final-title {
+    font-size: clamp(26px, 7vw, 40px);
+  }
+  .cta-final-tension {
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+}
+
+/* ── Diag section ── */
+@media (max-width: 760px) {
+  .diag-title {
+    font-size: clamp(22px, 5vw, 32px);
+  }
+  .diag-desc {
+    font-size: 15px;
+  }
+}
+
+/* ── Footer ── */
+@media (max-width: 600px) {
+  .f-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+</style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="Un Cran d’Avance — L’IA pour decider mieux">
+  <meta property="og:description" content="Newsletter IA premium pour dirigeants. 5 signaux chaque mardi. Cadres LEAP(tm) x DRIVEN(tm).">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/index.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Un Cran d’Avance — L’IA pour decider mieux">
+  <meta name="twitter:description" content="Newsletter IA premium pour dirigeants. 5 signaux chaque mardi. Cadres LEAP(tm) x DRIVEN(tm).">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/index.html">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">✦ <span>Un Cran d'Avance</span></a>
+  <div class="nav-links">
+    <a href="page-newsletter.html">Newsletter</a>
+    <a href="page-vente.html">Premium</a>
+    <a href="page-apropos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </div>
+  <button onclick="ucaOpenModal()" class="nav-cta nav-cta-anon" style="cursor:pointer;border:none;">Commencer gratuitement →</button>
+  <a href="membre-welcome.html" class="nav-cta nav-cta-member">Mon espace →</a>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-overlay">
+  <a href="page-newsletter.html">Newsletter</a>
+  <a href="page-vente.html" class="nav-premium">Premium</a>
+  <a href="page-apropos.html">À propos</a>
+  <a href="mentions-legales.html">Mentions légales</a>
+  <a href="politique-confidentialite.html">Confidentialité</a>
+  <button onclick="ucaOpenModal();document.querySelector('.nav-mobile-overlay').classList.remove('open')" class="mob-cta nav-cta-anon" style="cursor:pointer;border:none;width:100%;text-align:center;">Commencer gratuitement →</button>
+  <a href="membre-welcome.html" class="mob-cta nav-cta-member" style="display:none;margin-top:0;text-align:center;">Mon espace →</a>
+</div>
+
+<!-- ══ 1. HERO ══ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-kicker">Intelligence artificielle · Pour les dirigeants des grandes organisations</div>
+    <h1 class="hero-title">Ce que les dirigeants utilisent<br>pour décider <em>avant les autres.</em><br><span style="font-size:clamp(24px,3vw,42px);color:var(--muted);font-weight:400;font-style:normal;">5 signaux IA — chaque mardi.</span></h1>
+    <p class="hero-tension">
+      Vous lisez l'IA pour comprendre&nbsp;?<br>
+      <em>Pendant ce temps, elle dérive, elle décide — et personne dans votre organisation ne sait vraiment qui en est responsable.</em>
+    </p>
+    <div class="hero-proof">
+      <div class="hero-proof-num" id="editions-count">12</div>
+      <div class="hero-proof-text">éditions publiées depuis janvier 2026 — chaque mardi sans exception</div>
+    </div>
+  </div>
+
+
+  <!-- ÉTAT 1 : Inconnu — formulaire inscription -->
+  <div class="hero-right hero-right-anonymous" id="hero-form">
+    <div class="hero-right-label">Rejoindre la newsletter</div>
+    <h2 class="hero-right-title">5 signaux filtrés.<br>Chaque <em>mardi matin.</em></h2>
+    <form id="hero-email-form"  style="display:flex;flex-direction:column;gap:10px;max-width:460px;margin-bottom:14px;" novalidate>
+      <div class="email-form" style="margin-bottom:0;">
+        <input type="email" autocomplete="email" required id="hero-email-input" placeholder="votre@email.com" autocomplete="email">
+        <button type="button" id="hero-cta-btn" onclick="indexEmailSubmit('hero-email-form','hero-email-error','hero-email-success')">Accès immédiat — c'est gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;">
+        <input type="checkbox" id="consent-index" name="consent" style="margin-top:3px;flex-shrink:0;accent-color:#B8973A;width:13px;height:13px;cursor:pointer;">
+        <label for="consent-index" style="font-family:'Barlow',sans-serif;font-size:11px;color:var(--muted);line-height:1.5;cursor:pointer;">
+          J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre
+          <a href="politique-confidentialite.html" style="color:var(--ink);text-decoration:underline;" target="_blank">politique de confidentialité</a>.
+          Désabonnement en 1 clic.
+        </label>
+      </div>
+    </form>
+    <div class="email-form-error" id="hero-email-error">Email invalide — vérifiez le format.</div>
+    <div class="email-form-success" id="hero-email-success">✓ Bienvenue — votre premier signal arrive mardi.<br><span style="font-size:11px;color:var(--muted);font-style:italic;">Un email de confirmation a été envoyé.</span> <a href="membre-welcome.html" style="display:inline-block;margin-top:10px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:var(--ink);color:var(--white);text-decoration:none;border:1px solid var(--rule);">Accéder à mon espace →</a></div>
+    <p style="margin-top:12px;margin-bottom:6px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:8px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>Pack de bienvenue inclus — 10 signaux LEAP™ livrés immédiatement</p>
+    <p class="hero-right-note">Gratuit · Désabonnement en 1 clic · Aucun spam</p>
+    <p style="margin-top:14px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--rule);padding-top:14px;">✦ 37 décisionnels membres · 63 places fondateurs restantes · Expire 31 mai 2026</p>
+  </div>
+
+  <!-- ÉTAT 2 : Abonné gratuit — pousser vers Premium -->
+  <div class="hero-right-free">
+    <div class="hero-welcome" id="hero-welcome-email">Abonné actif</div>
+    <div class="urgency-badge">⏱ Offre fondateurs — expire 31 mai 2026</div>
+    <h2 class="hero-right-title">Passez au niveau<br><em>décision.</em></h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
+      Vous lisez les signaux. Les membres premium ont aussi les cadres, les plans d'action, et les outils pour agir sur ces signaux.
+    </p>
+    <a href="page-vente.html" class="btn-primary" style="display:block;text-align:center;margin-bottom:12px;">Devenir membre Premium — 199€/an →</a>
+    <a href="page-newsletter.html" style="display:block;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:8px 0;">Lire la dernière édition →</a>
+  </div>
+
+  <!-- ÉTAT 3 : Membre premium — accès direct -->
+  <div class="hero-right-premium">
+    <div class="hero-welcome" id="hero-welcome-premium">Membre Premium</div>
+    <h2 class="hero-right-title">Bon retour.<br><em>Tout est disponible.</em></h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
+      Vos 16 newsletters et 4 dossiers sont accessibles. La prochaine édition arrive mardi.
+    </p>
+    <a href="page-newsletter.html" class="btn-premium-access" style="display:block;text-align:center;margin-bottom:12px;">Accéder à mes éditions →</a>
+    <a href="page-newsletter.html" style="display:block;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:8px 0;">Voir tous les dossiers →</a>
+  </div>
+</section>
+
+<!-- ══ 2. PREUVE — EXTRAIT RÉEL ══ -->
+<section class="proof-section">
+  <div class="proof-inner">
+    <div class="section-label">Exemple réel — Gouvernance IA</div>
+
+    <div class="proof-kicker">Signal 01 · Gouvernance IA</div>
+    <div class="proof-edition">À paraître · Avril 2026 · Couche P — Pivot</div>
+
+    <h2 class="proof-signal-title">
+      Les organisations qui gouvernent réellement leur IA<br>
+      ont une chose en commun.<br>
+      <em>Ce n'est pas le budget.</em>
+    </h2>
+
+    <p class="proof-body">
+      Un propriétaire nommé — une personne, pas une équipe — responsable de chaque système IA en production.<br>
+      Sans ça : <strong>73 jours</strong> pour comprendre un problème. Avec : <strong>4 jours</strong>.<br><br>
+      Une IA ne tombe pas en panne. Elle continue de fonctionner — même quand elle dérive.<br>
+      Et c'est là que ça se joue.
+    </p>
+
+    <div class="proof-editorial">
+      Le jour où un résultat devient incohérent, où une décision est contestée, où un biais apparaît —<br>
+      → qui décide ?&nbsp;&nbsp;→ qui tranche ?&nbsp;&nbsp;→ qui est responsable ?<br><br>
+      Dans la plupart des organisations, il y a un silence.
+    </div>
+
+    <!-- CTA preuve : inconnu -->
+    <div class="proof-cta proof-cta-anonymous">
+      <a href="page-newsletter.html" class="btn-primary">Lire l'édition complète →</a>
+      <span class="proof-cta-text">Accès gratuit · <span id="editions-count-3">12</span> éditions disponibles</span>
+    </div>
+    <!-- CTA preuve : abonné gratuit -->
+    <div class="proof-cta-free">
+      <a href="page-newsletter.html" class="btn-primary">Lire les archives →</a>
+      <a href="page-newsletter.html" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;">Voir toutes les éditions →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3. GRATUIT vs PREMIUM ══ -->
+<section class="diff-section">
+
+  <!-- ACCROCHE — signature cognitive complète -->
+  <div style="max-width:760px;margin:0 auto clamp(48px,6vw,80px);text-align:center;">
+    <h2 class="diff-header-title" style="margin-bottom:28px;">Ce que vous ne voyez pas encore<br><em>vous coûte déjà.</em></h2>
+    <p style="font-family:'Lora',serif;font-size:clamp(15px,1.4vw,18px);color:rgba(255,255,255,0.55);line-height:1.9;margin-bottom:20px;">
+      La plupart des organisations savent que l'IA change quelque chose.<br>
+      Mais elles ne savent pas précisément quoi — ni où ça commence à dériver.
+    </p>
+    <div style="border-left:2px solid var(--gold);padding:16px 24px;text-align:left;margin:0 auto 20px;max-width:560px;background:rgba(184,151,58,0.06);">
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Quand un problème apparaît :</p>
+      <p style="font-family:'Lora',serif;font-size:15px;color:rgba(255,255,255,0.7);line-height:1.9;">
+        → personne ne sait vraiment qui doit décider<br>
+        → personne ne sait où se situe la responsabilité
+      </p>
+    </div>
+    <p style="font-family:'Lora',serif;font-size:clamp(15px,1.3vw,17px);color:rgba(255,255,255,0.55);line-height:1.9;font-style:italic;">
+      Un Cran d'Avance met des mots sur ces situations — et permet de trancher<br>avant qu'elles ne deviennent visibles.
+    </p>
+  </div>
+
+  <!-- DEUX NIVEAUX -->
+  <div class="diff-grid">
+
+    <!-- NEWSLETTER -->
+    <div class="diff-col diff-col-free">
+      <div class="diff-col-label">Gratuit · Chaque mardi</div>
+      <div class="diff-col-name">Le signal.</div>
+      <p style="font-family:'Lora',serif;font-size:14px;color:rgba(255,255,255,0.5);line-height:1.75;margin-bottom:24px;font-style:italic;">
+        Pas de veille. Pas de synthèse.<br>Une lecture du réel — pour décider avant les autres.
+      </p>
+      <div class="diff-items">
+        <div class="diff-item">
+          <div class="diff-item-icon" style="color:var(--muted);font-size:11px;font-weight:700;">—</div>
+          <div class="diff-item-text"><strong>5 signaux chaque mardi</strong> — là où ça dérive, là où ça devient invisible, là où la responsabilité n'est plus claire</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-item-icon" style="color:var(--muted);font-size:11px;font-weight:700;">—</div>
+          <div class="diff-item-text"><strong>La question stratégique</strong> — ce que vous devriez avoir tranché</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-item-icon" style="color:var(--muted);font-size:11px;font-weight:700;">—</div>
+          <div class="diff-item-text">Archives des <span id="editions-count-2">12</span> éditions disponibles</div>
+        </div>
+      </div>
+      <!-- PACK DE BIENVENUE — bonus visuel -->
+      <div style="margin-top:20px;padding:16px 20px;border:1px solid rgba(184,151,58,0.4);background:rgba(184,151,58,0.07);">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">✦ Inclus dès l'inscription</div>
+        <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:6px;">Pack de bienvenue</div>
+        <div style="font-family:'Lora',serif;font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;">10 signaux que vos concurrents ne voient pas encore — structurés autour du cadre LEAP™. Accès immédiat, sans attente.</div>
+      </div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="diff-col diff-col-premium">
+      <div class="diff-col-label" style="color:var(--gold);">199€/an · Offre lancement — expire 31 mai 2026</div>
+      <div class="diff-col-name">Le cadre.</div>
+      <p style="font-family:'Lora',serif;font-size:14px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:24px;font-style:italic;">
+        Pour ceux qui ont besoin de plus que comprendre.
+      </p>
+      <div class="diff-items">
+        <div class="diff-item">
+          <div class="diff-item-icon" style="color:var(--gold);font-size:10px;letter-spacing:0;">◆</div>
+          <div class="diff-item-text"><strong>Un sujet par mois</strong> — ce que ça coûte réellement, qui doit décider, dans quel ordre agir</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-item-icon" style="color:var(--gold);font-size:10px;letter-spacing:0;">◆</div>
+          <div class="diff-item-text"><strong>Trajectoire 90 jours</strong> — reprendre le contrôle avant que le sujet ne s'impose</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-item-icon" style="color:var(--gold);font-size:10px;letter-spacing:0;">◆</div>
+          <div class="diff-item-text"><strong>Score DRIVEN™</strong> — nommer précisément où se situe la dérive dans votre organisation</div>
+        </div>
+        <div class="diff-item">
+          <div class="diff-item-icon" style="color:var(--gold);font-size:10px;letter-spacing:0;">◆</div>
+          <div class="diff-item-text"><strong>Cas terrain documentés</strong> — ce que font les organisations qui ont vu venir le problème</div>
+        </div>
+      </div>
+      <div class="diff-cta">
+        <a href="page-vente.html" class="btn-gold" style="display:block;text-align:center;">Voir l'offre Premium →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ 5. CTA FINAL ══ -->
+<section class="cta-final">
+  <!-- CTA final : inconnu -->
+  <div class="cta-final-anonymous">
+    <h2 class="cta-final-title">Ce qui dérive<br><em>ne prévient pas.</em></h2>
+    <p class="cta-final-tension">Chaque mardi, 5 signaux — là où ça dérive, là où la responsabilité n'est plus claire. Avant que ça devienne visible.</p>
+    <form id="cta-email-form"  style="display:flex;flex-direction:column;gap:10px;max-width:460px;margin:0 auto 14px;" novalidate>
+      <div class="email-form dark" style="margin-bottom:0;">
+        <input type="email" autocomplete="email" required placeholder="votre@email.com">
+        <button type="button" id="cta-final-btn" onclick="indexEmailSubmit('cta-email-form','cta-email-error','cta-email-success')">Accès immédiat — c'est gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;">
+        <input type="checkbox" id="consent-cta" name="consent" style="margin-top:3px;flex-shrink:0;accent-color:#B8973A;width:13px;height:13px;cursor:pointer;">
+        <label for="consent-cta" style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,0.55);line-height:1.5;cursor:pointer;">
+          J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre
+          <a href="politique-confidentialite.html" style="color:rgba(255,255,255,0.75);text-decoration:underline;" target="_blank">politique de confidentialité</a>.
+          Désabonnement en 1 clic.
+        </label>
+      </div>
+    </form>
+    <div class="email-form-error" id="cta-email-error" style="color:rgba(255,100,100,0.9);text-align:center;">Email invalide — vérifiez le format.</div>
+    <div class="email-form-success" id="cta-email-success" style="color:rgba(255,255,255,0.8);text-align:center;font-family:'Lora',serif;padding:14px 0;">✓ Bienvenue — votre premier signal arrive mardi.<br><span style="font-size:12px;color:rgba(255,255,255,0.45);font-style:italic;">Un email de confirmation a été envoyé.</span><br><a href="membre-welcome.html" style="display:inline-block;margin-top:12px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:10px 24px;background:var(--gold);color:var(--ink);text-decoration:none;">Accéder à mon espace →</a></div>
+    <p style="margin-top:12px;margin-bottom:6px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:8px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>Pack de bienvenue inclus — 10 signaux LEAP™ livrés immédiatement</p>
+    <p class="cta-final-note">Gratuit · Chaque mardi · Désabonnement en un clic</p>
+  </div>
+
+  <!-- CTA final : abonné gratuit -->
+  <div class="cta-final-free" style="text-align:center;">
+    <div class="urgency-badge" style="margin-bottom:20px;">⏱ 63 places restantes sur 100 membres fondateurs</div>
+    <h2 class="cta-final-title">Vous lisez les signaux.<br>Passez à l'<em>action.</em></h2>
+    <p class="cta-final-tension">Les membres premium ont les cadres pour agir — pas seulement comprendre.</p>
+    <a href="page-vente.html" style="display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:18px 48px;background:var(--gold);color:var(--ink);text-decoration:none;margin-bottom:16px;">Devenir membre Premium — 199€/an →</a>
+    <p class="cta-final-note">Prix lancement · Expire 31 mai 2026 · Accès immédiat</p>
+  </div>
+
+  <!-- CTA final : membre premium -->
+  <div class="cta-final-premium" style="text-align:center;">
+    <h2 class="cta-final-title">Tout est là.<br><em>Chaque mardi.</em></h2>
+    <p class="cta-final-tension">Vos newsletters, vos dossiers, vos outils — disponibles maintenant.</p>
+    <a href="page-newsletter.html" style="display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:18px 48px;background:var(--gold);color:var(--ink);text-decoration:none;margin-bottom:16px;">Accéder à mes éditions →</a>
+  </div>
+</section>
+
+<!-- ══ 4. DIAGNOSTIC ══ -->
+<section class="diag-section">
+  <div class="diag-inner">
+    <div>
+      <div class="diag-kicker">Outil gratuit · 7 minutes</div>
+      <h2 class="diag-title">Nommez précisément<br><em>où ça dérive.</em></h2>
+      <p class="diag-desc">La plupart des organisations ne savent pas où se situe leur vrai angle mort IA. Le Score DRIVEN™ le nomme — en 7 minutes, sans inscription.</p>
+      <a href="page-diagnostic.html" class="btn-gold">Faire le diagnostic →</a>
+      <p class="diag-meta">Gratuit · Sans inscription · Résultat immédiat</p>
+    </div>
+    <div class="diag-right">
+      <div class="diag-dim"><span class="diag-dim-letter">D</span><span class="diag-dim-text"><strong>Data</strong> — Vos données sont-elles prêtes pour l'IA ?</span></div>
+      <div class="diag-dim"><span class="diag-dim-letter">R</span><span class="diag-dim-text"><strong>Risque</strong> — Pouvez-vous expliquer chaque décision IA ?</span></div>
+      <div class="diag-dim"><span class="diag-dim-letter">I</span><span class="diag-dim-text"><strong>Impact</strong> — Où sont les gains que l'IA devait générer ?</span></div>
+      <div class="diag-dim"><span class="diag-dim-letter">V</span><span class="diag-dim-text"><strong>Vision</strong> — Votre stratégie IA tient-elle au-delà du discours ?</span></div>
+      <div class="diag-dim"><span class="diag-dim-letter">E</span><span class="diag-dim-text"><strong>Équipes</strong> — Vos équipes savent-elles travailler avec l'IA ?</span></div>
+      <div class="diag-dim"><span class="diag-dim-letter">N</span><span class="diag-dim-text"><strong>Navigation du changement</strong> — Le système est-il utilisé comme prévu — ou autrement ?</span></div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<!-- Mention langue -->
+<div style="text-align:center;padding:12px clamp(24px,5vw,80px);border-top:1px solid var(--rule);background:var(--paper);">
+  <span style="font-family:'Lora',serif;font-size:12px;color:var(--muted);font-style:italic;">
+    Un Cran d'Avance est publié en français. Une version anglaise est en réflexion —
+    <a href="/cdn-cgi/l/email-protection#4b2a3122310b3e2528392a252f2a3d2a25282e65282426" style="color:var(--muted);text-decoration:underline;">écrivez-nous</a>
+    si c'est important pour vous.
+  </span>
+</div>
+<footer>
+  <div class="f-brand">✦ Un Cran d'Avance</div>
+  <div class="f-copy">© 2026 · L'essentiel de l'IA pour décider mieux, chaque semaine.</div>
+  <div class="f-links">
+    <a href="page-newsletter.html">Newsletter</a>
+    <a href="page-vente.html">Premium</a>
+    <a href="page-apropos.html">À propos</a>
+    <a href="page-diagnostic.html">Diagnostic</a>
+  <a href="mentions-legales.html">Mentions légales</a><a href="politique-confidentialite.html">Confidentialité</a></div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Nav hamburger
+document.addEventListener('DOMContentLoaded', function() {
+  var btn     = document.querySelector('.nav-hamburger');
+  var overlay = document.querySelector('.nav-mobile-overlay');
+  if (!btn || !overlay) return;
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = overlay.classList.contains('open');
+    btn.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  });
+  overlay.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      btn.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (overlay.classList.contains('open') && !overlay.contains(e.target) && !btn.contains(e.target)) {
+      btn.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+});
+</script>
+
+<script src="uca-gate.js"></script>
+
+<script>
+// ── Personnaliser les messages welcome avec l'email stocké ──────────
+document.addEventListener('DOMContentLoaded', function() {
+  // Attendre que uca-gate.js ait fait son checkServerAccess (~300ms)
+  setTimeout(function() {
+    var email = localStorage.getItem('uca_email') || '';
+    var short = email ? email.split('@')[0] : '';
+    if (short) {
+      var welcomeEmail   = document.getElementById('hero-welcome-email');
+      var welcomePremium = document.getElementById('hero-welcome-premium');
+      if (welcomeEmail)   welcomeEmail.textContent   = '✓ Connecté — ' + short;
+      if (welcomePremium) welcomePremium.textContent = '✓ Membre Premium — ' + short;
+    }
+  }, 400);
+});
+
+function indexEmailSubmit(formId, errorId, successId) {
+  var form   = document.getElementById(formId);
+  var inp    = form ? form.querySelector('input[type="email"]') : null;
+  if (!inp) return;
+  var email  = inp.value.trim();
+  var re     = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var errEl  = document.getElementById(errorId);
+
+  /* Validation email */
+  if (!re.test(email)) {
+    inp.style.borderColor = '#C8102E';
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    return;
+  }
+  inp.style.borderColor = '';
+
+  /* Validation consentement */
+  var consent = form.querySelector('input[type="checkbox"]');
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement pour continuer.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid #C8102E';
+    consent.style.outlineOffset = '2px';
+    return;
+  }
+  if (consent) { consent.style.outline = ''; }
+  if (errEl) errEl.style.display = 'none';
+
+  // Déverrouillage immédiat — sans attendre la réponse réseau
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyNewsletterAccess === 'function') applyNewsletterAccess();
+  if (typeof applyDossierAccess   === 'function') applyDossierAccess();
+  if (typeof applyNLAccess        === 'function') applyNLAccess();
+
+  // Afficher le modal en état succès — confirmation visuelle
+  ucaShowModalSuccess();
+
+  // Redirection vers Mon Espace après confirmation visuelle
+  setTimeout(function() { window.location.href = 'membre-welcome.html'; }, 2200);
+
+  // Vérification réseau en arrière-plan (non bloquante)
+  if (typeof handleEmailSubmit === 'function') {
+    handleEmailSubmit(email).catch(function() {});
+  }
+}
+
+function ucaShowModalSuccess() {
+  var m        = document.getElementById('uca-subscribe-modal');
+  var formWrap = document.getElementById('modal-form-wrap');
+  var success  = document.getElementById('modal-success');
+  if (!m) return;
+  if (formWrap) formWrap.style.display = 'none';
+  if (success)  success.style.display  = 'block';
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+</script>
+
+
+<script type="module">
+// ── Calcul dynamique du nombre d'éditions publiées ─────────────────
+// Importe uca-config.js (même fichier que l'Edge Function utilise)
+// et compte les éditions dont la date de publication est passée.
+import { UCA_CONFIG, isPublished } from './uca-config.js';
+
+const today = new Date().toISOString();
+const published = UCA_CONFIG.EDITIONS.filter(e =>
+  e.type === 'nl' && isPublished(e, today)
+).length;
+
+// Mettre à jour tous les compteurs
+['editions-count','editions-count-2','editions-count-3','editions-count-cta','editions-count-cta2'].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = published;
+});
+</script>
+<!-- MODAL INSCRIPTION -->
+<div id="uca-subscribe-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:rgba(10,10,20,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;padding:40px 36px;position:relative;">
+    <button onclick="ucaCloseModal()" aria-label="Fermer" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#6B6B6B;line-height:1;">✕</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:16px;">Newsletter gratuite · Chaque mardi</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;color:#0A0A14;margin-bottom:8px;">5 signaux IA.<br>Chaque mardi matin.</h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.7;margin-bottom:24px;">Ce que les dirigeants utilisent pour décider avant les autres. Gratuit, désabonnement en 1 clic.</p>
+    <!-- Formulaire -->
+    <div id="modal-form-wrap">
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <input type="email" id="modal-email-input" autocomplete="email" required placeholder="votre@email.com" style="flex:1;padding:14px 16px;font-family:'Barlow',sans-serif;font-size:14px;border:1px solid #E0DDD8;border-right:none;outline:none;min-width:0;" />
+        <button onclick="ucaModalSubmit()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 20px;background:#C8102E;color:#fff;border:none;cursor:pointer;white-space:nowrap;">Accès immédiat — gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <input type="checkbox" id="modal-consent" style="margin-top:3px;flex-shrink:0;accent-color:#C8102E;" />
+        <label for="modal-consent" style="font-family:'Barlow',sans-serif;font-size:12px;color:#6B6B6B;line-height:1.5;cursor:pointer;">J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre <a href="politique-confidentialite.html" style="color:#6B6B6B;text-decoration:underline;">politique de confidentialité</a>. Désabonnement en 1 clic.</label>
+      </div>
+      <p style="margin-top:12px;margin-bottom:6px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#B8973A;display:flex;align-items:center;gap:8px;"><span style="width:16px;height:1px;background:#B8973A;display:inline-block;flex-shrink:0;"></span>Pack de bienvenue inclus — 10 signaux LEAP™ livrés immédiatement</p>
+      <div id="modal-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;color:#C8102E;margin-top:6px;"></div>
+    </div>
+    <!-- Succès -->
+    <div id="modal-success" style="display:none;text-align:center;padding:16px 0;">
+      <div style="font-size:32px;margin-bottom:12px;">✓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#0A0A14;margin-bottom:8px;">Bienvenue !</div>
+      <div style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.6;">Votre premier signal arrive mardi. Votre Pack de bienvenue est disponible maintenant.<br><span style="font-size:12px;color:#9B9B9B;font-style:italic;">Un email de confirmation a été envoyé à votre adresse.</span></div>
+      <a href="membre-welcome.html" style="display:inline-block;margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;background:#0A0A14;color:#fff;text-decoration:none;">Accéder à mon espace →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function ucaOpenModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (!m) return;
+  // Si déjà abonné, rediriger vers bienvenue
+  if (localStorage.getItem('uca_has_email') === '1') {
+    window.location.href = 'membre-welcome.html';
+    return;
+  }
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var inp = document.getElementById('modal-email-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+function ucaCloseModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (m) m.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function ucaModalSubmit() {
+  var inp = document.getElementById('modal-email-input');
+  var consent = document.getElementById('modal-consent');
+  var errEl = document.getElementById('modal-error');
+  var email = inp ? inp.value.trim() : '';
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!re.test(email)) {
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    if (inp) inp.style.borderColor = '#C8102E';
+    return;
+  }
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid #C8102E';
+    return;
+  }
+  if (inp) inp.style.borderColor = '';
+  if (consent) consent.style.outline = '';
+  if (errEl) errEl.style.display = 'none';
+
+  // Déverrouillage immédiat
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyDossierAccess === 'function') applyDossierAccess();
+  if (typeof applyNLAccess === 'function') applyNLAccess();
+
+  // Afficher succès
+  var formWrap = document.getElementById('modal-form-wrap');
+  var success = document.getElementById('modal-success');
+  if (formWrap) formWrap.style.display = 'none';
+  if (success) success.style.display = 'block';
+
+  // Appel réseau en arrière-plan
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+
+  // Redirection vers Mon Espace après confirmation visuelle
+  setTimeout(function() { window.location.href = 'membre-welcome.html'; }, 1800);
+}
+// Fermer en cliquant hors de la modal
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('uca-subscribe-modal');
+  if (modal && e.target === modal) ucaCloseModal();
+});
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') ucaCloseModal();
+});
+</script>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session (localStorage) pour mémoriser votre accès à la newsletter. Aucun cookie tiers. <a href="politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  // Clear any stored access data if refused
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('

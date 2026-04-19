@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="color-scheme" content="light">
+<style>:root { color-scheme: light; }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales & CGV — Un Cran d'Avance</title>
+<meta name="description" content="Mentions légales, conditions générales de vente et informations légales d'Un Cran d'Avance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:   #0A0A14;
+  --white: #FFFFFF;
+  --paper: #F7F5F0;
+  --muted: #6B6B6B;
+  --light: #F4F4F0;
+  --rule:  #E0DDD8;
+  --red:   #C8102E;
+  --gold:  #B8973A;
+  --gap:   clamp(40px, 6vw, 80px);
+}
+body {
+  font-family: 'Lora', serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px clamp(24px,5vw,80px);
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; color: var(--ink);
+}
+
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; color: var(--muted); transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+.ml-hero {
+  padding: clamp(48px,7vw,96px) clamp(24px,5vw,80px) clamp(32px,4vw,56px);
+  border-bottom: 1px solid var(--rule);
+  max-width: 860px;
+  margin: 0 auto;
+}
+.ml-kicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.ml-kicker::before { content: ''; width: 24px; height: 1px; background: var(--red); }
+.ml-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px,5vw,56px); font-weight: 900; line-height: 1.1;
+  margin-bottom: 16px;
+}
+.ml-date {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted);
+}
+.ml-content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--gap) clamp(24px,5vw,80px);
+}
+.ml-section {
+  margin-bottom: clamp(32px,5vw,56px);
+  padding-bottom: clamp(32px,5vw,56px);
+  border-bottom: 1px solid var(--rule);
+}
+.ml-section:last-child { border-bottom: none; }
+.ml-section-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 8px;
+}
+.ml-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px,2.5vw,28px); font-weight: 700;
+  margin-bottom: 16px; color: var(--ink);
+}
+.ml-text {
+  text-align: justify;
+  font-size: clamp(14px,1.2vw,16px); line-height: 1.85; color: var(--ink);
+}
+.ml-text p { margin-bottom: 14px; text-align: justify; }
+.ml-text ul { margin: 14px 0 14px 20px; }
+.ml-text li { margin-bottom: 8px; line-height: 1.7; text-align: justify; }
+.ml-text strong { font-weight: 600; }
+.ml-text a { color: var(--red); text-decoration: none; }
+.ml-text a:hover { text-decoration: underline; }
+.ml-bloc {
+  background: var(--light); border-left: 3px solid var(--gold);
+  padding: 20px 24px; margin: 20px 0;
+}
+.ml-bloc-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+.ml-highlight {
+  background: rgba(200,16,46,0.05);
+  border: 1px solid rgba(200,16,46,0.15);
+  padding: 16px 20px; margin: 16px 0;
+  font-size: 14px; line-height: 1.7;
+}
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 24px clamp(24px,5vw,80px);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.f-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted);
+}
+.f-copy { font-family: 'Barlow', sans-serif; font-size: 11px; color: var(--muted); }
+.f-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.f-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.2s;
+}
+.f-links a:hover { color: var(--ink); }
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  footer { flex-direction: column; gap: 8px; }
+}
+</style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="Mentions legales — Un Cran d’Avance">
+  <meta property="og:description" content="Informations legales, editeur, hebergeur et conditions d’utilisation.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/mentions-legales.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mentions legales — Un Cran d’Avance">
+  <meta name="twitter:description" content="Informations legales, editeur, hebergeur et conditions d’utilisation.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/mentions-legales.html">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">✦ Un Cran d'Avance</a>
+  <div class="nav-links">
+    <a href="page-newsletter.html">Newsletter</a>
+    <a href="page-vente.html">Premium</a>
+    <a href="page-apropos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </div>
+</nav>
+
+<div class="ml-hero">
+  <div class="ml-kicker">Documents légaux</div>
+  <h1 class="ml-title">Mentions légales &amp; CGV</h1>
+  <p class="ml-date">Dernière mise à jour : 25 mars 2026</p>
+</div>
+
+<main class="ml-content">
+
+  <!-- MENTIONS LÉGALES -->
+  <div class="ml-section">
+    <div class="ml-section-num">Mentions légales</div>
+    <h2 class="ml-section-title">Éditeur du site</h2>
+    <div class="ml-text">
+      <div class="ml-bloc">
+        <div class="ml-bloc-label">Responsable de publication</div>
+        <strong>Aziz El Kihel</strong><br>
+        Publication : <strong>Un Cran d'Avance</strong><br>
+        Site web : <a href="https://uncrandavance.com">uncrandavance.com</a><br>
+        Email : <a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a><br>
+        LinkedIn : <a href="https://linkedin.com/in/aziz-el-kihel" target="_blank">linkedin.com/in/aziz-el-kihel</a>
+      </div>
+
+      <div class="ml-bloc">
+        <div class="ml-bloc-label">Hébergeur</div>
+        <strong>Netlify, Inc.</strong><br>
+        44 Montgomery Street, Suite 300<br>
+        San Francisco, CA 94104 — États-Unis<br>
+        <a href="https://www.netlify.com" target="_blank">www.netlify.com</a>
+      </div>
+
+      <p>Ce site est une publication personnelle à vocation professionnelle. Il ne constitue pas une société commerciale immatriculée. Les transactions de paiement sont traitées par Stripe.</p>
+    </div>
+  </div>
+
+  <!-- PROPRIÉTÉ INTELLECTUELLE -->
+  <div class="ml-section">
+    <div class="ml-section-num">Article 1</div>
+    <h2 class="ml-section-title">Propriété intellectuelle</h2>
+    <div class="ml-text">
+      <p>L'ensemble des contenus publiés sur <strong>uncrandavance.com</strong> — textes, analyses, cadres LEAP™ et DRIVEN™, newsletters, dossiers — sont la propriété exclusive d'Aziz El Kihel.</p>
+      <p>Toute reproduction, représentation, modification, publication ou adaptation de tout ou partie de ces éléments, quel que soit le moyen ou le procédé utilisé, est interdite sans autorisation écrite préalable.</p>
+      <p>Les marques <strong>LEAP™</strong> et <strong>DRIVEN™</strong> sont des créations intellectuelles propriétaires d'Aziz El Kihel. Leur utilisation sans autorisation constitue une contrefaçon.</p>
+      <p>Les citations courtes à des fins d'information ou de critique sont autorisées sous réserve de mentionner clairement la source et l'auteur.</p>
+    </div>
+  </div>
+
+  <!-- CONDITIONS GÉNÉRALES D'ABONNEMENT GRATUIT -->
+  <div class="ml-section">
+    <div class="ml-section-num">Article 2</div>
+    <h2 class="ml-section-title">Abonnement gratuit — Conditions</h2>
+    <div class="ml-text">
+      <p>L'abonnement à la newsletter gratuite <strong>Un Cran d'Avance</strong> est soumis aux conditions suivantes :</p>
+      <ul>
+        <li>L'abonnement est gratuit et sans engagement de durée</li>
+        <li>Il est conditionné à la fourniture d'une adresse email valide et au consentement explicite à recevoir la newsletter</li>
+        <li>La newsletter est envoyée chaque mardi, sous réserve de disponibilité éditoriale</li>
+        <li>L'éditeur se réserve le droit de modifier la fréquence ou le format sans préavis</li>
+        <li>Le désabonnement est possible à tout moment via le lien présent dans chaque email</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CGV PREMIUM -->
+  <div class="ml-section">
+    <div class="ml-section-num">Article 3</div>
+    <h2 class="ml-section-title">Conditions Générales de Vente — Abonnement Premium</h2>
+    <div class="ml-text">
+
+      <p><strong>3.1 Objet</strong></p>
+      <p>Les présentes CGV régissent la vente de l'abonnement Premium à <em>Un Cran d'Avance</em>, donnant accès aux dossiers mensuels stratégiques et aux archives complètes.</p>
+
+      <p><strong>3.2 Prix et facturation</strong></p>
+      <p>Le prix de l'abonnement Premium est de <strong>199€ TTC par an</strong> (offre de lancement, valable jusqu'au 31 mai 2026 pour les 100 premiers membres). Le paiement est effectué en une seule fois lors de la souscription, via la plateforme sécurisée Stripe.</p>
+
+      <p><strong>3.3 Accès au service</strong></p>
+      <p>L'accès aux contenus Premium est activé <strong>immédiatement</strong> après confirmation du paiement. Il couvre :</p>
+      <ul>
+        <li>L'ensemble des dossiers Premium publiés (archives incluses)</li>
+        <li>Les dossiers mensuels à paraître pendant la durée de l'abonnement</li>
+        <li>L'accès illimité aux newsletters hebdomadaires</li>
+      </ul>
+
+      <p><strong>3.4 Durée et renouvellement</strong></p>
+      <p>L'abonnement est conclu pour une durée d'<strong>un an</strong> à compter de la date de paiement. À l'issue de cette période, il n'est pas renouvelé automatiquement. Un email de rappel sera envoyé avant expiration.</p>
+
+      <p><strong>3.5 Résiliation et remboursement</strong></p>
+      <div class="ml-highlight">
+        <strong>Politique de résiliation :</strong> En cas de résiliation avant le terme de l'abonnement annuel, l'accès aux contenus Premium reste actif jusqu'à la date d'expiration initiale. <strong>Aucun remboursement partiel au prorata n'est accordé</strong>, dans la mesure où l'intégralité des contenus disponibles est accessible dès la souscription.
+      </div>
+      <p><strong>Exception — droit de rétractation :</strong> Conformément à l'article L221-18 du Code de la consommation (applicable aux résidents de l'Union Européenne), vous disposez d'un <strong>délai de 14 jours</strong> à compter de la souscription pour exercer votre droit de rétractation, <em>sauf si vous avez expressément demandé à accéder aux contenus avant l'expiration de ce délai</em>. En cochant la case de consentement lors de la souscription, vous reconnaissez avoir demandé l'exécution immédiate du contrat et renoncez à votre droit de rétractation dès l'accès aux contenus.</p>
+
+      <p><strong>3.6 Responsabilité éditoriale</strong></p>
+      <p>Les contenus publiés dans <em>Un Cran d'Avance</em> sont fournis à titre informatif et pédagogique. Ils ne constituent pas des conseils juridiques, financiers ou stratégiques. L'éditeur ne saurait être tenu responsable des décisions prises sur la base de ces contenus.</p>
+
+      <p><strong>3.7 Droit applicable</strong></p>
+      <p>Les présentes CGV sont régies par le droit français. En cas de litige, les parties s'efforceront de trouver une solution amiable avant tout recours judiciaire. À défaut, les tribunaux compétents seront ceux du lieu du domicile de l'éditeur.</p>
+    </div>
+  </div>
+
+  <!-- LIENS EXTERNES -->
+  <div class="ml-section">
+    <div class="ml-section-num">Article 4</div>
+    <h2 class="ml-section-title">Liens hypertextes et responsabilité</h2>
+    <div class="ml-text">
+      <p>Le site peut contenir des liens vers des sites tiers. Ces liens sont fournis à titre informatif uniquement. L'éditeur ne contrôle pas ces sites et décline toute responsabilité quant à leur contenu, leur fonctionnement ou leur politique de confidentialité.</p>
+      <p>L'éditeur ne peut être tenu responsable des dommages directs ou indirects résultant de l'accès au site ou de l'utilisation de son contenu.</p>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="ml-section">
+    <div class="ml-section-num">Contact</div>
+    <h2 class="ml-section-title">Nous contacter</h2>
+    <div class="ml-text">
+      <p>Pour toute question relative aux présentes mentions légales, aux CGV ou à votre abonnement :</p>
+      <div class="ml-bloc">
+        <div class="ml-bloc-label">Contact</div>
+        Email : <a href="mailto:aziz@uncrandavance.com" style="color:inherit;">aziz@uncrandavance.com</a><br>
+        Réponse sous <strong>48 heures ouvrées</strong>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+
+<footer>
+  <div class="f-brand">✦ Un Cran d'Avance</div>
+  <div class="f-copy">© 2026 · L'essentiel de l'IA pour décider mieux, chaque semaine.</div>
+  <div class="f-links">
+    <a href="page-newsletter.html">Newsletter</a>
+    <a href="page-vente.html">Premium</a>
+    <a href="page-apropos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </div>
+</footer>
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session (localStorage) pour mémoriser votre accès à la newsletter. Aucun cookie tiers. <a href="politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  // Clear any stored access data if refused
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeIt

@@ -1,0 +1,93 @@
+# ══════════════════════════════════════════════════════════════════
+# UCA — Configuration Netlify complète
+# ══════════════════════════════════════════════════════════════════
+
+[build]
+  publish = "."
+
+# ── Désactiver l'obfuscation email Netlify ────────────────────────
+# (évite que Netlify réécrive les adresses email dans le HTML)
+[build.processing.html]
+  email_obfuscation = false
+
+# ── Variables d'environnement requises ────────────────────────────
+# Netlify Dashboard → Site Settings → Environment Variables :
+#
+#   BEEHIIV_API_KEY        → nouvelle clé Beehiiv (après révocation de l'ancienne)
+#   BEEHIIV_PUB_ID         → pub_b115a58f
+#   UCA_COOKIE_SECRET      → openssl rand -hex 32
+#   STRIPE_WEBHOOK_SECRET  → Stripe Dashboard → Webhooks → Signing secret
+#   AIRTABLE_TOKEN         → nouveau jeton Airtable (après révocation de l'ancien)
+#   AIRTABLE_BASE_ID       → app1bcu3yGKcJMuoG
+#   AIRTABLE_TABLE_ID      → tbl4xZGH2zpSYCie8
+#   UCA_FORM_KEY           → openssl rand -hex 16 (partagé avec le formulaire)
+
+# ── Edge Function : contrôle date + accès sur tout le contenu ─────
+[[edge_functions]]
+  path     = "/nl-*.html"
+  function = "content-gate"
+
+[[edge_functions]]
+  path     = "/dossier-*.html"
+  function = "content-gate"
+
+[[edge_functions]]
+  path     = "/membre-welcome.html"
+  function = "content-gate"
+
+[[edge_functions]]
+  path     = "/membre-ambassadeur.html"
+  function = "content-gate"
+
+# ── Headers de sécurité globaux ───────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options            = "DENY"
+    X-Content-Type-Options     = "nosniff"
+    Referrer-Policy            = "strict-origin-when-cross-origin"
+    X-XSS-Protection           = "1; mode=block"
+    Permissions-Policy         = "camera=(), microphone=(), geolocation=()"
+
+# Pas de cache sur les pages protégées (toujours vérifier côté serveur)
+[[headers]]
+  for = "/nl-*.html"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate"
+
+[[headers]]
+  for = "/dossier-*.html"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate"
+
+[[headers]]
+  for = "/membre-*.html"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate"
+
+# Cache agressif sur les assets statiques (images, CSS)
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# ── Redirections ──────────────────────────────────────────────────
+# Racine → page newsletter (trafic direct et LinkedIn)
+[[redirects]]
+  from   = "/"
+  to     = "/page-newsletter.html"
+  status = 302
+
+# Empêcher l'accès direct aux anciens patterns d'URL bypass
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+  # Ne PAS activer ce redirect — il casserait les fichiers statiques.
+  # Décommenté ici pour documentation uniquement.
+  # force = false

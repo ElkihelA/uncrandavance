@@ -1,0 +1,27 @@
+# Netlify build artifacts (regenerated on each deploy)
+.netlify/
+
+# Environment variables (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log

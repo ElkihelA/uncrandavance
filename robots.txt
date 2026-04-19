@@ -1,0 +1,25 @@
+User-agent: *
+
+# Pages publiques — autorisées
+Allow: /
+Allow: /index.html
+Allow: /page-newsletter.html
+Allow: /page-vente.html
+Allow: /page-diagnostic.html
+Allow: /page-apropos.html
+Allow: /nl-*.html
+
+# Contenu premium — bloqué
+Disallow: /dossier-*.html
+
+# Pages techniques — bloquées
+Disallow: /gate.html
+Disallow: /membre-welcome.html
+Disallow: /membre-ambassadeur.html
+Disallow: /UCA_Formulaire_Redaction_v2.html
+
+# Fonctions Netlify — bloquées
+Disallow: /.netlify/
+
+# Sitemap
+Sitemap: https://uncrandavance.com/sitemap.xml

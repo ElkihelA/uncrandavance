@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta name="color-scheme" content="light">
+<style>:root { color-scheme: light; }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newsletter — Un Cran d'Avance</title>
+<meta name="description" content="Une lecture stratégique de l'IA chaque semaine. 5 signaux essentiels analysés et traduits en décisions concrètes pour les dirigeants des grandes organisations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:   #0A0A14;
+  --white: #FFFFFF;
+  --paper: #F7F5F0;
+  --muted: #6B6B6B;
+  --light: #F4F4F0;
+  --rule:  #E0DDD8;
+  --red:   #C8102E;
+  --gold:  #B8973A;
+  --gap:   clamp(48px, 7vw, 96px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; font-family: 'Barlow', sans-serif; background: var(--white); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+/* ══ NAV ══ */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 clamp(20px, 5vw, 80px);
+  display: flex; align-items: center; justify-content: space-between; height: 60px;
+}
+.nav-brand {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--ink); text-decoration: none; flex-shrink: 0;
+}
+.nav-brand span { color: var(--red); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; padding: 8px 20px;
+  background: var(--ink); color: var(--white); text-decoration: none;
+  transition: background 0.2s; white-space: nowrap;
+}
+.nav-cta:hover { background: var(--red); }
+.nav-hamburger {
+  display: none; flex-direction: column; justify-content: center;
+  gap: 5px; width: 36px; height: 36px;
+  cursor: pointer; padding: 4px; background: none; border: none; z-index: 200;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px; background: var(--ink);
+  transition: all 0.3s ease; transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile-overlay {
+  display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.98); z-index: 150;
+  flex-direction: column; padding: 32px clamp(24px,5vw,80px);
+  backdrop-filter: blur(8px); overflow-y: auto;
+}
+.nav-mobile-overlay.open { display: flex; }
+.nav-mobile-overlay a {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--ink);
+  text-decoration: none; padding: 16px 0; border-bottom: 1px solid var(--rule); transition: color 0.2s;
+}
+.nav-mobile-overlay a:hover, .nav-mobile-overlay a.active { color: var(--red); }
+.nav-mobile-overlay .mob-cta {
+  margin-top: 24px; background: var(--ink); color: #fff !important;
+  text-align: center; padding: 14px 24px !important; border-bottom: none !important;
+}
+.nav-mobile-overlay .mob-cta:hover { background: var(--red); }
+@media (max-width: 900px) {
+  .nav-hamburger { display: flex; }
+  .nav-links { display: none !important; }
+  .nav-cta { display: none; }
+}
+
+/* ══ BOUTONS ══ */
+.btn-primary {
+  display: inline-block; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 15px 36px; background: var(--red); color: var(--white);
+  text-decoration: none; transition: background 0.2s; border: none; cursor: pointer;
+}
+.btn-primary:hover { background: #a50d24; }
+
+/* ══ SECTION LABEL ══ */
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 12px; margin-bottom: 40px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+/* ══ HERO ══ */
+.hero {
+  padding: clamp(56px, 8vw, 104px) clamp(24px, 5vw, 80px);
+  border-bottom: 1px solid var(--rule);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px); align-items: center;
+}
+.hero-kicker {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-kicker::before { content: ''; width: 24px; height: 1px; background: var(--red); }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4.5vw, 60px); font-weight: 900; line-height: 1.06; margin-bottom: 20px;
+}
+.hero-title em { font-style: italic; color: var(--red); }
+.hero-deck {
+  font-family: 'Lora', serif; font-size: clamp(15px, 1.3vw, 18px);
+  color: var(--muted); line-height: 1.8;
+}
+.hero-right {
+  background: var(--light); padding: clamp(28px, 3.5vw, 44px);
+  border: 1px solid var(--rule);
+}
+.hr-label {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+}
+.hr-title {
+  font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700;
+  line-height: 1.3; margin-bottom: 20px;
+}
+.hr-form { display: flex; gap: 0; }
+.hr-input {
+  flex: 1; padding: 13px 16px; border: 1px solid var(--rule); border-right: none;
+  font-size: 14px; font-family: 'Barlow', sans-serif; outline: none;
+  background: var(--white); min-width: 0;
+}
+.hr-btn {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; padding: 13px 18px;
+  background: var(--red); color: var(--white); border: none; cursor: pointer;
+  flex-shrink: 0; white-space: nowrap; transition: background 0.2s;
+}
+.hr-btn:hover { background: #a50d24; }
+.hr-note { font-size: 11px; color: var(--muted); margin-top: 10px; font-style: italic; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; }
+  .hr-form { flex-direction: column; gap: 8px; }
+  .hr-input { border-right: 1px solid var(--rule); }
+  .hr-btn { width: 100%; }
+}
+
+/* ══ DIFFÉRENCE ══ */
+.diff-section {
+  padding: var(--gap) clamp(24px, 5vw, 80px);
+  background: var(--ink); border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.diff-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px); align-items: center;
+}
+.diff-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; line-height: 1.2;
+  color: var(--white);
+}
+.diff-title em { font-style: italic; color: var(--gold); }
+.diff-right { display: flex; flex-direction: column; gap: 16px; }
+.diff-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 18px 20px; border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+}
+.diff-icon {
+  font-size: 18px; flex-shrink: 0; line-height: 1; margin-top: 2px;
+}
+.diff-item-title {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;
+}
+.diff-item-text {
+  font-family: 'Lora', serif; font-size: 14px;
+  color: rgba(255,255,255,0.55); line-height: 1.6;
+}
+@media (max-width: 760px) { .diff-inner { grid-template-columns: 1fr; gap: 32px; } }
+
+/* ══ EXEMPLE ══ */
+.exemple-section {
+  padding: var(--gap) clamp(24px, 5vw, 80px);
+  border-bottom: 1px solid var(--rule);
+}
+.exemple-inner {
+  display: grid; grid-template-columns: 1fr 2fr;
+  gap: clamp(40px, 6vw, 96px); align-items: start;
+}
+.exemple-label-col {}
+.exemple-intro {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2.5vw, 32px); font-weight: 700; line-height: 1.2;
+}
+.exemple-intro em { font-style: italic; color: var(--red); }
+.exemple-card {
+  border: 1px solid var(--rule); padding: clamp(24px, 3vw, 40px);
+}
+.exemple-card-kicker {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 14px;
+}
+.exemple-question {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2vw, 24px); font-weight: 700; line-height: 1.3;
+  margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--rule);
+}
+.exemple-question em { font-style: italic; color: var(--red); }
+.exemple-steps { display: flex; flex-direction: column; gap: 12px; }
+.exemple-step {
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.step-arrow {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+  color: var(--gold); flex-shrink: 0; margin-top: 2px; letter-spacing: 1px;
+}
+.step-text {
+  font-family: 'Lora', serif; font-size: 14px; color: var(--muted); line-height: 1.6;
+}
+.step-text strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 760px) { .exemple-inner { grid-template-columns: 1fr; gap: 28px; } }
+
+/* ══ CTA ABONNEMENT ══ */
+.cta-section {
+  padding: var(--gap) clamp(24px, 5vw, 80px);
+  background: var(--paper); border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+.cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 44px); font-weight: 900; line-height: 1.1; margin-bottom: 16px;
+}
+.cta-title em { font-style: italic; color: var(--red); }
+.cta-deck {
+  font-family: 'Lora', serif; font-size: 16px; color: var(--muted);
+  line-height: 1.8; max-width: 480px; margin: 0 auto 36px;
+}
+.cta-reassurance {
+  margin-top: 14px; font-size: 12px; color: var(--muted); font-style: italic;
+}
+
+/* ══ ARCHIVES ══ */
+.archives-area {
+  padding: var(--gap) clamp(24px, 5vw, 80px);
+}
+
+/* Édition featured */
+.edition-featured {
+  display: grid; grid-template-columns: 2fr 1fr;
+  border: 1px solid var(--rule); margin-bottom: 56px;
+}
+.ef-content { padding: clamp(24px, 3vw, 40px); border-right: 1px solid var(--rule); }
+.ef-meta {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--red);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.ef-badge { padding: 2px 8px; background: var(--red); color: var(--white); font-size: 9px; }
+.ef-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 2.2vw, 28px); font-weight: 700; line-height: 1.2; margin-bottom: 14px;
+}
+.ef-title em { font-style: italic; color: var(--red); }
+.ef-ouverture {
+  font-family: 'Lora', serif; font-size: 15px; color: var(--muted);
+  line-height: 1.75; margin-bottom: 20px; font-style: italic;
+  padding-left: 16px; border-left: 2px solid var(--rule);
+}
+.ef-signals { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.ef-signal { display: flex; gap: 10px; align-items: baseline; }
+.ef-sig-num {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; color: var(--red); flex-shrink: 0;
+}
+.ef-sig-title { font-size: 13px; color: var(--ink); line-height: 1.4; }
+.ef-sidebar { padding: clamp(24px, 3vw, 40px); background: var(--light); }
+.ef-sb-label {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+}
+.ef-leap-tag {
+  display: inline-flex; gap: 6px; align-items: center; padding: 4px 10px;
+  border: 1px solid var(--rule); background: var(--white);
+  font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+}
+.ef-leap-letter { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 900; color: var(--red); }
+.ef-divider { height: 1px; background: var(--rule); margin: 20px 0; }
+.ef-question { padding: 16px; background: var(--white); border-left: 3px solid var(--gold); }
+.ef-q-label {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+}
+.ef-q-text { font-family: 'Playfair Display', serif; font-size: 14px; font-style: italic; color: var(--ink); line-height: 1.5; }
+
+@media (max-width: 760px) {
+  .edition-featured { grid-template-columns: 1fr; }
+  .ef-content { border-right: none; border-bottom: 1px solid var(--rule); }
+  .ef-sidebar { display: none; }
+}
+
+/* ══ FORMAT ══ */
+.format-section {
+  background: var(--light); padding: clamp(28px, 3.5vw, 44px);
+  margin-bottom: 56px; border: 1px solid var(--rule);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.fi-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 900; color: #B0ACA6; line-height: 1; margin-bottom: 8px; }
+.fi-title { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ink); margin-bottom: 8px; }
+.fi-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+@media (max-width: 760px) { .format-section { grid-template-columns: 1fr; } }
+@media (min-width: 761px) and (max-width: 900px) { .format-section { grid-template-columns: 1fr 1fr; } }
+
+/* ══ ARCHIVES GRID ══ */
+.archives-grid {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--rule); margin-bottom: 56px;
+}
+.archive-row {
+  display: grid; grid-template-columns: 64px 1fr auto;
+  border-bottom: 1px solid var(--rule); align-items: stretch; transition: background 0.15s;
+}
+.archive-row:last-child { border-bottom: none; }
+.archive-row:hover { background: var(--light); }
+.ar-num {
+  padding: 18px 12px; border-right: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: center;
+}
+.ar-num-text { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: #B0ACA6; }
+.ar-content { padding: 18px 22px; }
+.ar-meta {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px;
+}
+.ar-title { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.35; margin-bottom: 4px; }
+.ar-title em { font-style: italic; color: var(--red); }
+.ar-deck { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.ar-action {
+  padding: 18px 20px; display: flex; align-items: center;
+  border-left: 1px solid var(--rule); flex-shrink: 0;
+}
+.ar-link {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--red); text-decoration: none; white-space: nowrap;
+}
+.ar-link:hover { color: #a50d24; }
+
+@media (max-width: 600px) {
+  .archive-row { grid-template-columns: 1fr; }
+  .ar-num { display: none; }
+  .ar-action { border-left: none; border-top: 1px solid var(--rule); padding: 12px 22px; }
+}
+
+/* ══ GATE ARCHIVES ══ */
+.content-email-private { display: none; }
+.gate-archives {
+  margin: 40px 0 32px;
+  border: 1px solid var(--rule); overflow: hidden;
+}
+.gate-archives-top {
+  background: var(--ink); padding: 22px 28px;
+}
+.gat-label {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 8px;
+}
+.gat-title {
+  font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700;
+  font-style: italic; color: var(--white); line-height: 1.4; margin-bottom: 6px;
+}
+.gat-sub {
+  font-family: 'Lora', serif; font-size: 12px;
+  color: rgba(255,255,255,0.5); line-height: 1.55;
+}
+.gate-archives-body { padding: 20px 28px; background: var(--white); }
+.gab-label {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+}
+.gate-form { display: flex; gap: 0; }
+.gate-input {
+  flex: 1; padding: 11px 14px; border: 1px solid var(--rule); border-right: none;
+  font-size: 13px; font-family: 'Barlow', sans-serif; outline: none; min-width: 0;
+}
+.gate-input:focus { border-color: var(--ink); }
+.gate-btn {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; padding: 11px 18px;
+  background: var(--red); color: var(--white); border: none; cursor: pointer;
+  flex-shrink: 0; white-space: nowrap;
+}
+.gate-btn:hover { background: #a50d24; }
+.gate-error { font-size: 11px; color: var(--red); margin-top: 6px; display: none; }
+.gate-note { font-size: 10px; color: var(--muted); margin-top: 8px; font-style: italic; }
+@media (max-width: 600px) {
+  .gate-form { flex-direction: column; gap: 8px; }
+  .gate-input { border-right: 1px solid var(--rule); }
+  .gate-btn { width: 100%; }
+}
+
+/* ══ FOOTER ══ */
+footer { padding: 28px clamp(24px, 5vw, 80px); border-top: 3px double var(--rule); }
+.f-brand {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--ink); margin-bottom: 10px;
+}
+.f-copy { font-size: 11px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+.f-links { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.f-links a { font-size: 11px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.f-links a:hover { color: var(--red); }
+
+/* ══ BIBLIOTHÈQUE ══ */
+.library-section { padding: var(--gap, 72px) clamp(24px,5vw,80px); background: var(--paper); }
+.lib-header { max-width: 960px; margin: 0 auto 40px; }
+.lib-title { font-family: 'Playfair Display', serif; font-size: clamp(28px,3.5vw,44px); font-weight: 900; color: var(--ink); margin-bottom: 10px; }
+.lib-sub { font-family: 'Lora', serif; font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+.lib-search-wrap { position: relative; max-width: 560px; margin-bottom: 20px; }
+.lib-search { width: 100%; padding: 13px 18px; border: 2px solid var(--rule); border-radius: 0; font-size: 14px; font-family: 'Barlow', sans-serif; color: var(--ink); background: #fff; outline: none; transition: border-color 0.2s; }
+.lib-search:focus { border-color: var(--ink); }
+.lib-tabs { display: flex; gap: 0; }
+.lib-tab { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 8px 20px; background: none; border: 1px solid var(--rule); cursor: pointer; color: var(--muted); transition: all 0.2s; }
+.lib-tab:not(:first-child) { border-left: none; }
+.lib-tab.active, .lib-tab:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+/* GATE */
+.lib-gate { max-width: 560px; margin: 0 auto 48px; border: 1px solid var(--rule); overflow: hidden; }
+.lg-inner { padding: 28px 32px; background: var(--ink); text-align: center; }
+.lg-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.lg-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 8px; }
+.lg-title em { font-style: italic; color: var(--gold); }
+.lg-sub { font-family: 'Lora', serif; font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 18px; }
+.lg-form { display: flex; gap: 0; max-width: 400px; margin: 0 auto 8px; }
+.lg-form input { flex: 1; padding: 11px 14px; border: 1px solid rgba(255,255,255,0.2); border-right: none; font-size: 13px; font-family: 'Barlow', sans-serif; background: rgba(255,255,255,0.07); color: #fff; outline: none; min-width: 0; }
+.lg-form input::placeholder { color: rgba(255,255,255,0.3); }
+.lg-form input:focus { border-color: var(--gold); }
+.lg-form button { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 11px 16px; background: var(--gold); color: var(--ink); border: none; cursor: pointer; white-space: nowrap; }
+.lg-note { font-size: 10px; color: rgba(255,255,255,0.25); font-style: italic; margin: 0; }
+/* GRILLE */
+.lib-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+.lib-card { background: #fff; border: 1px solid var(--rule); transition: box-shadow 0.2s, transform 0.2s; }
+.lib-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.10); transform: translateY(-2px); }
+.lib-card.hidden { display: none !important; }
+.lc-link { text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%; }
+.lc-thumb { position: relative; height: 130px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.lc-thumb-inner { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.lc-big-letter { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 900; color: rgba(255,255,255,0.15); line-height: 1; }
+.lc-thumb-label { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+.lc-edition { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: rgba(255,255,255,0.2); line-height: 1; }
+.lc-thumb-date { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 4px; }
+.lc-badge { position: absolute; top: 10px; right: 10px; font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 8px; }
+.lc-badge.premium { background: var(--gold); color: var(--ink); }
+.lc-badge.free { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); }
+.lc-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.lc-meta { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.lc-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.4; }
+.lc-desc { font-family: 'Lora', serif; font-size: 12px; color: var(--muted); line-height: 1.6; display: none; }
+.lib-card:hover .lc-desc { display: block; }
+.lc-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+.lc-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; border: 1px solid var(--rule); color: var(--muted); }
+.dossier-card .lc-thumb { height: 150px; }
+.dossier-card .lc-title { font-size: 15px; }
+@media (max-width: 900px) { .lib-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .lib-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 400px) { .lib-grid { grid-template-columns: 1fr; } }
+
+/* ══ HIÉRARCHIE BIBLIOTHÈQUE ══ */
+.lib-section-label { max-width:1100px; margin:0 auto 20px; display:flex; align-items:baseline; gap:16px; padding-top:8px; border-top:1px solid var(--rule); }
+.lib-section-label span:first-child { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--ink); }
+.lsl-sub { font-family:'Lora',serif; font-size:12px; color:var(--muted); font-style:italic; }
+.lib-dossiers-row { max-width:1100px; margin:0 auto 0; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+@media(max-width:900px){ .lib-dossiers-row { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:500px){ .lib-dossiers-row { grid-template-columns:1fr; } }
+
+/* ══ ANIMATIONS ILLUSTRATIONS ══ */
+@keyframes svgPulse { 0%,100%{opacity:0.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.08)} }
+@keyframes svgSpin  { from{transform-origin:50% 50%;transform:rotate(0deg)} to{transform-origin:50% 50%;transform:rotate(360deg)} }
+@keyframes svgFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes svgDash  { to{stroke-dashoffset:0} }
+@keyframes svgGlow  { 0%,100%{filter:drop-shadow(0 0 4px currentColor)} 50%{filter:drop-shadow(0 0 14px currentColor)} }
+@keyframes svgFlicker { 0%,100%{opacity:1} 30%{opacity:0.4} 60%{opacity:0.85} 80%{opacity:0.5} }
+@keyframes svgShimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(400%)} }
+@keyframes svgBreathe { 0%,100%{transform:scale(1);opacity:0.8} 50%{transform:scale(1.12);opacity:1} }
+@keyframes svgWave { 0%,100%{d:path("M0,80 Q75,35 150,80 Q225,125 300,80")} 50%{d:path("M0,80 Q75,25 150,80 Q225,135 300,80")} }
+@keyframes svgRise { from{transform:translateY(8px);opacity:0.3} to{transform:translateY(0);opacity:1} }
+
+.lib-card { transition:transform 0.25s ease, box-shadow 0.25s ease; }
+.lib-card:hover { transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,0.25); }
+.dossier-card:hover { transform:translateY(-5px); box-shadow:0 16px 50px rgba(0,0,0,0.3); }
+
+.lib-card:hover .h-pulse    { animation:svgPulse 1.4s ease-in-out infinite; }
+.lib-card:hover .h-spin     { animation:svgSpin 4s linear infinite; }
+.lib-card:hover .h-float    { animation:svgFloat 2s ease-in-out infinite; }
+.lib-card:hover .h-glow     { animation:svgGlow 1.5s ease-in-out infinite; }
+.lib-card:hover .h-flicker  { animation:svgFlicker 0.8s steps(1) infinite; }
+.lib-card:hover .h-breathe  { animation:svgBreathe 2s ease-in-out infinite; }
+.lib-card:hover .h-rise     { animation:svgRise 0.4s ease forwards; }
+.lib-card:hover .h-dash     { stroke-dashoffset:0 !important; transition:stroke-dashoffset 1.2s ease; }
+.lib-card:hover .h-shimmer  { animation:svgShimmer 1.5s ease forwards; }
+.lib-card:hover .h-reveal   { opacity:1 !important; transition:opacity 0.5s ease; }
+
+.lib-card .lc-thumb { transition:transform 0.3s ease; }
+.lib-card:hover .lc-thumb { transform:scale(1.03); }
+
+
+/* ══ BADGE FREE — plus visible ══ */
+.lc-badge.free {
+  background: rgba(0,230,118,0.22) !important;
+  color: #00E676 !important;
+  border: 1px solid rgba(0,230,118,0.45) !important;
+  font-weight: 800 !important;
+}
+
+/* ══ ACTIONS — cœur + marque-page ══ */
+.lc-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px 10px;
+  border-top: 1px solid var(--rule);
+  margin-top: auto;
+}
+.lc-like, .lc-bookmark {
+  display: flex; align-items: center; gap: 5px;
+  cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  color: var(--muted);
+  background: none; border: none; padding: 4px 6px;
+  border-radius: 3px;
+  transition: color 0.2s, background 0.15s;
+  user-select: none;
+}
+.lc-like:hover   { color: #E91E8C; background: rgba(233,30,140,0.08); }
+.lc-bookmark:hover { color: var(--ink); background: rgba(0,0,0,0.06); }
+.lc-like.liked   { color: #E91E8C; }
+.lc-bookmark.saved { color: var(--ink); }
+.lc-like-icon, .lc-bk-icon { font-size: 14px; line-height: 1; }
+.lc-like-count { font-size: 11px; font-weight: 700; }
+.lc-like-count:empty { display: none; }
+
+/* ══ PANNEAU LISTE DE LECTURE ══ */
+#reading-list-panel {
+  position: fixed; top: 0; right: -340px; width: 320px; height: 100vh;
+  background: var(--paper); border-left: 3px double var(--rule);
+  z-index: 500; transition: right 0.3s ease;
+  display: flex; flex-direction: column;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+  padding-bottom: 24px;
+}
+#reading-list-panel.open { right: 0; }
+.rlp-header {
+  padding: 20px 20px 14px;
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.rlp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 700; color: var(--ink);
+}
+.rlp-close {
+  font-size: 18px; cursor: pointer; color: var(--muted);
+  background: none; border: none; padding: 4px 8px; line-height: 1;
+}
+.rlp-close:hover { color: var(--ink); }
+.rlp-empty {
+  padding: 32px 20px; text-align: center;
+  font-family: 'Lora', serif; font-size: 14px; color: var(--muted);
+  font-style: italic;
+}
+.rlp-list { flex: 1; overflow-y: auto; padding: 12px 0; }
+.rlp-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 20px; border-bottom: 1px solid var(--rule);
+  text-decoration: none; color: inherit;
+  transition: background 0.15s;
+}
+.rlp-item:hover { background: var(--light); }
+.rlp-item-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 5px;
+}
+.rlp-item-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.4;
+  flex: 1;
+}
+.rlp-item-meta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted); margin-top: 3px;
+}
+.rlp-item-remove {
+  font-size: 12px; color: var(--muted); cursor: pointer;
+  flex-shrink: 0; padding: 2px 4px; background: none; border: none;
+  line-height: 1;
+}
+.rlp-item-remove:hover { color: var(--red); }
+.rlp-count-badge {
+  display: none; position: absolute; top: -5px; right: -5px;
+  background: var(--red); color: white;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 900;
+  width: 16px; height: 16px; border-radius: 50%;
+  align-items: center; justify-content: center;
+  line-height: 1;
+}
+.rlp-count-badge.visible { display: flex; }
+
+/* ══ BOUTON LISTE LECTURE (flottant) ══ */
+#rl-fab {
+  position: fixed; bottom: 28px; right: 24px;
+  background: var(--ink); color: var(--paper);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 11px 18px; cursor: pointer; border: none;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  transition: background 0.2s, transform 0.15s;
+  z-index: 400;
+}
+#rl-fab:hover { background: var(--red); transform: translateY(-2px); }
+#rl-fab-icon { font-size: 16px; }
+#rl-fab-label { white-space: nowrap; }
+#rl-fab .rlp-count-badge { position: relative; top: 0; right: 0; flex-shrink: 0; }
+
+
+/* ── Nav CTA conditionnel ── */
+.nav-cta-anon { display: inline-block; }
+.nav-cta-member { display: none !important; }
+body.has-email .nav-cta-anon { display: none !important; }
+body.has-email .nav-cta-member { display: inline-block !important; }
+
+/* ── Funnel page-newsletter ── */
+.nl-cta-anonymous { display: block; }
+.nl-cta-free      { display: none !important; }
+.nl-cta-premium   { display: none !important; }
+body.has-email .nl-cta-anonymous { display: none !important; }
+body.has-email .nl-cta-free      { display: block !important; }
+body.has-premium .nl-cta-free    { display: none !important; }
+body.has-premium .nl-cta-premium { display: block !important; }
+
+/* Hero titre selon statut */
+#hero-nl-title-anonymous { display: inline; }
+#hero-nl-title-free      { display: none; }
+#hero-nl-title-premium   { display: none; }
+body.has-email #hero-nl-title-anonymous { display: none; }
+body.has-email #hero-nl-title-free      { display: inline; }
+body.has-premium #hero-nl-title-free    { display: none; }
+body.has-premium #hero-nl-title-premium { display: inline; }
+
+</style>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Un Cran d’Avance">
+  <meta property="og:title" content="Archives Newsletter — Un Cran d’Avance">
+  <meta property="og:description" content="Toutes les editions. Signaux IA, analyses, cadres de decision pour les grandes organisations.">
+  <meta property="og:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <meta property="og:url" content="https://uncrandavance.com/page-newsletter.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Archives Newsletter — Un Cran d’Avance">
+  <meta name="twitter:description" content="Toutes les editions. Signaux IA, analyses, cadres de decision pour les grandes organisations.">
+  <meta name="twitter:image" content="https://uncrandavance.com/aziz-el-kihel-general.jpg">
+  <link rel="canonical" href="https://uncrandavance.com/page-newsletter.html">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">✦ <span>Un Cran d'Avance</span></a>
+  <div class="nav-links">
+    <a href="page-newsletter.html" class="active">Newsletter</a>
+    <a href="page-vente.html">Premium</a>
+    <a href="page-apropos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="politique-confidentialite.html">Confidentialité</a>
+  </div>
+  <button onclick="ucaOpenModal()" class="nav-cta nav-cta-anon" style="cursor:pointer;border:none;">Commencer gratuitement →</button>
+  <a href="membre-welcome.html" class="nav-cta nav-cta-member" style="display:none;">Mon espace →</a>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-overlay">
+  <a href="page-newsletter.html" class="active">Newsletter</a>
+  <a href="page-vente.html">Premium</a>
+  <a href="page-apropos.html">À propos</a>
+  <button onclick="ucaOpenModal();document.querySelector('.nav-mobile-overlay').classList.remove('open')" class="mob-cta nav-cta-anon" style="cursor:pointer;border:none;width:100%;text-align:center;">Commencer gratuitement →</button>
+  <a href="membre-welcome.html" class="mob-cta nav-cta-member" style="display:none;margin-top:0;text-align:center;">Mon espace →</a>
+</div>
+
+<!-- HERO -->
+<section style="padding:clamp(40px,6vw,80px) clamp(24px,5vw,80px) clamp(32px,4vw,56px);border-bottom:1px solid var(--rule);">
+  <div style="max-width:760px;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+      <span style="width:24px;height:1px;background:var(--red);display:inline-block;"></span>
+      Archives · Depuis janvier 2026
+    </div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,60px);font-weight:900;line-height:1.06;margin-bottom:16px;">
+      <span id="hero-nl-title-anonymous">Ce qui dérive<br><em style="font-style:italic;color:var(--red);">commence ici.</em></span>
+      <span id="hero-nl-title-free">Vos <span class="nl-count">16</span> éditions.<br><em style="font-style:italic;color:var(--red);">Bonne lecture.</em></span>
+      <span id="hero-nl-title-premium">Vos <span class="nl-count">16</span> newsletters<br>+ <em style="font-style:italic;color:var(--gold);">4 dossiers Premium.</em></span>
+    </h1>
+    <p style="font-family:'Lora',serif;font-size:clamp(15px,1.3vw,18px);color:var(--muted);line-height:1.8;max-width:520px;">
+      5 signaux chaque mardi — là où ça dérive, là où la responsabilité n'est plus claire. 16 éditions. Accès gratuit.
+    </p>
+    <p style="margin-top:14px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">✦ 37 décisionnels membres · 63 places fondateurs · Expire 31 mai 2026</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<!-- État inconnu : formulaire inscription -->
+<section class="nl-cta-anonymous" id="nl-hero-form" style="padding:clamp(28px,4vw,48px) clamp(24px,5vw,80px);background:var(--ink);border-bottom:3px solid var(--red);">
+  <div style="max-width:560px;display:flex;flex-wrap:wrap;align-items:center;gap:24px;">
+    <div style="flex:1;min-width:220px;">
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(18px,2vw,24px);font-weight:700;color:#fff;line-height:1.3;margin-bottom:6px;">
+        Accès gratuit — <em style="font-style:italic;color:var(--gold);">en un clic.</em>
+      </div>
+      <div style="font-family:'Lora',serif;font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;">16 éditions disponibles — ce qui dérive dans vos organisations avant que ça devienne visible.</div>
+    </div>
+    <form style="display:flex;flex-direction:column;gap:10px;flex:1;min-width:240px;" novalidate>
+      <div style="display:flex;gap:0;">
+        <input type="email" autocomplete="email" required id="nl-email-input" placeholder="votre@email.com"
+          style="flex:1;padding:13px 16px;border:1px solid rgba(255,255,255,0.2);border-right:none;background:rgba(255,255,255,0.07);color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;min-width:0;">
+        <button type="button" onclick="nlEmailSubmit()"
+          style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:13px 20px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;white-space:nowrap;">
+          Accéder →
+        </button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;">
+        <input type="checkbox" id="consent-nl" name="consent" style="margin-top:3px;flex-shrink:0;accent-color:#B8973A;width:13px;height:13px;cursor:pointer;">
+        <label for="consent-nl" style="font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,0.65);line-height:1.5;cursor:pointer;">
+          J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre
+          <a href="politique-confidentialite.html" style="color:rgba(255,255,255,0.85);text-decoration:underline;" target="_blank">politique de confidentialité</a>.
+          Désabonnement en 1 clic.
+        </label>
+      </div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:8px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>Pack de bienvenue inclus — 10 signaux LEAP™ livrés immédiatement</p>
+      <div id="nl-form-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;font-weight:600;color:#ff6b6b;padding:6px 10px;background:rgba(200,16,46,0.12);border-left:3px solid #C8102E;"></div>
+    </form>
+  </div>
+</section>
+
+<!-- État abonné gratuit : upsell premium -->
+<section class="nl-cta-free" style="display:none;padding:clamp(20px,3vw,32px) clamp(24px,5vw,80px);background:rgba(184,151,58,0.08);border-bottom:1px solid rgba(184,151,58,0.25);">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;max-width:860px;">
+    <div style="flex:1;min-width:220px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Offre fondateurs — expire 31 mai 2026</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(16px,1.8vw,22px);font-weight:700;color:var(--ink);line-height:1.3;">Vous voyez ce qui dérive.<br><em style="font-style:italic;color:var(--gold);">Décidez avant que ça devienne une crise.</em></div>
+    </div>
+    <a href="page-vente.html" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:13px 28px;background:var(--gold);color:var(--ink);text-decoration:none;white-space:nowrap;flex-shrink:0;">
+      Devenir membre Premium — 199€/an →
+    </a>
+  </div>
+</section>
+
+<!-- État premium : message de bienvenue -->
+<section class="nl-cta-premium" style="display:none;padding:clamp(16px,2vw,24px) clamp(24px,5vw,80px);background:rgba(10,10,20,0.03);border-bottom:1px solid var(--rule);">
+  <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);">✓ Accès complet — newsletters + dossiers premium</div>
+</section>
+
+<!-- ══ ARCHIVES ══ -->
+<section class="library-section">
+
+  <div class="lib-header">
+    <div class="section-label">Déjà +16 signaux analysés pour dirigeants</div>
+    <h2 class="lib-title">Newsletters &amp; Dossiers</h2>
+    <p class="lib-sub">Chaque mardi depuis janvier 2026 — 5 signaux filtrés, traduits en décisions concrètes.</p>
+    <div class="lib-search-wrap">
+      <input type="text" id="lib-search" class="lib-search" placeholder="Rechercher — sujet, couche LEAP™, date…" oninput="libFilter()">
+    </div>
+    <div class="lib-tabs">
+      <button class="lib-tab active" onclick="libSetTab('all',this)">Tout</button>
+      <button class="lib-tab" onclick="libSetTab('nl',this)">Newsletters</button>
+      <button class="lib-tab" onclick="libSetTab('dossier',this)">Dossiers</button>
+    </div>
+  </div>
+
+  <!-- SECTION DOSSIERS -->
+  <div class="lib-section-label">
+    <span>Dossiers Premium</span>
+    <span class="lsl-sub">Analyses approfondies · Plan d'action · Roadmap</span>
+  </div>
+  <div class="lib-dossiers-row" id="lib-dossiers">
+    <div class="lib-card dossier-card" data-type="dossier" data-tags="gouvernance ia act couche p avril 2026" style="opacity:0.75;">
+      <a href="dossier-2026-04-gouvernance.html" class="lc-link" onclick="return false;" style="cursor:default;">
+        <div class="lc-thumb" style="background:#1A0510;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs>
+<radialGradient id="d4c" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#3A0068"/><stop offset="100%" stop-color="#0D0020"/></radialGradient>
+<filter id="d4blur"><feGaussianBlur stdDeviation="1.5"/></filter>
+<filter id="d4glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="400" height="220" fill="url(#d4c)"/>
+<polygon points="0,0 133,0 66,73" fill="#E91E8C" opacity="0.72" class="h-breathe"/>
+<polygon points="133,0 267,0 200,73" fill="#9C27B0" opacity="0.78"/>
+<polygon points="267,0 400,0 333,73" fill="#3F51B5" opacity="0.72" class="h-breathe" style="animation-delay:-0.5s"/>
+<polygon points="0,73 66,73 0,146" fill="#FF5722" opacity="0.68"/>
+<polygon points="66,73 200,73 133,146" fill="#00BCD4" opacity="0.78" class="h-breathe" style="animation-delay:-1s"/>
+<polygon points="200,73 333,73 267,146" fill="#8BC34A" opacity="0.72"/>
+<polygon points="333,73 400,73 400,146" fill="#FF9800" opacity="0.68" class="h-breathe" style="animation-delay:-1.5s"/>
+<polygon points="0,146 133,146 66,220" fill="#2196F3" opacity="0.72"/>
+<polygon points="133,146 267,146 200,220" fill="#F44336" opacity="0.78" class="h-breathe" style="animation-delay:-0.8s"/>
+<polygon points="267,146 400,146 400,220" fill="#4CAF50" opacity="0.72"/>
+<g stroke="rgba(0,0,0,0.45)" stroke-width="2.5" fill="none" filter="url(#d4blur)">
+  <line x1="0" y1="0" x2="400" y2="220"/><line x1="400" y1="0" x2="0" y2="220"/>
+  <line x1="0" y1="73" x2="400" y2="73"/><line x1="0" y1="146" x2="400" y2="146"/>
+  <line x1="133" y1="0" x2="133" y2="220"/><line x1="267" y1="0" x2="267" y2="220"/>
+</g>
+<circle cx="200" cy="110" r="55" fill="#0D0020" opacity="0.9" class="h-glow" style="color:#B8973A" filter="url(#d4glow)"/>
+<circle cx="200" cy="110" r="46" fill="none" stroke="#B8973A" stroke-width="2" opacity="0.7"/>
+<path d="M200,74 L228,92 L228,128 L200,146 L172,128 L172,92 Z" fill="none" stroke="#F1C40F" stroke-width="3" class="h-pulse"/>
+<path d="M200,84 L220,96 L220,124 L200,136 L180,124 L180,96 Z" fill="#B8973A" opacity="0.2"/>
+<line x1="200" y1="94" x2="200" y2="124" stroke="#F1C40F" stroke-width="2.5" class="h-glow" style="color:#F1C40F"/>
+<line x1="186" y1="109" x2="214" y2="109" stroke="#F1C40F" stroke-width="2.5"/>
+<circle cx="200" cy="109" r="5" fill="#FFEA00" class="h-pulse" filter="url(#d4glow)"/>
+<rect x="-30" y="0" width="22" height="220" fill="white" opacity="0.05" transform="skewX(-20)" class="h-shimmer"/>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-big-letter">P</span><span class="lc-thumb-label">Couche P</span></div>
+          <span class="lc-badge" style="background:#444;color:#aaa;">À venir</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">Dossier N°4 · Avril 2026 · Bientôt</div>
+          <div class="lc-title">Gouvernance IA — construire le cadre qui fonctionne vraiment</div>
+          <div class="lc-desc">EU AI Act, 6 leviers de gouvernance, ROI mesurable. Ce que font les organisations qui avancent vite et gardent le contrôle.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche P</span><span class="lc-tag">Gouvernance</span><span class="lc-tag">EU AI Act</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-dossier-2026-04-gouvernance-like" onclick="event.preventDefault();lcToggleLike('dossier-2026-04-gouvernance',6)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-dossier-2026-04-gouvernance-count">6</span>
+            </button>
+            <button class="lc-bookmark" id="lc-dossier-2026-04-gouvernance-bk" onclick="event.preventDefault();lcToggleBookmark('dossier-2026-04-gouvernance','dossier-2026-04-gouvernance.html','Gouvernance IA — construire le cadre qui fonctionne vraiment','Dossier','#B8973A')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card dossier-card" data-type="dossier" data-tags="roi coûts mesure couche e mars 2026">
+      <a href="dossier-2026-03-roi-ia.html" class="lc-link">
+        <div class="lc-thumb" style="background:#051C10;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs>
+<linearGradient id="d3s" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#001A0A"/><stop offset="100%" stop-color="#002814"/></linearGradient>
+<linearGradient id="d3a1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00E676" stop-opacity="0"/><stop offset="50%" stop-color="#69F0AE" stop-opacity="0.65"/><stop offset="100%" stop-color="#00E676" stop-opacity="0"/></linearGradient>
+<linearGradient id="d3a2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00BCD4" stop-opacity="0"/><stop offset="40%" stop-color="#80DEEA" stop-opacity="0.5"/><stop offset="100%" stop-color="#00BCD4" stop-opacity="0"/></linearGradient>
+<linearGradient id="d3a3" x1="0" y1="0" x2="1" y2="0"><stop offset="20%" stop-color="#E91E8C" stop-opacity="0"/><stop offset="60%" stop-color="#F48FB1" stop-opacity="0.38"/><stop offset="100%" stop-color="#E91E8C" stop-opacity="0"/></linearGradient>
+<filter id="d3blur"><feGaussianBlur stdDeviation="9"/></filter>
+<filter id="d3sf"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="400" height="220" fill="url(#d3s)"/>
+<ellipse cx="200" cy="52" rx="285" ry="28" fill="url(#d3a1)" filter="url(#d3blur)" class="h-float"/>
+<ellipse cx="162" cy="36" rx="225" ry="20" fill="url(#d3a2)" filter="url(#d3blur)" class="h-float" style="animation-delay:-0.7s"/>
+<ellipse cx="242" cy="26" rx="182" ry="15" fill="url(#d3a3)" filter="url(#d3blur)" class="h-breathe"/>
+<rect x="15" y="145" width="44" height="55" fill="#00E676" rx="3" opacity="0.85"/>
+<rect x="69" y="112" width="44" height="88" fill="#69F0AE" rx="3" opacity="0.9"/>
+<rect x="123" y="68" width="44" height="132" fill="#00E5FF" rx="3" opacity="0.9" class="h-glow" style="color:#00E5FF" filter="url(#d3sf)"/>
+<rect x="177" y="95" width="44" height="105" fill="#FF6D00" rx="3" opacity="0.8"/>
+<rect x="231" y="130" width="44" height="70" fill="#FF1744" rx="3" opacity="0.75"/>
+<rect x="285" y="155" width="44" height="45" fill="#D500F9" rx="3" opacity="0.7"/>
+<rect x="339" y="140" width="48" height="60" fill="#FF9800" rx="3" opacity="0.75"/>
+<g fill="white" opacity="0.55">
+  <rect x="20" y="152" width="5" height="3" rx="1"/><rect x="30" y="152" width="5" height="3" rx="1"/>
+  <rect x="74" y="118" width="5" height="3" rx="1"/><rect x="84" y="118" width="5" height="3" rx="1"/>
+  <rect x="128" y="74" width="5" height="3" rx="1"/><rect x="138" y="74" width="5" height="3" rx="1"/><rect x="128" y="84" width="5" height="3" rx="1"/><rect x="138" y="84" width="5" height="3" rx="1"/>
+</g>
+<path d="M37,162 Q91,128 145,82 Q199,110 253,145 Q307,168 361,158" fill="none" stroke="#F1C40F" stroke-width="3" opacity="0.9" class="h-glow" style="color:#F1C40F" filter="url(#d3sf)"/>
+<text x="145" y="60" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="900" fill="#00E5FF" class="h-rise" filter="url(#d3sf)">+175%</text>
+<text x="37" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#00E676">+58%</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-big-letter">E</span><span class="lc-thumb-label">Couche E</span></div>
+          <span class="lc-badge premium">Premium</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">Dossier N°3 · Mars 2026</div>
+          <div class="lc-title">ROI de l'IA — mesurer ce qu'on ne sait pas mesurer</div>
+          <div class="lc-desc">Les 4 coûts cachés, le tableau de bord honnête, et comment construire un bilan IA qui résiste au comité de direction.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche E</span><span class="lc-tag">ROI</span><span class="lc-tag">FinOps</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-dossier-2026-03-roi-ia-like" onclick="event.preventDefault();lcToggleLike('dossier-2026-03-roi-ia',15)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-dossier-2026-03-roi-ia-count">15</span>
+            </button>
+            <button class="lc-bookmark" id="lc-dossier-2026-03-roi-ia-bk" onclick="event.preventDefault();lcToggleBookmark('dossier-2026-03-roi-ia','dossier-2026-03-roi-ia.html','ROI de l`IA — mesurer ce qu`on ne sait pas mesurer','Dossier','#1ABC9C')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card dossier-card" data-type="dossier" data-tags="agentique agents autonomes couche a février 2026">
+      <a href="dossier-2026-02-agentique.html" class="lc-link">
+        <div class="lc-thumb" style="background:#1E0E05;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs>
+<linearGradient id="d2bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0A0015"/><stop offset="100%" stop-color="#1A0005"/></linearGradient>
+<filter id="d2neon"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="d2soft"><feGaussianBlur stdDeviation="6"/></filter>
+</defs>
+<rect width="400" height="220" fill="url(#d2bg)"/>
+<ellipse cx="200" cy="100" rx="100" ry="80" fill="#E67E22" opacity="0.07" filter="url(#d2soft)" class="h-breathe"/>
+<rect x="0" y="80" width="38" height="75" fill="#0D0020"/><rect x="4" y="68" width="28" height="16" fill="#0D0020"/>
+<rect x="48" y="95" width="48" height="60" fill="#0D0020"/><rect x="56" y="80" width="32" height="18" fill="#0D0020"/>
+<rect x="106" y="55" width="58" height="100" fill="#100020"/><rect x="116" y="42" width="38" height="18" fill="#100020"/>
+<rect x="280" y="72" width="52" height="83" fill="#0D0020"/><rect x="290" y="58" width="32" height="18" fill="#0D0020"/>
+<rect x="342" y="88" width="58" height="67" fill="#0D0020"/>
+<line x1="50" y1="82" x2="50" y2="155" stroke="#FF00FF" stroke-width="2" opacity="0.8" class="h-flicker" filter="url(#d2neon)"/>
+<line x1="108" y1="44" x2="108" y2="155" stroke="#00FFFF" stroke-width="2" opacity="0.8" class="h-flicker" style="animation-delay:-0.3s" filter="url(#d2neon)"/>
+<line x1="163" y1="44" x2="163" y2="155" stroke="#FF6600" stroke-width="2" opacity="0.8" class="h-flicker" style="animation-delay:-0.6s" filter="url(#d2neon)"/>
+<line x1="282" y1="60" x2="282" y2="155" stroke="#00FF88" stroke-width="2" opacity="0.8" class="h-flicker" style="animation-delay:-0.2s" filter="url(#d2neon)"/>
+<rect x="166" y="76" width="68" height="78" rx="10" fill="#0D0020" stroke="#FF00FF" stroke-width="2.5" class="h-glow" style="color:#FF00FF" filter="url(#d2neon)"/>
+<rect x="180" y="92" width="40" height="28" rx="5" fill="#FF00FF" opacity="0.85"/>
+<circle cx="193" cy="104" r="7" fill="white"/><circle cx="207" cy="104" r="7" fill="white"/>
+<circle cx="195" cy="105" r="4" fill="#0A0015"/><circle cx="209" cy="105" r="4" fill="#0A0015"/>
+<circle cx="196" cy="103" r="1.5" fill="white"/><circle cx="210" cy="103" r="1.5" fill="white"/>
+<path d="M186,114 Q200,122 214,114" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="200" y1="76" x2="200" y2="53" stroke="#FF00FF" stroke-width="2"/>
+<circle cx="200" cy="48" r="6" fill="#FFEA00" class="h-pulse" filter="url(#d2neon)"/>
+<path d="M234,100 L326,70" stroke="#00FFFF" stroke-width="2.5" opacity="0.8" filter="url(#d2neon)" stroke-dasharray="60" stroke-dashoffset="60" class="h-dash"/>
+<path d="M234,112 L332,158" stroke="#FF6600" stroke-width="2.5" opacity="0.8" filter="url(#d2neon)" stroke-dasharray="70" stroke-dashoffset="70" class="h-dash"/>
+<path d="M166,100 L78,70" stroke="#00FFFF" stroke-width="2.5" opacity="0.8" filter="url(#d2neon)"/>
+<path d="M166,112 L68,158" stroke="#FF6600" stroke-width="2.5" opacity="0.8" filter="url(#d2neon)"/>
+<circle cx="330" cy="68" r="11" fill="#00FFFF" opacity="0.9" class="h-breathe" filter="url(#d2neon)"/>
+<circle cx="336" cy="160" r="11" fill="#FF6600" opacity="0.9" class="h-breathe" style="animation-delay:-1s" filter="url(#d2neon)"/>
+<circle cx="74" cy="68" r="11" fill="#00FFFF" opacity="0.9" class="h-breathe" style="animation-delay:-0.5s" filter="url(#d2neon)"/>
+<circle cx="64" cy="160" r="11" fill="#FF6600" opacity="0.9" class="h-breathe" style="animation-delay:-1.5s" filter="url(#d2neon)"/>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-big-letter">A</span><span class="lc-thumb-label">Couche A</span></div>
+          <span class="lc-badge premium">Premium</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">Dossier N°2 · Février 2026</div>
+          <div class="lc-title">L'IA Agentique — du chatbot à l'agent</div>
+          <div class="lc-desc">Ce qui change structurellement quand l'IA agit à votre place — et les décisions organisationnelles que ça impose dès maintenant.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche A</span><span class="lc-tag">Agents</span><span class="lc-tag">Transformation</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-dossier-2026-02-agentique-like" onclick="event.preventDefault();lcToggleLike('dossier-2026-02-agentique',8)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-dossier-2026-02-agentique-count">8</span>
+            </button>
+            <button class="lc-bookmark" id="lc-dossier-2026-02-agentique-bk" onclick="event.preventDefault();lcToggleBookmark('dossier-2026-02-agentique','dossier-2026-02-agentique.html','L`IA Agentique — du chatbot à l`agent','Dossier','#FF6D00')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card dossier-card" data-type="dossier" data-tags="ia 2026 leap driven couche l janvier 2026">
+      <a href="dossier-2026-01-ia-en-2026.html" class="lc-link">
+        <div class="lc-thumb" style="background:#0D1B3E;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs>
+  <radialGradient id="d1neb" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1A0040"/><stop offset="50%" stop-color="#040A20"/><stop offset="100%" stop-color="#000308"/></radialGradient>
+  <radialGradient id="d1g1" cx="40%" cy="40%" r="35%"><stop offset="0%" stop-color="#E91E8C" stop-opacity="0.5"/><stop offset="100%" stop-color="#E91E8C" stop-opacity="0"/></radialGradient>
+  <radialGradient id="d1g2" cx="65%" cy="55%" r="30%"><stop offset="0%" stop-color="#00BCD4" stop-opacity="0.45"/><stop offset="100%" stop-color="#00BCD4" stop-opacity="0"/></radialGradient>
+  <radialGradient id="d1g3" cx="50%" cy="50%" r="25%"><stop offset="0%" stop-color="#7B1FA2" stop-opacity="0.5"/><stop offset="100%" stop-color="#7B1FA2" stop-opacity="0"/></radialGradient>
+  <filter id="d1gf"><feGaussianBlur stdDeviation="12"/></filter>
+  <filter id="d1sf"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="400" height="220" fill="url(#d1neb)"/>
+<circle cx="12" cy="8" r="0.8" fill="white" opacity="0.2" class="h-flicker"/><circle cx="53" cy="27" r="1.4" fill="white" opacity="0.35" class=""/><circle cx="94" cy="46" r="2.0" fill="white" opacity="0.5" class=""/><circle cx="135" cy="65" r="0.8" fill="white" opacity="0.6499999999999999" class=""/><circle cx="176" cy="84" r="1.4" fill="white" opacity="0.2" class=""/><circle cx="217" cy="103" r="2.0" fill="white" opacity="0.35" class="h-flicker"/><circle cx="258" cy="122" r="0.8" fill="white" opacity="0.5" class=""/><circle cx="299" cy="141" r="1.4" fill="white" opacity="0.6499999999999999" class=""/><circle cx="340" cy="160" r="2.0" fill="white" opacity="0.2" class=""/><circle cx="381" cy="179" r="0.8" fill="white" opacity="0.35" class=""/><circle cx="46" cy="198" r="1.4" fill="white" opacity="0.5" class="h-flicker"/><circle cx="87" cy="13" r="2.0" fill="white" opacity="0.6499999999999999" class=""/><circle cx="128" cy="32" r="0.8" fill="white" opacity="0.2" class=""/><circle cx="169" cy="51" r="1.4" fill="white" opacity="0.35" class=""/><circle cx="210" cy="70" r="2.0" fill="white" opacity="0.5" class=""/><circle cx="251" cy="89" r="0.8" fill="white" opacity="0.6499999999999999" class="h-flicker"/><circle cx="292" cy="108" r="1.4" fill="white" opacity="0.2" class=""/><circle cx="333" cy="127" r="2.0" fill="white" opacity="0.35" class=""/><circle cx="374" cy="146" r="0.8" fill="white" opacity="0.5" class=""/><circle cx="39" cy="165" r="1.4" fill="white" opacity="0.6499999999999999" class=""/><circle cx="80" cy="184" r="2.0" fill="white" opacity="0.2" class="h-flicker"/><circle cx="121" cy="203" r="0.8" fill="white" opacity="0.35" class=""/><circle cx="162" cy="18" r="1.4" fill="white" opacity="0.5" class=""/><circle cx="203" cy="37" r="2.0" fill="white" opacity="0.6499999999999999" class=""/><circle cx="244" cy="56" r="0.8" fill="white" opacity="0.2" class=""/><circle cx="285" cy="75" r="1.4" fill="white" opacity="0.35" class="h-flicker"/><circle cx="326" cy="94" r="2.0" fill="white" opacity="0.5" class=""/><circle cx="367" cy="113" r="0.8" fill="white" opacity="0.6499999999999999" class=""/><circle cx="32" cy="132" r="1.4" fill="white" opacity="0.2" class=""/><circle cx="73" cy="151" r="2.0" fill="white" opacity="0.35" class=""/>
+<!-- Nuages de nébuleuse -->
+<ellipse cx="160" cy="90" rx="110" ry="70" fill="url(#d1g1)" filter="url(#d1gf)" class="h-breathe"/>
+<ellipse cx="255" cy="110" rx="90" ry="60" fill="url(#d1g2)" filter="url(#d1gf)" class="h-breathe" style="animation-delay:-1s"/>
+<ellipse cx="200" cy="110" rx="70" ry="50" fill="url(#d1g3)" filter="url(#d1gf)" class="h-breathe" style="animation-delay:-0.5s"/>
+<!-- Globe -->
+<circle cx="200" cy="110" r="62" fill="none" stroke="#00BCD4" stroke-width="2.5" opacity="0.75" class="h-glow" style="color:#00BCD4"/>
+<ellipse cx="200" cy="110" rx="30" ry="62" fill="none" stroke="#00BCD4" stroke-width="0.8" opacity="0.4"/>
+<ellipse cx="200" cy="110" rx="58" ry="22" fill="none" stroke="#00BCD4" stroke-width="0.8" opacity="0.4"/>
+<ellipse cx="200" cy="110" rx="60" ry="9" fill="none" stroke="#00BCD4" stroke-width="0.6" opacity="0.3"/>
+<!-- Planète surface -->
+<circle cx="200" cy="110" r="62" fill="rgba(10,5,35,0.6)"/>
+<!-- Villes lumineuses -->
+<circle cx="152" cy="80" r="5" fill="#FFEA00" filter="url(#d1sf)" class="h-pulse"/>
+<circle cx="258" cy="88" r="4" fill="#FF6D00" filter="url(#d1sf)" class="h-pulse" style="animation-delay:-0.6s"/>
+<circle cx="244" cy="138" r="5" fill="#E91E8C" filter="url(#d1sf)" class="h-pulse" style="animation-delay:-1.2s"/>
+<circle cx="164" cy="144" r="4" fill="#69F0AE" filter="url(#d1sf)" class="h-pulse" style="animation-delay:-0.3s"/>
+<circle cx="200" cy="68" r="4" fill="#FF1744" filter="url(#d1sf)" class="h-pulse" style="animation-delay:-0.9s"/>
+<!-- Connexions arc -->
+<path d="M152,80 Q176,64 200,68 Q230,64 258,88" fill="none" stroke="#FFEA00" stroke-width="1.2" opacity="0.55" stroke-dasharray="5,3"/>
+<path d="M164,144 Q182,138 200,136 Q224,132 244,138" fill="none" stroke="#E91E8C" stroke-width="1.2" opacity="0.5" stroke-dasharray="5,3"/>
+<!-- Anneau orbital -->
+<ellipse cx="200" cy="110" rx="90" ry="18" fill="none" stroke="#B8973A" stroke-width="1.5" opacity="0.5" transform="rotate(-20,200,110)" class="h-spin" style="transform-origin:200px 110px"/>
+<text x="390" y="215" text-anchor="end" font-family="serif" font-size="38" font-weight="900" fill="#00BCD4" opacity="0.08">2026</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-big-letter">L</span><span class="lc-thumb-label">Couche L</span></div>
+          <span class="lc-badge premium">Premium</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">Dossier N°1 · Janvier 2026</div>
+          <div class="lc-title">L'IA en 2026 — ce qui a vraiment changé</div>
+          <div class="lc-desc">Le cadre LEAP™ complet, les 5 signaux qui définissent l'année, et les deux questions que tout dirigeant doit pouvoir répondre.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche L</span><span class="lc-tag">LEAP™</span><span class="lc-tag">Stratégie</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-dossier-2026-01-ia-en-2026-like" onclick="event.preventDefault();lcToggleLike('dossier-2026-01-ia-en-2026',12)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-dossier-2026-01-ia-en-2026-count">12</span>
+            </button>
+            <button class="lc-bookmark" id="lc-dossier-2026-01-ia-en-2026-bk" onclick="event.preventDefault();lcToggleBookmark('dossier-2026-01-ia-en-2026','dossier-2026-01-ia-en-2026.html','L`IA en 2026 — ce qui a vraiment changé','Dossier','#00BCD4')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+  <!-- GRILLE NL -->
+  </div>
+  <div class="lib-section-label" style="margin-top:40px;">
+    <span>Toutes les éditions</span>
+    <span class="lsl-sub">16 newsletters · archives complètes</span>
+  </div>
+  <div>
+  <div class="lib-grid" id="lib-grid">
+
+    <!-- NEWSLETTERS -->
+    <div class="lib-card" onclick="ucaComingSoon(this)" data-msg="En préparation — disponible le 22 avril 2026." data-type="nl" data-tags="gouvernance budget couche p avril 2026">
+      <a href="nl-2026-04-22.html" class="lc-link uca-coming-soon" data-msg="En préparation — disponible le 22 avril 2026." style="cursor:default;">
+        <div class="lc-thumb lc-thumb-nl" style="background:#1A0510;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;">
+<defs><radialGradient id="n16bg2" cx="50%" cy="45%" r="55%"><stop offset="0%" stop-color="#1A0A28"/><stop offset="100%" stop-color="#080010"/></radialGradient>
+<filter id="n16f2"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n16bg2)"/>
+<circle cx="150" cy="65" r="50" fill="#B8973A" opacity="0.1" filter="url(#n16f2)"/>
+<path d="M150,18 L186,40 L178,82 L122,82 L114,40 Z" fill="none" stroke="#F1C40F" stroke-width="3" opacity="0.95"/>
+<path d="M150,30 L176,48 L169,76 L131,76 L124,48 Z" fill="#B8973A" opacity="0.3"/>
+<circle cx="150" cy="54" r="15" fill="#1A0A28" stroke="#F1C40F" stroke-width="2.5"/>
+<circle cx="150" cy="54" r="7" fill="#F1C40F" opacity="0.95" filter="url(#n16f2)"/>
+<circle cx="82" cy="20" r="4" fill="#E91E8C" opacity="0.8"/>
+<circle cx="218" cy="20" r="4" fill="#00BCD4" opacity="0.8"/>
+<circle cx="208" cy="110" r="4" fill="#00E676" opacity="0.75"/>
+<circle cx="92" cy="110" r="4" fill="#FF6D00" opacity="0.75"/>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°16</span><span class="lc-thumb-date">22 Avr 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">22 avril 2026 · Couche P</div>
+          <div class="lc-title">Les organisations qui gouvernent bien leur IA ont une chose en commun. Ce n'est pas le budget.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche P</span><span class="lc-tag">Gouvernance</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="lib-card" onclick="ucaComingSoon(this)" data-msg="En préparation — disponible le 15 avril 2026." data-type="nl" data-tags="loi réglementation couche p avril 2026">
+      <a href="nl-2026-04-15.html" class="lc-link uca-coming-soon" data-msg="En préparation — disponible le 15 avril 2026." style="cursor:default;">
+        <div class="lc-thumb lc-thumb-nl" style="background:#1A0510;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><radialGradient id="n15bg" cx="50%" cy="45%" r="52%"><stop offset="0%" stop-color="#1A1000"/><stop offset="100%" stop-color="#080600"/></radialGradient>
+<filter id="n15f"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n15bg)"/>
+<line x1="150" y1="32" x2="150" y2="128" stroke="#B8973A" stroke-width="2.5" opacity="0.9"/>
+<circle cx="150" cy="32" r="6" fill="#B8973A" class="h-pulse" filter="url(#n15f)"/>
+<line x1="68" y1="72" x2="232" y2="72" stroke="#B8973A" stroke-width="2.5" opacity="0.9" class="h-float"/>
+<line x1="68" y1="72" x2="68" y2="108" stroke="#F1C40F" stroke-width="2" opacity="0.8"/>
+<line x1="232" y1="72" x2="232" y2="98" stroke="#E91E8C" stroke-width="2" opacity="0.8"/>
+<polygon points="55,108 81,108 75,130 61,130" fill="#F1C40F" opacity="0.8" rx="3" class="h-breathe"/>
+<polygon points="219,98 245,98 239,120 225,120" fill="#E91E8C" opacity="0.8" rx="3" class="h-breathe" style="animation-delay:-0.8s"/>
+<text x="68" y="143" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#F1C40F" opacity="0.8">DROITS</text>
+<text x="232" y="133" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#E91E8C" opacity="0.8">RÈGLES</text>
+<circle cx="150" cy="128" r="5" fill="#B8973A" opacity="0.8"/>
+<line x1="128" y1="128" x2="172" y2="128" stroke="#B8973A" stroke-width="1.5" opacity="0.7"/>
+<text x="150" y="152" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#F1C40F" opacity="0" letter-spacing="2" class="h-reveal">EU AI ACT</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°15</span><span class="lc-thumb-date">15 Avr 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">15 avril 2026 · Couche P</div>
+          <div class="lc-title">Que nous impose la loi, exactement — et pourquoi ?</div>
+          <div class="lc-tags"><span class="lc-tag">Couche P</span><span class="lc-tag">Réglementation</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-04-15-like" onclick="event.preventDefault();lcToggleLike('nl-2026-04-15',10)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-04-15-count">10</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-04-15-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-04-15','nl-2026-04-15.html','Que nous impose la loi, exactement — et pourquoi ?','Newsletter','#B8973A')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" onclick="ucaComingSoon(this)" data-msg="En préparation — disponible le 8 avril 2026." data-type="nl" data-tags="dette gouvernance retravail couche p avril 2026">
+      <a href="nl-2026-04-08.html" class="lc-link uca-coming-soon" data-msg="En préparation — disponible le 8 avril 2026." style="cursor:default;">
+        <div class="lc-thumb lc-thumb-nl" style="background:#1A0510;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><radialGradient id="n14bg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1A0010"/><stop offset="100%" stop-color="#080006"/></radialGradient>
+<filter id="n14f"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n14bg)"/>
+<polygon points="150,15 190,38 190,84 150,107 110,84 110,38" fill="#9C27B0" opacity="0.35"/>
+<polygon points="150,15 190,38 190,84 150,107 110,84 110,38" fill="none" stroke="#B8973A" stroke-width="2" opacity="0.7"/>
+<path d="M150,30 L165,55 L145,72 L170,95 L148,105" fill="none" stroke="#FF1744" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95" class="h-glow" style="color:#FF1744" filter="url(#n14f)"/>
+<path d="M152,31 L135,52 L155,70 L132,88" fill="none" stroke="#FF5252" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+<circle cx="150" cy="15" r="5" fill="#FF1744" opacity="0.8" class="h-pulse" filter="url(#n14f)"/>
+<circle cx="148" cy="105" r="5" fill="#FF1744" opacity="0.7" class="h-flicker"/>
+<polygon points="150,68 162,74 156,88 144,88 138,74" fill="#FF1744" opacity="0.4" class="h-breathe"/>
+<text x="150" y="142" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#FF5252" opacity="0" letter-spacing="1" class="h-reveal">FRAGILITÉ</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°14</span><span class="lc-thumb-date">8 Avr 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">8 avril 2026 · Couche P</div>
+          <div class="lc-title">La dette de gouvernance IA. Pas de l'ignorance. Un choix.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche P</span><span class="lc-tag">Gouvernance</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-04-08-like" onclick="event.preventDefault();lcToggleLike('nl-2026-04-08',5)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-04-08-count">5</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-04-08-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-04-08','nl-2026-04-08.html','La dette de gouvernance IA. Pas de l`ignorance. Un choix.','Newsletter','#B8973A')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" onclick="ucaComingSoon(this)" data-msg="En préparation — disponible le 1 avril 2026." data-type="nl" data-tags="contrôle audit couche p avril 2026">
+      <a href="nl-2026-04-01.html" class="lc-link uca-coming-soon" data-msg="En préparation — disponible le 1 avril 2026." style="cursor:default;">
+        <div class="lc-thumb lc-thumb-nl" style="background:#1A0510;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><radialGradient id="n13bg" cx="50%" cy="45%" r="52%"><stop offset="0%" stop-color="#1A0030"/><stop offset="100%" stop-color="#080010"/></radialGradient>
+<filter id="n13f"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n13bg)"/>
+<polygon points="150,14 190,37 190,83 150,106 110,83 110,37" fill="none" stroke="#B8973A" stroke-width="2.5" opacity="0.9" class="h-pulse"/>
+<polygon points="150,28 180,46 180,78 150,96 120,78 120,46" fill="#B8973A" opacity="0.18"/>
+<polygon points="150,44 170,55 170,73 150,84 130,73 130,55" fill="#C8A02A" opacity="0.4"/>
+<circle cx="150" cy="60" r="10" fill="#FFEA00" opacity="0.95" class="h-glow" style="color:#FFEA00" filter="url(#n13f)"/>
+<line x1="110" y1="37" x2="74" y2="16" stroke="#B8973A" stroke-width="1.5" opacity="0.5"/><line x1="190" y1="37" x2="226" y2="16" stroke="#B8973A" stroke-width="1.5" opacity="0.5"/>
+<line x1="190" y1="83" x2="226" y2="104" stroke="#B8973A" stroke-width="1.5" opacity="0.5"/><line x1="110" y1="83" x2="74" y2="104" stroke="#B8973A" stroke-width="1.5" opacity="0.5"/>
+<line x1="150" y1="106" x2="150" y2="134" stroke="#B8973A" stroke-width="1.5" opacity="0.5"/>
+<circle cx="70" cy="14" r="5" fill="#FFEA00" opacity="0.7" class="h-flicker"/><circle cx="230" cy="14" r="5" fill="#FFEA00" opacity="0.7" class="h-flicker" style="animation-delay:-0.5s"/>
+<circle cx="230" cy="106" r="5" fill="#FF9800" opacity="0.7" class="h-flicker" style="animation-delay:-1s"/><circle cx="70" cy="106" r="5" fill="#FF9800" opacity="0.7" class="h-flicker" style="animation-delay:-1.5s"/>
+<circle cx="150" cy="138" r="5" fill="#E91E8C" opacity="0.7" class="h-flicker" style="animation-delay:-0.7s"/>
+<text x="150" y="152" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#C8A02A" opacity="0" letter-spacing="2" class="h-reveal">FONDATION</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°13</span><span class="lc-thumb-date">1 Avr 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">1er avril 2026 · Couche P</div>
+          <div class="lc-title">Votre IA fonctionne parfaitement. Êtes-vous sûr de ce qu'elle fait ?</div>
+          <div class="lc-tags"><span class="lc-tag">Couche P</span><span class="lc-tag">Audit</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-04-01-like" onclick="event.preventDefault();lcToggleLike('nl-2026-04-01',8)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-04-01-count">8</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-04-01-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-04-01','nl-2026-04-01.html','Votre IA fonctionne parfaitement. Êtes-vous sûr de ce qu`ell','Newsletter','#B8973A')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="décisions clôture mars couche e mars 2026">
+      <a href="nl-2026-03-24.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#051C10;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><linearGradient id="n12bg" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#001A0A"/><stop offset="100%" stop-color="#0A1A04"/></linearGradient>
+<filter id="n12f"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n12bg)"/>
+<rect x="88" y="100" width="52" height="48" fill="#1ABC9C" opacity="0.8" rx="3"/>
+<rect x="124" y="72" width="52" height="76" fill="#27AE60" opacity="0.85" rx="3"/>
+<rect x="160" y="50" width="52" height="98" fill="#F1C40F" opacity="0.9" rx="3" class="h-glow" style="color:#F1C40F" filter="url(#n12f)"/>
+<text x="114" y="90" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="900" fill="white">2</text>
+<text x="150" y="64" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="900" fill="white">1</text>
+<text x="186" y="42" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="900" fill="#1A1200">★</text>
+<text x="114" y="76" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#69F0AE" opacity="0.9">+78%</text>
+<text x="150" y="48" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#00E676" opacity="0.9">+96%</text>
+<text x="186" y="26" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="900" fill="#FFEA00" class="h-rise" filter="url(#n12f)">+118%</text>
+<rect x="88" y="148" width="124" height="4" fill="#B8973A" opacity="0.4" rx="2"/>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°12</span><span class="lc-thumb-date">24 Mar 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">24 mars 2026 · Couche E→A</div>
+          <div class="lc-title">Ce que ceux qui ont lu le dossier vont faire différemment.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche E</span><span class="lc-tag">ROI</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-03-24-like" onclick="event.preventDefault();lcToggleLike('nl-2026-03-24',6)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-03-24-count">6</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-03-24-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-03-24','nl-2026-03-24.html','Ce que ceux qui ont lu le dossier vont faire différemment.','Newsletter','#1ABC9C')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="roi mesure coûts couche e mars 2026">
+      <a href="nl-2026-03-17.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#051C10;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><linearGradient id="n11bg" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#001A0A"/><stop offset="100%" stop-color="#042010"/></linearGradient>
+<filter id="n11f"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<linearGradient id="n11area" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00E676" stop-opacity="0.25"/><stop offset="100%" stop-color="#00E676" stop-opacity="0"/></linearGradient></defs>
+<rect width="300" height="160" fill="url(#n11bg)"/>
+<path d="M20,135 Q80,130 120,110 Q170,80 220,50 Q260,28 285,18 L285,140 L20,140 Z" fill="url(#n11area)"/>
+<path d="M20,135 Q80,130 120,110 Q170,80 220,50 Q260,28 285,18" fill="none" stroke="#00E676" stroke-width="3.5" opacity="0.9" class="h-glow" style="color:#00E676" filter="url(#n11f)"/>
+<line x1="15" y1="140" x2="290" y2="140" stroke="white" stroke-width="0.6" opacity="0.15"/>
+<line x1="15" y1="10" x2="15" y2="140" stroke="white" stroke-width="0.6" opacity="0.15"/>
+<circle cx="285" cy="18" r="8" fill="#00E676" class="h-pulse" filter="url(#n11f)"/>
+<polygon points="285,6 295,20 275,20" fill="#FFEA00" opacity="0.9" class="h-float"/>
+<circle cx="120" cy="110" r="5" fill="#69F0AE" opacity="0.7"/>
+<circle cx="220" cy="50" r="5" fill="#69F0AE" opacity="0.7"/>
+<text x="293" y="22" font-family="sans-serif" font-size="9" font-weight="800" fill="#FFEA00" class="h-rise">+ROI</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°11</span><span class="lc-thumb-date">17 Mar 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">17 mars 2026 · Couche E→A</div>
+          <div class="lc-title">Le ROI de l'IA. Mesurer ce qu'on ne sait pas mesurer.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche E</span><span class="lc-tag">ROI</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-03-17-like" onclick="event.preventDefault();lcToggleLike('nl-2026-03-17',13)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-03-17-count">13</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-03-17-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-03-17','nl-2026-03-17.html','Le ROI de l`IA. Mesurer ce qu`on ne sait pas mesurer.','Newsletter','#1ABC9C')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="délégation décision automatisation couche e mars 2026">
+      <a href="nl-2026-03-10.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#051C10;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><linearGradient id="n10bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#001A0A"/><stop offset="100%" stop-color="#041408"/></linearGradient>
+<filter id="n10f"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n10bg)"/>
+<line x1="150" y1="35" x2="150" y2="125" stroke="#B8973A" stroke-width="2" opacity="0.8"/>
+<circle cx="150" cy="35" r="5" fill="#B8973A" class="h-pulse" filter="url(#n10f)"/>
+<line x1="75" y1="78" x2="225" y2="78" stroke="#B8973A" stroke-width="2" opacity="0.8" class="h-float"/>
+<line x1="75" y1="78" x2="75" y2="108" stroke="#1ABC9C" stroke-width="1.5" opacity="0.7"/>
+<line x1="225" y1="78" x2="225" y2="88" stroke="#E74C3C" stroke-width="1.5" opacity="0.7"/>
+<ellipse cx="75" cy="118" rx="30" ry="14" fill="#1ABC9C" opacity="0.75" class="h-breathe"/>
+<text x="75" y="122" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="800" fill="white">GAINS</text>
+<ellipse cx="225" cy="98" rx="30" ry="12" fill="#E74C3C" opacity="0.7" class="h-breathe" style="animation-delay:-0.8s"/>
+<text x="225" y="102" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="800" fill="white">COÛTS</text>
+<circle cx="150" cy="125" r="6" fill="#B8973A" opacity="0.8"/>
+<line x1="120" y1="125" x2="180" y2="125" stroke="#B8973A" stroke-width="1.5" opacity="0.6"/>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°10</span><span class="lc-thumb-date">10 Mar 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">10 mars 2026 · Couche E→A</div>
+          <div class="lc-title">Quand l'IA commence à décider à votre place.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche E</span><span class="lc-tag">Agents</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-03-10-like" onclick="event.preventDefault();lcToggleLike('nl-2026-03-10',9)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-03-10-count">9</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-03-10-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-03-10','nl-2026-03-10.html','Quand l`IA commence à décider à votre place.','Newsletter','#1ABC9C')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="coûts tokens finops couche e mars 2026">
+      <a href="nl-2026-03-03.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#051C10;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><linearGradient id="n09bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#001A0A"/><stop offset="45%" stop-color="#002814"/><stop offset="46%" stop-color="#003060"/><stop offset="100%" stop-color="#001430"/></linearGradient></defs>
+<rect width="300" height="160" fill="url(#n09bg)"/>
+<line x1="0" y1="72" x2="300" y2="72" stroke="#00BCD4" stroke-width="1.5" opacity="0.5"/>
+<polygon points="150,15 195,70 105,70" fill="#69F0AE" opacity="0.9" class="h-float"/>
+<text x="150" y="52" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#003020">VISIBLE</text>
+<polygon points="105,74 195,74 220,155 80,155" fill="#1565C0" opacity="0.5"/>
+<polygon points="195,74 240,74 260,155 195,155" fill="#0D47A1" opacity="0.4"/>
+<polygon points="105,74 60,74 80,155 105,155" fill="#0D47A1" opacity="0.4"/>
+<text x="150" y="118" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#80DEEA" opacity="0.8" class="h-reveal" style="opacity:0">COÛTS CACHÉS</text>
+<text x="150" y="133" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#4FC3F7" opacity="0.6" class="h-reveal" style="opacity:0">3× plus grand</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°9</span><span class="lc-thumb-date">3 Mar 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">3 mars 2026 · Couche E→A</div>
+          <div class="lc-title">L'IA coûte plus cher que prévu. Pas pour les raisons qu'on croit.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche E</span><span class="lc-tag">Coûts</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-03-03-like" onclick="event.preventDefault();lcToggleLike('nl-2026-03-03',7)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-03-03-count">7</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-03-03-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-03-03','nl-2026-03-03.html','L`IA coûte plus cher que prévu. Pas pour les raisons qu`on c','Newsletter','#1ABC9C')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="agentique décideurs clôture couche a février 2026">
+      <a href="nl-2026-02-24.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#0A0A14;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><linearGradient id="n08bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#150800"/><stop offset="100%" stop-color="#0A0400"/></linearGradient>
+<filter id="n08f"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n08bg)"/>
+<line x1="150" y1="28" x2="70" y2="80" stroke="#FF6D00" stroke-width="1.5" opacity="0.6"/>
+<line x1="150" y1="28" x2="150" y2="80" stroke="#FF6D00" stroke-width="1.5" opacity="0.6"/>
+<line x1="150" y1="28" x2="230" y2="80" stroke="#FF6D00" stroke-width="1.5" opacity="0.6"/>
+<line x1="70" y1="80" x2="40" y2="130" stroke="#FF6D00" stroke-width="1.2" opacity="0.5"/>
+<line x1="70" y1="80" x2="100" y2="130" stroke="#FF6D00" stroke-width="1.2" opacity="0.5"/>
+<line x1="150" y1="80" x2="150" y2="130" stroke="#FF6D00" stroke-width="1.2" opacity="0.5"/>
+<line x1="230" y1="80" x2="200" y2="130" stroke="#FF6D00" stroke-width="1.2" opacity="0.5"/>
+<line x1="230" y1="80" x2="260" y2="130" stroke="#FF6D00" stroke-width="1.2" opacity="0.5"/>
+<circle cx="150" cy="28" r="12" fill="#E65100" class="h-pulse" filter="url(#n08f)"/>
+<circle cx="150" cy="28" r="6" fill="#FFEA00"/>
+<circle cx="70" cy="80" r="9" fill="#1A0800" stroke="#FF6D00" stroke-width="2" class="h-breathe"/>
+<circle cx="150" cy="80" r="9" fill="#1A0800" stroke="#FF8A65" stroke-width="2" class="h-breathe" style="animation-delay:-0.5s"/>
+<circle cx="230" cy="80" r="9" fill="#1A0800" stroke="#FF6D00" stroke-width="2" class="h-breathe" style="animation-delay:-1s"/>
+<circle cx="40" cy="130" r="6" fill="#E67E22" opacity="0.8" class="h-float"/>
+<circle cx="100" cy="130" r="6" fill="#E67E22" opacity="0.8" class="h-float" style="animation-delay:-0.4s"/>
+<circle cx="150" cy="130" r="6" fill="#FF8A65" opacity="0.8" class="h-float" style="animation-delay:-0.8s"/>
+<circle cx="200" cy="130" r="6" fill="#E67E22" opacity="0.8" class="h-float" style="animation-delay:-1.2s"/>
+<circle cx="260" cy="130" r="6" fill="#E67E22" opacity="0.8" class="h-float" style="animation-delay:-0.6s"/>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°8</span><span class="lc-thumb-date">24 Fév 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">24 février 2026 · Couche A</div>
+          <div class="lc-title">Ce que l'IA agentique change pour les décideurs — dès maintenant.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche A</span><span class="lc-tag">Agents</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-02-24-like" onclick="event.preventDefault();lcToggleLike('nl-2026-02-24',11)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-02-24-count">11</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-02-24-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-02-24','nl-2026-02-24.html','Ce que l`IA agentique change pour les décideurs — dès mainte','Newsletter','#FF6D00')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="agent erreur limite couche a février 2026">
+      <a href="nl-2026-02-17.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#0A0A14;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><radialGradient id="n07bg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1A0012"/><stop offset="100%" stop-color="#080006"/></radialGradient>
+<filter id="n07f"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n07bg)"/>
+<circle cx="150" cy="80" r="72" fill="#E91E8C" opacity="0.06" filter="url(#n07f)" class="h-breathe"/>
+<path d="M10,80 Q30,40 50,90 Q70,140 90,50 Q110,10 130,85 Q150,140 170,45 Q190,5 210,90 Q230,145 250,65 Q270,20 290,80" fill="none" stroke="#E91E8C" stroke-width="3.5" opacity="0.9" class="h-glow" style="color:#E91E8C" filter="url(#n07f)"/>
+<path d="M10,80 Q30,40 50,90 Q70,140 90,50 Q110,10 130,85 Q150,140 170,45 Q190,5 210,90 Q230,145 250,65 Q270,20 290,80" fill="none" stroke="#FF80AB" stroke-width="1.2" opacity="0.3" transform="translate(0,18)"/>
+<circle cx="130" cy="85" r="8" fill="#E91E8C" opacity="0.9" class="h-flicker" filter="url(#n07f)"/>
+<circle cx="210" cy="90" r="6" fill="#FF1744" opacity="0.8" class="h-flicker" style="animation-delay:-0.4s"/>
+<circle cx="290" cy="80" r="5" fill="#E91E8C" opacity="0.7" class="h-flicker" style="animation-delay:-0.8s"/>
+<text x="150" y="150" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#E91E8C" opacity="0.55" letter-spacing="2" class="h-reveal" style="opacity:0">DANGER</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°7</span><span class="lc-thumb-date">17 Fév 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">17 février 2026 · Couche A</div>
+          <div class="lc-title">L'agent qui répond. Et celui qui s'emballe.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche A</span><span class="lc-tag">Risque</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-02-17-like" onclick="event.preventDefault();lcToggleLike('nl-2026-02-17',4)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-02-17-count">4</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-02-17-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-02-17','nl-2026-02-17.html','L`agent qui répond. Et celui qui s`emballe.','Newsletter','#FF6D00')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="chatbot agent rupture couche a février 2026">
+      <a href="nl-2026-02-10.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#0A0A14;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><linearGradient id="n06bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#000F18"/><stop offset="100%" stop-color="#001420"/></linearGradient>
+<filter id="n06f"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n06bg)"/>
+<g opacity="0.7" transform="translate(55,80)">
+  <rect x="-22" y="-22" width="44" height="44" rx="5" fill="#001420" stroke="#607D8B" stroke-width="1.5"/>
+  <rect x="-10" y="-10" width="20" height="12" rx="3" fill="#607D8B" opacity="0.7"/>
+  <circle cx="-4" cy="-4" r="3" fill="white" opacity="0.6"/><circle cx="4" cy="-4" r="3" fill="white" opacity="0.6"/>
+  <path d="M-6,4 Q0,8 6,4" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+</g>
+<path d="M88,80 Q150,40 212,80" fill="none" stroke="#00BCD4" stroke-width="2.5" opacity="0.8" stroke-dasharray="4,3" filter="url(#n06f)" class="h-glow" style="color:#00BCD4"/>
+<text x="148" y="48" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#00BCD4" opacity="0.8">→</text>
+<g transform="translate(245,80)">
+  <rect x="-22" y="-22" width="44" height="44" rx="8" fill="#001420" stroke="#FF6D00" stroke-width="2.5" class="h-glow" style="color:#FF6D00" filter="url(#n06f)"/>
+  <rect x="-12" y="-12" width="24" height="15" rx="3" fill="#FF6D00" opacity="0.9"/>
+  <circle cx="-5" cy="-5" r="4" fill="white"/><circle cx="5" cy="-5" r="4" fill="white"/>
+  <circle cx="-4" cy="-4" r="2" fill="#001420"/><circle cx="6" cy="-4" r="2" fill="#001420"/>
+  <circle cx="-3" cy="-6" r="1" fill="white"/><circle cx="7" cy="-6" r="1" fill="white"/>
+  <path d="M-7,5 Q0,10 7,5" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="0" y1="-22" x2="0" y2="-32" stroke="#FF6D00" stroke-width="1.5"/>
+  <circle cx="0" cy="-35" r="3" fill="#FFEA00" class="h-pulse" filter="url(#n06f)"/>
+</g>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°6</span><span class="lc-thumb-date">10 Fév 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">10 février 2026 · Couche A</div>
+          <div class="lc-title">Du chatbot qui répond à l'agent qui agit.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche A</span><span class="lc-tag">Agents</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-02-10-like" onclick="event.preventDefault();lcToggleLike('nl-2026-02-10',8)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-02-10-count">8</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-02-10-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-02-10','nl-2026-02-10.html','Du chatbot qui répond à l`agent qui agit.','Newsletter','#FF6D00')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="agentique prêt organisation couche a février 2026">
+      <a href="nl-2026-02-03.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#0A0A14;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><linearGradient id="n05bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1A0800"/><stop offset="100%" stop-color="#0A0400"/></linearGradient>
+<filter id="n05f"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n05bg)"/>
+<circle cx="42" cy="80" r="28" fill="#E67E22" opacity="0.1" filter="url(#n05f)" class="h-breathe"/>
+<circle cx="42" cy="80" r="20" fill="#1A0800" stroke="#E67E22" stroke-width="2.5"/>
+<circle cx="42" cy="80" r="12" fill="#FF6D00" opacity="0.8" class="h-pulse" filter="url(#n05f)"/>
+<circle cx="42" cy="80" r="5" fill="#FFEA00"/>
+<path d="M62,80 Q130,42 200,80 Q252,108 295,80" fill="none" stroke="#FF6D00" stroke-width="3.5" opacity="0.9" filter="url(#n05f)" class="h-glow" style="color:#FF6D00"/>
+<path d="M62,80 Q130,60 200,80 Q252,95 295,80" fill="none" stroke="#FFAB40" stroke-width="1.2" opacity="0.35" transform="translate(0,-14)"/>
+<path d="M62,80 Q130,100 200,80 Q252,65 295,80" fill="none" stroke="#FFAB40" stroke-width="1.2" opacity="0.35" transform="translate(0,14)"/>
+<circle cx="200" cy="80" r="6" fill="#FF6D00" opacity="0.7" class="h-float"/>
+<circle cx="295" cy="80" r="4" fill="#FFAB40" opacity="0.6"/>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°5</span><span class="lc-thumb-date">3 Fév 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">3 février 2026 · Couche A</div>
+          <div class="lc-title">L'IA agentique arrive. Votre organisation est-elle prête ?</div>
+          <div class="lc-tags"><span class="lc-tag">Couche A</span><span class="lc-tag">Transformation</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-02-03-like" onclick="event.preventDefault();lcToggleLike('nl-2026-02-03',6)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-02-03-count">6</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-02-03-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-02-03','nl-2026-02-03.html','L`IA agentique arrive. Votre organisation est-elle prête ?','Newsletter','#FF6D00')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="2026 clôture deux questions couche l janvier 2026">
+      <a href="nl-2026-01-27.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#0A0A14;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><radialGradient id="n04bg" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#071428"/><stop offset="100%" stop-color="#020408"/></radialGradient>
+<filter id="n04f"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n04bg)"/>
+<ellipse cx="150" cy="80" rx="115" ry="58" fill="none" stroke="#00BCD4" stroke-width="1.5" opacity="0.35" stroke-dasharray="6,4"/>
+<ellipse cx="150" cy="80" rx="85" ry="42" fill="none" stroke="#B8973A" stroke-width="1.5" opacity="0.5" stroke-dasharray="200" stroke-dashoffset="0" class="h-dash"/>
+<circle cx="150" cy="80" r="18" fill="#040C1E" stroke="#00BCD4" stroke-width="2" opacity="0.8"/>
+<circle cx="150" cy="80" r="10" fill="#00BCD4" opacity="0.7" class="h-glow" style="color:#00BCD4" filter="url(#n04f)"/>
+<circle cx="235" cy="80" r="8" fill="#B8973A" opacity="0.9" class="h-pulse"/>
+<circle cx="65" cy="80" r="6" fill="#B8973A" opacity="0.6"/>
+<circle cx="150" cy="38" r="6" fill="#FFEA00" opacity="0.8" class="h-float"/>
+<circle cx="150" cy="122" r="5" fill="#E91E8C" opacity="0.7"/>
+<path d="M235,80 Q235,38 150,38 Q65,38 65,80 Q65,122 150,122 Q235,122 235,80" fill="none" stroke="#B8973A" stroke-width="0" opacity="0"/>
+<text x="248" y="75" font-family="sans-serif" font-size="8" font-weight="700" fill="#B8973A" opacity="0.8">jan 2026</text>
+<text x="248" y="88" font-family="sans-serif" font-size="7" fill="#B8973A" opacity="0.55">clôture →</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°4</span><span class="lc-thumb-date">27 Jan 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">27 janvier 2026 · Couche L→E</div>
+          <div class="lc-title">Ce que 2026 change vraiment. Et ce que ça ne change pas.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche L</span><span class="lc-tag">Stratégie</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-01-27-like" onclick="event.preventDefault();lcToggleLike('nl-2026-01-27',5)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-01-27-count">5</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-01-27-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-01-27','nl-2026-01-27.html','Ce que 2026 change vraiment. Et ce que ça ne change pas.','Newsletter','#00BCD4')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="5 signaux 2026 couche l janvier 2026">
+      <a href="nl-2026-01-20.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#0A0A14;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><radialGradient id="n03bg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#071428"/><stop offset="100%" stop-color="#020408"/></radialGradient>
+<filter id="n03f"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n03bg)"/>
+<circle cx="150" cy="80" r="62" fill="rgba(7,20,40,0.8)"/>
+<circle cx="150" cy="80" r="62" fill="none" stroke="#00BCD4" stroke-width="1.8" opacity="0.7" class="h-glow" style="color:#00BCD4"/>
+<ellipse cx="150" cy="80" rx="28" ry="62" fill="none" stroke="#00BCD4" stroke-width="0.7" opacity="0.35"/>
+<ellipse cx="150" cy="80" rx="58" ry="20" fill="none" stroke="#00BCD4" stroke-width="0.7" opacity="0.3"/>
+<circle cx="118" cy="58" r="7" fill="#FF6D00" filter="url(#n03f)" class="h-pulse"/>
+<circle cx="182" cy="64" r="6" fill="#E91E8C" filter="url(#n03f)" class="h-pulse" style="animation-delay:-0.4s"/>
+<circle cx="175" cy="102" r="7" fill="#FFEA00" filter="url(#n03f)" class="h-pulse" style="animation-delay:-0.8s"/>
+<circle cx="128" cy="106" r="6" fill="#69F0AE" filter="url(#n03f)" class="h-pulse" style="animation-delay:-1.2s"/>
+<circle cx="150" cy="48" r="5" fill="#00BCD4" filter="url(#n03f)" class="h-pulse" style="animation-delay:-1.6s"/>
+<text x="103" y="50" font-family="sans-serif" font-size="7" font-weight="700" fill="#FF6D00" opacity="0.8" class="h-reveal" style="opacity:0">S01</text>
+<text x="184" y="58" font-family="sans-serif" font-size="7" font-weight="700" fill="#E91E8C" opacity="0.8" class="h-reveal" style="opacity:0">S02</text>
+<text x="178" y="116" font-family="sans-serif" font-size="7" font-weight="700" fill="#FFEA00" opacity="0.8" class="h-reveal" style="opacity:0">S03</text>
+<text x="110" y="120" font-family="sans-serif" font-size="7" font-weight="700" fill="#69F0AE" opacity="0.8" class="h-reveal" style="opacity:0">S04</text>
+<text x="154" y="43" font-family="sans-serif" font-size="7" font-weight="700" fill="#00BCD4" opacity="0.8" class="h-reveal" style="opacity:0">S05</text>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°3</span><span class="lc-thumb-date">20 Jan 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">20 janvier 2026 · Couche L→E</div>
+          <div class="lc-title">Les 5 signaux qui définissent l'IA en 2026.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche L</span><span class="lc-tag">Signaux</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-01-20-like" onclick="event.preventDefault();lcToggleLike('nl-2026-01-20',9)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-01-20-count">9</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-01-20-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-01-20','nl-2026-01-20.html','Les 5 signaux qui définissent l`IA en 2026.','Newsletter','#00BCD4')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="leap maturité verrou couche l janvier 2026">
+      <a href="nl-2026-01-13.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#0A0A14;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><radialGradient id="n02bg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#071428"/><stop offset="100%" stop-color="#020408"/></radialGradient>
+<filter id="n02f"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n02bg)"/>
+<circle cx="150" cy="80" r="72" fill="none" stroke="#1E3A5F" stroke-width="0.6" opacity="0.4" stroke-dasharray="3,5"/>
+<circle cx="150" cy="80" r="56" fill="none" stroke="#1E3A5F" stroke-width="0.6" opacity="0.3" stroke-dasharray="3,5"/>
+<circle cx="150" cy="80" r="40" fill="none" stroke="#1E3A5F" stroke-width="0.6" opacity="0.3" stroke-dasharray="3,5"/>
+<circle cx="150" cy="80" r="25" fill="none" stroke="#1E3A5F" stroke-width="0.6" opacity="0.3" stroke-dasharray="3,5"/>
+<circle cx="150" cy="8" r="9" fill="#2C5282" class="h-breathe"/>
+<text x="150" y="12" text-anchor="middle" font-family="serif" font-size="11" font-weight="900" fill="#4A90D9">L</text>
+<circle cx="222" cy="80" r="8" fill="#276749" class="h-breathe" style="animation-delay:-0.5s"/>
+<text x="222" y="84" text-anchor="middle" font-family="serif" font-size="10" font-weight="900" fill="#69F0AE">E</text>
+<circle cx="150" cy="136" r="8" fill="#9C4221" class="h-breathe" style="animation-delay:-1s"/>
+<text x="150" y="140" text-anchor="middle" font-family="serif" font-size="10" font-weight="900" fill="#FF8A65">A</text>
+<circle cx="95" cy="50" r="7" fill="#6A1B9A" class="h-breathe" style="animation-delay:-1.5s"/>
+<text x="95" y="54" text-anchor="middle" font-family="serif" font-size="10" font-weight="900" fill="#CE93D8">P</text>
+<circle cx="150" cy="80" r="14" fill="#040C1E" stroke="#00BCD4" stroke-width="2" opacity="0.9"/>
+<circle cx="150" cy="80" r="7" fill="#00BCD4" opacity="0.8" class="h-pulse" filter="url(#n02f)"/>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°2</span><span class="lc-thumb-date">13 Jan 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">13 janvier 2026 · Couche L→E</div>
+          <div class="lc-title">Le cadre LEAP™ expliqué. Où en est votre organisation ?</div>
+          <div class="lc-tags"><span class="lc-tag">Couche L</span><span class="lc-tag">LEAP™</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-01-13-like" onclick="event.preventDefault();lcToggleLike('nl-2026-01-13',7)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-01-13-count">7</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-01-13-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-01-13','nl-2026-01-13.html','Le cadre LEAP™ expliqué. Où en est votre organisation ?','Newsletter','#00BCD4')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+    <div class="lib-card" data-type="nl" data-tags="lancement première édition couche l janvier 2026">
+      <a href="nl-2026-01-06.html" class="lc-link">
+        <div class="lc-thumb lc-thumb-nl" style="background:#0A0A14;position:relative;overflow:hidden;"><svg width="100%" height="100%" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;overflow:hidden;">
+<defs><radialGradient id="n01bg" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#0A1428"/><stop offset="100%" stop-color="#020408"/></radialGradient>
+<filter id="n01f"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="300" height="160" fill="url(#n01bg)"/>
+<circle cx="15" cy="8" r="0.6" fill="white" opacity="0.15"/><circle cx="56" cy="27" r="1.1" fill="white" opacity="0.25"/><circle cx="97" cy="46" r="0.6" fill="white" opacity="0.35"/><circle cx="138" cy="65" r="1.1" fill="white" opacity="0.45000000000000007"/><circle cx="179" cy="84" r="0.6" fill="white" opacity="0.15"/><circle cx="220" cy="103" r="1.1" fill="white" opacity="0.25"/><circle cx="261" cy="122" r="0.6" fill="white" opacity="0.35"/><circle cx="32" cy="141" r="1.1" fill="white" opacity="0.45000000000000007"/><circle cx="73" cy="16" r="0.6" fill="white" opacity="0.15"/><circle cx="114" cy="35" r="1.1" fill="white" opacity="0.25"/><circle cx="155" cy="54" r="0.6" fill="white" opacity="0.35"/><circle cx="196" cy="73" r="1.1" fill="white" opacity="0.45000000000000007"/><circle cx="237" cy="92" r="0.6" fill="white" opacity="0.15"/><circle cx="278" cy="111" r="1.1" fill="white" opacity="0.25"/><circle cx="49" cy="130" r="0.6" fill="white" opacity="0.35"/><circle cx="90" cy="149" r="1.1" fill="white" opacity="0.45000000000000007"/><circle cx="131" cy="24" r="0.6" fill="white" opacity="0.15"/><circle cx="172" cy="43" r="1.1" fill="white" opacity="0.25"/>
+<line x1="162" y1="80" x2="215" y2="80" stroke="#00BCD4" stroke-width="2.5" opacity="0.95"/><line x1="161" y1="82" x2="220" y2="96" stroke="#B8973A" stroke-width="1" opacity="0.4"/><line x1="160" y1="85" x2="221" y2="114" stroke="#E91E8C" stroke-width="1" opacity="0.4"/><line x1="159" y1="87" x2="217" y2="133" stroke="#FFEA00" stroke-width="1" opacity="0.4"/><line x1="157" y1="89" x2="190" y2="130" stroke="#7B1FA2" stroke-width="1.8" opacity="0.7"/><line x1="155" y1="90" x2="181" y2="144" stroke="#69F0AE" stroke-width="1" opacity="0.4"/><line x1="152" y1="91" x2="167" y2="157" stroke="#FF6D00" stroke-width="1" opacity="0.4"/><line x1="150" y1="92" x2="150" y2="166" stroke="#00E5FF" stroke-width="2.5" opacity="0.95"/><line x1="147" y1="91" x2="135" y2="143" stroke="#00BCD4" stroke-width="1.8" opacity="0.7"/><line x1="144" y1="90" x2="118" y2="144" stroke="#B8973A" stroke-width="1" opacity="0.4"/><line x1="142" y1="89" x2="100" y2="141" stroke="#E91E8C" stroke-width="1" opacity="0.4"/><line x1="140" y1="87" x2="82" y2="133" stroke="#FFEA00" stroke-width="1" opacity="0.4"/><line x1="139" y1="85" x2="91" y2="108" stroke="#7B1FA2" stroke-width="1.8" opacity="0.7"/><line x1="138" y1="82" x2="79" y2="96" stroke="#69F0AE" stroke-width="1" opacity="0.4"/><line x1="138" y1="80" x2="71" y2="80" stroke="#FF6D00" stroke-width="2.5" opacity="0.95"/><line x1="138" y1="77" x2="66" y2="60" stroke="#00E5FF" stroke-width="1" opacity="0.4"/><line x1="139" y1="74" x2="91" y2="51" stroke="#00BCD4" stroke-width="1.8" opacity="0.7"/><line x1="140" y1="72" x2="93" y2="35" stroke="#B8973A" stroke-width="1" opacity="0.4"/><line x1="142" y1="70" x2="100" y2="18" stroke="#E91E8C" stroke-width="1" opacity="0.4"/><line x1="144" y1="69" x2="112" y2="2" stroke="#FFEA00" stroke-width="1" opacity="0.4"/><line x1="147" y1="68" x2="135" y2="16" stroke="#7B1FA2" stroke-width="1.8" opacity="0.7"/><line x1="150" y1="68" x2="150" y2="8" stroke="#69F0AE" stroke-width="2.5" opacity="0.95"/><line x1="152" y1="68" x2="167" y2="2" stroke="#FF6D00" stroke-width="1" opacity="0.4"/><line x1="155" y1="69" x2="187" y2="2" stroke="#00E5FF" stroke-width="1" opacity="0.4"/><line x1="157" y1="70" x2="190" y2="29" stroke="#00BCD4" stroke-width="1.8" opacity="0.7"/><line x1="159" y1="72" x2="206" y2="35" stroke="#B8973A" stroke-width="1" opacity="0.4"/><line x1="160" y1="74" x2="221" y2="45" stroke="#E91E8C" stroke-width="1" opacity="0.4"/><line x1="161" y1="77" x2="233" y2="60" stroke="#FFEA00" stroke-width="1" opacity="0.4"/>
+<circle cx="150" cy="80" r="18" fill="#040C1E" filter="url(#n01f)" class="h-breathe"/>
+<circle cx="150" cy="80" r="18" fill="none" stroke="#00BCD4" stroke-width="2" opacity="0.8"/>
+<circle cx="150" cy="80" r="10" fill="#B8973A" opacity="0.95" class="h-pulse"/>
+<circle cx="150" cy="80" r="5" fill="#040C1E"/>
+<circle cx="150" cy="80" r="2" fill="#FFEA00" class="h-glow" style="color:#FFEA00" filter="url(#n01f)"/>
+</svg>
+          <div class="lc-thumb-inner"><span class="lc-edition">N°1</span><span class="lc-thumb-date">6 Jan 2026</span></div>
+          <span class="lc-badge free">Gratuit</span>
+        </div>
+        <div class="lc-body">
+          <div class="lc-meta">6 janvier 2026 · Couche L→E</div>
+          <div class="lc-title">L'IA en 2026. Ce qui change vraiment.</div>
+          <div class="lc-tags"><span class="lc-tag">Couche L</span><span class="lc-tag">Lancement</span></div>
+        </div>
+
+          <div class="lc-actions">
+            <button class="lc-like" id="lc-nl-2026-01-06-like" onclick="event.preventDefault();lcToggleLike('nl-2026-01-06',4)" title="J'aime">
+              <span class="lc-like-icon">♡</span>
+              <span class="lc-like-count" id="lc-nl-2026-01-06-count">4</span>
+            </button>
+            <button class="lc-bookmark" id="lc-nl-2026-01-06-bk" onclick="event.preventDefault();lcToggleBookmark('nl-2026-01-06','nl-2026-01-06.html','L`IA en 2026. Ce qui change vraiment.','Newsletter','#00BCD4')" title="Ajouter à ma liste de lecture">
+              <span class="lc-bk-icon" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0;">◇</span>
+            </button>
+          </div>
+      </a>
+    </div>
+
+  </div><!-- /lib-grid -->
+
+  <div id="lib-no-results" style="display:none;padding:40px;text-align:center;font-family:'Lora',serif;font-size:15px;color:var(--muted);">Aucun résultat pour cette recherche.</div>
+
+  </div>
+
+</section>
+
+
+<!-- PONT DIAGNOSTIC -->
+<div style="background:var(--ink,#0A0A14); padding:clamp(28px,4vw,56px) clamp(24px,5vw,80px); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; border-top:1px solid rgba(255,255,255,0.06);">
+  <div style="max-width:560px;">
+    <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#B8973A; margin-bottom:8px;">Étape préalable</div>
+    <div style="font-family:'Playfair Display',serif; font-size:clamp(18px,2vw,26px); font-weight:700; color:#fff; line-height:1.3; margin-bottom:8px;">Où en est votre organisation, <em style='font-style:italic;color:#B8973A;'>vraiment ?</em></div>
+    <div style="font-family:'Lora',serif; font-size:14px; color:rgba(255,255,255,0.5); line-height:1.6;">6 dimensions · 7 minutes · Votre niveau réel + vos angles morts + 3 priorités. Gratuit, sans inscription.</div>
+  </div>
+  <a href="page-diagnostic.html" style="font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:14px 28px; background:#B8973A !important; color:#0A0A14 !important; text-decoration:none !important; white-space:nowrap; flex-shrink:0; display:inline-block;">Faire le diagnostic →</a>
+</div>
+<footer>
+  <div class="f-brand">✦ Un Cran d'Avance</div>
+  <div class="f-copy">© 2026 · L'essentiel de l'IA pour décider mieux, chaque semaine.</div>
+  <div class="f-links"><a href="page-newsletter.html">Newsletter</a><a href="page-vente.html">Premium</a><a href="page-apropos.html">À propos</a><a href="mentions-legales.html">Mentions légales</a><a href="politique-confidentialite.html">Confidentialité</a></div>
+</footer>
+
+<script src="uca-gate.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.querySelector('.nav-hamburger');
+  var overlay = document.querySelector('.nav-mobile-overlay');
+  if (!btn || !overlay) return;
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = overlay.classList.contains('open');
+    btn.classList.toggle('open');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  });
+  overlay.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      btn.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (overlay.classList.contains('open') && !overlay.contains(e.target) && !btn.contains(e.target)) {
+      btn.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
+/* ══ VISIBILITÉ PAR DATE DE PUBLICATION ══ */
+document.addEventListener('DOMContentLoaded', function() {
+  var today = new Date();
+  today.setHours(0,0,0,0);
+
+  // Masquer les éléments dont data-publish est dans le futur
+  document.querySelectorAll('[data-publish]').forEach(function(el) {
+    var pubDate = new Date(el.getAttribute('data-publish'));
+    pubDate.setHours(0,0,0,0);
+    if (pubDate > today) {
+      el.style.display = 'none';
+    }
+  });
+
+  // Masquer les liens d'archives vers des NL futures
+  document.querySelectorAll('.ar-link, .ef-btn, .btn-primary').forEach(function(link) {
+    var row = link.closest('[data-publish]');
+    if (!row) return;
+    var pubDate = new Date(row.getAttribute('data-publish'));
+    pubDate.setHours(0,0,0,0);
+    if (pubDate > today) {
+      link.style.pointerEvents = 'none';
+      link.style.opacity = '0.4';
+      link.removeAttribute('href');
+    }
+  });
+});
+
+</script>
+
+<script>
+function nlHeroSubmit() {
+  var inp = document.getElementById('nl-hero-input');
+  if (!inp) return;
+  var email = inp.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { inp.style.borderColor='var(--red)'; return; }
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email);
+  else { localStorage.setItem('uca_has_email','1'); localStorage.setItem('uca_email',email); }
+  document.getElementById('nl-hero-form').innerHTML = '<p style="font-family:Lora,serif;font-size:14px;padding:12px 0;">\u2713 Bienvenue \u2014 votre premier signal arrive mardi.</p>';
+}
+function nlCtaSubmit() {
+  var inp = document.getElementById('nl-cta-input');
+  if (!inp) return;
+  var email = inp.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { inp.style.borderColor='#ff6b6b'; return; }
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email);
+  else { localStorage.setItem('uca_has_email','1'); localStorage.setItem('uca_email',email); }
+  document.getElementById('nl-cta-form').style.display = 'none';
+  document.getElementById('nl-cta-success').style.display = 'block';
+}
+</script>
+
+<script>
+var libCurrentTab = 'all';
+function libFilter() {
+  var q = document.getElementById('lib-search').value.toLowerCase().trim();
+  var cards = document.querySelectorAll('.lib-card');
+  var visible = 0;
+  cards.forEach(function(c) {
+    var type = c.getAttribute('data-type');
+    var tags = (c.getAttribute('data-tags') || '').toLowerCase();
+    var title = (c.querySelector('.lc-title') ? c.querySelector('.lc-title').textContent : '').toLowerCase();
+    var meta = (c.querySelector('.lc-meta') ? c.querySelector('.lc-meta').textContent : '').toLowerCase();
+    var matchTab = libCurrentTab === 'all' || type === libCurrentTab;
+    var matchQ = !q || tags.includes(q) || title.includes(q) || meta.includes(q);
+    if (matchTab && matchQ) { c.classList.remove('hidden'); visible++; }
+    else { c.classList.add('hidden'); }
+  });
+  var noRes = document.getElementById('lib-no-results');
+  if (noRes) noRes.style.display = visible === 0 ? 'block' : 'none';
+}
+function libSetTab(tab, btn) {
+  libCurrentTab = tab;
+  document.querySelectorAll('.lib-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  libFilter();
+}
+function libFallbackGate() {
+  var inp = document.getElementById('gate-email-input');
+  if (!inp) return;
+  var email = inp.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    inp.style.borderColor = '#ff6b6b';
+    var err = document.getElementById('gate-email-error');
+    if (err) err.style.display = 'block';
+    return;
+  }
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  document.body.classList.add('has-email');
+  var gate = document.getElementById('gate-email-block');
+  if (gate) gate.style.display = 'none';
+  var content = document.getElementById('content-email-private');
+  if (content) content.style.display = 'block';
+}
+</script>
+
+<!-- LISTE DE LECTURE -->
+<div id="reading-list-panel">
+  <div class="rlp-header">
+    <div class="rlp-title">📚 Ma liste de lecture</div>
+    <button class="rlp-close" onclick="rlClose()">✕</button>
+  </div>
+  <div id="rlp-list-content" class="rlp-list">
+    <div class="rlp-empty" id="rlp-empty">Aucun élément — cliquez sur ◇ pour ajouter.</div>
+  </div>
+</div>
+
+<button id="rl-fab" onclick="rlToggle()" style="display:none;">
+  <span id="rl-fab-icon">📚</span>
+  <span id="rl-fab-label">Ma liste</span>
+  <span class="rlp-count-badge" id="rl-fab-count"></span>
+</button>
+
+<script>
+// ── Likes ──
+function lcToggleLike(slug, base) {
+  var key = 'uca_like_' + slug;
+  var liked = localStorage.getItem(key) === '1';
+  var countEl = document.getElementById('lc-' + slug + '-count');
+  var btnEl   = document.getElementById('lc-' + slug + '-like');
+  var iconEl  = btnEl ? btnEl.querySelector('.lc-like-icon') : null;
+  var storedN = parseInt(localStorage.getItem('uca_likes_' + slug) || base);
+  if (!liked) {
+    localStorage.setItem(key, '1');
+    var n = storedN + 1;
+    localStorage.setItem('uca_likes_' + slug, n);
+    if (countEl) countEl.textContent = n;
+    if (iconEl) iconEl.textContent = '♥';
+    if (btnEl) btnEl.classList.add('liked');
+  } else {
+    localStorage.removeItem(key);
+    var n2 = Math.max(0, storedN - 1);
+    localStorage.setItem('uca_likes_' + slug, n2);
+    if (countEl) countEl.textContent = n2 > 0 ? n2 : '';
+    if (iconEl) iconEl.textContent = '♡';
+    if (btnEl) btnEl.classList.remove('liked');
+  }
+}
+
+// ── Bookmarks ──
+function lcToggleBookmark(slug, href, title, label, color) {
+  var key = 'uca_bk_' + slug;
+  var saved = localStorage.getItem(key) === '1';
+  var btnEl = document.getElementById('lc-' + slug + '-bk');
+  var iconEl = btnEl ? btnEl.querySelector('.lc-bk-icon') : null;
+  if (!saved) {
+    localStorage.setItem(key, '1');
+    var items = JSON.parse(localStorage.getItem('uca_rl') || '[]');
+    if (!items.find(function(i){ return i.slug === slug; })) {
+      items.push({ slug: slug, href: href, title: title, label: label, color: color });
+      localStorage.setItem('uca_rl', JSON.stringify(items));
+    }
+    if (btnEl) btnEl.classList.add('saved');
+    if (iconEl) { iconEl.textContent = '◆'; iconEl.style.color = 'var(--ink)'; }
+  } else {
+    localStorage.removeItem(key);
+    var items2 = JSON.parse(localStorage.getItem('uca_rl') || '[]').filter(function(i){ return i.slug !== slug; });
+    localStorage.setItem('uca_rl', JSON.stringify(items2));
+    if (btnEl) btnEl.classList.remove('saved');
+    if (iconEl) { iconEl.textContent = '◇'; iconEl.style.color = ''; }
+  }
+  rlRender();
+}
+
+// ── Panneau liste de lecture ──
+function rlRender() {
+  var items = JSON.parse(localStorage.getItem('uca_rl') || '[]');
+  var listEl = document.getElementById('rlp-list-content');
+  var emptyEl = document.getElementById('rlp-empty');
+  var fab = document.getElementById('rl-fab');
+  var fabCount = document.getElementById('rl-fab-count');
+  if (!listEl) return;
+  fab && (fab.style.display = items.length > 0 ? 'flex' : 'none');
+  if (fabCount) { fabCount.textContent = items.length; fabCount.classList.toggle('visible', items.length > 0); }
+  listEl.querySelectorAll('.rlp-item').forEach(function(el){ el.remove(); });
+  if (items.length === 0) { if (emptyEl) emptyEl.style.display = 'block'; return; }
+  if (emptyEl) emptyEl.style.display = 'none';
+  items.forEach(function(item) {
+    var a = document.createElement('a');
+    a.href = item.href;
+    a.className = 'rlp-item';
+    var dot = document.createElement('div');
+    dot.className = 'rlp-item-dot';
+    dot.style.background = item.color;
+    var info = document.createElement('div');
+    info.style.flex = '1';
+    var t = document.createElement('div');
+    t.className = 'rlp-item-title';
+    t.textContent = item.title + '…';
+    var m = document.createElement('div');
+    m.className = 'rlp-item-meta';
+    m.textContent = item.label;
+    info.appendChild(t); info.appendChild(m);
+    var rm = document.createElement('button');
+    rm.className = 'rlp-item-remove';
+    rm.title = 'Retirer';
+    rm.textContent = '✕';
+    (function(s,h,ti,l,c){ rm.onclick = function(e){ e.preventDefault(); e.stopPropagation(); lcToggleBookmark(s,h,ti,l,c); }; })(item.slug,item.href,item.title,item.label,item.color);
+    a.appendChild(dot); a.appendChild(info); a.appendChild(rm);
+    listEl.appendChild(a);
+  });
+}
+
+function rlToggle() { var p = document.getElementById('reading-list-panel'); if (p) p.classList.toggle('open'); }
+function rlClose()  { var p = document.getElementById('reading-list-panel'); if (p) p.classList.remove('open'); }
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('[id^="lc-"][id$="-like"]').forEach(function(btn) {
+    var slug = btn.id.replace('lc-','').replace('-like','');
+    var countEl = document.getElementById('lc-' + slug + '-count');
+    var iconEl = btn.querySelector('.lc-like-icon');
+    var stored = localStorage.getItem('uca_likes_' + slug);
+    if (stored !== null && countEl) countEl.textContent = parseInt(stored) > 0 ? stored : '';
+    if (localStorage.getItem('uca_like_' + slug) === '1') {
+      btn.classList.add('liked');
+      if (iconEl) iconEl.textContent = '♥';
+    }
+  });
+  document.querySelectorAll('[id^="lc-"][id$="-bk"]').forEach(function(btn) {
+    var slug = btn.id.replace('lc-','').replace('-bk','');
+    if (localStorage.getItem('uca_bk_' + slug) === '1') btn.classList.add('saved');
+  });
+  rlRender();
+});
+</script>
+
+<script type="module">
+// ── Option B : cards "À paraître" pour les NL futures ─────────────
+// Même gabarit que les cards existantes, non cliquables, avec date
+import { UCA_CONFIG, isPublished } from './uca-config.js';
+
+const today = new Date().toISOString();
+
+// Mettre à jour les compteurs d'éditions publiées
+const published = UCA_CONFIG.EDITIONS.filter(e => e.type === 'nl' && isPublished(e, today)).length;
+document.querySelectorAll('.nl-count').forEach(el => el.textContent = published);
+
+// Pour chaque card dans la grille
+document.querySelectorAll('.lib-card[data-type="nl"]').forEach(card => {
+  const link = card.querySelector('a[href]');
+  if (!link) return;
+
+  const href = link.getAttribute('href') || '';
+  const match = href.match(/nl-(\d{4}-\d{2}-\d{2})\.html/);
+  if (!match) return;
+
+  const slug = 'nl-' + match[1];
+  const edition = UCA_CONFIG.EDITIONS.find(e => e.slug === slug);
+  if (!edition || isPublished(edition, today)) return;
+
+  // Formater la date de publication
+  const pubDate = new Date(edition.publishDate + 'T00:00:00Z');
+  const dateStr = pubDate.toLocaleDateString('fr-FR', {
+    day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+  });
+  const dateShort = pubDate.toLocaleDateString('fr-FR', {
+    day: 'numeric', month: 'short', timeZone: 'UTC'
+  }).toUpperCase();
+
+  // Numéro d'édition depuis le label
+  const num = edition.label ? edition.label.match(/N°(\d+)/)?.[1] || '—' : '—';
+
+  // Remplacer le contenu de la card par la version "À paraître"
+  // On garde le même gabarit : thumb + body
+  card.innerHTML = `
+    <div class="lc-link" style="cursor:default;text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%;">
+      <div class="lc-thumb" style="background:linear-gradient(135deg,#0A0A14 0%,#1A1A2E 100%);height:130px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+        <svg width="100%" height="100%" viewBox="0 0 300 160" style="position:absolute;top:0;left:0;" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="160" fill="url(#bg-ap-\${slug})"/>
+          <defs>
+            <linearGradient id="bg-ap-\${slug}" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0A0A14"/>
+              <stop offset="100%" stop-color="#1A1A2E"/>
+            </linearGradient>
+          </defs>
+          <!-- Cercle pulsant -->
+          <circle cx="150" cy="70" r="40" fill="none" stroke="rgba(184,151,58,0.15)" stroke-width="1"/>
+          <circle cx="150" cy="70" r="28" fill="none" stroke="rgba(184,151,58,0.25)" stroke-width="1"/>
+          <circle cx="150" cy="70" r="16" fill="rgba(184,151,58,0.1)" stroke="rgba(184,151,58,0.4)" stroke-width="1.5"/>
+          <!-- Icône horloge simple -->
+          <circle cx="150" cy="70" r="10" fill="none" stroke="rgba(184,151,58,0.7)" stroke-width="1.5"/>
+          <line x1="150" y1="70" x2="150" y2="63" stroke="rgba(184,151,58,0.7)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="150" y1="70" x2="155" y2="70" stroke="rgba(184,151,58,0.7)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="lc-badge" style="position:absolute;top:10px;right:10px;font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;background:rgba(184,151,58,0.2);color:rgba(184,151,58,0.8);">À paraître</div>
+        <div style="position:relative;z-index:1;text-align:center;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:4px;">N°\${num}</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(184,151,58,0.6);">\${dateShort}</div>
+        </div>
+      </div>
+      <div class="lc-body" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;flex:1;opacity:0.65;">
+        <div class="lc-meta" style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Prochaine édition · \${dateStr}</div>
+        <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;line-height:1.3;color:var(--muted);font-style:italic;">En préparation</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(184,151,58,0.6);margin-top:auto;padding-top:8px;border-top:1px solid var(--rule);">Disponible le \${dateStr}</div>
+      </div>
+    </div>
+  `;
+  // Désactiver le hover
+  card.style.cursor = 'default';
+  card.style.pointerEvents = 'none';
+});
+
+// Même logique pour les dossiers futurs
+document.querySelectorAll('.lib-card[data-type="dossier"]').forEach(card => {
+  const link = card.querySelector('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href') || '';
+  const match = href.match(/dossier-([\w-]+)\.html/);
+  if (!match) return;
+  const slug = 'dossier-' + match[1];
+  const edition = UCA_CONFIG.EDITIONS.find(e => e.slug === slug);
+  if (!edition || isPublished(edition, today)) return;
+
+  const pubDate = new Date(edition.publishDate + 'T00:00:00Z');
+  const dateStr = pubDate.toLocaleDateString('fr-FR', {
+    day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+  });
+  card.style.opacity = '0.6';
+  card.style.cursor = 'default';
+  link.removeAttribute('href');
+  link.style.cursor = 'default';
+  const meta = card.querySelector('.lc-meta');
+  if (meta) meta.textContent = 'À paraître le ' + dateStr;
+
+  // Clic → message explicatif (toast via uca-gate.js)
+  card.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (typeof showUCAToast === 'function') {
+      showUCAToast('Ce dossier sera disponible le ' + dateStr + '.');
+    }
+  });
+});
+</script>
+
+<script>
+function nlEmailSubmit() {
+  var input   = document.getElementById('nl-email-input');
+  var consent = document.getElementById('consent-nl');
+  var errEl   = document.getElementById('nl-form-error');
+  if (!input) return;
+
+  function showErr(msg) {
+    if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+  }
+  function clearErr() {
+    if (errEl) errEl.style.display = 'none';
+  }
+
+  var email = input.value.trim().toLowerCase();
+
+  /* Validation email */
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    input.style.borderColor = '#C8102E';
+    showErr('⚠ Email invalide — vérifiez le format.');
+    return;
+  }
+  input.style.borderColor = '';
+
+  /* Validation consentement */
+  if (consent && !consent.checked) {
+    consent.style.outline = '2px solid #C8102E';
+    consent.style.outlineOffset = '2px';
+    showErr('⚠ Merci de cocher la case de consentement pour continuer.');
+    return;
+  }
+  if (consent) consent.style.outline = '';
+  clearErr();
+
+  // Déverrouillage immédiat
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyNLAccess === 'function') applyNLAccess();
+
+  // Appel réseau en arrière-plan
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+
+  // Redirect vers espace membre
+  setTimeout(function() { window.location.href = 'membre-welcome.html'; }, 1400);
+}
+</script>
+<script>
+document.querySelectorAll(".uca-coming-soon").forEach(function(el) {
+  el.addEventListener("click", function(e) {
+    e.preventDefault();
+    var msg = el.getAttribute("data-msg");
+    if (typeof showUCAToast === "function" && msg) showUCAToast(msg);
+  });
+});
+</script>
+<script>
+function ucaComingSoon(el) {
+  var msg = el.getAttribute("data-msg") || "En préparation.";
+  var t = document.getElementById("uca-toast");
+  if (!t) {
+    t = document.createElement("div");
+    t.id = "uca-toast";
+    t.style.cssText = "position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#1A1A2E;color:#fff;font-family:sans-serif;font-size:14px;font-weight:700;padding:14px 28px;border-left:4px solid #B8973A;box-shadow:0 4px 24px rgba(0,0,0,0.4);z-index:9999;pointer-events:none;opacity:0;transition:opacity 0.25s;";
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = "1";
+  clearTimeout(t._t);
+  t._t = setTimeout(function(){ t.style.opacity = "0"; }, 3800);
+}
+</script>
+<!-- MODAL INSCRIPTION -->
+<div id="uca-subscribe-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:rgba(10,10,20,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;padding:40px 36px;position:relative;">
+    <button onclick="ucaCloseModal()" aria-label="Fermer" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#6B6B6B;line-height:1;">✕</button>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8973A;margin-bottom:16px;">Newsletter gratuite · Chaque mardi</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;color:#0A0A14;margin-bottom:8px;">5 signaux IA.<br>Chaque mardi matin.</h2>
+    <p style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.7;margin-bottom:24px;">Ce que les dirigeants utilisent pour décider avant les autres. Gratuit, désabonnement en 1 clic.</p>
+    <!-- Formulaire -->
+    <div id="modal-form-wrap">
+      <div style="display:flex;gap:0;margin-bottom:10px;">
+        <input type="email" id="modal-email-input" autocomplete="email" required placeholder="votre@email.com" style="flex:1;padding:14px 16px;font-family:'Barlow',sans-serif;font-size:14px;border:1px solid #E0DDD8;border-right:none;outline:none;min-width:0;" />
+        <button onclick="ucaModalSubmit()" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:14px 20px;background:#C8102E;color:#fff;border:none;cursor:pointer;white-space:nowrap;">Accès immédiat — gratuit →</button>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <input type="checkbox" id="modal-consent" style="margin-top:3px;flex-shrink:0;accent-color:#C8102E;" />
+        <label for="modal-consent" style="font-family:'Barlow',sans-serif;font-size:12px;color:#6B6B6B;line-height:1.5;cursor:pointer;">J'accepte de recevoir la newsletter <em>Un Cran d'Avance</em>. Données traitées selon notre <a href="politique-confidentialite.html" style="color:#6B6B6B;text-decoration:underline;">politique de confidentialité</a>. Désabonnement en 1 clic.</label>
+      </div>
+      <div id="modal-error" style="display:none;font-family:'Barlow',sans-serif;font-size:12px;color:#C8102E;margin-top:6px;"></div>
+    </div>
+    <!-- Succès -->
+    <div id="modal-success" style="display:none;text-align:center;padding:16px 0;">
+      <div style="font-size:32px;margin-bottom:12px;">✓</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#0A0A14;margin-bottom:8px;">Bienvenue !</div>
+      <div style="font-family:'Lora',serif;font-size:14px;color:#6B6B6B;line-height:1.6;">Votre premier signal arrive mardi. Votre Pack de bienvenue est disponible maintenant.</div>
+      <a href="membre-welcome.html" style="display:inline-block;margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;background:#0A0A14;color:#fff;text-decoration:none;">Accéder à mon espace →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function ucaOpenModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (!m) return;
+  // Si déjà abonné, rediriger vers bienvenue
+  if (localStorage.getItem('uca_has_email') === '1') {
+    window.location.href = 'membre-welcome.html';
+    return;
+  }
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    var inp = document.getElementById('modal-email-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+function ucaCloseModal() {
+  var m = document.getElementById('uca-subscribe-modal');
+  if (m) m.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function ucaModalSubmit() {
+  var inp = document.getElementById('modal-email-input');
+  var consent = document.getElementById('modal-consent');
+  var errEl = document.getElementById('modal-error');
+  var email = inp ? inp.value.trim() : '';
+  var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!re.test(email)) {
+    if (errEl) { errEl.textContent = '⚠ Email invalide — vérifiez le format.'; errEl.style.display = 'block'; }
+    if (inp) inp.style.borderColor = '#C8102E';
+    return;
+  }
+  if (consent && !consent.checked) {
+    if (errEl) { errEl.textContent = '⚠ Merci de cocher la case de consentement.'; errEl.style.display = 'block'; }
+    consent.style.outline = '2px solid #C8102E';
+    return;
+  }
+  if (inp) inp.style.borderColor = '';
+  if (consent) consent.style.outline = '';
+  if (errEl) errEl.style.display = 'none';
+
+  // Déverrouillage immédiat
+  localStorage.setItem('uca_has_email', '1');
+  localStorage.setItem('uca_email', email);
+  if (typeof applyDossierAccess === 'function') applyDossierAccess();
+  if (typeof applyNLAccess === 'function') applyNLAccess();
+
+  // Afficher succès
+  var formWrap = document.getElementById('modal-form-wrap');
+  var success = document.getElementById('modal-success');
+  if (formWrap) formWrap.style.display = 'none';
+  if (success) success.style.display = 'block';
+
+  // Appel réseau en arrière-plan
+  if (typeof handleEmailSubmit === 'function') handleEmailSubmit(email).catch(function(){});
+}
+// Fermer en cliquant hors de la modal
+document.addEventListener('click', function(e) {
+  var modal = document.getElementById('uca-subscribe-modal');
+  if (modal && e.target === modal) ucaCloseModal();
+});
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') ucaCloseModal();
+});
+</script>
+
+<!-- BANDEAU CONSENTEMENT COOKIES -->
+<div id="uca-cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1A1A2E;color:rgba(255,255,255,0.85);font-family:'Barlow',sans-serif;font-size:13px;padding:16px clamp(16px,4vw,40px);z-index:9999;border-top:2px solid #B8973A;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+  <p style="margin:0;max-width:680px;line-height:1.5;">Ce site utilise des données de session (localStorage) pour mémoriser votre accès à la newsletter. Aucun cookie tiers. <a href="politique-confidentialite.html" style="color:#B8973A;text-decoration:underline;">Politique de confidentialité</a></p>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="ucaAcceptCookies()" aria-label="Accepter les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:#B8973A;color:#1A1A2E;border:none;cursor:pointer;">Accepter</button>
+    <button onclick="ucaRefuseCookies()" aria-label="Refuser les cookies" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);cursor:pointer;">Refuser</button>
+  </div>
+</div>
+<script>
+function ucaAcceptCookies() {
+  localStorage.setItem('uca_cookie_consent','accepted');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+function ucaRefuseCookies() {
+  localStorage.setItem('uca_cookie_consent','refused');
+  // Clear any stored access data if refused
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('uca_cookie_consent')) {
+    var b = document.getElementById('uca-cookie-banner');
+    if (b) b.style.display = 'flex';
+  }
+});
+</script>
+</body>
+</html>
