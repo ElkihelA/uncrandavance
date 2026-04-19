@@ -2033,6 +2033,9 @@ document.querySelectorAll('.lib-card[data-type="dossier"]').forEach(card => {
     link.classList.remove('uca-coming-soon');
     link.removeAttribute('data-msg');
     if (link.style.cursor === 'default') link.style.cursor = '';
+    // Cloner pour supprimer les event listeners attachés
+    const cleanLink = link.cloneNode(true);
+    link.parentNode.replaceChild(cleanLink, link);
     return;
   }
 
