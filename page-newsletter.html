@@ -1066,7 +1066,7 @@ body.has-premium #hero-nl-title-premium { display: inline; }
   </div>
   <div class="lib-section-label" style="margin-top:40px;">
     <span>Toutes les éditions</span>
-    <span class="lsl-sub">20 newsletters · archives complètes</span>
+    <span class="lsl-sub"><span class="nl-total-count">16</span> newsletters · archives complètes</span>
   </div>
   <div>
   <div class="lib-grid" id="lib-grid">
@@ -2135,6 +2135,23 @@ const today = new Date().toISOString();
 const published = UCA_CONFIG.EDITIONS.filter(e => e.type === 'nl' && isPublished(e, today)).length;
 document.querySelectorAll('.nl-count').forEach(el => el.textContent = published);
 
+// ── Batch reveal par mois ──────────────────────────────────────────
+// Un mois n'est "révélé" (ses cards apparaissent dans l'archive) qu'à
+// partir de la publication de sa première édition. Avant ça, les cards
+// restent cachées — pas de teasing du mois prochain dans l'archive.
+const revealedMonths = new Set();
+for (const ed of UCA_CONFIG.EDITIONS) {
+  if (isPublished(ed, today)) {
+    revealedMonths.add(ed.publishDate.slice(0, 7));
+  }
+}
+
+// Mettre à jour le total d'éditions visibles dans l'archive
+const totalRevealedNL = UCA_CONFIG.EDITIONS.filter(e =>
+  e.type === 'nl' && revealedMonths.has(e.publishDate.slice(0, 7))
+).length;
+document.querySelectorAll('.nl-total-count').forEach(el => el.textContent = totalRevealedNL);
+
 // Pour chaque card dans la grille
 document.querySelectorAll('.lib-card[data-type="nl"]').forEach(card => {
   const link = card.querySelector('a[href]');
@@ -2148,6 +2165,12 @@ document.querySelectorAll('.lib-card[data-type="nl"]').forEach(card => {
   const slug = 'nl-' + match[1];
   const edition = UCA_CONFIG.EDITIONS.find(e => e.slug === slug);
   if (!edition) return;
+
+  // Mois pas encore révélé → cacher la card entièrement
+  if (!revealedMonths.has(edition.publishDate.slice(0, 7))) {
+    card.style.display = 'none';
+    return;
+  }
 
   if (isPublished(edition, today)) {
     // Édition publiée : nettoyer les marqueurs "coming soon" hardcodés
@@ -2207,6 +2230,12 @@ document.querySelectorAll('.lib-card[data-type="dossier"]').forEach(card => {
   const slug = 'dossier-' + match[1];
   const edition = UCA_CONFIG.EDITIONS.find(e => e.slug === slug);
   if (!edition) return;
+
+  // Mois pas encore révélé → cacher la card entièrement
+  if (!revealedMonths.has(edition.publishDate.slice(0, 7))) {
+    card.style.display = 'none';
+    return;
+  }
 
   if (isPublished(edition, today)) {
     // Dossier publié : nettoyer les marqueurs "coming soon" hardcodés
