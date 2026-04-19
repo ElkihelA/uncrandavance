@@ -1956,6 +1956,10 @@ document.querySelectorAll('.lib-card[data-type="nl"]').forEach(card => {
     link.classList.remove('uca-coming-soon');
     link.removeAttribute('data-msg');
     if (link.style.cursor === 'default') link.style.cursor = '';
+    // Cloner pour supprimer les event listeners attachés (ex. le handler
+    // global .uca-coming-soon qui appelle e.preventDefault)
+    const cleanLink = link.cloneNode(true);
+    link.parentNode.replaceChild(cleanLink, link);
     return;
   }
 
