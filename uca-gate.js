@@ -7,21 +7,38 @@ var LS_HAS_EMAIL  = "uca_has_email";
 var LS_EMAIL      = "uca_email";
 var LS_IS_PREMIUM = "uca_is_premium";
 
+/* ── 1b. WRAPPERS LOCALSTORAGE ── */
+/* Safari en mode privé et Firefox avec storage désactivé lancent une
+   exception sur accès à localStorage. On encapsule pour ne pas crasher
+   le gate dans ces cas — l'utilisateur perd juste la persistance locale. */
+function lsGet(key) {
+  try { return localStorage.getItem(key); }
+  catch (e) { return null; }
+}
+function lsSet(key, val) {
+  try { localStorage.setItem(key, val); }
+  catch (e) { /* mode privé ou quota — persistance perdue, pas bloquant */ }
+}
+function lsRemove(key) {
+  try { localStorage.removeItem(key); }
+  catch (e) { /* ignore */ }
+}
+
 /* ── 2. HELPERS LOCALSTORAGE ── */
-function hasEmailAccess()  { return localStorage.getItem(LS_HAS_EMAIL)  === "1"; }
-function isPremiumUser()   { return localStorage.getItem(LS_IS_PREMIUM) === "1"; }
-function getStoredEmail()  { return localStorage.getItem(LS_EMAIL) || ""; }
+function hasEmailAccess()  { return lsGet(LS_HAS_EMAIL)  === "1"; }
+function isPremiumUser()   { return lsGet(LS_IS_PREMIUM) === "1"; }
+function getStoredEmail()  { return lsGet(LS_EMAIL) || ""; }
 
 function setEmailAccess(email, status) {
-  localStorage.setItem(LS_HAS_EMAIL, "1");
-  if (email)                localStorage.setItem(LS_EMAIL, email);
-  if (status === "premium") localStorage.setItem(LS_IS_PREMIUM, "1");
-  else                      localStorage.removeItem(LS_IS_PREMIUM);
+  lsSet(LS_HAS_EMAIL, "1");
+  if (email)                lsSet(LS_EMAIL, email);
+  if (status === "premium") lsSet(LS_IS_PREMIUM, "1");
+  else                      lsRemove(LS_IS_PREMIUM);
 }
 function clearAccess() {
-  localStorage.removeItem(LS_HAS_EMAIL);
-  localStorage.removeItem(LS_EMAIL);
-  localStorage.removeItem(LS_IS_PREMIUM);
+  lsRemove(LS_HAS_EMAIL);
+  lsRemove(LS_EMAIL);
+  lsRemove(LS_IS_PREMIUM);
 }
 
 /* ── 3. RE-VÉRIFICATION SILENCIEUSE ── */
@@ -304,8 +321,8 @@ function applyUrlParams() {
   var params = new URLSearchParams(window.location.search);
   if (params.get("premium") === "0") { clearAccess(); return; }
   if (params.get("premium") === "1") {
-    localStorage.setItem(LS_IS_PREMIUM, "1");
-    localStorage.setItem(LS_HAS_EMAIL,  "1");
+    lsSet(LS_IS_PREMIUM, "1");
+    lsSet(LS_HAS_EMAIL,  "1");
   }
   if (params.get("premium") === "0") {
     clearAccess();

@@ -110,7 +110,7 @@ exports.handler = async (event) => {
       `Max-Age=${COOKIE_MAX_AGE}`,
       `SameSite=Lax`,
       `HttpOnly`,
-      // `Secure`, // décommenter en production (HTTPS uniquement)
+      `Secure`, // HTTPS uniquement
     ].join('; ');
 
     return {

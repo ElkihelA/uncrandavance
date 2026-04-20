@@ -48,6 +48,10 @@
     Referrer-Policy            = "strict-origin-when-cross-origin"
     X-XSS-Protection           = "1; mode=block"
     Permissions-Policy         = "camera=(), microphone=(), geolocation=()"
+    # Content-Security-Policy : limite les origines de chargement.
+    # 'unsafe-inline' requis car beaucoup de <style> et <script> inline
+    # dans les pages. À tightener plus tard via nonces si besoin.
+    Content-Security-Policy    = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://buy.stripe.com; object-src 'none'; upgrade-insecure-requests"
 
 # Pas de cache sur les pages protégées (toujours vérifier côté serveur)
 [[headers]]
