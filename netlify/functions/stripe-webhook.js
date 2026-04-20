@@ -23,6 +23,18 @@ const BEEHIIV_PUB_ID       = process.env.BEEHIIV_PUB_ID      || 'pub_b115a58f';
 const BEEHIIV_API_KEY      = process.env.BEEHIIV_API_KEY;
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
 
+// ── Masquage PII dans les logs ────────────────────────────────────
+// Ne jamais logger un email en clair (compliance RGPD + exposition
+// dans les logs Netlify). On garde les 3 premiers caractères + le
+// domaine pour le debug (ex : "eli***@gmail.com").
+function maskEmail(email) {
+  if (!email || typeof email !== 'string') return '<empty>';
+  const [local, domain] = email.split('@');
+  if (!domain) return '***';
+  const prefix = local.slice(0, 3);
+  return `${prefix}***@${domain}`;
+}
+
 exports.handler = async (event) => {
 
   // ── Stripe n'envoie que des POST ──────────────────────────────
@@ -65,7 +77,7 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: 'Email absent — ignoré' };
   }
 
-  console.log(`stripe-webhook: paiement confirmé pour ${email}`);
+  console.log(`stripe-webhook: paiement confirmé pour ${maskEmail(email)}`);
 
   try {
     // ── 1. Vérifier si l'abonné existe déjà dans Beehiiv ─────────
@@ -79,7 +91,7 @@ exports.handler = async (event) => {
       await subscribeAndTagPremium(email);
     }
 
-    console.log(`stripe-webhook: ${email} marqué premium dans Beehiiv`);
+    console.log(`stripe-webhook: ${maskEmail(email)} marqué premium dans Beehiiv`);
     return { statusCode: 200, body: JSON.stringify({ ok: true, email }) };
 
   } catch (err) {
@@ -102,7 +114,7 @@ async function getBeehiivSubscriber(email) {
   }
   const json = await res.json();
   const list = json.data || [];
-  console.log(`stripe-webhook: Beehiiv search ${email} → ${list.length} résultat(s)`);
+  console.log(`stripe-webhook: Beehiiv search ${maskEmail(email)} → ${list.length} résultat(s)`);
   return list.length > 0 ? list[0] : null;
 }
 
@@ -124,7 +136,7 @@ async function addPremiumTagBeehiiv(subscriberId, email) {
     // Fallback : PATCH sur l'abonnement
     return await patchSubscriberPremium(subscriberId);
   }
-  console.log(`stripe-webhook: tag premium ajouté à ${email}`);
+  console.log(`stripe-webhook: tag premium ajouté à ${maskEmail(email)}`);
   return res.json();
 }
 
@@ -166,7 +178,7 @@ async function subscribeAndTagPremium(email) {
     const err = await res.text();
     throw new Error(`Beehiiv subscribe ${res.status}: ${err}`);
   }
-  console.log(`stripe-webhook: ${email} inscrit avec tag premium`);
+  console.log(`stripe-webhook: ${maskEmail(email)} inscrit avec tag premium`);
   return res.json();
 }
 
