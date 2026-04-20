@@ -467,4 +467,18 @@ function ucaAcceptCookies() {
   var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
 }
 function ucaRefuseCookies() {
-  localStorage.setItem('uca
+  localStorage.setItem('uca_cookie_consent','refused');
+  localStorage.removeItem('uca_has_email');
+  localStorage.removeItem('uca_email');
+  localStorage.removeItem('uca_is_premium');
+  var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('uca_cookie_consent')) {
+    var b = document.getElementById('uca-cookie-banner');
+    if (b) b.style.display = 'flex';
+  }
+});
+</script>
+</body>
+</html>

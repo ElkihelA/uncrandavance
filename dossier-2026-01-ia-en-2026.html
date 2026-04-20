@@ -1164,19 +1164,5 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var items = document.querySelectorAll('.mn-item');
-  if (!items.length) return;
-  if (sessionStorage.getItem('uca-nav-pulsed')) return;
-  sessionStorage.setItem('uca-nav-pulsed', '1');
-
-  // Illumination dorée
-  setTimeout(function() {
-    items.forEach(function(item) {
-      item.classList.add('uca-glow');
-      setTimeout(function() { item.classList.remove('uca-glow'); }, 2800);
-    });
-  }, 1500);
-
-  // Badge "Naviguez
+</body>
+</html>

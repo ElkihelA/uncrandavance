@@ -463,4 +463,12 @@ function ucaRefuseCookies() {
   localStorage.removeItem('uca_is_premium');
   var b = document.getElementById('uca-cookie-banner'); if(b) b.style.display='none';
 }
-documen
+document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem('uca_cookie_consent')) {
+    var b = document.getElementById('uca-cookie-banner');
+    if (b) b.style.display = 'flex';
+  }
+});
+</script>
+</body>
+</html>
