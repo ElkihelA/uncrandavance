@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<script>/* UCA_LS_POLYFILL — localStorage safe shim for private mode */
+(function(){try{var k='__ucals_test__';localStorage.setItem(k,'1');localStorage.removeItem(k);return;}catch(e){}
+var m={};try{Object.defineProperty(window,'localStorage',{configurable:true,value:{
+getItem:function(k){return m[k]===undefined?null:m[k];},
+setItem:function(k,v){m[k]=String(v);},
+removeItem:function(k){delete m[k];},
+clear:function(){m={};},
+get length(){return Object.keys(m).length;},
+key:function(i){return Object.keys(m)[i]||null;}
+}});}catch(e){}})();</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L'IA Agentique : ce qui change quand c'est le système qui décide | Un Cran d'Avance</title>
