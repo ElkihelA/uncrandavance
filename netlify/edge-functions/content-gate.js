@@ -8,7 +8,7 @@
 //   3. Redirige vers /gate.html si besoin, sinon sert le fichier
 // ══════════════════════════════════════════════════════════════════
 
-import { getEdition, isPublished } from '../../uca-config.js';
+import { UCA_CONFIG, getEdition, isPublished, isEnRelecture } from '../../uca-config.js';
 
 const COOKIE_NAME = 'uca_access';
 
@@ -31,6 +31,17 @@ export default async function handler(request, context) {
       status: 200,
       headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' },
     });
+  }
+
+  // ── Mode archive : accès libre, sauf édition en relecture ──────
+  if (UCA_CONFIG.ARCHIVE) {
+    if (isEnRelecture(slug)) {
+      return new Response(enRelectureHTML(edition), {
+        status: 200,
+        headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' },
+      });
+    }
+    return context.next();
   }
 
   // ── Vérification 2 : accès utilisateur ────────────────────────
@@ -161,4 +172,16 @@ function comingSoonHTML(edition) {
 </div>
 </body>
 </html>`;
+}
+
+
+// ── HTML "En relecture" (mode archive) ─────────────────────────────
+function enRelectureHTML(edition) {
+  return comingSoonHTML(edition)
+    .replace('<title>À paraître — Un Cran d\'Avance</title>', '<title>En relecture — Un Cran d\'Avance</title>')
+    .replace(/<h1>[\s\S]*?<\/h1>/, '<h1>Cette édition est en<br><em>relecture.</em></h1>')
+    .replace(/<p class="subtitle">[\s\S]*?<\/p>\s*<div class="date-badge">[\s\S]*?<\/div>/,
+      `<p class="subtitle">${edition.label ? `<strong>${edition.label}</strong><br>` : ''}Nous revérifions ses chiffres et leurs sources avant de la rouvrir en accès libre.</p>`)
+    .replace('href="/page-newsletter.html"', 'href="/archives.html"')
+    .replace('← Voir les éditions disponibles', '← Voir les archives');
 }

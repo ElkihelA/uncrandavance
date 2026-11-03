@@ -12,6 +12,27 @@ export const UCA_CONFIG = {
   // ── Identifiants Beehiiv / Netlify ────────────────────────────
   BEEHIIV_PUB_ID: 'pub_b115a58f',
 
+  // ── Mode archive (décision du PO, 2026-11-03) ─────────────────
+  // Un Cran d'Avance est suspendu dans sa forme « plateforme pour DSI ».
+  // ARCHIVE = true : tout le contenu publié est en accès libre, sans
+  // courriel ni paiement ; plus aucune offre n'est vendue.
+  ARCHIVE: true,
+
+  // Éditions retirées le temps d'une relecture de leurs chiffres
+  // (sources à revérifier avant de les rouvrir). Les rouvrir = retirer
+  // le slug de cette liste.
+  EN_RELECTURE: [
+    'dossier-2026-01-ia-en-2026',
+    'dossier-2026-02-agentique',
+    'dossier-2026-03-roi-ia',
+    'dossier-2026-04-gouvernance',
+    'dossier-2026-05-ia-production',
+    'nl-2026-01-27',
+    'nl-2026-02-17',
+    'nl-2026-03-24',
+    'nl-2026-05-12',
+  ],
+
   // ── Durée du cookie d'accès ────────────────────────────────────
   // 1 an : un abonné ne ressaisit son email qu'une seule fois dans sa vie
   // (re-vérification silencieuse si cookie expiré + email en localStorage)
@@ -233,6 +254,11 @@ export function isPublished(edition, nowISO) {
   now.setUTCHours(0, 0, 0, 0);
   pub.setUTCHours(0, 0, 0, 0);
   return pub <= now;
+}
+
+/** Vrai si l'édition est retirée le temps d'une relecture (mode archive). */
+export function isEnRelecture(slug) {
+  return UCA_CONFIG.EN_RELECTURE.includes(slug);
 }
 
 /** Retourne toutes les éditions publiées à une date donnée. */

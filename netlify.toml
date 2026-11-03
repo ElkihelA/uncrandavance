@@ -51,7 +51,7 @@
     # Content-Security-Policy : limite les origines de chargement.
     # 'unsafe-inline' requis car beaucoup de <style> et <script> inline
     # dans les pages. À tightener plus tard via nonces si besoin.
-    Content-Security-Policy    = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://buy.stripe.com; object-src 'none'; upgrade-insecure-requests"
+    Content-Security-Policy    = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
 
 # Pas de cache sur les pages protégées (toujours vérifier côté serveur)
 [[headers]]
@@ -81,11 +81,56 @@
     Cache-Control = "public, max-age=3600"
 
 # ── Redirections ──────────────────────────────────────────────────
-# Racine → page newsletter (trafic direct et LinkedIn)
+# Mode archive (décision du PO, 2026-11-03) : plus d'inscription, plus
+# d'offre Premium, plus d'espace membre. Ces pages mènent aux archives.
+# force = true : la redirection s'applique même si le fichier existe.
 [[redirects]]
   from   = "/"
-  to     = "/page-newsletter.html"
+  to     = "/archives.html"
   status = 302
+  force  = true
+
+[[redirects]]
+  from   = "/page-newsletter.html"
+  to     = "/archives.html"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "/index.html"
+  to     = "/archives.html"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "/page-vente.html"
+  to     = "/archives.html"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "/gate.html"
+  to     = "/archives.html"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "/bienvenue.html"
+  to     = "/archives.html"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "/membre-welcome.html"
+  to     = "/archives.html"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "/membre-ambassadeur.html"
+  to     = "/archives.html"
+  status = 301
+  force  = true
 
 # Empêcher l'accès direct aux anciens patterns d'URL bypass
 [[redirects]]
