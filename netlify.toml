@@ -88,6 +88,7 @@
   from   = "/"
   to     = "/archives.html"
   status = 302
+  force  = true
 
 [[redirects]]
   from   = "/page-newsletter.html"
