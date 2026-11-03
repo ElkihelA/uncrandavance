@@ -2,6 +2,12 @@
    UCA — GATE SYSTEM v3.1
    ══════════════════════════════════════════════════════════════════ */
 
+/* ── 0. MODE ARCHIVE (décision du PO, 2026-11-03) ──
+   Tout le contenu est en accès libre : aucune vérification de courriel,
+   aucun appel réseau, aucune offre. Un bandeau dit que le site est une
+   archive. Pour revenir au fonctionnement d'avant : UCA_ARCHIVE = false. */
+var UCA_ARCHIVE = true;
+
 /* ── 1. CLÉS LOCALSTORAGE ── */
 var LS_HAS_EMAIL  = "uca_has_email";
 var LS_EMAIL      = "uca_email";
@@ -25,8 +31,8 @@ function lsRemove(key) {
 }
 
 /* ── 2. HELPERS LOCALSTORAGE ── */
-function hasEmailAccess()  { return lsGet(LS_HAS_EMAIL)  === "1"; }
-function isPremiumUser()   { return lsGet(LS_IS_PREMIUM) === "1"; }
+function hasEmailAccess()  { return UCA_ARCHIVE || lsGet(LS_HAS_EMAIL)  === "1"; }
+function isPremiumUser()   { return UCA_ARCHIVE || lsGet(LS_IS_PREMIUM) === "1"; }
 function getStoredEmail()  { return lsGet(LS_EMAIL) || ""; }
 
 function setEmailAccess(email, status) {
@@ -72,6 +78,14 @@ async function checkServerAccess() {
 
 /* ── 5. INIT ── */
 async function initGate() {
+  if (UCA_ARCHIVE) {
+    injectArchiveBanner();
+    applyNewsletterAccess();
+    applyDossierAccess();
+    applyNLAccess();
+    initNavScroll();
+    return;
+  }
   applyUrlParams();
   var server = await checkServerAccess();
   if (server.status === "premium" || server.status === "free") {
@@ -87,6 +101,23 @@ async function initGate() {
   bindLockedNav();
   initNavScroll();
   bindEnterKey();
+}
+
+/* ── 5b. BANDEAU D'ARCHIVE ── */
+function injectArchiveBanner() {
+  if (document.getElementById("uca-archive-banner")) return;
+  var b = document.createElement("div");
+  b.id = "uca-archive-banner";
+  b.setAttribute("role", "note");
+  b.style.cssText = [
+    "background:#0A0A14","color:#F7F5F0","font-family:'Barlow',sans-serif",
+    "font-size:14px","line-height:1.5","padding:12px 20px","text-align:center",
+    "border-bottom:2px solid #B8973A","position:relative","z-index:1000"
+  ].join(";");
+  b.innerHTML = "<strong style=\"color:#B8973A\">Archives 2026</strong> · Un Cran d\u2019Avance a publi\u00e9 de janvier \u00e0 mai 2026. " +
+    "Tout est en acc\u00e8s libre ; les chiffres sont ceux de la date de publication. " +
+    "<a href=\"/archives.html\" style=\"color:#F7F5F0;text-decoration:underline\">Toutes les archives</a>";
+  document.body.insertBefore(b, document.body.firstChild);
 }
 
 /* ── 6. SOUMISSION EMAIL ── */
@@ -372,7 +403,7 @@ function injectDossierBackBtn() {
   var masthead = document.querySelector(".masthead");
   if (!masthead || masthead.querySelector(".uca-back-btn")) return;
   var btn = document.createElement("a");
-  btn.href      = "page-newsletter.html";
+  btn.href      = UCA_ARCHIVE ? "archives.html" : "page-newsletter.html";
   btn.className = "uca-back-btn";
   btn.textContent = "\u2190 Archives";
   btn.style.cssText = [
@@ -382,8 +413,8 @@ function injectDossierBackBtn() {
     "border:1px solid rgba(255,255,255,0.30)","padding:5px 14px","white-space:nowrap"
   ].join(";");
   masthead.insertBefore(btn, masthead.firstChild);
-  // Ajouter "Mon espace →" à droite si abonné
-  if (hasEmailAccess()) {
+  // Ajouter "Mon espace →" à droite si abonné (jamais en archive)
+  if (!UCA_ARCHIVE && hasEmailAccess()) {
     var esp = document.createElement("a");
     esp.href      = "membre-welcome.html";
     esp.className = "uca-espace-btn";
@@ -400,6 +431,7 @@ function injectDossierBackBtn() {
 
 /* ── 14b. BOUTON FLOTTANT MON ESPACE ── */
 function injectMonEspaceBtn() {
+  if (UCA_ARCHIVE) return;
   if (!hasEmailAccess()) return;
   if (document.getElementById("uca-mon-espace-btn")) return;
   var btn = document.createElement("a");
